@@ -11,4 +11,16 @@ import org.springframework.transaction.annotation.Transactional;
 import idv.hotel.finalproject.model.OrderDetailBean;
 import idv.hotel.finalproject.model.OrderListBean;
 
-public interface OrderDetailDao extends JpaRepository<OrderDetailBean, Integer> {}
+public interface OrderDetailDao extends JpaRepository<OrderDetailBean, Integer> {
+	
+	OrderListBean findByroomId(OrderListBean roomId);
+	
+	OrderListBean findByRoomIdAndCheckinDate(OrderDetailBean roomId, List<OrderDetailBean> checkinDate);
+	
+	
+	
+	
+	
+	OrderListBean find();
+	
+}

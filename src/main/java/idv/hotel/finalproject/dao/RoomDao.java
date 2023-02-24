@@ -9,4 +9,8 @@ import idv.hotel.finalproject.model.RoomBean;
 
 
 
-public interface RoomDao extends JpaRepository<RoomBean, Integer> {}
+public interface RoomDao extends JpaRepository<RoomBean, Integer> {
+	
+	@Query(value="from room where type = ?1")
+	public List<RoomBean> findByType(String type);
+}

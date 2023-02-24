@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<c:set var="contextRoot" value="${pageContext.request.contextPath}" />
+<c:set var="contextRoot" value="${pageContext.request.contextPath}" /><%-- 需要思考一下 --%>
 
 <!DOCTYPE html>
 <html>
@@ -14,7 +15,7 @@
 		
 		<nav class="navbar navbar-expand-lg bg-light">
 			<div class="container-fluid">
-		    	<a class="navbar-brand" href="${contextRoot}/">尼瑪的SLOGAN</a>
+		    	<a class="navbar-brand" href="${contextRoot}/">新IG</a>
 		    	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 		      		<span class="navbar-toggler-icon"></span>
 		    	</button>
@@ -24,14 +25,14 @@
 							<a class="nav-link active" aria-current="page" href="${contextRoot}/">首頁</a>
 				        </li>
 				        <li class="nav-item">
-							<a class="nav-link" href="${contextRoot}/XXX">XXXXX</a>
+							<a class="nav-link" href="${contextRoot}/message/add">新增留言</a>
 				        </li>
 				        <li class="nav-item">
-							<a class="nav-link" href="${contextRoot}/YYY">YYYYY</a>
+							<a class="nav-link" href="${contextRoot}/message/page">顯示留言</a>
 				        </li>
 				        <li class="nav-item">
 							<a class="nav-link disabled">Disabled</a>
-				        </li>
+						</li>
 					</ul>
 				</div>
 			</div>

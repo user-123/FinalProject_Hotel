@@ -10,4 +10,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import idv.hotel.finalproject.model.OrderListBean;
 
-public interface OrderListDao extends JpaRepository<OrderListBean, Integer> {}
+public interface OrderListDao extends JpaRepository<OrderListBean, Integer> {
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
