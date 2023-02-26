@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import idv.hotel.finalproject.model.LoginBean;
 import idv.hotel.finalproject.model.OrderListBean;
 import idv.hotel.finalproject.model.OrderListRepository;
 import idv.hotel.finalproject.model.RoomBean;
@@ -50,12 +49,12 @@ public class OrderService {
 	// 3.findHistory(前台)
 	// 查詢特定userid的訂單資料
 	// 前台:查詢特定userID的訂單資料，我們幫他固定UserID，限制他只能看自己的
-	public List<OrderListBean> findHistory(LoginBean userid) {
+	public List<OrderListBean> findHistory(Integer userid) {
 		return olDao.findDataByUserId(userid);
 	}
 	// 3.findDataByUserId(後台)
 	// 查詢特定userid的訂單資料
-	public List<OrderListBean> findDataByUserIdB(LoginBean userid) {
+	public List<OrderListBean> findDataByUserIdB(Integer userid) {
 		return olDao.findDataByUserId(userid);
 	}
 	// 4.findDataByOrderId(後台)

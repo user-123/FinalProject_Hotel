@@ -11,7 +11,6 @@
 <title>XX飯店</title>
 </head>
 <body>
-	<jsp:include page="frontnavbar.jsp"></jsp:include>
 
 	<div class="container">
 		<h1>預訂成功</h1>
@@ -19,8 +18,8 @@
 				pattern="yyyy-MM-dd ,a hh:mm:ss EEEE"
 				value="${information.orderdate}" /></span>
 		<div>訂單編號:${information.orderid}</div>
-		<div>會員:${information.userid}</div>
-		<div>房號:${information.roomid}</div>
+		<div>會員:${information.userid.accountName}</div>
+		<div>房號:${information.roomid.roomId}</div>
 		<div>入住日期:${information.checkindate}</div>
 		<div>退房日期:${information.checkoutdate}</div>
 		<div>備註:${information.message}</div>

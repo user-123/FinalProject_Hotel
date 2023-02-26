@@ -9,254 +9,40 @@
 <head>
 <meta charset="UTF-8">
 <title>XX飯店</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-	crossorigin="anonymous">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-	crossorigin="anonymous"></script>
-<style type="text/css">
-* {
-	margin: 0px;
-	padding: 0px;
-}
-
-#div {
-	width: 800px;
-	height: 600px;
-	border: 1px dotted red;
-	margin: auto;
-	padding: 20px;
-}
-
-#div div:nth-child(1) {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-/*#tbcal {border-collapse: collapse;width: 100%;text-align: center;}*/
-thead {
-	text-align: center;
-}
-
-#tbcalbody tr, #tbcalbody td {
-	border: 2px solid white;
-	height: 80px;
-	text-align: right;
-}
-
-#tbcalbody td:hover {
-	background: #eeeeee;
-}
-
-.dayBtn {
-	display: block;
-	background: #ffffff00;
-	height: 100%;
-	width: 100%;
-	padding: 0;
-	border: 0;
-	text-align: right;
-}
-
-#tbcalbody td {
-	padding: 0;
-}
-</style>
-
-<script type="text/javascript">
-	//**********欠缺更進階自動計算時區，待完善**********
-	window.onload = function() {
-		getNowDate();
-		initial();
-		setYearAndMonth();
-		document.getElementById("selyear").onchange = show;
-		document.getElementById("selmonth").onchange = show;
-		show();
-
-		document.getElementById("checkinDate_").addEventListener("input",
-				formatDate);
-		document.getElementById("checkoutDate_").addEventListener("input",
-				formatDate);
-	}
-
-	//抓取當前日期
-	let nowDate;
-	let nowYear;
-	let nowMonth;
-	let nowDay;
-	function getNowDate() {
-		nowYear = new Date().getFullYear();
-		nowMonth = new Date().getMonth() + 1;
-		nowDay = new Date().getDate();
-		nowDate = Date
-				.parse(`${nowYear}-${nowMonth.toString().padStart(2, "0")}/${nowDay.toString().padStart(2, "0")}`);
-		console.log(`現在日期：${nowYear}/${nowMonth}/${nowDay}`);
-		console.log(nowDate);
-	}
-
-	//生成年月選單
-	function initial() {
-		var years = document.getElementById("selyear");
-		var months = document.getElementById("selmonth");
-		for (let i = nowYear; i < nowYear + 5; i++) {
-			var option = document.createElement("option");
-			option.text = i;
-			years.add(option);
-		}
-		for (let i = 1; i < 13; i++) {
-			var option = document.createElement("option");
-			option.text = i;
-			months.add(option);
-		}
-	}
-
-	//利用當前日期設定選單選項
-	function setYearAndMonth() {
-		document.getElementById("selyear").value = nowYear;
-		document.getElementById("selmonth").value = nowMonth;
-	}
-
-	//生成月曆
-	let year;
-	let month;
-	function show() {
-		year = parseInt(document.getElementById("selyear").value);
-		month = parseInt(document.getElementById("selmonth").value);
-		let flag = year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
-		var dayOfMonth = [ 31, flag ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31,
-				30, 31 ];
-		var dt = new Date();
-		dt.setFullYear(year);
-		dt.setMonth(month - 1);
-		dt.setDate(1);
-		var week = dt.getDay();
-		var rows = Math.ceil((dayOfMonth[dt.getMonth()] + week) / 7);
-		var k = 0;
-		var table = document.getElementById("tbcalbody");
-		while (table.rows.length > 0) {
-			table.deleteRow(0);
-		}
-
-		//迴圈向表格中新增資料，生成日曆
-		for (let i = 0; i < rows; i++) {
-			document.getElementById("tbcalbody").innerHTML += `<tr id="tbcalbodytr${i+1}"></tr>`;
-			for (let j = 0; j < 7; j++) {
-				k++;
-				if (k<=week || k>dayOfMonth[dt.getMonth()] + week) {
-					document.getElementById(`tbcalbodytr${i+1}`).innerHTML += "<td></td>";
-				} else {
-					document.getElementById(`tbcalbodytr${i+1}`).innerHTML += `<td class="day${k-week}"><button class="dayBtn" onclick="formatDate(${k-week})">${k-week}<br /><br />⭕❌✔🚫</button></td>`;
-					//document.getElementById(`day${k-week}`).addEventListener("click", () => console.log(k-week));
-				}
-			}
-		}
-
-	}
-
-	//將選擇日期填入表單
-	function formatDate(day) {
-		console.log(`你選了${year}/${month}/${day}`);
-		let insertDate = `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
-		let checkinDate;
-		let checkoutDate;
-		if (document.getElementById("checkinDate").value === "") {
-			document.getElementById("checkinDate").value = insertDate;
-			document.getElementById("checkoutDate").value = "";
-			document.getElementById("feedbackMsg").innerHTML = `你選了${year}/${month}/${day}`;
-		} else if (document.getElementById("checkinDate").value !== ""
-				&& document.getElementById("checkoutDate").value !== "") {
-			document.getElementById("checkinDate").value = insertDate;
-			document.getElementById("checkoutDate").value = "";
-			document.getElementById("feedbackMsg").innerHTML = `你選了${year}/${month}/${day}`;
-		} else if (document.getElementById("checkinDate").value !== ""
-				&& document.getElementById("checkoutDate").value === "") {
-			document.getElementById("checkoutDate").value = insertDate;
-			document.getElementById("feedbackMsg").innerHTML += ` 到 ${year}/${month}/${day}`;
-		}
-		if (document.getElementById("checkinDate").value !== ""
-				&& document.getElementById("checkoutDate").value !== "") {
-			checkinDate = Date
-					.parse(document.getElementById("checkinDate").value);
-			checkoutDate = Date
-					.parse(document.getElementById("checkoutDate").value);
-			if (checkinDate > checkoutDate || checkinDate < nowDate) {
-				console.log("鬧夠了沒婊子，不要亂輸入");
-				document.getElementById("feedbackMsg").innerHTML += `<br />鬧夠了沒婊子，不要亂輸入`;
-				//other method
-			} else {
-				console.log("輸入正確，接受送出");
-				document.getElementById("feedbackMsg").innerHTML += `<br />輸入正確，接受送出`;
-			}
-		}
-	}
-</script>
 </head>
 <body>
-	<jsp:include page="frontnavbar.jsp"></jsp:include>
 	<div class="container">
 		<h1>訂房資訊</h1>
-		<div id="div">
-			<!--定義年月選單-->
-			<div>
-				<select id="selyear"></select>&nbsp;年&nbsp; <select id="selmonth"></select>&nbsp;月&nbsp;
-			</div>
-			<div>
-				<!--月曆-->
-				<table id="tbcal" class="table table table-striped table-hover">
-					<thead>
-						<tr>
-							<td>日</td>
-							<td>一</td>
-							<td>二</td>
-							<td>三</td>
-							<td>四</td>
-							<td>五</td>
-							<td>六</td>
-						</tr>
-					</thead>
-					<tbody id="tbcalbody"></tbody>
-				</table>
-			</div>
-			<form:form action="${contextRoot}/front/orders/post"
-				modelAttribute="information">
-				<table>
-					<tr>
-						<td><form:label path="checkindate">入住日期</form:label></td>
-						<td><form:input path="checkindate" id="checkinDate"
-								type="date" disabled="disabled" /></td>
-						<td><form:input path="checkindate" id="checkinDate_"
-								type="text" /></td>
-					</tr>
-					<tr>
-						<td><form:label path="checkoutdate">退房日期</form:label></td>
-						<td><form:input path="checkoutdate" id="checkoutDate"
-								type="date" disabled="disabled" /></td>
-						<td><form:input path="checkoutdate" id="checkoutDate_"
-								type="text" /></td>
-					</tr>
-					<tr>
-						<td><form:label path="message">備註</form:label></td>
-						<td><form:input path="message" placeholder="請輸入不超過30個字"
-								maxlength="30" /></td>
-					</tr>
-					<tr>
-						<!-- 會員 -->
-						<td><form:input path="userid" type="hidden" /></td>
-					</tr>
-					<tr>
-						<!-- 房號 -->
-						<td><form:input path="roomid" type="hidden" /></td>
-					</tr>
-				</table>
+		<form:form action="${contextRoot}/front/orders/post"
+			modelAttribute="information">
+			<table>
+				<tr>
+					<td><form:label path="checkindate">入住日期</form:label></td>
+					<td><form:input path="checkindate" /></td>
+				</tr>
+				<tr>
+					<td><form:label path="checkoutdate">退房日期</form:label></td>
+					<td><form:input path="checkoutdate" /></td>
+				</tr>
+				<tr>
+					<td><form:label path="message">備註</form:label></td>
+					<td><form:input path="message" placeholder="請輸入不超過30個字" maxlength="30"/></td>
+				</tr>
+				<tr>
+					<!-- 會員 -->
+					<td><input type="hidden" name="文彥的id傳過來的名字" value="${文彥的id傳過來的名字}" /></td>
+				</tr>
+				<tr>
+    				<!-- 房號 -->
+					<td><input type="hidden" name="rId" value="${Id}" /></td>
+				</tr>
+			</table>
 
-				<button type="submit" class="btn btn-primary">送出</button>
-			</form:form>
-			<div id="feedbackMsg"></div>
-		</div>
+			<button type="submit" class="btn btn-primary">送出</button>
+		</form:form>
+
 	</div>
+
+
 </body>
 </html>

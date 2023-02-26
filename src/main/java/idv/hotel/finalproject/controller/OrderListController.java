@@ -3,6 +3,7 @@ package idv.hotel.finalproject.controller;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,21 +16,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import idv.hotel.finalproject.model.LoginBean;
+import idv.hotel.finalproject.model.LoginRepository;
 import idv.hotel.finalproject.model.OrderListBean;
 import idv.hotel.finalproject.model.RoomBean;
+import idv.hotel.finalproject.model.RoomRepository;
 import idv.hotel.finalproject.service.OrderService;
 
 @Controller
 public class OrderListController {
 	@Autowired
 	private OrderService oService;
+	// 這裡rr只是測試用，需換成小憲的service
+	@Autowired
+	private RoomRepository rr;
+	// 這裡lr只是測試用，需換成文彥的service
+	@Autowired
+	private LoginRepository lr;
 
-	// **************************前台navbar--訂房頁面******************************
+	// 從homecontroller發請求過來
 	// 此時他看到的是addOrder.jsp
-	@GetMapping("/public/orders/add")
-	public String addMessagePage(Model model) {
+	@GetMapping("/front/orders/add")
+	public String addMessagePage(Model model, @RequestParam("Id") Integer roomId,
+			@RequestParam("文彥的id傳過來的名字") Integer userId) {
 		OrderListBean ol = new OrderListBean();
+		model.addAttribute("Id", roomId);
+		model.addAttribute("文彥的id傳過來的名字", userId);
 		model.addAttribute("information", ol);
+		System.out.println(model);
 		return "order/addOrder";
 	}
 
@@ -37,26 +50,17 @@ public class OrderListController {
 	// 會員在addOrder.jsp按下[下訂]，發送此請求
 	// 把資料送進資料庫後顯示success.jsp
 	@PostMapping("/front/orders/post")
-	public String addMessagePost(@ModelAttribute("information") OrderListBean data, Model model,
-			RedirectAttributes redirectAttributes
-	/*
-	 * , @RequestParam("userId") LoginBean userId, @RequestParam("roomId") RoomBean
-	 * roomId
-	 */ ) {
+	public String addMessagePost(@ModelAttribute("information") OrderListBean data, @RequestParam("rId") Integer roomId,
+			@RequestParam("文彥的id傳過來的名字") Integer userId, Model model, RedirectAttributes redirectAttributes) {
 		data.setOrderid(oService.createorderid());
-		LoginBean loginBean = new LoginBean();
-		RoomBean roomBean = new RoomBean();
-		// loginBean.setAccountId(1);
-		roomBean.setRoomId(102);
-		roomBean.setType("t");
-		roomBean.setName("tttt");
-		roomBean.setPrice(102);
-		roomBean.setImg("img");
-		/*
-		 * data.setUserid(userId); data.setRoomid(roomId);
-		 */
-		data.setUserid(loginBean);
-		data.setRoomid(roomBean);
+		// rr後面的方法名稱需換成小憲service的方法
+		Optional<RoomBean> roomBean = rr.findById(roomId);
+		RoomBean rb = roomBean.get();
+		// lr後面的方法名稱需換成文彥service的方法
+		Optional<LoginBean> loginBean = lr.findById(userId);
+		LoginBean ub = loginBean.get();
+		data.setRoomid(rb);
+		data.setUserid(ub);
 		oService.insert(data);
 		model.addAttribute("information", data);
 		// 將資料放入重定向的屬性中
@@ -74,13 +78,14 @@ public class OrderListController {
 		return "order/success";
 	}
 
-	// **************************前台navbar--歷史訂單******************************
 	// 3.findHistory
 	// 查詢特定userID的訂單資料，我們幫他固定UserID，限制他只能看自己的
 	@GetMapping("/front/orders/history")
-	public String findHistory(@RequestParam LoginBean userid, Model model) {
-		List<OrderListBean> olB = oService.findHistory(userid);
+	public String findHistory(@RequestParam("文彥的id傳過來的名字") Integer userId, Model model) {
+		List<OrderListBean> olB = oService.findHistory(userId);
 		model.addAttribute("datas", olB);
+		// 從重定向屬性中取出資料
+		OrderListBean userdata = (OrderListBean) model.asMap().get("userdata");
 		return "order/history";
 	}
 
@@ -88,9 +93,12 @@ public class OrderListController {
 	// 會員在history.jsp按下[刪除]，發送此請求
 	// 未付款前才可取消，設計若他付款後欲取消，由飯店方取消
 	@DeleteMapping("/front/orders/delete")
-	public String deleteMessageF(@RequestParam String orderid) {
+	public String deleteMessageF(@RequestParam("文彥的id傳過來的名字") Integer userId,
+			@RequestParam String orderid, RedirectAttributes redirectAttributes) {
 		oService.deleteDataByOrderIdF(orderid);
-		return "order/history";
+		// 將資料放入重定向的屬性中
+		redirectAttributes.addAttribute("文彥的id傳過來的名字", userId);
+		return "redirect:/front/orders/history";
 	}
 
 	// **************************後台navbar--訂單一覽表******************************
@@ -114,7 +122,7 @@ public class OrderListController {
 	// 3.findDataByUserId
 	// admin在searchPage.jsp按下[用會員ID查詢]，發送此請求
 	@GetMapping("/back/orders/byuserid")
-	public String findOrderByUserB(@RequestParam(required = false, defaultValue = "0") LoginBean userid, Model model) {
+	public String findOrderByUserB(@RequestParam(required = false, defaultValue = "0") Integer userid, Model model) {
 		model.addAttribute("byuser", oService.findDataByUserIdB(userid));
 		return "order/byuserid";
 	}

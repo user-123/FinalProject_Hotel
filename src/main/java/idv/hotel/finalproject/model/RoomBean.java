@@ -13,34 +13,29 @@ public class RoomBean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer Id;
-	@Column(columnDefinition = "int NOT NULL")
 	private Integer roomId;
-	@Column(columnDefinition = "nvarchar(255) NOT NULL")
+	@Column(columnDefinition = "varchar(255) NOT NULL")
 	private String name;
-	@Column(columnDefinition = "nvarchar(255) NOT NULL")
+	@Column(columnDefinition = "varchar(255) NOT NULL")
 	private String type;
 	@Column(columnDefinition = "int NOT NULL")
 	private Integer price;
-	@Column(columnDefinition = "nvarchar(255)")
 	private String roomNameIntroduction;
-	@Column(columnDefinition = "nvarchar(255) NOT NULL")
+	@Column(columnDefinition = "varchar(255) NOT NULL")
 	private String img;
-	@Column(columnDefinition = "nvarchar(255)")
 	private String introduce;
-	@Column(columnDefinition = "nvarchar(255)")
 	private String equipment;
-	@Column(columnDefinition = "nvarchar(255)")
 	private String service;
-	@Column(columnDefinition = "nvarchar(255)")
 	private String remark;
 
 	public RoomBean() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public RoomBean(Integer Id, Integer roomId, String name, String type, Integer price, String roomNameIntroduction,
+	public RoomBean(Integer id, Integer roomId, String name, String type, Integer price, String roomNameIntroduction,
 			String img, String introduce, String equipment, String service, String remark) {
-		this.Id = Id;
+		super();
+		Id = id;
 		this.roomId = roomId;
 		this.name = name;
 		this.type = type;
@@ -53,12 +48,19 @@ public class RoomBean {
 		this.remark = remark;
 	}
 
+	@Override
+	public String toString() {
+		return "RoomBean [Id=" + Id + ", roomId=" + roomId + ", name=" + name + ", type=" + type + ", price=" + price
+				+ ", roomNameIntroduction=" + roomNameIntroduction + ", img=" + img + ", introduce=" + introduce
+				+ ", equipment=" + equipment + ", service=" + service + ", remark=" + remark + "]";
+	}
+
 	public Integer getId() {
 		return Id;
 	}
 
-	public void setId(Integer Id) {
-		this.Id = Id;
+	public void setId(Integer id) {
+		Id = id;
 	}
 
 	public Integer getRoomId() {
@@ -139,13 +141,6 @@ public class RoomBean {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
-	}
-
-	@Override
-	public String toString() {
-		return "RoomBean [Id=" + Id + ", roomId=" + roomId + ", name=" + name + ", type=" + type + ", price=" + price
-				+ ", roomNameIntroduction=" + roomNameIntroduction + ", img=" + img + ", introduce=" + introduce
-				+ ", equipment=" + equipment + ", service=" + service + ", remark=" + remark + "]";
 	}
 
 }

@@ -11,21 +11,21 @@
 <title>XX飯店</title>
 </head>
 <body>
-	<jsp:include page="frontnavbar.jsp"></jsp:include>
 	<div class="container">
 		<h1>歷史訂單</h1>
-		<c:forEach var="datas" items="${datas.content}">
+		<c:forEach var="datas" items="${datas}">
 			<span>訂單成立時間: <fmt:formatDate
 					pattern="yyyy-MM-dd ,a hh:mm:ss EEEE" value="${datas.orderdate}" /></span>
 			<div>訂單編號:${datas.orderid}</div>
-			<div>會員:${datas.userid}</div>
-			<div>房號:${datas.roomid}</div>
+			<div>會員:${datas.userid.accountName}</div>
+			<div>房號:${datas.roomid.roomId}</div>
 			<div>入住日期:${datas.checkindate}</div>
 			<div>退房日期:${datas.checkoutdate}</div>
 			<div>備註:${datas.message}</div>
 
 			<form action="${contextRoot}/front/orders/delete" method="post">
-				<input type="hidden" name="orderid" value="${datas.orderid}" /> <input
+				<input type="hidden" name="orderid" value="${datas.orderid}" />
+				<input type="hidden" name="文彥的id傳過來的名字" value="${datas.userid.accountId}" /> <input
 					type="hidden" name="_method" value="delete" /> <input
 					type="submit" class="btn btn-outline-danger btn-sm" value="刪除">
 
