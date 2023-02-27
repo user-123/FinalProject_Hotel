@@ -29,8 +29,8 @@ public class LoginBean implements Serializable {
 	private String confirm;
 	@OneToOne(mappedBy = "accountId")
 	private MemberBean member;
-	
-	
+
+
 	public LoginBean(Integer accountId, String accountName, String password, String email, Timestamp signupDate,
 			String roles, String title, String confirm, MemberBean member) {
 		super();
@@ -45,8 +45,7 @@ public class LoginBean implements Serializable {
 		this.member = member;
 	}
 
-	public LoginBean() {
-	}
+	public LoginBean() {}
 
 	public Integer getAccountId() {
 		return accountId;
@@ -126,7 +125,7 @@ public class LoginBean implements Serializable {
 				+ ", email=" + email + ", signupDate=" + signupDate + ", roles=" + roles + ", title=" + title
 				+ ", confirm=" + confirm + ", member=" + member + "]";
 	}
-	
-	
-	
+
+
+
 }
