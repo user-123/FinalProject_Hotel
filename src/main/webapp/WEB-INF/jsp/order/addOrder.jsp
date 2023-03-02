@@ -29,14 +29,15 @@
 					<td><form:input path="message" placeholder="請輸入不超過30個字"
 							maxlength="30" /></td>
 				</tr>
-				<tr>
+				<tr style="display: none">
 					<!-- 會員 -->
-					<td><input type="hidden" name="文彥的id傳過來的名字"
-						value="${文彥的id傳過來的名字}" /></td>
+					<td>會員</td>
+					<td><input name="文彥的id傳過來的名字" value="${sessionScope.id}" /></td>
 				</tr>
-				<tr>
+				<tr style="display: none">
 					<!-- 房號 -->
-					<td><input type="hidden" name="rId" value="${Id}" /></td>
+					<td>房間</td>
+					<td><input name="rId" value="${Id}" /></td>
 				</tr>
 			</table>
 

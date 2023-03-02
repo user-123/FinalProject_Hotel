@@ -36,11 +36,9 @@ public class OrderController {
 	// 從homecontroller發請求過來
 	// 此時他看到的是addOrder.jsp
 	@GetMapping("/orders/add")
-	public String addMessagePage(Model model, @RequestParam("Id") Integer roomId,
-			@RequestParam("文彥的id傳過來的名字") Integer userId) {
+	public String addMessagePage(Model model, @RequestParam("Id") Integer roomId) {
 		OrderListBean ol = new OrderListBean();
 		model.addAttribute("Id", roomId);
-		model.addAttribute("文彥的id傳過來的名字", userId);
 		model.addAttribute("information", ol);
 		return "order/addOrder";
 	}

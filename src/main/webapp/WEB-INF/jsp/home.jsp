@@ -69,9 +69,8 @@
 
 
 	<form action="<c:url value='/orders/add' />" method="get">
-		<input type="hidden" name="Id" value="2" /> <input type="hidden"
-			name="文彥的id傳過來的名字" value="${sessionScope.id}" /> <input
-			type="submit" class="btn btn-outline-info btn-sm" value="訂房">
+		<input type="hidden" name="Id" value="2" /><input type="submit"
+			class="btn btn-outline-info btn-sm" value="訂房">
 	</form>
 
 	<form action="<c:url value='/orders/history' />" method="get">
