@@ -10,14 +10,16 @@ import org.springframework.stereotype.Service;
 
 import idv.hotel.finalproject.dao.LoginDao;
 import idv.hotel.finalproject.model.LoginBean;
+
+
 @Service
 public class LoginDetailsServiceImpl implements UserDetailsService {
 	@Autowired
     private LoginDao loginDao;
-
+	
 //	@Autowired
 //	private PasswordEncoder bCryptPasswordEncoder;
-
+	
 	@Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         LoginBean lb = loginDao.findByEmail(email);
@@ -26,23 +28,23 @@ public class LoginDetailsServiceImpl implements UserDetailsService {
         }
 //        return new org.springframework.security.core.userdetails.User(lb.getEmail(), lb.getPassword(),
 //                getAuthorities(lb));
-
-
+        
+        
         String password = lb.getPassword();
 		String roles = lb.getRoles();
 		return new User(email, password, AuthorityUtils.commaSeparatedStringToAuthorityList(roles));
-
-
+    
+        
     }
-
-
+	
+	
 //	private Collection<? extends GrantedAuthority> getAuthorities(LoginBean lb) {
 //        List<GrantedAuthority> authorities = new ArrayList<>();
 //        for (String role : lb.getRoles().split(",")) {
 //            authorities.add(new SimpleGrantedAuthority(role));
 //        }
-//
-//
+//        
+//        
 //        return authorities;
 //    }
 }

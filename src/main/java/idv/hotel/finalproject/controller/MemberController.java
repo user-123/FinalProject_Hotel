@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import idv.hotel.finalproject.model.MemberBean;
 import idv.hotel.finalproject.service.LoginService;
 import idv.hotel.finalproject.service.MemberService;
-import idv.hotel.finalproject.model.MemberBean;
 @Controller
 @MultipartConfig
 public class MemberController {
@@ -35,18 +35,18 @@ public class MemberController {
 		this.loginService = loginService;
 		this.context = context;
 	}
-
-
+	
+	
 	@ModelAttribute("memberBean")
 	public MemberBean init() {
 		MemberBean mb = new MemberBean();
-		return mb;
+		return mb; 
 	}
-
+	
 	@InitBinder
 	public void whiteListing(WebDataBinder binder) {
 		binder.setAllowedFields(
-				"address",
+				"address", 
 				"birthDate",
 				"gender",
 				"phone",
@@ -54,16 +54,16 @@ public class MemberController {
 				"userName"
 				);
 	}
-
+	
 	@GetMapping("/addinfo")
 	public String addinfo(HttpSession session,HttpServletRequest request){
 		MemberBean mb = memberService.showInfo(session,request);
 		if(mb!=null)
 			request.setAttribute("info", true);
 			session.setAttribute("mb", mb);
-		return "addinfo";
+		return "registerandlogin/addinfo";
 	}
-
+	
 	@GetMapping("/searchinfo")
 	public String searchinfo(Model model,HttpSession session,HttpServletRequest request){
 //		memberService.showinfo(session);
@@ -74,9 +74,9 @@ public class MemberController {
 		}catch(Exception e) {
 			model.addAttribute("noinfo", true);
 		}
-		return "searchinfo";
+		return "registerandlogin/searchinfo";
 	}
-
+	
 	@PostMapping("/addinfo")
 	public String addinfo(@ModelAttribute("memberBean") MemberBean mb, RedirectAttributes redirectAttributes
 			,BindingResult bindingResult, Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response,@RequestParam("uploadedFile") MultipartFile uploadedFile) {
@@ -92,7 +92,7 @@ public class MemberController {
 			redirectAttributes.addFlashAttribute("message", "新增失敗");
 		}
 		return "redirect:/searchinfo";
-	}
-
-
+	}	
+	
+	
 }

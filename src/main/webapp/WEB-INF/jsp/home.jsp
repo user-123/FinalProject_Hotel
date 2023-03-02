@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%-- <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> --%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,32 +11,22 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-
-<hr />
-憲憲
-<hr />
-<jsp:include page="linkout/navbar.jsp"></jsp:include>
-<hr />
-<br />
-<br />
-<br />
-
-
-
-<hr />
-硯硯
-<hr />
+  
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<div class="container-fluid">
-		
+		<div class="container-fluid">	
 <a class="navbar-brand" href="<c:url value="/"/>">首頁</a>
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page"
 						href="<c:url value="/public/roombean/allShow"/>">展示房型</a></li>
+						
+						
+					<sec:authorize access="hasAuthority('admin')">	
 					<li class="nav-item"><a class="nav-link"
-						href="<c:url value="/roombean/backstage"/>">後台-房型</a></li>
+						href="<c:url value="/admin/roombean/backstage"/>">後台-房型</a></li>
+					</sec:authorize>	
+						
 				</ul>
 			</div>		
 		
@@ -50,7 +40,7 @@
     會員
   </a>
 <c:choose>
-   <c:when test="${requestScope.login==true}"> 
+   <c:when test="${sessionScope.login==true}"> 
   		<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 		    <li><a class="dropdown-item" href="<c:url value='/addinfo' />">填寫及修改基本資料</a></li>
 		    <li><a class="dropdown-item" href="<c:url value='/searchinfo' />">查詢資料</a></li>
@@ -66,13 +56,11 @@
 </c:choose>
 </div>
 </div>
-</div>
-</nav>
+		</div>
+	</nav>
 
-<hr />
-<br />
-<br />
-<br />
+
+
 
 
 </body>

@@ -17,7 +17,7 @@
 	<h1>addRoom</h1>
 
 	<div class="card-body">
-		<form:form method="POST" action="${contextRoot}/roombean/add"
+		<form:form method="POST" action="${contextRoot}/admin/roombean/add"
 			modelAttribute="roomBean" enctype="multipart/form-data">
 			<table>
 				<tr>
@@ -72,7 +72,7 @@
 				</tr>
 				<tr>
 					<td><a class="btn btn-danger"
-						href="<c:url value="/roombean/backstage"/>">上一頁</a></td>
+						href="<c:url value="/admin/roombean/backstage"/>">上一頁</a></td>
 				</tr>
 			</table>
 		</form:form>
