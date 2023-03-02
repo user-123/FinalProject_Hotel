@@ -42,7 +42,6 @@ public class OrderController {
 		model.addAttribute("Id", roomId);
 		model.addAttribute("文彥的id傳過來的名字", userId);
 		model.addAttribute("information", ol);
-		System.out.println(model);
 		return "order/addOrder";
 	}
 
@@ -93,8 +92,8 @@ public class OrderController {
 	// 會員在history.jsp按下[刪除]，發送此請求
 	// 未付款前才可取消，設計若他付款後欲取消，由飯店方取消
 	@DeleteMapping("/orders/delete")
-	public String deleteMessageF(@RequestParam("文彥的id傳過來的名字") Integer userId,
-			@RequestParam String orderid, RedirectAttributes redirectAttributes) {
+	public String deleteMessageF(@RequestParam("文彥的id傳過來的名字") Integer userId, @RequestParam String orderid,
+			RedirectAttributes redirectAttributes) {
 		oService.deleteDataByOrderIdF(orderid);
 		// 將資料放入重定向的屬性中
 		redirectAttributes.addAttribute("文彥的id傳過來的名字", userId);

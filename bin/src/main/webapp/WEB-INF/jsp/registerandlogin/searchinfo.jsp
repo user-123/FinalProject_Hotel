@@ -28,7 +28,7 @@
 .messages{
   margin: 10px 5px;
   color: #dc3545
-}
+}				
 
 </style>
 <link rel="stylesheet"
@@ -39,7 +39,7 @@
 </head>
 <body>
 <c:choose>
-   <c:when test="${requestScope.noinfo==true}">
+   <c:when test="${requestScope.noinfo==true}"> 
    	您尚未填寫基本資料
    </c:when>
    <c:otherwise>
@@ -50,8 +50,8 @@
 	    生日: ${mb.birthDate}
 	    照片: ${sessionScope.photo}
 	    ${requestScope.message}
-	</c:otherwise>
-</c:choose>
+	</c:otherwise>    
+</c:choose>	    
 	    <form action="<c:url value='/logout' />" method="post">
 		  <button type="submit">登出</button>
 		  <input type="hidden" name="${_csrf.parameterName}"
