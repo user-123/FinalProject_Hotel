@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,12 +16,16 @@ import javax.persistence.Table;
 @Table(name = "Order_Detail")
 public class OrderDetailBean implements Serializable {
 	private static final long serialVersionUID = 1L;
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/rebeccadevelope
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer suborderId; // 子訂單
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "FK_OrderList_Id")
+<<<<<<< HEAD
 	//@JoinColumn(name = "FK_OrderList_Id", nullable = false)
 	private OrderListBean orderId; // 訂單編號
 	// 用於sql(數據庫)的:java.sql.Date只能存放年月日，java.sql.Timestamp能存放年月日時分秒
@@ -30,10 +33,21 @@ public class OrderDetailBean implements Serializable {
 	//@Column(nullable = false)
 	private Integer roomId; // 房號
 	//@Column(nullable = false)
+=======
+//	@JoinColumn(name = "FK_OrderList_Id", nullable = false)
+	private OrderListBean orderId; // 訂單編號
+	// 用於sql(數據庫)的:java.sql.Date只能存放年月日，java.sql.Timestamp能存放年月日時分秒
+	// 非用於sql的:java.util.Date能夠存放年月日時
+//	@Column(nullable = false)
+	private Integer roomId; // 房號
+//	@Column(nullable = false)
+>>>>>>> origin/rebeccadevelope
 	private Timestamp checkindate; // 入住日期
 	private String message; // 備註其他需求
 
-	public OrderDetailBean() {}
+	public OrderDetailBean() {
+
+	}
 
 	public OrderDetailBean(Integer suborderId, OrderListBean orderId, Integer roomId, Timestamp checkindate,
 			String message) {
@@ -89,8 +103,13 @@ public class OrderDetailBean implements Serializable {
 		return serialVersionUID;
 	}
 
+<<<<<<< HEAD
 	@Override
 	public String toString() {
 		return "OrderDetailBean [suborderId=" + suborderId + ", orderId=" + orderId + ", roomId=" + roomId  + ", checkindate=" + checkindate + ", roomservice=" + message + "]";
 	}
+=======
+	
+
+>>>>>>> origin/rebeccadevelope
 }

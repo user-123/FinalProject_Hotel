@@ -9,16 +9,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+<<<<<<< HEAD
 import idv.hotel.finalproject.dao.OrderListDao;
 import idv.hotel.finalproject.model.OrderListBean;
+=======
+import idv.hotel.finalproject.model.OrderListBean;
+import idv.hotel.finalproject.model.OrderListRepository;
+>>>>>>> origin/rebeccadevelope
 import idv.hotel.finalproject.model.RoomBean;
 
 @Service
 @Transactional
 public class OrderService {
 	@Autowired
+<<<<<<< HEAD
 	private OrderListDao olDao;
 
+=======
+	private OrderListRepository olDao;
+	
+>>>>>>> origin/rebeccadevelope
 	//獲取現在時間，return返回字串格式MMdd
 	//**************帶資料進SQL的同時，生成訂單編號，放到名為information的model裡
 	public String createorderid() {
@@ -30,7 +40,11 @@ public class OrderService {
 		String serial = dateString + x;
 		return serial;
 	}
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> origin/rebeccadevelope
 	//---------------------1.先讓功能可以正常使用(未做)-----------------------------
 	//---------------------2.卡控會員自己只能找到自己的資料![1,3,8](未做)-----------------------------
 	// 1.save(前台)
@@ -39,8 +53,13 @@ public class OrderService {
 	public void insert(OrderListBean olb) {
 		olDao.save(olb);
 	}
+<<<<<<< HEAD
 	//List：特定型別，不固定長度的陣列。
 	//Array：不特定型別，固定長度的陣列，長度需事先宣告。
+=======
+	//List：特定型別，不固定長度的陣列。 
+	//Array：不特定型別，固定長度的陣列，長度需事先宣告。 
+>>>>>>> origin/rebeccadevelope
 	//ArrayList：不特定型別，不固定長度的陣列。
 	// 2.findAll(後台)
 	public List<OrderListBean> findAll() {
@@ -62,7 +81,11 @@ public class OrderService {
 	// 讓會員可以利用訂單編號查詢自己的訂單紀錄
 	// 先做findDataByUser再篩選出orderid，避免user查到不屬於他的訂單資訊
 	public OrderListBean findDataByOrderId(String orderid) {
+<<<<<<< HEAD
 		return olDao.findDataByOrderId(orderid);
+=======
+		return olDao.findDataByOrderId(orderid);		
+>>>>>>> origin/rebeccadevelope
 	}
 	// 5.findDataByCheckdate(後台)
 	// 查詢特定日期的訂單資料
@@ -91,5 +114,9 @@ public class OrderService {
 	public void deleteDataByOrderIdB(String orderid) {
 		olDao.deleteDataByOrderId(orderid);
 	}
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> origin/rebeccadevelope
 }

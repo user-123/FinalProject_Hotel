@@ -1,5 +1,6 @@
 package idv.hotel.finalproject.controller;
 
+<<<<<<< HEAD
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -40,6 +41,13 @@ public class HomeController {
 		return "home";
 	}
 
+=======
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class HomeController {
+>>>>>>> origin/rebeccadevelope
 	@GetMapping("/front")
 	public String homef() {
 		//測試用的前台首頁
@@ -50,6 +58,7 @@ public class HomeController {
 		//測試用的後台首頁
 		return "order/backhome";
 	}
+<<<<<<< HEAD
 
 
 
@@ -62,4 +71,6 @@ public class HomeController {
 
 
 
+=======
+>>>>>>> origin/rebeccadevelope
 }

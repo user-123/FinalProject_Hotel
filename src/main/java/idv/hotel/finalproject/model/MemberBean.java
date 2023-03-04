@@ -101,8 +101,14 @@ public class MemberBean implements Serializable {
 		return "MemberBean [memberId=" + memberId + ", userName=" + userName + ", address=" + address  + ", phone=" + phone + ", birthDate=" + birthDate + ", gender=" + gender + ", photoPath="
 				+ photoPath + ", accountId=" + accountId + "]";
 	}
+<<<<<<< HEAD
 
 
 
+=======
+	
+	
+	
+>>>>>>> origin/rebeccadevelope
 }
 
