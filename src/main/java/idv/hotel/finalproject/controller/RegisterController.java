@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import idv.hotel.finalproject.service.LoginService;
 import idv.hotel.finalproject.model.LoginBean;
+import idv.hotel.finalproject.service.LoginService;
 import idv.hotel.finalproject.validate.LoginValidator;
 @Controller
 public class RegisterController {
@@ -30,30 +30,30 @@ public class RegisterController {
 		this.loginService = loginService;
 		this.context = context;
 	}
-
-
+	
+	
 	@ModelAttribute("loginBean")
 	public LoginBean init() {
 		LoginBean lb = new LoginBean();
-		return lb;
+		return lb; 
 	}
-
+	
 	@InitBinder
 	public void whiteListing(WebDataBinder binder) {
 		binder.setAllowedFields(
-				"accountName",
+				"accountName", 
 				"password",
 				"email",
 				"confirm"
 				);
 	}
-
-
+	
+	
 //	@PostMapping("/")
 //	public String home1() {
 //		return "home";
 //	}
-//
+//	
 //	@GetMapping("/")
 //	public String home(HttpServletRequest request,HttpSession session) {
 //		if(session.getAttribute("email")!=null) {
@@ -63,34 +63,34 @@ public class RegisterController {
 //        }
 //		return "home";
 //	}
-
-
-
-
-
+	
+	
+	
+	
+	
 	@GetMapping("/public/register")
 	public String register() {
-		return "public/register";
+		return "registerandlogin/register";
 	}
-
-
+	
+	
 	@GetMapping("/public/checkemailduplicate")
 	@ResponseBody
     public String checkEmailDuplicate(@RequestParam String email) {
-
+	
 			return loginService.checkEmailDuplicate(email);
-
+			
     }
-
-
-
+	
+	
+	
 	@PostMapping("/public/register")
 	public String register(@ModelAttribute("loginBean") LoginBean lb,
 			BindingResult bindingResult, Model model ) {
 		String result = "";
-
+		
 		new LoginValidator().validate(lb, bindingResult);
-
+	
 		if (bindingResult.hasErrors()) {
 			List<ObjectError> list = bindingResult.getAllErrors();
 			for(ObjectError error : list) {
@@ -106,29 +106,29 @@ public class RegisterController {
 				if(error.getCode().equals("loginBean.name.size")) {
 					System.out.println("loginBean.name.size");
 				}
-
+				
 			}
-			return "public/register";
+			return "registerandlogin/register";
 		}
 		try {
 			loginService.register(lb);
 			result = "redirect:/";
 		}catch(Exception e) {
-			result = "public/register";
+			result = "registerandlogin/register";
 		}
 		return result;
-	}
-
-
+	}	
+	
+	
 	@GetMapping("/public/loginpage")
 	public String loginPage(Model model) {
-		return "public/login";
+		return "registerandlogin/login";
 	}
-
-
-
-
-
+	
+	
+	
+	
+	
 
 //	@PostMapping("/login")
 //	@ResponseBody
@@ -142,21 +142,21 @@ public class RegisterController {
 //	        response.put("message", "登入失敗,請再確認");
 //	    }
 //		return response;
-//
+//			
 //	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

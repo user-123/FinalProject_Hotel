@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,21 +27,36 @@ public class HomeController {
 		this.memberService = memberService;
 		this.context = context;
 	}
-
+	
 	@PostMapping("/")
 	public String home1() {
 		return "home";
 	}
-
+	
 	@GetMapping("/")
 	public String home(HttpServletRequest request,HttpSession session) {
-		if(session.getAttribute("email")!=null) {
-			session.setAttribute("id",loginService.findIdByEmail((String)session.getAttribute("email")) );
-//			session.setAttribute("lb", loginService.findById((Integer)session.getAttribute("id")));
-        	request.setAttribute("login", true);
-        }
-		return "home";
+//		if(session.getAttribute("email")!=null) {
+//			session.setAttribute("id",loginService.findIdByEmail((String)session.getAttribute("email")) );
+////			session.setAttribute("lb", loginService.findById((Integer)session.getAttribute("id")));
+//        	request.setAttribute("login", true);
+//        }
+//		return "home";
+		
+		
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    if (auth != null && auth.isAuthenticated()) {
+	    	if(!auth.getName().equals("anonymousUser")) {
+		        session.setAttribute("email", auth.getName());
+		        session.setAttribute("login", true);
+		        session.setAttribute("id", loginService.findIdByEmail(auth.getName()));
+		        session.setAttribute("lb", loginService.findById((Integer)session.getAttribute("id")));
+	    	}
+	        System.out.println(session.getAttribute("email"));
+	    }
+	    return "home";
 	}
+<<<<<<< HEAD
 
 =======
 import org.springframework.stereotype.Controller;
@@ -73,4 +90,19 @@ public class HomeController {
 
 =======
 >>>>>>> origin/rebeccadevelope
+=======
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+>>>>>>> origin/memberSystem
 }

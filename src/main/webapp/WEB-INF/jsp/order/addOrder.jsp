@@ -13,7 +13,7 @@
 <body>
 	<div class="container">
 		<h1>訂房資訊</h1>
-		<form:form action="${contextRoot}/front/orders/post"
+		<form:form action="${contextRoot}/orders/post"
 			modelAttribute="information">
 			<table>
 				<tr>
@@ -26,15 +26,18 @@
 				</tr>
 				<tr>
 					<td><form:label path="message">備註</form:label></td>
-					<td><form:input path="message" placeholder="請輸入不超過30個字" maxlength="30"/></td>
+					<td><form:input path="message" placeholder="請輸入不超過30個字"
+							maxlength="30" /></td>
 				</tr>
-				<tr>
+				<tr style="display: none">
 					<!-- 會員 -->
-					<td><input type="hidden" name="文彥的id傳過來的名字" value="${文彥的id傳過來的名字}" /></td>
+					<td>會員</td>
+					<td><input name="文彥的id傳過來的名字" value="${sessionScope.id}" /></td>
 				</tr>
-				<tr>
-    				<!-- 房號 -->
-					<td><input type="hidden" name="rId" value="${Id}" /></td>
+				<tr style="display: none">
+					<!-- 房號 -->
+					<td>房間</td>
+					<td><input name="rId" value="${Id}" /></td>
 				</tr>
 			</table>
 

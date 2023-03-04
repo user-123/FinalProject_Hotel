@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>XX旅館</title>
 </head>
 <body>
-<h1>admin</h1>
+<jsp:include page="backnavbar.jsp"></jsp:include>
+<h1>後台首頁</h1>
 </body>
 </html>

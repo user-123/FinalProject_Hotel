@@ -23,10 +23,10 @@
 			<div>退房日期:${datas.checkoutdate}</div>
 			<div>備註:${datas.message}</div>
 
-			<form action="${contextRoot}/front/orders/delete" method="post">
-				<input type="hidden" name="orderid" value="${datas.orderid}" />
-				<input type="hidden" name="文彥的id傳過來的名字" value="${datas.userid.accountId}" /> <input
-					type="hidden" name="_method" value="delete" /> <input
+			<form action="${contextRoot}/orders/delete" method="post">
+				<input type="hidden" name="orderid" value="${datas.orderid}" /> <input
+					type="hidden" name="文彥的id傳過來的名字" value="${datas.userid.accountId}" />
+				<input type="hidden" name="_method" value="delete" /> <input
 					type="submit" class="btn btn-outline-danger btn-sm" value="刪除">
 
 				<!--********************刪除前用來做再次確認的範本******************** -->

@@ -45,17 +45,17 @@ public class RoomContoller {
 //		return "home";
 //	}
 
-	@GetMapping("/roombean/backstage")
+	@GetMapping("/admin/roombean/backstage")
 	public String finAllBackstage(Model model) {
 		List<RoomBean> roomBs = rService.findAll();
 		model.addAttribute("room", roomBs);
 		return "room/backstageRoom";
 	}
 //
-	@GetMapping("/roombean/backstageShowType")
+	@GetMapping("/admin/roombean/backstageShowType")
 	public String findTypebackstage(@RequestParam String type, Model model) {
 		if (type == "") {
-			return "redirect:/roombean/backstage";
+			return "redirect:/admin/roombean/backstage";
 		} else {
 			List<RoomBean> roomType = rService.findType(type);
 			model.addAttribute("room", roomType);
@@ -115,7 +115,7 @@ public class RoomContoller {
 		}
 	}
 
-	@GetMapping("/roombean/create")
+	@GetMapping("/admin/roombean/create")
 	public String create(Model model) {
 		RoomBean roomBean = new RoomBean();
 		model.addAttribute("roomBean", roomBean);
@@ -123,7 +123,7 @@ public class RoomContoller {
 
 	}
 
-	@PostMapping("/roombean/add") //1.name跟type卡控有問題
+	@PostMapping("/admin/roombean/add") //1.name跟type卡控有問題
 	public String add(@ModelAttribute("roomBean") RoomBean rB, @RequestParam("files") MultipartFile[] files,
 			Model model) throws IOException {
 		Integer roomId = rB.getRoomId();
@@ -152,25 +152,25 @@ public class RoomContoller {
 
 			System.out.println(rB);
 			rService.create(rB);
-			return "redirect:/roombean/backstage";
+			return "redirect:/admin/roombean/backstage";
 		}
 
 	}
 
-	@DeleteMapping("/roombean/delete")
+	@DeleteMapping("admin/roombean/delete")
 	public String delete(@RequestParam Integer id) {
 		rService.delete(id);
-		return "redirect:/roombean/backstage";
+		return "redirect:/admin/roombean/backstage";
 	}
 
-	@GetMapping("/roombean/edit")
+	@GetMapping("admin/roombean/edit")
 	public String edit(@RequestParam Integer id, Model model) {
 		RoomBean roomBean = rService.find(id);
 		model.addAttribute("roomBean", roomBean);
 		return "room/editRoom";
 	}
 
-	@PutMapping("/roombean/update") //1.name跟type卡控有問題 2.空字串跳轉問題...
+	@PutMapping("admin/roombean/update") //1.name跟type卡控有問題 2.空字串跳轉問題...
 	public String update(@ModelAttribute("roomBean") RoomBean roomBean, @RequestParam("files") MultipartFile[] files,
 			Model model) throws IOException {
 		Integer roomId = roomBean.getRoomId();
@@ -178,9 +178,9 @@ public class RoomContoller {
 		String type = roomBean.getType();
 		Integer price = roomBean.getPrice();
 		if (roomId == null || name == "") {
-			return "redirect:/roombean/backstage";
+			return "redirect:/admin/roombean/backstage";
 		} else if (type == "" || price == null) {
-			return "redirect:/roombean/backstage";
+			return "redirect:/admin/roombean/backstage";
 		} else {
 
 			List<RoomPhotoBean> photos = new LinkedList<>();
@@ -196,7 +196,7 @@ public class RoomContoller {
 			System.out.println(roomBean);
 			rService.create(roomBean);
 
-			return "redirect:/roombean/backstage";
+			return "redirect:/admin/roombean/backstage";
 		}
 	}
 

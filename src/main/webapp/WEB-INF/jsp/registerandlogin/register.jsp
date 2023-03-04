@@ -28,7 +28,7 @@
 .messages{
   margin: 10px 5px;
   color: #dc3545
-}
+}				
 
 </style>
 <link rel="stylesheet"
@@ -57,16 +57,16 @@
 				}
 
 			});
-
-
+		   
+		
 		$("#email").on("input",function() {
 			let email = $('#email').val();
 			$.ajax({
-				method : 'POST',
+				method : 'get',
 				data : {
 					"email" : email
 				},
-				url : '/hotel/checkemailduplicate',
+				url : 'checkemailduplicate',
 				success : function(result) {
 					$('#duplicate').html(result).css({
 						"color" : "red",
@@ -75,14 +75,14 @@
 				}
 
 			})
-
-
+		
+			
 		});
-
-
-
-
-
+		
+	
+		
+		
+		
 		$("#password").on("input",function() {
 			filter =  /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
 			if (!password.value.match(filter)) {
@@ -95,9 +95,9 @@
 						"color" : "red",
 						"font-size" : "10%"
 					})
-
+				
 			}
-
+			
 			else{
 				if(confirm.value==password.value)
 					$('.confirmerror').html("")
@@ -106,8 +106,8 @@
 			}
 
 		});
-
-
+		
+		
 		$("#confirm").on("input",function() {
 			if(confirm.value!=password.value) {
 				if (password.value!="")
@@ -121,7 +121,7 @@
 			}
 
 		});
-
+		
 
 		$("#accountName").on("input",function() {
 			if (accountName.value.length<2 | accountName.value.length>10) {
@@ -135,53 +135,74 @@
 
 		});
 
-
+		
 				$('#checksubmit').on("click",function(event){
 					error="no"
-
+					
 					for (let i = 0; i < required.length; i++) {
 					   if( required[i].value=="" ){
-						    error="yes";
+						    error="yes"; 
 						   	$(required[i]).closest("div").find(".error").html("必填").css({
 	 							"color" : "red",
 	 							"font-size" : "10%"
 	 						})
 					    }
-
+					    
 					}
 					for (let i = 0; i < colerror.length; i++) {
-						   if( $(colerror[i]).html()!="" ){
-							    error="yes";
+						   if( $(colerror[i]).html()!="" | $('#duplicate').html()!=""){
+							    error="yes"; 
 						    }
-
-					}
+						    
+					}	
 					if(error=="no"){
 						$('#submit').click();
 						$('#registerForm').find('button').prop('disabled', true);
-						$("#success").html("註冊成功,三秒後跳轉首頁")
+						$("#success").html("註冊成功,三秒後跳轉首頁")	
 						for (let i = 0; i < required.length; i++) {
 						    required[i].disabled = true;
 						}
-					}
-
-				}
-				)
-
-
+					}	
+					
+				}	
+				)	
+				
+				
 				$('#submit').on("click", function(event) {
 					  $('#registerForm').submit();
 					});
+				
+				
+				
+				
+				
+				$("#emailverify").on("click",function() {
+					let email = $('#email').val();
+					$.ajax({
+						method : 'post',
+						data : {
+							"email" : email
+						},
+						url : 'send-email',
+						success : function(result) {
+							$('#emailnotice').html(result).css({
+								"color" : "green",
+								"font-size" : "10%"
+							})
+						}
 
-
-
-
+					})
+				})
+				
+				
+				
 	}
 </script>
 </head>
 <body>
 	<div class="container">
   <h1>註冊</h1>
-  <form:form id="registerForm" method="post" modelAttribute="loginBean" >
+  <form:form id="registerForm" method="post" modelAttribute="loginBean"> 
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="email">Email</label>
@@ -193,7 +214,7 @@
         <label for="accountName">使用者名稱</label>
         <form:input id="accountName" class="form-control" type="text" placeholder="帳號名稱" name="accountName" path="accountName"  />
       	<span class="accountNameerror error"></span>
-
+      
       </div>
       <div class="form-group col-md-6">
         <label for="password">密碼</label>
@@ -205,12 +226,27 @@
         <form:input id="confirm" class="form-control" type="password" placeholder="確認密碼" name="confirm" path="confirm" />
       	<span class="confirmerror error"></span>
       </div>
+      
+      
+      
+      
+      
+      
+		  <button type="button" id="emailverify">驗證信</button>
+      	  <span id="emailnotice"></span>
+      
+      
+      
+      
+      
+      
+      
       </div>
     <button type="button" id="checksubmit" class="btn btn-primary">註冊</button>
     <button style="visibility:hidden" type="submit" id="submit" class="btn btn-primary"></button>
   </form:form>
     <div  id="success" class="text-primary"></div>
 </div>
-
+	
 </body>
 </html>

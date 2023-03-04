@@ -15,14 +15,16 @@ import idv.hotel.finalproject.service.impl.LoginDetailsServiceImpl;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-
+	
 	@Autowired
-	private LoginDetailsServiceImpl userDetailsService;
-
+	private LoginDetailsServiceImpl userDetailsService; 
+	
+	
+	
 //	@Autowired
 //	private LoginAuthenticationSuccessHandler loginAuthenticationSuccessHandler;
-
-
+	
+	
 	@Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
@@ -36,25 +38,35 @@ public class SecurityConfig {
 		// 登入成功之後要造訪的頁面
 		.successHandler((request, response, authentication) -> {
 			request.getSession().setAttribute("email", authentication.getName());
-
 	        response.sendRedirect("/main");
-	    })
+	    }) 
 		// 登入失敗後要造訪的頁面
 		.failureUrl("/public/loginpage?error=true")
 		.and()
         .logout()
         .logoutUrl("/logout")
         .logoutSuccessHandler((request, response, authentication) -> {
+        	request.getSession().setAttribute("login", "");
             response.sendRedirect("/main");
-        });
-
+        })
+		.deleteCookies("JSESSIONID")
+		
+		.and()
+	    .rememberMe()
+	    .rememberMeParameter("remember-me")
+	    .userDetailsService(userDetailsService)
+	    .tokenValiditySeconds(60*60);
 //		http.csrf().ignoringAntMatchers("/");
-
+		
 		http.authorizeHttpRequests()
 		// 不需要被認證的頁面：/loginpage
-		.antMatchers("/public/**","/","/javascript/**","/loginpage").permitAll()
-		.antMatchers("/").hasAuthority("user")
+		.antMatchers("/public/**","/","/javascript/**","/loginpage","/assets/**").permitAll()
+		.antMatchers("/admin/**").hasAuthority("admin")
         .anyRequest().authenticated();
+        
+		
+		
+		
 		// 權限判斷
 		// 必須要有 admin 權限才可以訪問
 //		.antMatchers("/adminpage").hasAuthority("admin")
@@ -68,12 +80,12 @@ public class SecurityConfig {
 		return http.build();
     }
 
-
+	
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
     }
-
-
+	
+	
 	@Bean
 	public PasswordEncoder getPasswordEncoder() {
 		return new BCryptPasswordEncoder();

@@ -51,8 +51,8 @@
 					</div>
 					<div class="mb-3 form-check">
 						<input class="form-check-input" type="checkbox" id="auto-login"
-							name="auto-login" /> <label class="form-check-label"
-							for="auto-login">自動登入(Remember Me)</label>
+						 name="remember-me" /> <label class="form-check-label"
+							for="remember-me">自動登入(Remember Me)</label>
 					</div>
 
 					<button type="submit" class="btn btn-primary">登入</button>
