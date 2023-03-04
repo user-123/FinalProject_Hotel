@@ -8,44 +8,216 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>XX飯店</title>
+<meta content="" name="description">
+<meta content="" name="keywords">
+
+<!-- Favicons -->
+<link href="<c:url value='/assets/img/favicon.png'/>" rel="icon">
+<link href="<c:url value='/assets/img/apple-touch-icon.png'/>"
+	rel="apple-touch-icon">
+
+<!-- Google Fonts -->
+<link
+	href='https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700'
+	rel="stylesheet">
+
+<!-- Vendor CSS Files -->
+<link href="<c:url value='/assets/vendor/animate.css/animate.min.css'/>"
+	rel="stylesheet">
+<link
+	href="<c:url value='/assets/vendor/bootstrap/css/bootstrap.min.css'/>"
+	rel="stylesheet">
+<link
+	href="<c:url value='/assets/vendor/bootstrap-icons/bootstrap-icons.css'/>"
+	rel="stylesheet" type="text/css">
+<link
+	href="<c:url value='/assets/vendor/swiper/swiper-bundle.min.css'/>"
+	rel="stylesheet">
+
+<!-- Template Main CSS File -->
+<link href="<c:url value='/assets/css/style.css'/>" rel="stylesheet">
+
 </head>
 <body>
-	<div class="container">
-		<h1>訂房資訊</h1>
-		<form:form action="${contextRoot}/orders/post"
-			modelAttribute="information">
-			<table>
-				<tr>
-					<td><form:label path="checkindate">入住日期</form:label></td>
-					<td><form:input path="checkindate" /></td>
-				</tr>
-				<tr>
-					<td><form:label path="checkoutdate">退房日期</form:label></td>
-					<td><form:input path="checkoutdate" /></td>
-				</tr>
-				<tr>
-					<td><form:label path="message">備註</form:label></td>
-					<td><form:input path="message" placeholder="請輸入不超過30個字"
-							maxlength="30" /></td>
-				</tr>
-				<tr style="display: none">
-					<!-- 會員 -->
-					<td>會員</td>
-					<td><input name="文彥的id傳過來的名字" value="${sessionScope.id}" /></td>
-				</tr>
-				<tr style="display: none">
-					<!-- 房號 -->
-					<td>房間</td>
-					<td><input name="rId" value="${Id}" /></td>
-				</tr>
-			</table>
+	<!-- ======= Header/Navbar ======= -->
+	<nav
+		class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
+		<div class="container">
+			<button class="navbar-toggler collapsed" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarDefault"
+				aria-controls="navbarDefault" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span></span> <span></span> <span></span>
+			</button>
+			<a class="navbar-brand text-brand" href="<c:url value='/'/>">XXX<span
+				class="color-b">大飯店</span></a>
 
-			<button type="submit" class="btn btn-primary">送出</button>
-		</form:form>
+			<div class="navbar-collapse collapse justify-content-center"
+				id="navbarDefault">
+				<ul class="navbar-nav">
 
-	</div>
+					<li class="nav-item"><a class="nav-link "
+						href="<c:url value='/'/>">首頁</a></li>
+
+					<li class="nav-item"><a class="nav-link "
+						href="<c:url value='/public/about'/>">關於XXX</a></li>
+
+					<li class="nav-item"><a class="nav-link "
+						href="<c:url value='/public/room/allShow'/>">房型</a></li>
+
+					<li class="nav-item"><a class="nav-link "
+						href="<c:url value='/public/room/orderAllShow'/>">訂房</a></li>
+
+					<li class="nav-item"><a class="nav-link " href="#">休閒設施</a></li>
+
+					<li class="nav-item"><a class="nav-link " href="#">周邊景點</a></li>
+
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
+						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">會員</a>
+						<c:choose>
+							<c:when test="${sessionScope.login==true}">
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+									<li><a class="dropdown-item"
+										href="<c:url value='/addinfo' />">填寫及修改基本資料</a></li>
+									<li><a class="dropdown-item"
+										href="<c:url value='/searchinfo' />">查詢資料</a></li>
+									<li><a class="dropdown-item"
+										href="<c:url value='/orders/history' />?文彥的id傳過來的名字=${sessionScope.id}">歷史訂單</a></li>
+									<sec:authorize access="hasAuthority('admin')">
+										<li><a class="dropdown-item"
+											href="<c:url value="/admin/room/backstage"/>">後台</a></li>
+									</sec:authorize>
+									<li><a class="dropdown-item "
+										href="<c:url value='/logout'/>"> <input type="hidden"
+											name="${_csrf.parameterName}" value="${_csrf.token}" />登出
+									</a></li>
+								</ul>
+							</c:when>
+							<c:otherwise>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+									<li><a class="dropdown-item"
+										href="<c:url value='/public/loginpage' />">登入</a></li>
+									<li><a class="dropdown-item"
+										href="<c:url value='/public/register' />">註冊</a></li>
+								</ul>
+							</c:otherwise>
+						</c:choose>
+					</li>
+				</ul>
+			</div>
+
+		</div>
+	</nav>
+	<!-- End Header/Navbar -->
+	<main id="main">
+		<section class="intro-single">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 col-lg-8">
+						<div class="title-single-box">
+							<h1 class="title-single">訂房資訊</h1>
+
+							<div class="form-comments">
+								<div class="title-box-d">
+									<h5 class="title-d">即刻下訂</h5>
+								</div>
+
+								<form:form class="form-a" action="${contextRoot}/orders/post"
+									modelAttribute="information">
+									<div class="row">
+										<div class="col-md-6 mb-3">
+											<div class="form-group">
+												<form:label path="checkindate" for="inputName">入住日期*</form:label>
+												<form:input path="checkindate" type="text"
+													class="form-control form-control-lg form-control-a"
+													id="inputName" placeholder="入住日期" required="true" />
+											</div>
+										</div>
+
+										<div class="col-md-6 mb-3">
+											<div class="form-group">
+												<form:label path="checkoutdate" for="inputEmail1">退房日期*</form:label>
+												<form:input path="checkoutdate" type="text"
+													class="form-control form-control-lg form-control-a"
+													id="inputEmail1" placeholder="退房日期" required="true" />
+											</div>
+										</div>
+										<div class="col-md-12 mb-3">
+											<div class="form-group">
+												<form:label path="message" for="textMessage">備註</form:label>
+												<form:input id="textMessage" class="form-control"
+													name="message" required="true" path="message"
+													placeholder="請輸入不超過30個字" maxlength="30" />
+											</div>
+										</div>
+
+										<!-- 會員 -->
+										<input type="hidden" name="文彥的id傳過來的名字"
+											value="${sessionScope.id}" />
 
 
+										<!-- 房號 -->
+										<input type="hidden" name="rId" value="${Id}" />
+
+									</div>
+
+									<button type="submit" class="btn btn-primary"
+										style="text-align: right;">送出</button>
+
+								</form:form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<!-- ======= Footer ======= -->
+
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="copyright-footer">
+						<p class="copyright color-text-a">
+							&copy; Copyright <span class="color-a">EstateAgency</span> All
+							Rights Reserved.
+						</p>
+					</div>
+					<div class="credits">
+						<!--
+            All the links in the footer should remain intact.
+            You can delete the links only if you purchased the pro version.
+            Licensing information: https://bootstrapmade.com/license/
+            Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=EstateAgency
+          -->
+						Designed by <a href="<c:url value='https://bootstrapmade.com/'/>">BootstrapMade</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- End  Footer -->
+
+	<div id="preloader"></div>
+	<a href="<c:url value='#'/>"
+		class="back-to-top d-flex align-items-center justify-content-center"><i
+		class="bi bi-arrow-up-short"></i></a>
+
+	<!-- Vendor JS Files -->
+	<script
+		src='<c:url value="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"/>'></script>
+	<script
+		src='<c:url value="/assets/vendor/swiper/swiper-bundle.min.js"/>'></script>
+	<script
+		src='<c:url value="/assets/vendor/php-email-form/validate.js"/>'></script>
+
+	<!-- Template Main JS File -->
+	<script src='<c:url value="/assets/js/main.js"/>'></script>
 </body>
 </html>

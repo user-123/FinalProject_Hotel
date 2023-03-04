@@ -14,7 +14,7 @@
 	<jsp:include page="navbar.jsp"></jsp:include>
 	<h1>管理房型</h1>
 	<div class="container">
-		<form action="<c:url value="/admin/roombean/backstageShowType" />"
+		<form action="<c:url value="/admin/room/backstageShowType" />"
 			method="get">
 			<select name="type">
 				<option value="">請選擇房型</option>
@@ -25,7 +25,7 @@
 		</form>
 	</div>
 	<input type="button" value="新增" class="btn btn-primary"
-		onclick="location.href='<c:url value='/admin/roombean/create'/>'">
+		onclick="location.href='<c:url value='/admin/room/create'/>'">
 
 	<table
 		class="table table-striped table-bordered table-hover text-center">
@@ -55,11 +55,11 @@
 				<td>${msg.remark}</td>
 
 				<td>
-					<form action="<c:url value="/admin/roombean/edit" />" method="get">
+					<form action="<c:url value="/admin/room/edit" />" method="get">
 						<input type="hidden" name="id" value="${msg.id}" /><input
 							type="submit" class="btn btn-outline-danger btn-sm" value="編輯資料">
 					</form>
-					<form action="<c:url value="/admin/roombean/delete" />" method="post">
+					<form action="<c:url value="/admin/room/delete" />" method="post">
 						<input type="hidden" name="id" value="${msg.id}" /> <input
 							type="hidden" name="_method" value="delete" /> <input
 							type="submit" class="btn btn-outline-danger btn-sm" value="刪除">

@@ -19,23 +19,23 @@ public class RoomBean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer Id;
+	@Column(columnDefinition = "int NOT NULL")
 	private Integer roomId;
-	@Column(columnDefinition = "varchar(255) NOT NULL")
+	@Column(columnDefinition = "nvarchar(255) NOT NULL")
 	private String name;
-	@Column(columnDefinition = "varchar(255) NOT NULL")
+	@Column(columnDefinition = "nvarchar(255) NOT NULL")
 	private String type;
 	@Column(columnDefinition = "int NOT NULL")
 	private Integer price;
-	private String roomNameIntroduction;
-<<<<<<< HEAD
 	@Column(columnDefinition = "nvarchar(255)")
-=======
-	@Column(columnDefinition = "varchar(255) NOT NULL")
-	private String img;
->>>>>>> origin/rebeccadevelope
+	private String roomNameIntroduction;
+	@Column(columnDefinition = "nvarchar(255)")
 	private String introduce;
+	@Column(columnDefinition = "nvarchar(255)")
 	private String equipment;
+	@Column(columnDefinition = "nvarchar(255)")
 	private String service;
+	@Column(columnDefinition = "nvarchar(255)")
 	private String remark;
 
 //	@JsonManagedReference // 主要序列化方
@@ -45,16 +45,9 @@ public class RoomBean {
 
 	public RoomBean() {}
 
-<<<<<<< HEAD
 	public RoomBean(Integer Id, Integer roomId, String name, String type, Integer price, String roomNameIntroduction,
 			String introduce, String equipment, String service, String remark) {
 		this.Id = Id;
-=======
-	public RoomBean(Integer id, Integer roomId, String name, String type, Integer price, String roomNameIntroduction,
-			String img, String introduce, String equipment, String service, String remark) {
-		super();
-		Id = id;
->>>>>>> origin/rebeccadevelope
 		this.roomId = roomId;
 		this.name = name;
 		this.type = type;
@@ -66,19 +59,12 @@ public class RoomBean {
 		this.remark = remark;
 	}
 
-	@Override
-	public String toString() {
-		return "RoomBean [Id=" + Id + ", roomId=" + roomId + ", name=" + name + ", type=" + type + ", price=" + price
-				+ ", roomNameIntroduction=" + roomNameIntroduction + ", img=" + img + ", introduce=" + introduce
-				+ ", equipment=" + equipment + ", service=" + service + ", remark=" + remark + "]";
-	}
-
 	public Integer getId() {
 		return Id;
 	}
 
-	public void setId(Integer id) {
-		Id = id;
+	public void setId(Integer Id) {
+		this.Id = Id;
 	}
 
 	public Integer getRoomId() {
@@ -153,7 +139,6 @@ public class RoomBean {
 		this.remark = remark;
 	}
 
-<<<<<<< HEAD
 	public List<RoomPhotoBean> getRoomPhotoBeans() {
 		return roomPhotoBeans;
 	}
@@ -171,6 +156,3 @@ public class RoomBean {
 	}
 
 }
-=======
-}
->>>>>>> origin/rebeccadevelope

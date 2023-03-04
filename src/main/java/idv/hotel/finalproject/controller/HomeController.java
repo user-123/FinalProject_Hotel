@@ -1,6 +1,5 @@
 package idv.hotel.finalproject.controller;
 
-<<<<<<< HEAD
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,89 +19,57 @@ public class HomeController {
 	LoginService loginService;
 	MemberService memberService;
 	ServletContext context;
+
 	@Autowired
-	public HomeController(MemberService memberService,LoginService loginService, ServletContext context) {
+	public HomeController(MemberService memberService, LoginService loginService, ServletContext context) {
 		super();
 		this.loginService = loginService;
 		this.memberService = memberService;
 		this.context = context;
 	}
-	
+
 	@PostMapping("/")
 	public String home1() {
 		return "home";
 	}
-	
+
 	@GetMapping("/")
-	public String home(HttpServletRequest request,HttpSession session) {
+	public String home(HttpServletRequest request, HttpSession session) {
 //		if(session.getAttribute("email")!=null) {
 //			session.setAttribute("id",loginService.findIdByEmail((String)session.getAttribute("email")) );
 ////			session.setAttribute("lb", loginService.findById((Integer)session.getAttribute("id")));
 //        	request.setAttribute("login", true);
 //        }
 //		return "home";
-		
-		
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	    if (auth != null && auth.isAuthenticated()) {
-	    	if(!auth.getName().equals("anonymousUser")) {
-		        session.setAttribute("email", auth.getName());
-		        session.setAttribute("login", true);
-		        session.setAttribute("id", loginService.findIdByEmail(auth.getName()));
-		        session.setAttribute("lb", loginService.findById((Integer)session.getAttribute("id")));
-	    	}
-	        System.out.println(session.getAttribute("email"));
-	    }
-	    return "home";
+		if (auth != null && auth.isAuthenticated()) {
+			if (!auth.getName().equals("anonymousUser")) {
+				session.setAttribute("email", auth.getName());
+				session.setAttribute("login", true);
+				session.setAttribute("id", loginService.findIdByEmail(auth.getName()));
+				session.setAttribute("lb", loginService.findById((Integer) session.getAttribute("id")));
+			}
+			System.out.println(session.getAttribute("email"));
+		}
+		return "home";
 	}
-<<<<<<< HEAD
 
-=======
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-
-@Controller
-public class HomeController {
->>>>>>> origin/rebeccadevelope
-	@GetMapping("/front")
-	public String homef() {
-		//測試用的前台首頁
-		return "order/fronthome";
+	@GetMapping("/public/about")
+	public String about() {
+		return "about";
 	}
-	@GetMapping("/back")
-	public String homeb() {
-		//測試用的後台首頁
-		return "order/backhome";
+
+	@GetMapping("/public/index")
+	public String index() {
+		return "index";
 	}
-<<<<<<< HEAD
 
+//test模板{現在方便看而已，到時候會刪掉(連同backstage.jsp都會一起刪)}
+	@GetMapping("/public/backstage")
+	public String backstage() {
+		return "backstage";
+	}
+//test模板{現在方便看而已，到時候會刪掉(連同backstage.jsp都會一起刪)}
 
-
-
-
-
-
-
-
-
-
-
-=======
->>>>>>> origin/rebeccadevelope
-=======
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
->>>>>>> origin/memberSystem
 }
