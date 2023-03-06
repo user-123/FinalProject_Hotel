@@ -31,8 +31,8 @@ public class MemberBean implements Serializable {
 	@OneToOne(cascade =CascadeType.PERSIST)
 	@JoinColumn(name="accountId", foreignKey=@ForeignKey(name = "fk_mem_log"))
 	private LoginBean accountId;
-	
-	
+
+
 	public MemberBean(Integer memberId, String userName, String address, String phone, Date birthDate,
 			String gender, String photoPath, LoginBean accountId) {
 		super();
@@ -45,8 +45,7 @@ public class MemberBean implements Serializable {
 		this.photoPath = photoPath;
 		this.accountId = accountId;
 	}
-	public MemberBean() {
-	}
+	public MemberBean() {}
 	public Integer getMemberId() {
 		return memberId;
 	}
@@ -65,7 +64,7 @@ public class MemberBean implements Serializable {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
+
 	public String getPhone() {
 		return phone;
 	}
@@ -96,13 +95,14 @@ public class MemberBean implements Serializable {
 	public void setAccountId(LoginBean accountId) {
 		this.accountId = accountId;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "MemberBean [memberId=" + memberId + ", userName=" + userName + ", address=" + address  + ", phone=" + phone + ", birthDate=" + birthDate + ", gender=" + gender + ", photoPath="
 				+ photoPath + ", accountId=" + accountId + "]";
 	}
-	
-	
-	
+
+
+
 }
+

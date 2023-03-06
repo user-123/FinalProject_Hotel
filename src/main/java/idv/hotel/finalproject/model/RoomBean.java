@@ -1,10 +1,16 @@
 package idv.hotel.finalproject.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity(name = "room")
@@ -23,8 +29,6 @@ public class RoomBean {
 	private Integer price;
 	@Column(columnDefinition = "nvarchar(255)")
 	private String roomNameIntroduction;
-	@Column(columnDefinition = "nvarchar(255) NOT NULL")
-	private String img;
 	@Column(columnDefinition = "nvarchar(255)")
 	private String introduce;
 	@Column(columnDefinition = "nvarchar(255)")
@@ -34,19 +38,21 @@ public class RoomBean {
 	@Column(columnDefinition = "nvarchar(255)")
 	private String remark;
 
-	public RoomBean() {
-		// TODO Auto-generated constructor stub
-	}
+//	@JsonManagedReference // 主要序列化方
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "fk_room_id")
+	private List<RoomPhotoBean> roomPhotoBeans = new ArrayList<>();
+
+	public RoomBean() {}
 
 	public RoomBean(Integer Id, Integer roomId, String name, String type, Integer price, String roomNameIntroduction,
-			String img, String introduce, String equipment, String service, String remark) {
+			String introduce, String equipment, String service, String remark) {
 		this.Id = Id;
 		this.roomId = roomId;
 		this.name = name;
 		this.type = type;
 		this.price = price;
 		this.roomNameIntroduction = roomNameIntroduction;
-		this.img = img;
 		this.introduce = introduce;
 		this.equipment = equipment;
 		this.service = service;
@@ -101,14 +107,6 @@ public class RoomBean {
 		this.roomNameIntroduction = roomNameIntroduction;
 	}
 
-	public String getImg() {
-		return img;
-	}
-
-	public void setImg(String img) {
-		this.img = img;
-	}
-
 	public String getIntroduce() {
 		return introduce;
 	}
@@ -141,11 +139,20 @@ public class RoomBean {
 		this.remark = remark;
 	}
 
+	public List<RoomPhotoBean> getRoomPhotoBeans() {
+		return roomPhotoBeans;
+	}
+
+	public void setRoomPhotoBeans(List<RoomPhotoBean> roomPhotoBeans) {
+		this.roomPhotoBeans = roomPhotoBeans;
+	}
+
 	@Override
 	public String toString() {
 		return "RoomBean [Id=" + Id + ", roomId=" + roomId + ", name=" + name + ", type=" + type + ", price=" + price
-				+ ", roomNameIntroduction=" + roomNameIntroduction + ", img=" + img + ", introduce=" + introduce
-				+ ", equipment=" + equipment + ", service=" + service + ", remark=" + remark + "]";
+				+ ", roomNameIntroduction=" + roomNameIntroduction + ", introduce=" + introduce + ", equipment="
+				+ equipment + ", service=" + service + ", remark=" + remark + ", roomPhotoBeans=" + roomPhotoBeans
+				+ "]";
 	}
 
 }
