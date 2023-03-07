@@ -167,4 +167,13 @@ public class OrderController {
 		return "redirect:/order/searchPage";
 	}
 
+
+
+
+
+	//回應房間狀態請求
+	@PostMapping("/orders/checkroom")
+	public List<Boolean> checkRoom(@RequestParam OrderListBean roomId, Timestamp date) {		//帶確認service argument型別
+		return oService.checkRoomState(roomId, date);
+	}
 }

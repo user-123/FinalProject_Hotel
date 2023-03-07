@@ -103,19 +103,31 @@ public class OrderService {
 
 
 
-	//確認房間狀態 (如果房間為空回傳true)
-	public boolean checkRoomState(OrderListBean roomId, Timestamp checkinDate) {
-		boolean roomStatus = false;
+	//確認房間狀態 (如果房間為空回傳true)	//思考需不需要改為每月的array，方便一次查詢	//修改中
+	public List<Boolean> checkRoomState(OrderListBean roomId, Timestamp monthOfDate) {
+		List<Boolean> roomStatus = new ArrayList<>();
 		Integer roomId_Integer = Integer.parseInt(roomId.getRoomIdtoString());
 
-		if (odDao.findByRoomIdAndCheckinDate(roomId_Integer, checkinDate) != null) {
-			System.out.println("房間已被預訂");
-			roomStatus = false;
-		}else {
-			System.out.println("房間可被預訂");
-			roomStatus = true;
-		}
 
+
+		Timestamp timestamp = Timestamp.valueOf("2023-10-01 13:13:13");		//測試用，等改成接入資料
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(timestamp.getTime());
+		Date date = new Date(timestamp.getTime());		//測試API用，無作用
+	    int daysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+	    SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM");
+	    String dateString = formatter.format(date);
+	    //String dateString = new SimpleDateFormat("yyyy/MM").format(date);
+	    System.out.println(dateString + "有幾日： " + daysInMonth + "日");
+		for(int i=0; i<daysInMonth; i++) {
+			if (odDao.findByRoomIdAndCheckinDate(roomId_Integer, monthOfDate) != null) {
+				System.out.println(i + "日，房間已被預訂");
+				roomStatus.add(false);
+			}else {
+				System.out.println(i + "日，房間可被預訂");
+				roomStatus.add(true);
+			}
+		}
 
 		return roomStatus;
 	}
@@ -139,7 +151,7 @@ public class OrderService {
 		}
 		return checkResult;
 	}
-	//迴圈檢查每一日空房狀況，如果有任一日房間不為空(已被訂)，回傳false
+	//檢查期間是否有空房，迴圈檢查每一日空房狀況，如果有任一日房間不為空(已被訂)，回傳false
 	public boolean checkRoomStatus(Integer roomId, Date checkinDate, Date checkoutDate) {
 		boolean checkResult = false;
 		List<Boolean> cidArray = new ArrayList<>();
@@ -170,14 +182,12 @@ public class OrderService {
 	//檢查訂單 (如果訂單成立回傳true)
 	public boolean checkOrder(OrderListBean roomId, Date checkinDate, Date checkoutDate) {
 		boolean checkResult = false;
-		//檢查期間是否有空房
-
 
 		//這邊要改@@
 		Integer roomIdInt = Integer.parseInt(roomId.getRoomIdtoString());
 		if (checkInputDate(checkinDate) && checkInputDate(checkinDate, checkoutDate) && checkRoomStatus(roomIdInt, checkinDate, checkoutDate)) {
 			System.out.println("訂單成立");
-			return true;
+			checkResult = true;
 		}
 		System.out.println("訂單不成立");
 		return checkResult;
