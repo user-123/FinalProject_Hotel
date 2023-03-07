@@ -182,7 +182,7 @@ public class RoomContoller {
 		String name = rB.getName();
 		String type = rB.getType();
 		Integer price = rB.getPrice();
-		if (roomId == null || name == "") {
+		if (roomId == null || name.equals("")) {
 			model.addAttribute("err", "輸入資料不完整");
 			return "room/addRoom";
 		} else if (type == "" || price == null) {
