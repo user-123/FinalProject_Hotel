@@ -120,6 +120,9 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.findByAccountId(loginDao.findById((Integer)session.getAttribute("id")).get());
 	}
 	
-	
+	@Override
+	public void deleteMb(Integer deleteId) {
+		memberDao.deleteById(deleteId);
+	};
 	
 }

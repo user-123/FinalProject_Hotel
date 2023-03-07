@@ -1,14 +1,24 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form"   uri="http://www.springframework.org/tags/form"  %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
+<c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-<title>XXX大飯店</title>
+<script src="<c:url value='/javascript/jquery-ui.min.js'/>" ></script> 
+<script src="<c:url value='/javascript/jquery-3.6.0.min.js'/>" ></script>
+<script>
+        $(function () {
+            $("#tabs").tabs();
+        });
+</script>
+<title>XXX飯店管理系統</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -60,45 +70,31 @@
 				aria-label="Toggle navigation">
 				<span></span> <span></span> <span></span>
 			</button>
-			<a class="navbar-brand text-brand" href="<c:url value='#'/>">XXX<span
-				class="color-b">大飯店</span></a>
+			<a class="navbar-brand text-brand" href="<c:url value='#'/>"><span
+				class="color-b">XXX飯店管理系統</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
 				<ul class="navbar-nav">
 
-					<li class="nav-item"><a class="nav-link active" href="#">首頁</a></li>
+					<li class="nav-item"><a class="nav-link active" href="#">會員管理</a></li>
 
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/about'/>">關於XXX</a></li>
+					<li class="nav-item"><a class="nav-link " href="#">訂單管理</a></li>
 
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/room/allShow'/>">房型</a></li>
+					<li class="nav-item"><a class="nav-link " href="#">房型管理</a></li>
 
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/room/orderAllShow'/>">訂房</a></li>
+					<li class="nav-item"><a class="nav-link " href="#">設施管理</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="#">休閒設施</a></li>
+					<li class="nav-item"><a class="nav-link " href="#">景點管理</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="#">周邊景點</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">會員</a>
-						<c:choose>
+						aria-haspopup="true" aria-expanded="false">會員</a> <c:choose>
 							<c:when test="${sessionScope.login==true}">
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<li><a class="dropdown-item"
-										href="<c:url value='/addinfo' />">填寫及修改基本資料</a></li>
-									<li><a class="dropdown-item"
-										href="<c:url value='/searchinfo' />">查詢資料</a></li>
-									<li><a class="dropdown-item"
-										href="<c:url value='/orders/history' />?文彥的id傳過來的名字=${sessionScope.id}">歷史訂單</a></li>
-									<sec:authorize access="hasAuthority('admin')">
-										<li><a class="dropdown-item"
-											href="<c:url value="/admin/backstage"/>">後台</a></li>
-									</sec:authorize>
+									<li><a class="dropdown-item" href="<c:url value='/'/>">前台</a></li>
 									<li><a class="dropdown-item "
 										href="<c:url value='/logout'/>"> <input type="hidden"
 											name="${_csrf.parameterName}" value="${_csrf.token}" />登出
@@ -113,8 +109,7 @@
 										href="<c:url value='/public/register' />">註冊</a></li>
 								</ul>
 							</c:otherwise>
-						</c:choose>
-					</li>
+						</c:choose></li>
 				</ul>
 			</div>
 
@@ -122,23 +117,42 @@
 	</nav>
 	<!-- End Header/Navbar -->
 
-	<!-- ======= Intro Section ======= -->
-	<div class="intro intro-carousel swiper position-relative">
+	<main id="main">
+		<div class="container w-75 mt-5">
+	<h1>會員後臺</h1>
+  <div id="tabs" style="height: 600px">
+    <ul class="d-flex justify-content-center nav nav-tabs" >
+      <li class="nav-item">
+        <a class="nav-link" href="#search">
+          <button class="btn btn-link">查詢刪除會員</button>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#insert">
+          <button class="btn btn-link">新增會員</button>
+        </a>
+      </li>
+<!--       <li class="nav-item"> -->
+<!--         <a class="nav-link" href="#update"> -->
+<!--           <button class="btn btn-link">填寫及修改會員資料</button> -->
+<!--         </a> -->
+<!--       </li> -->
+    </ul>
 
-		<div class="swiper-wrapper">
+    
 
-			<div class="swiper-slide carousel-item-a intro-item bg-image"
-				style="background-image: url(assets/img/slide-1.jpg)"></div>
-			<div class="swiper-slide carousel-item-a intro-item bg-image"
-				style="background-image: url(assets/img/slide-2.jpg)"></div>
-			<div class="swiper-slide carousel-item-a intro-item bg-image"
-				style="background-image: url(assets/img/slide-3.jpg)"></div>
-		</div>
-		<div class="swiper-pagination"></div>
-	</div>
-	<!-- End Intro Section -->
-
-	<main id="main"></main>
+    <div id="search">
+      	<jsp:include page="adminsearch.jsp"></jsp:include>
+    </div>
+    <div id="insert">   
+		<jsp:include page="register.jsp"></jsp:include>
+    </div>
+<!--     <div id="update">    -->
+<%-- 		<jsp:include page="../registerandlogin/addinfo.jsp"></jsp:include> --%>
+<!--     </div> -->
+  </div>
+</div>
+	</main>
 	<!-- End #main -->
 
 

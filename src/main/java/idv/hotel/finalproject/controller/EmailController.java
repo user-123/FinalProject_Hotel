@@ -15,7 +15,7 @@ public class EmailController {
         this.emailSenderService = emailSenderService;
     }
 
-    @PostMapping("/public/send-email")
+    @PostMapping(value={"/public/send-email","/admin/send-email"})
     @ResponseBody
     public String sendEmail(@RequestParam String email) {
             this.emailSenderService.sendEmail(email, "歡迎光臨", "歡迎您");

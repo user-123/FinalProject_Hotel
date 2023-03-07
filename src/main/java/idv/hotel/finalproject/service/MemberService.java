@@ -16,4 +16,5 @@ public interface MemberService {
 	String addinfo(MemberBean mb,HttpSession session,HttpServletRequest request, HttpServletResponse response ,@RequestParam("uploadedFile") MultipartFile uploadedFile)  throws IOException, ServletException;
 	String showPhoto(HttpSession session,HttpServletRequest request);
 	MemberBean showInfo(HttpSession session,HttpServletRequest request);
+	void deleteMb(Integer deleteId);
 }

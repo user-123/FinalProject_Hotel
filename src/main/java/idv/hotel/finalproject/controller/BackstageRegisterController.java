@@ -1,8 +1,10 @@
 package idv.hotel.finalproject.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,24 +12,30 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import idv.hotel.finalproject.model.LoginBean;
 import idv.hotel.finalproject.service.LoginService;
+import idv.hotel.finalproject.service.MemberService;
 import idv.hotel.finalproject.validate.LoginValidator;
+
 @Controller
-public class RegisterController {
+public class BackstageRegisterController {
 	LoginService loginService;
+	MemberService memberService;
 	ServletContext context;
 	@Autowired
-	public RegisterController(LoginService loginService, ServletContext context) {
+	public BackstageRegisterController(LoginService loginService,MemberService memberService, ServletContext context) {
 		super();
 		this.loginService = loginService;
+		this.memberService = memberService;
 		this.context = context;
 	}
 	
@@ -44,47 +52,22 @@ public class RegisterController {
 				"accountName", 
 				"password",
 				"email",
-				"confirm"
+				"confirm",
+				"search"
 				);
 	}
 	
 	
-//	@PostMapping("/")
-//	public String home1() {
-//		return "home";
-//	}
-//	
-//	@GetMapping("/")
-//	public String home(HttpServletRequest request,HttpSession session) {
-//		if(session.getAttribute("email")!=null) {
-//			session.setAttribute("id",loginService.findIdByEmail((String)session.getAttribute("email")) );
-////			session.setAttribute("lb", loginService.findById((Integer)session.getAttribute("id")));
-//        	request.setAttribute("login", true);
-//        }
-//		return "home";
-//	}
 	
 	
-	
-	
-	
-	@GetMapping("/public/register")
-	public String register() {
-		return "registerandlogin/register";
+	@GetMapping("/admin/backstage")
+	public String backstage() {
+		return "memberbackstage/memberbackstagehome";
 	}
 	
 	
-	@GetMapping(value={"/public/checkemailduplicate","/admin/checkemailduplicate"})
-	@ResponseBody
-    public String checkEmailDuplicate(@RequestParam String email) {
-	
-			return loginService.checkEmailDuplicate(email);
-			
-    }
-	
-	
-	
-	@PostMapping("/public/register")
+
+	@PostMapping("/admin/insertadmin")
 	@ResponseBody
 	public String register(@ModelAttribute("loginBean") LoginBean lb,
 			BindingResult bindingResult, Model model ) {
@@ -109,55 +92,44 @@ public class RegisterController {
 				}
 				
 			}
-			return "註冊失敗";
+			return "新增失敗";
 		}
 		try {
 			loginService.register(lb);
-			result = "註冊成功,3秒後跳轉";
+			result = "新增成功";
 		}catch(Exception e) {
-			result = "註冊失敗";
+			result = "新增失敗";
 		}
 		return result;
 	}	
 	
 	
-	@GetMapping("/public/loginpage")
-	public String loginPage(Model model) {
-		return "registerandlogin/login";
+	
+	@GetMapping("/admin/search")
+	@ResponseBody
+	public ArrayList<ArrayList<String>> search(@RequestParam String search,Model model,HttpServletRequest request) {
+		return loginService.showAdmin(request,search);
+	}
+	
+	
+	@DeleteMapping("/admin/deleterow")
+	@ResponseBody
+	public String delete(@RequestParam String deleteId) {
+		if(loginService.findById(Integer.valueOf(deleteId)).getMember()!=null) {
+			Integer deletembId=loginService.findById(Integer.valueOf(deleteId)).getMember().getMemberId();
+			memberService.deleteMb(deletembId);
+		}
+		loginService.deleteLb(Integer.valueOf(deleteId));
+		return "";
 	}
 	
 	
 	
-	
-	
-
-//	@PostMapping("/login")
+//	@PutMapping("/admin/updaterow")
 //	@ResponseBody
-//	public Map<String, Object> login(@RequestParam String email,@RequestParam String password, Model model) {
-//		Map<String, Object> response = new HashMap<>();
-//		try {
-//			loginService.loginFail(email,password).getEmail();
-//			response.put("redirect","/hotel");
-//		}
-//		catch(Exception e) {
-//	        response.put("message", "登入失敗,請再確認");
-//	    }
-//		return response;
-//			
+//	public String update() {
+//		
+//		return "";
 //	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }
