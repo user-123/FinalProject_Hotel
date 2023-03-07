@@ -141,4 +141,8 @@ public class OrderListBean implements Serializable {
 	public String toString() {
 		return "OrderListBean [id=" + id + ", orderid=" + orderid + ", userid=" + userid  + ", roomid=" + roomid + ", orderdate=" + orderdate + ", checkindate=" + checkindate + ", checkoutdate=" + checkoutdate + ", message=" + message + "]";
 	}
+
+	public String getRoomIdtoString() {
+		return roomid.getRoomIdToString();
+	}
 }

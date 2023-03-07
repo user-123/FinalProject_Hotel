@@ -1,7 +1,10 @@
 package idv.hotel.finalproject.service;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -9,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import idv.hotel.finalproject.dao.OrderDetailDao;
 import idv.hotel.finalproject.dao.OrderListDao;
+import idv.hotel.finalproject.model.OrderDetailBean;
 import idv.hotel.finalproject.model.OrderListBean;
 import idv.hotel.finalproject.model.RoomBean;
 
@@ -18,6 +23,8 @@ import idv.hotel.finalproject.model.RoomBean;
 public class OrderService {
 	@Autowired
 	private OrderListDao olDao;
+	@Autowired
+	private OrderDetailDao odDao;
 
 	//獲取現在時間，return返回字串格式MMdd
 	//**************帶資料進SQL的同時，生成訂單編號，放到名為information的model裡
@@ -91,5 +98,111 @@ public class OrderService {
 	public void deleteDataByOrderIdB(String orderid) {
 		olDao.deleteDataByOrderId(orderid);
 	}
+
+
+
+
+
+	//確認房間狀態 (如果房間為空回傳true)
+	public boolean checkRoomState(OrderListBean roomId, Timestamp checkinDate) {
+		boolean roomStatus = false;
+		Integer roomId_Integer = Integer.parseInt(roomId.getRoomIdtoString());
+
+		if (odDao.findByRoomIdAndCheckinDate(roomId_Integer, checkinDate) != null) {
+			System.out.println("房間已被預訂");
+			roomStatus = false;
+		}else {
+			System.out.println("房間可被預訂");
+			roomStatus = true;
+		}
+
+
+		return roomStatus;
+	}
+
+	//檢查入住時間是否等於或晚於現在日期
+	public boolean checkInputDate(Date checkinDate) {
+		boolean checkResult = false;
+		Date currentDate = new Date();
+		//Calendar nowDate = Calendar.getInstance();
+		if (!checkinDate.before(currentDate)) {
+			checkResult = true;
+		}
+		return checkResult;
+	}
+
+	//檢查入住時間是否早於退房時間
+	public boolean checkInputDate(Date checkinDate, Date checkoutDate) {
+		boolean checkResult = false;
+		if (checkinDate.before(checkoutDate)) {
+			checkResult = true;
+		}
+		return checkResult;
+	}
+	//迴圈檢查每一日空房狀況，如果有任一日房間不為空(已被訂)，回傳false
+	public boolean checkRoomStatus(Integer roomId, Date checkinDate, Date checkoutDate) {
+		boolean checkResult = false;
+		List<Boolean> cidArray = new ArrayList<>();
+		Calendar checkinDateCal = Calendar.getInstance();
+		Calendar checkoutDateCal = Calendar.getInstance();
+		checkinDateCal.setTime(checkinDate);
+		checkoutDateCal.setTime(checkoutDate);
+		while(checkinDateCal.before(checkoutDateCal)) {
+			Timestamp checkinDateTs = new Timestamp(checkinDateCal.getTimeInMillis());
+			if (odDao.findByRoomIdAndCheckinDate(roomId, checkinDateTs)==null) {
+				cidArray.add(true);
+				System.out.println(roomId + "房間 " + checkinDate + "：有空房");
+			}else {
+				cidArray.add(false);
+				System.out.println(roomId + "房間 " + checkinDate + "：無空房");
+			}
+			checkinDateCal.add(Calendar.DATE, 1);
+		}
+		if (!cidArray.contains(false)) {
+			checkResult = true;
+		}
+		return checkResult;
+	}
+
+
+
+
+	//檢查訂單 (如果訂單成立回傳true)
+	public boolean checkOrder(OrderListBean roomId, Date checkinDate, Date checkoutDate) {
+		boolean checkResult = false;
+		//檢查期間是否有空房
+
+
+		//這邊要改@@
+		Integer roomIdInt = Integer.parseInt(roomId.getRoomIdtoString());
+		if (checkInputDate(checkinDate) && checkInputDate(checkinDate, checkoutDate) && checkRoomStatus(roomIdInt, checkinDate, checkoutDate)) {
+			System.out.println("訂單成立");
+			return true;
+		}
+		System.out.println("訂單不成立");
+		return checkResult;
+	}
+
+	//成立訂單，完成寫入DB，回傳true
+	public boolean orderCreate(OrderListBean roomId, Timestamp checkinDate, Timestamp checkoutDate) {
+		boolean result;
+		//olDao.save();
+		//odDao.save(OrderDetailBean orderDetail);
+		if (checkOrder(roomId, checkinDate, checkoutDate)) {
+			System.out.println("訂單存入DB");
+			//Integer roomIdInt = Integer.parseInt(roomId.getRoomIdtoString());
+
+			//建的假物件，待修改
+			OrderDetailBean odb = new OrderDetailBean(suborderId, orderId, roomIdInt, checkinDate, messageStr);
+			odDao.save(odb);
+			result = true;
+		}else {
+			System.out.println("訂單被拋棄");
+			result = false;
+		}
+		return result;
+
+	}
+
 
 }
