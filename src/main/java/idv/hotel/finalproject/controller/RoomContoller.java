@@ -30,11 +30,6 @@ public class RoomContoller {
 	@Autowired
 	private RoomPhotoService rpService;
 
-//	@GetMapping("/")
-//	public String home() {
-//		return "home";
-//	}
-
 	@GetMapping("/admin/room/backstage")
 	public String finAllBackstage(Model model) {
 		List<RoomBean> roomBs = rService.findAll();
