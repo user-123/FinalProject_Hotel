@@ -104,29 +104,35 @@ public class OrderService {
 
 
 	//確認房間狀態 (如果房間為空回傳true)	//思考需不需要改為每月的array，方便一次查詢	//修改中
-	public List<Boolean> checkRoomState(OrderListBean roomId, Timestamp monthOfDate) {
+	public List<Boolean> checkRoomState(Integer roomId, Date monthOfDate) {
 		List<Boolean> roomStatus = new ArrayList<>();
-		Integer roomId_Integer = Integer.parseInt(roomId.getRoomIdtoString());
+		//Integer roomId_Integer = Integer.parseInt(roomId.getRoomIdtoString());
 
 
 
-		Timestamp timestamp = Timestamp.valueOf("2023-10-01 13:13:13");		//測試用，等改成接入資料
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTimeInMillis(timestamp.getTime());
-		Date date = new Date(timestamp.getTime());		//測試API用，無作用
-	    int daysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+		//Timestamp timestamp = Timestamp.valueOf("2023-10-01 13:13:13");		//測試用，等改成接入資料
+		//Calendar calendar = Calendar.getInstance();
+		//calendar.setTimeInMillis(timestamp.getTime());
+		//Date date = new Date(timestamp.getTime());		//測試API用，無作用
+
+
+		Calendar monthOfDateCal = Calendar.getInstance();
+		monthOfDateCal.setTime(monthOfDate);
+	    int daysInMonth = monthOfDateCal.getActualMaximum(Calendar.DAY_OF_MONTH);
 	    SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM");
-	    String dateString = formatter.format(date);
+	    String dateString = formatter.format(monthOfDate);
 	    //String dateString = new SimpleDateFormat("yyyy/MM").format(date);
 	    System.out.println(dateString + "有幾日： " + daysInMonth + "日");
 		for(int i=0; i<daysInMonth; i++) {
-			if (odDao.findByRoomIdAndCheckinDate(roomId_Integer, monthOfDate) != null) {
-				System.out.println(i + "日，房間已被預訂");
+			Date date = monthOfDateCal.getTime();
+			if (odDao.findByRoomIdAndCheckinDate(roomId, date) != null) {
+				System.out.println((i+1) + "日，房間已被預訂");
 				roomStatus.add(false);
 			}else {
-				System.out.println(i + "日，房間可被預訂");
+				System.out.println((i+1) + "日，房間可被預訂");
 				roomStatus.add(true);
 			}
+			monthOfDateCal.add(Calendar.DATE, 1);
 		}
 
 		return roomStatus;

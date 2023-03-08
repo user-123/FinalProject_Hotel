@@ -2,6 +2,7 @@ package idv.hotel.finalproject.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -30,7 +31,7 @@ public class OrderDetailBean implements Serializable {
 	//@Column(nullable = false)
 	private Integer roomId; // 房號
 	//@Column(nullable = false)
-	private Timestamp checkindate; // 入住日期
+	private Date checkindate; // 入住日期
 	private String message; // 備註其他需求
 
 	public OrderDetailBean() {}
@@ -69,7 +70,7 @@ public class OrderDetailBean implements Serializable {
 		this.roomId = roomId;
 	}
 
-	public Timestamp getCheckindate() {
+	public Date getCheckindate() {
 		return checkindate;
 	}
 

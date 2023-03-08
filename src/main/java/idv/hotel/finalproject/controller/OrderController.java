@@ -1,6 +1,8 @@
 package idv.hotel.finalproject.controller;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import idv.hotel.finalproject.dao.LoginDao;
@@ -171,9 +174,18 @@ public class OrderController {
 
 
 
+	//測試用，應該寫在service
+
 	//回應房間狀態請求
-	@PostMapping("/orders/checkroom")
-	public List<Boolean> checkRoom(@RequestParam OrderListBean roomId, Timestamp date) {		//帶確認service argument型別
+	@GetMapping("/public/orders/checkroom")		//測試用public
+	@ResponseBody
+	public List<Boolean> checkRoom(@RequestParam Integer roomId, @RequestParam String dateString) throws ParseException {		//待確認service argument型別
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = dateFormat.parse(dateString);
 		return oService.checkRoomState(roomId, date);
+	}
+	@GetMapping("/public/orders/calendar")		//測試用public
+	public String calendarPage() {		//待確認service argument型別
+		return "order/calendar";
 	}
 }
