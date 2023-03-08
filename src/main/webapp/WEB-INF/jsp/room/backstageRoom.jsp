@@ -174,7 +174,7 @@
 
 							<td>
 								<form action="<c:url value="/admin/room/edit" />" method="get">
-									<input type="hidden" name="id" value="${msg.id}" /><input
+									<input type="hidden" name="id1" value="${msg.id}" /><input
 										type="submit" class="btn btn-outline-danger btn-sm"
 										value="編輯資料">
 								</form>

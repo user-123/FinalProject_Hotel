@@ -30,11 +30,6 @@ public class RoomContoller {
 	@Autowired
 	private RoomPhotoService rpService;
 
-//	@GetMapping("/")
-//	public String home() {
-//		return "home";
-//	}
-
 	@GetMapping("/admin/room/backstage")
 	public String finAllBackstage(Model model) {
 		List<RoomBean> roomBs = rService.findAll();
@@ -175,18 +170,20 @@ public class RoomContoller {
 
 	}
 
-	@PostMapping("/admin/room/add") // 1.name跟type卡控有問題
+	@PostMapping("/admin/room/add")
 	public String add(@ModelAttribute("roomBean") RoomBean rB, @RequestParam("files") MultipartFile[] files,
 			Model model) throws IOException {
 		Integer roomId = rB.getRoomId();
 		String name = rB.getName();
 		String type = rB.getType();
 		Integer price = rB.getPrice();
+		RoomBean rbi = rService.findByroomId(roomId);
+		RoomBean rbn = rService.findByname(name);
 		if (roomId == null || name.equals("")) {
-			model.addAttribute("err", "輸入資料不完整");
 			return "room/addRoom";
-		} else if (type == "" || price == null) {
-			model.addAttribute("err", "輸入資料不完整");
+		} else if (type.equals("") || price == null) {
+			return "room/addRoom";
+		} else if (rbi != null || rbn != null) {
 			return "room/addRoom";
 		} else {
 
@@ -200,7 +197,6 @@ public class RoomContoller {
 				photos.add(roomPhotoBean);
 			}
 			rB.setRoomPhotoBeans(photos);
-			System.out.println(rB);
 
 			System.out.println(rB);
 			rService.create(rB);
@@ -216,35 +212,70 @@ public class RoomContoller {
 	}
 
 	@GetMapping("admin/room/edit")
-	public String edit(@RequestParam Integer id, Model model) {
+	public String edit(@RequestParam("id1") Integer id, Model model) {
 		RoomBean roomBean = rService.find(id);
 		model.addAttribute("roomBean", roomBean);
 		return "room/editRoom";
 	}
 
-	@PutMapping("admin/room/update") // 1.name跟type卡控有問題 2.空字串跳轉問題...
+	@PutMapping("admin/room/update")
 	public String update(@ModelAttribute("roomBean") RoomBean roomBean, @RequestParam("files") MultipartFile[] files,
 			Model model) throws IOException {
+		Integer Id = roomBean.getId();
 		Integer roomId = roomBean.getRoomId();
 		String name = roomBean.getName();
 		String type = roomBean.getType();
 		Integer price = roomBean.getPrice();
-		if (roomId == null || name == "") {
+		RoomBean rbi = rService.findByroomId(roomId);
+		RoomBean rbn = rService.findByname(name);
+		if (roomId == null || name.equals("")) {
 			return "redirect:/admin/room/backstage";
-		} else if (type == "" || price == null) {
+		} else if (type.equals("") || price == null) {
 			return "redirect:/admin/room/backstage";
+
+		} else if (rbi != null) {
+			if (rbi.getId() == Id) {
+				if (rbn != null) {
+					if (rbn.getId() == Id) {
+
+						rService.create(roomBean);
+
+						return "redirect:/admin/room/backstage";
+					} else {
+
+						return "redirect:/admin/room/backstage";
+					}
+				}
+				rService.create(roomBean);
+
+				return "redirect:/admin/room/backstage";
+			} else {
+
+				return "redirect:/admin/room/backstage";
+			}
+
+		} else if (rbn != null) {
+			if (rbn.getId() == Id) {
+
+				rService.create(roomBean);
+
+				return "redirect:/admin/room/backstage";
+			} else {
+
+				return "redirect:/admin/room/backstage";
+			}
 		} else {
 
-			List<RoomPhotoBean> photos = new LinkedList<>();
-
-			for (MultipartFile file : files) {
-				RoomPhotoBean roomPhotoBean = new RoomPhotoBean();
-				byte[] photoByte = file.getBytes();
-				roomPhotoBean.setPhotoFile(photoByte);
-
-				photos.add(roomPhotoBean);
-			}
-			roomBean.setRoomPhotoBeans(photos);
+//			List<RoomPhotoBean> photos = new LinkedList<>();
+//
+//			for (MultipartFile file : files) {
+//				RoomPhotoBean roomPhotoBean = new RoomPhotoBean();
+//				byte[] photoByte = file.getBytes();
+//				roomPhotoBean.setPhotoFile(photoByte);
+//
+//				photos.add(roomPhotoBean);
+//			}
+//			roomBean.setRoomPhotoBeans(photos);
 			System.out.println(roomBean);
 			rService.create(roomBean);
 

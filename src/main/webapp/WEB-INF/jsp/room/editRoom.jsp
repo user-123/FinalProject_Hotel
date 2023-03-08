@@ -121,7 +121,8 @@
 									action="${contextRoot}/admin/room/update"
 									modelAttribute="roomBean" enctype="multipart/form-data">
 									<div class="row">
-										<form:input type="hidden" path="id" id="id" />
+										<form:input type="hidden" path="id" />
+<%-- 										<input type="" name="id1" value="${roomBean.id}"> --%>
 										<div class="col-md-6 mb-3">
 											<div class="form-group">
 												<form:label path="roomId">房號:</form:label>
@@ -163,7 +164,7 @@
 												<form:label path="roomNameIntroduction">
               房型介紹:</form:label>
 												<br>
-												<form:textarea path="roomNameIntroduction" rows="6"
+												<form:textarea path="roomNameIntroduction" rows="10"
 													cols="45" />
 											</div>
 										</div>
@@ -172,7 +173,7 @@
 												<form:label path="introduce">
               簡介:</form:label>
 												<br>
-												<form:textarea path="introduce" rows="6" cols="45" />
+												<form:textarea path="introduce" rows="10" cols="45" />
 											</div>
 										</div>
 
@@ -181,7 +182,7 @@
 												<form:label path="equipment">
               設備:</form:label>
 												<br>
-												<form:textarea path="equipment" rows="6" cols="45" />
+												<form:textarea path="equipment" rows="10" cols="45" />
 											</div>
 										</div>
 										<div class="col-md-6 mb-3">
@@ -189,7 +190,7 @@
 												<form:label path="service">
               服務:</form:label>
 												<br>
-												<form:textarea path="service" rows="6" cols="45" />
+												<form:textarea path="service" rows="10" cols="45" />
 											</div>
 										</div>
 										<div class="col-md-6 mb-3">
@@ -197,7 +198,7 @@
 												<form:label path="remark">
               備註:</form:label>
 												<br>
-												<form:textarea path="remark" rows="6" cols="45" />
+												<form:textarea path="remark" rows="10" cols="45" />
 											</div>
 										</div>
 										<div class="col-md-6 mb-3">
