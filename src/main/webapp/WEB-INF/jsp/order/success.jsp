@@ -1,8 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -154,6 +156,13 @@
 									<div class="col-md-12 mb-3">
 										<div class="form-group">備註:${information.message}</div>
 									</div>
+									<div class="col-md-12 mb-3">
+										<div class="form-group">付款狀態:${information.paid}</div>
+									</div>
+									<form action="<c:url value='小憲的金流系統' />" method="get">
+										<input type="submit" class="btn btn-outline-info btn-sm"
+											value="付款">
+									</form>
 								</div>
 
 

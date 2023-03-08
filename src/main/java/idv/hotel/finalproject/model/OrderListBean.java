@@ -1,7 +1,6 @@
 package idv.hotel.finalproject.model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -38,15 +37,13 @@ public class OrderListBean implements Serializable {
 	private RoomBean roomid;	// 房號
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
-	//@Column(nullable = false)
 	private Date orderdate;	// 訂單日期
-	//@Column(nullable = false)
-	private Timestamp checkindate;	// 入住日期
-	//@Column(nullable = false)
-	private Timestamp checkoutdate;	// 退房日期
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date checkindate;	// 入住日期
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date checkoutdate;	// 退房日期
 	private String message;	// 備註其他需求
-
-	public OrderListBean() {}
+	private String paid;	// 付款狀態
 
 	//---------------------生成訂單時間(下訂時間)-----------------------------
 	@PrePersist
@@ -55,9 +52,9 @@ public class OrderListBean implements Serializable {
 			orderdate = new Date();
 		}
 	}
-
+	
 	public OrderListBean(Integer id, String orderid, LoginBean userid, RoomBean roomid, Date orderdate,
-			Timestamp checkindate, Timestamp checkoutdate, String message) {
+			Date checkindate, Date checkoutdate, String message, String paid) {
 		super();
 		this.id = id;
 		this.orderid = orderid;
@@ -67,6 +64,7 @@ public class OrderListBean implements Serializable {
 		this.checkindate = checkindate;
 		this.checkoutdate = checkoutdate;
 		this.message = message;
+		this.paid = paid;
 	}
 
 	public Integer getId() {
@@ -109,19 +107,19 @@ public class OrderListBean implements Serializable {
 		this.orderdate = orderdate;
 	}
 
-	public Timestamp getCheckindate() {
+	public Date getCheckindate() {
 		return checkindate;
 	}
 
-	public void setCheckindate(Timestamp checkindate) {
+	public void setCheckindate(Date checkindate) {
 		this.checkindate = checkindate;
 	}
 
-	public Timestamp getCheckoutdate() {
+	public Date getCheckoutdate() {
 		return checkoutdate;
 	}
 
-	public void setCheckoutdate(Timestamp checkoutdate) {
+	public void setCheckoutdate(Date checkoutdate) {
 		this.checkoutdate = checkoutdate;
 	}
 
@@ -133,12 +131,21 @@ public class OrderListBean implements Serializable {
 		this.message = message;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public String getPaid() {
+		return paid;
 	}
+
+	public void setPaid(String paid) {
+		this.paid = paid;
+	}
+
+	public OrderListBean() {}
 
 	@Override
 	public String toString() {
-		return "OrderListBean [id=" + id + ", orderid=" + orderid + ", userid=" + userid  + ", roomid=" + roomid + ", orderdate=" + orderdate + ", checkindate=" + checkindate + ", checkoutdate=" + checkoutdate + ", message=" + message + "]";
+		return "OrderListBean [id=" + id + ", orderid=" + orderid + ", userid=" + userid + ", roomid=" + roomid
+				+ ", orderdate=" + orderdate + ", checkindate=" + checkindate + ", checkoutdate=" + checkoutdate
+				+ ", message=" + message + ", paid=" + paid + "]";
 	}
+	
 }

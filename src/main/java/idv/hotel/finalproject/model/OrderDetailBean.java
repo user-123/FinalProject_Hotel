@@ -1,10 +1,9 @@
 package idv.hotel.finalproject.model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,12 +29,13 @@ public class OrderDetailBean implements Serializable {
 	//@Column(nullable = false)
 	private Integer roomId; // 房號
 	//@Column(nullable = false)
-	private Timestamp checkindate; // 入住日期
+	private Date checkindate; // 入住日期
 	private String message; // 備註其他需求
 
 	public OrderDetailBean() {}
 
-	public OrderDetailBean(Integer suborderId, OrderListBean orderId, Integer roomId, Timestamp checkindate,
+	
+	public OrderDetailBean(Integer suborderId, OrderListBean orderId, Integer roomId, Date checkindate,
 			String message) {
 		super();
 		this.suborderId = suborderId;
@@ -45,49 +45,56 @@ public class OrderDetailBean implements Serializable {
 		this.message = message;
 	}
 
+
 	public Integer getSuborderId() {
 		return suborderId;
 	}
+
 
 	public void setSuborderId(Integer suborderId) {
 		this.suborderId = suborderId;
 	}
 
+
 	public OrderListBean getOrderId() {
 		return orderId;
 	}
+
 
 	public void setOrderId(OrderListBean orderId) {
 		this.orderId = orderId;
 	}
 
+
 	public Integer getRoomId() {
 		return roomId;
 	}
+
 
 	public void setRoomId(Integer roomId) {
 		this.roomId = roomId;
 	}
 
-	public Timestamp getCheckindate() {
+
+	public Date getCheckindate() {
 		return checkindate;
 	}
 
-	public void setCheckindate(Timestamp checkindate) {
+
+	public void setCheckindate(Date checkindate) {
 		this.checkindate = checkindate;
 	}
+
 
 	public String getMessage() {
 		return message;
 	}
 
+
 	public void setMessage(String message) {
 		this.message = message;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 
 	@Override
 	public String toString() {

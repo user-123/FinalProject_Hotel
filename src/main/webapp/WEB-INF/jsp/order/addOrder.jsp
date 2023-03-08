@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -132,16 +132,16 @@
 									<div class="row">
 										<div class="col-md-6 mb-3">
 											<div class="form-group">
-												<form:label path="checkindate" for="inputName">入住日期*</form:label>
+												<form:label path="checkindate">入住日期*</form:label>
 												<form:input path="checkindate" type="text"
 													class="form-control form-control-lg form-control-a"
-													id="inputName" placeholder="入住日期" required="true" />
+													placeholder="入住日期" required="true" />
 											</div>
 										</div>
 
 										<div class="col-md-6 mb-3">
 											<div class="form-group">
-												<form:label path="checkoutdate" for="inputEmail1">退房日期*</form:label>
+												<form:label path="checkoutdate">退房日期*</form:label>
 												<form:input path="checkoutdate" type="text"
 													class="form-control form-control-lg form-control-a"
 													id="inputEmail1" placeholder="退房日期" required="true" />
@@ -149,9 +149,8 @@
 										</div>
 										<div class="col-md-12 mb-3">
 											<div class="form-group">
-												<form:label path="message" for="textMessage">備註</form:label>
-												<form:input id="textMessage" class="form-control"
-													name="message" required="true" path="message"
+												<form:label path="message">備註</form:label>
+												<form:input class="form-control" name="message" path="message"
 													placeholder="請輸入不超過30個字" maxlength="30" />
 											</div>
 										</div>
