@@ -108,7 +108,7 @@
 			function show() {
 				year=parseInt(document.getElementById("selyear").value);
 				month=parseInt(document.getElementById("selmonth").value);
-				dateString = `\${year}-\${month.toString().padStart(2, "0")}-01`;		//設定查詢日期
+				let dateString = `\${year}-\${month.toString().padStart(2, "0")}-01`;		//設定查詢日期
 				let flag=year%4==0&&year%100!=0||year%400==0;
 				var dayOfMonth=[31,flag?29:28,31,30,31,30,31,31,30,31,30,31];
 				var dt=new Date();
@@ -123,47 +123,74 @@
 					table.deleteRow(0);
 				}
 
-
-				//迴圈向表格中新增資料，生成日曆
-				for(let i=0;i<rows;i++){
-					document.getElementById("tbcalbody").innerHTML += `<tr id="tbcalbodytr\${i+1}"></tr>`;
-					for(let j=0;j<7;j++){
-						k++;
-						if(k<=week || k>dayOfMonth[dt.getMonth()]+week){
-							document.getElementById(`tbcalbodytr\${i+1}`).innerHTML += "<td></td>";
-						}else {
-							document.getElementById(`tbcalbodytr\${i+1}`).innerHTML += `<td class="day\${k-week}"><button class="dayBtn" onclick="formatDate(\${k-week})">\${k-week}<br /><br />⭕❌✔🚫</button></td>`;
-							//document.getElementById(`day\${k-week}`).addEventListener("click", () => console.log(k-week));
-						}
-					}
-				}
-
-
-
-
-
-			}
-			//向後端request每日房間狀態
-			let dateString;
-			function checkRoomState() {
-				console.log(dateString);
-				//
+				//向後端request每日房間狀態
+				roomId = 101;	//==========測試用，須改為抓取context==========
 				$.ajax({
-					method : 'get',
+					method : "get",
 					data : {
 						"roomId": roomId,
 						"dateString": dateString
 					},
-					url : 'checkroom',
-					success : function(result) {
-						console.log(result);
+					url : "checkroom",
+					/*success : function(response) {
+						console.log(response);
+						//roomStateArray = JSON.parse(response);	//不需要轉換
+						roomStateArray = response;
+					    console.log(roomStateArray);
+					}*/
+				}).done(function(response) {
+					console.log("Success:", response);
+					let roomStateArray = response;
+					//迴圈向表格中新增資料，生成日曆
+					for(let i=0;i<rows;i++){
+						document.getElementById("tbcalbody").innerHTML += `<tr id="tbcalbodytr\${i+1}"></tr>`;
+						for(let j=0;j<7;j++){
+							k++;
+							if(k<=week || k>dayOfMonth[dt.getMonth()]+week){
+								document.getElementById(`tbcalbodytr\${i+1}`).innerHTML += "<td></td>";
+							}else {
+								if(roomStateArray[k-week-1] === true) {
+								document.getElementById(`tbcalbodytr\${i+1}`).innerHTML += `<td class="day\${k-week}"><button class="dayBtn" onclick="formatDate(\${k-week})">\${k-week}<br /><br />✔</button></td>`;
+								}else if(roomStateArray[k-week-1] === false) {
+								document.getElementById(`tbcalbodytr\${i+1}`).innerHTML += `<td class="day\${k-week}"><button class="dayBtn" onclick="formatDate(\${k-week})" disabled="disabled">\${k-week}<br /><br /></button>❌</td>`;
+								}else {
+								document.getElementById(`tbcalbodytr\${i+1}`).innerHTML += `<td class="day\${k-week}"><button class="dayBtn" onclick="formatDate(\${k-week})">\${k-week}<br /><br />❓</button></td>`;
+								}
+								//document.getElementById(`day\${k-week}`).addEventListener("click", () => console.log(k-week));
+							}
+						}
 					}
 				})
-			}
-			$("#email").on("input", function() {
-				let email = $('#email').val();
 
-			});
+
+
+
+
+
+			}
+
+			//==========已棄用，可刪除==========
+			function checkRoomState(roomId, dateString) {
+				console.log(dateString);
+				$.ajax({
+					method : "get",
+					data : {
+						"roomId": roomId,
+						"dateString": dateString
+					},
+					url : "checkroom",
+					/*success : function(response) {
+						console.log(response);
+						//roomStateArray = JSON.parse(response);	//不需要轉換
+						roomStateArray = response;
+					    console.log(roomStateArray);
+					}*/
+				}).done(function(response) {
+				  console.log("Success:", response);
+				  roomStateArray = response;
+				})
+			}
+			//==========已棄用，可刪除==========
 
 
 
