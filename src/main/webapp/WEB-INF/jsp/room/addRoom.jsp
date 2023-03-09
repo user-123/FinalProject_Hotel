@@ -40,13 +40,171 @@
 
 <!-- Template Main CSS File -->
 <link href="<c:url value='/assets/css/style.css'/>" rel="stylesheet">
-
 <!-- =======================================================
   * Template Name: EstateAgency - v4.10.0
   * Template URL: https://bootstrapmade.com/real-estate-agency-bootstrap-template/
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+
+
+<style>
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+	-moz-appearance: textfield;
+}
+</style>
+
+<script>
+	window.onload = function() {
+		$("#roomId").on("input", function() {
+			let roomId = document.getElementById("roomId");
+			if (roomId.value == "") {
+				$('.roomIderror').html("必填").css({
+					"color" : "red",
+					"font-size" : "10%"
+				})
+			} else {
+				$('.roomIderror').html("")
+			}
+		})
+
+		$("#name").on("input", function() {
+			let name = document.getElementById("name");
+			if (name.value == "") {
+				$('.nameerror').html("必填").css({
+					"color" : "red",
+					"font-size" : "10%"
+				})
+			} else {
+				$('.nameerror').html("")
+			}
+		})
+
+		$("#type").on("input", function() {
+			let type = document.getElementById("type");
+			if (type.value == "") {
+				$('.typeerror').html("必選").css({
+					"color" : "red",
+					"font-size" : "10%"
+				})
+			} else {
+				$('.typeerror').html("")
+			}
+		})
+
+		$("#price").on("input", function() {
+			let price = document.getElementById("price");
+			if (price.value == "") {
+				$('.priceerror').html("必填").css({
+					"color" : "red",
+					"font-size" : "10%"
+				})
+			} else {
+				$('.priceerror').html("")
+			}
+		})
+
+		$("#roomNameIntroduction").on(
+				"input",
+				function() {
+					let roomNameIntroduction = document
+							.getElementById("roomNameIntroduction");
+					if (roomNameIntroduction.value == "") {
+						$('.roomNameIntroductionerror').html("必填").css({
+							"color" : "red",
+							"font-size" : "10%"
+						})
+					} else {
+						$('.roomNameIntroductionerror').html("")
+					}
+				})
+
+		$("#introduce").on("input", function() {
+			let introduce = document.getElementById("introduce");
+			if (introduce.value == "") {
+				$('.introduceerror').html("必填").css({
+					"color" : "red",
+					"font-size" : "10%"
+				})
+			} else {
+				$('.introduceerror').html("")
+			}
+		})
+
+		$("#equipment").on("input", function() {
+			let equipment = document.getElementById("equipment");
+			if (equipment.value == "") {
+				$('.equipmenterror').html("必填").css({
+					"color" : "red",
+					"font-size" : "10%"
+				})
+			} else {
+				$('.equipmenterror').html("")
+			}
+		})
+
+		$("#service").on("input", function() {
+			let service = document.getElementById("service");
+			if (service.value == "") {
+				$('.serviceerror').html("必填").css({
+					"color" : "red",
+					"font-size" : "10%"
+				})
+			} else {
+				$('.serviceerror').html("")
+			}
+		})
+
+		$("#remark").on("input", function() {
+			let remark = document.getElementById("remark");
+			if (remark.value == "") {
+				$('.remarkerror').html("必填").css({
+					"color" : "red",
+					"font-size" : "10%"
+				})
+			} else {
+				$('.remarkerror').html("")
+			}
+		})
+
+		$("#room-photos").on("input", function() {
+			let room_photos = document.getElementById("room-photos");
+			if (room_photos.value == "") {
+				$('.room-photoserror').html("必選").css({
+					"color" : "red",
+					"font-size" : "10%"
+				})
+			} else {
+				$('.room-photoserror').html("")
+			}
+		})
+
+		let input = document.querySelectorAll(".input");
+		// let err = document.querySelectorAll(".err");
+
+		$('#submit').on("click", function(event) {
+			for (let i = 0; i < input.length; i++) {
+				if (input[i].value == "") {
+					$(input[i]).closest("div").find(".err").html("必填").css({
+						"color" : "red",
+						"font-size" : "10%"
+					})
+				}
+
+			}
+
+		})
+
+	}
+</script>
 </head>
 
 <body>
@@ -124,97 +282,116 @@
 											<div class="form-group">
 												<form:label path="roomId">房號:</form:label>
 												<br>
-												<form:input path="roomId" />
+												<form:input path="roomId" id="roomId" type="number"
+													class="input" required="true" />
+												<span class="roomIderror err"></span>
 											</div>
 										</div>
 										<div class="col-md-6 mb-3">
 											<div class="form-group">
 												<form:label path="name">房名:</form:label>
 												<br>
-												<form:input path="name" />
+												<form:input path="name" id="name" class="input"
+													required="true" />
+												<span class="nameerror err"></span>
 											</div>
 										</div>
 										<div class="col-md-6 mb-3">
 											<div class="form-group">
 												<form:label path="type">
-              房型:</form:label>
+																	房型:</form:label>
 												<br>
-												<form:select path="type">
+												<form:select path="type" id="type" class="input"
+													required="true">
 													<option value="">請選擇房型</option>
 													<option value="雙人房">雙人房</option>
 													<option value="四人房">四人房</option>
 													<option value="六人房">六人房</option>
 												</form:select>
-
+												<span class="typeerror err"></span>
 											</div>
 										</div>
 										<div class="col-md-6 mb-3">
 											<div class="form-group">
 												<form:label path="price">
-              價錢:</form:label>
+																	價錢:</form:label>
 												<br>
-												<form:input path="price" />
+												<form:input path="price" id="price" class="input"
+													type="number" required="true" />
+												<span class="priceerror err"></span>
 											</div>
 										</div>
 										<div class="col-md-6 mb-3">
 											<div class="form-group">
 												<form:label path="roomNameIntroduction">
-              房型介紹:</form:label>
+																	房型介紹:</form:label>
 												<br>
-												<form:textarea path="roomNameIntroduction" rows="10"
-													cols="45" />
+												<form:textarea path="roomNameIntroduction"
+													id="roomNameIntroduction" class="input" rows="10" cols="40"
+													required="true" />
+												<span class="roomNameIntroductionerror err"></span>
 											</div>
 										</div>
 										<div class="col-md-6 mb-3">
 											<div class="form-group">
 												<form:label path="introduce">
-              簡介:</form:label>
+																	簡介:</form:label>
 												<br>
-												<form:textarea path="introduce" rows="10" cols="45" />
+												<form:textarea path="introduce" id="introduce" class="input"
+													rows="10" cols="40" required="true" />
+												<span class="introduceerror err"></span>
 											</div>
 										</div>
 
 										<div class="col-md-6 mb-3">
 											<div class="form-group">
 												<form:label path="equipment">
-              設備:</form:label>
+																	設備:</form:label>
 												<br>
-												<form:textarea path="equipment" rows="10" cols="45" />
+												<form:textarea path="equipment" id="equipment" class="input"
+													rows="10" cols="40" required="true" />
+												<span class="equipmenterror err"></span>
 											</div>
 										</div>
 										<div class="col-md-6 mb-3">
 											<div class="form-group">
 												<form:label path="service">
-              服務:</form:label>
+																	服務:</form:label>
 												<br>
-												<form:textarea path="service" rows="10" cols="45" />
+												<form:textarea path="service" id="service" class="input"
+													rows="10" cols="40" required="true" />
+												<span class="serviceerror err"></span>
 											</div>
 										</div>
 										<div class="col-md-6 mb-3">
 											<div class="form-group">
 												<form:label path="remark">
-              備註:</form:label>
+																	備註:</form:label>
 												<br>
-												<form:textarea path="remark" rows="10" cols="45" />
+												<form:textarea path="remark" id="remark" class="input"
+													rows="10" cols="40" required="true" />
+												<span class="remarkerror err"></span>
 											</div>
 										</div>
 										<div class="col-md-6 mb-3">
 											<div class="form-group">
 												<label for="room-photos">圖片:</label> <input type="file"
-													id="room-photos" name="files" multiple>
+													id="room-photos" class="input" name="files" required="true"
+													multiple> <span class="room-photoserror err"></span>
 											</div>
 										</div>
 									</div>
 									<div style="text-align: right">
-										<input type="submit" value="Submit" />
-									</div>
-									<div class="col-md-6 mb-3">
-										<div class="form-group">
-											<a class="btn btn-danger"
-												href="<c:url value="/admin/room/backstage"/>">上一頁</a>
-										</div>
+										<input type="submit" value="Submit" id="submit" />
 									</div>
 								</form:form>
+								<div class="col-md-6 mb-3">
+									<div class="form-group">
+										<a class="btn btn-danger"
+											href="<c:url value="
+															/admin/room/backstage" />">上一頁</a>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
