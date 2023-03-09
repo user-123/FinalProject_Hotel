@@ -1,9 +1,6 @@
 package idv.hotel.finalproject.controller;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,23 +12,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import idv.hotel.finalproject.dao.LoginDao;
-import idv.hotel.finalproject.dao.RoomDao;
 import idv.hotel.finalproject.model.LoginBean;
 import idv.hotel.finalproject.model.OrderListBean;
 import idv.hotel.finalproject.model.RoomBean;
+import idv.hotel.finalproject.service.LoginService;
 import idv.hotel.finalproject.service.OrderService;
+import idv.hotel.finalproject.service.RoomService;
 
 @Controller
 public class OrderController {
 	@Autowired
 	private OrderService oService;
-	// 這裡rr只是測試用，需換成小憲的service
 	@Autowired
-	private RoomDao rDao;
-	// 這裡lr只是測試用，需換成文彥的service
+	private RoomService rs;
 	@Autowired
-	private LoginDao lDao;
+	private LoginService ls;
 
 	// 從homecontroller發請求過來
 	// 此時他看到的是addOrder.jsp
@@ -50,14 +45,13 @@ public class OrderController {
 	public String addMessagePost(@ModelAttribute("information") OrderListBean data, @RequestParam("rId") Integer roomId,
 			@RequestParam("文彥的id傳過來的名字") Integer userId, Model model, RedirectAttributes redirectAttributes) {
 		data.setOrderid(oService.createorderid());
+		data.setPaid("未付款");	
 		// rr後面的方法名稱需換成小憲service的方法
-		Optional<RoomBean> roomBean = rDao.findById(roomId);
-		RoomBean rb = roomBean.get();
+		RoomBean rid = rs.find(roomId);
 		// lr後面的方法名稱需換成文彥service的方法
-		Optional<LoginBean> loginBean = lDao.findById(userId);
-		LoginBean ub = loginBean.get();
-		data.setRoomid(rb);
-		data.setUserid(ub);
+		LoginBean uid = ls.findById(userId);
+		data.setRoomid(rid);
+		data.setUserid(uid);
 		oService.insert(data);
 		model.addAttribute("information", data);
 		// 將資料放入重定向的屬性中
@@ -81,8 +75,6 @@ public class OrderController {
 	public String findHistory(@RequestParam("文彥的id傳過來的名字") Integer userId, Model model) {
 		List<OrderListBean> olB = oService.findHistory(userId);
 		model.addAttribute("datas", olB);
-		// 從重定向屬性中取出資料
-		OrderListBean userdata = (OrderListBean) model.asMap().get("userdata");
 		return "order/history";
 	}
 
@@ -98,73 +90,73 @@ public class OrderController {
 		return "redirect:/orders/history";
 	}
 
-	// **************************後台navbar--訂單一覽表******************************
-	// 2.findAll
-	@GetMapping("/admin/orders/getall")
-	public String list(Model model) {
-		List<OrderListBean> olBeans = oService.findAll();
-		model.addAttribute("orders", olBeans);
-		// 給admin資料表所有的資料
-		return "order/allData";
-	}
-
-	// **************************後台navbar--訂單查詢******************************
-	@GetMapping("/admin/orders/add")
-	public String findPage(Model model) {
-		OrderListBean ol = new OrderListBean();
-		model.addAttribute("ol", ol);
-		return "order/searchPage";
-	}
-
-	// 3.findDataByUserId
-	// admin在searchPage.jsp按下[用會員ID查詢]，發送此請求
-	@GetMapping("/admin/orders/byuserid")
-	public String findOrderByUserB(@RequestParam(required = false, defaultValue = "0") Integer userid, Model model) {
-		model.addAttribute("byuser", oService.findDataByUserIdB(userid));
-		return "order/byuserid";
-	}
-
-	// 4.findDataByOrderId
-	// admin在searchPage.jsp按下[用訂單編號查詢]，發送此請求
-	@GetMapping("/admin/orders/byorderid")
-	public String findById(@RequestParam(required = false, defaultValue = "0") String orderId, Model model) {
-		model.addAttribute("byorderid", oService.findDataByOrderId(orderId));
-		return "order/byorderid";
-	}
-
-	// 5.findDataByCheckdate
-	// admin在searchPage.jsp按下[用某日查詢]，發送此請求
-	@GetMapping("/admin/orders/bycheckdate")
-	public String findDataByCheckdate(@RequestParam(required = false, defaultValue = "0") Timestamp checkdate,
-			Model model) {
-		model.addAttribute("bycheckdate", oService.findDataByCheckdate(checkdate));
-		// 顯示所有房間狀況
-		return "order/bycheckdate";
-	}
-
-	// 6.findDataByOrderdate
-	// admin在searchPage.jsp按下[用訂單日查詢]，發送此請求
-	@GetMapping("/admin/orders/byorderdate")
-	public String findDataByOrderdate(@RequestParam(required = false, defaultValue = "0") Date orderdate, Model model) {
-		model.addAttribute("byorderdate", oService.findDataByOrderdate(orderdate));
-		return "order/byorderdate";
-	}
-
-	// 7.findDataByRoomId
-	// admin在searchPage.jsp按下[用房型查詢]，發送此請求
-	@GetMapping("/admin/orders/byroomid")
-	public String findDataByRoomId(@RequestParam(required = false, defaultValue = "0") RoomBean roomid, Model model) {
-		model.addAttribute("byroomid", oService.findDataByRoomId(roomid));
-		return "order/byroomid";
-	}
-
-	// 8.deleteDataByOrderId
-	// ******************admin在所有後台的<訂單查詢>頁面按下[刪除]，發送此請求*********************
-	// 所有後台的<訂單查詢>頁面的每筆紀錄都會有刪除按鈕
-	@DeleteMapping("/admin/orders/delete")
-	public String deleteMessageB(@RequestParam String orderid) {
-		oService.deleteDataByOrderIdB(orderid);
-		return "redirect:/order/searchPage";
-	}
+//	// **************************後台navbar--訂單一覽表******************************
+//	// 2.findAll
+//	@GetMapping("/admin/orders/getall")
+//	public String list(Model model) {
+//		List<OrderListBean> olBeans = oService.findAll();
+//		model.addAttribute("orders", olBeans);
+//		// 給admin資料表所有的資料
+//		return "order/allData";
+//	}
+//
+//	// **************************後台navbar--訂單查詢******************************
+//	@GetMapping("/admin/orders/add")
+//	public String findPage(Model model) {
+//		OrderListBean ol = new OrderListBean();
+//		model.addAttribute("ol", ol);
+//		return "order/searchPage";
+//	}
+//
+//	// 3.findDataByUserId
+//	// admin在searchPage.jsp按下[用會員ID查詢]，發送此請求
+//	@GetMapping("/admin/orders/byuserid")
+//	public String findOrderByUserB(@RequestParam(required = false, defaultValue = "0") Integer userid, Model model) {
+//		model.addAttribute("byuser", oService.findDataByUserIdB(userid));
+//		return "order/byuserid";
+//	}
+//
+//	// 4.findDataByOrderId
+//	// admin在searchPage.jsp按下[用訂單編號查詢]，發送此請求
+//	@GetMapping("/admin/orders/byorderid")
+//	public String findById(@RequestParam(required = false, defaultValue = "0") String orderId, Model model) {
+//		model.addAttribute("byorderid", oService.findDataByOrderId(orderId));
+//		return "order/byorderid";
+//	}
+//
+//	// 5.findDataByCheckdate
+//	// admin在searchPage.jsp按下[用某日查詢]，發送此請求
+//	@GetMapping("/admin/orders/bycheckdate")
+//	public String findDataByCheckdate(@RequestParam(required = false, defaultValue = "0") Timestamp checkdate,
+//			Model model) {
+//		model.addAttribute("bycheckdate", oService.findDataByCheckdate(checkdate));
+//		// 顯示所有房間狀況
+//		return "order/bycheckdate";
+//	}
+//
+//	// 6.findDataByOrderdate
+//	// admin在searchPage.jsp按下[用訂單日查詢]，發送此請求
+//	@GetMapping("/admin/orders/byorderdate")
+//	public String findDataByOrderdate(@RequestParam(required = false, defaultValue = "0") Date orderdate, Model model) {
+//		model.addAttribute("byorderdate", oService.findDataByOrderdate(orderdate));
+//		return "order/byorderdate";
+//	}
+//
+//	// 7.findDataByRoomId
+//	// admin在searchPage.jsp按下[用房型查詢]，發送此請求
+//	@GetMapping("/admin/orders/byroomid")
+//	public String findDataByRoomId(@RequestParam(required = false, defaultValue = "0") RoomBean roomid, Model model) {
+//		model.addAttribute("byroomid", oService.findDataByRoomId(roomid));
+//		return "order/byroomid";
+//	}
+//
+//	// 8.deleteDataByOrderId
+//	// ******************admin在所有後台的<訂單查詢>頁面按下[刪除]，發送此請求*********************
+//	// 所有後台的<訂單查詢>頁面的每筆紀錄都會有刪除按鈕
+//	@DeleteMapping("/admin/orders/delete")
+//	public String deleteMessageB(@RequestParam String orderid) {
+//		oService.deleteDataByOrderIdB(orderid);
+//		return "redirect:/order/searchPage";
+//	}
 
 }
