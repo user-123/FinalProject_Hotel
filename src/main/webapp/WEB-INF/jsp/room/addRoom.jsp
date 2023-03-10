@@ -66,14 +66,29 @@ input[type=number] {
 	window.onload = function() {
 		$("#roomId").on("input", function() {
 			let roomId = document.getElementById("roomId");
-			if (roomId.value == "") {
+			if (roomId.value != "") {
+				$('.roomIderror').html("")
+			} else {
 				$('.roomIderror').html("必填").css({
 					"color" : "red",
 					"font-size" : "10%"
 				})
-			} else {
-				$('.roomIderror').html("")
 			}
+
+			$.ajax({
+				method : 'get',
+				data : {
+					'roomId' : roomId.value
+				},
+				url : 'addCheckId',
+
+				success : function(result) {
+					$('.roomIderror').html(result).css({
+						"color" : "red",
+						"font-size" : "10%"
+					})
+				}
+			})
 		})
 
 		$("#name").on("input", function() {
@@ -86,6 +101,22 @@ input[type=number] {
 			} else {
 				$('.nameerror').html("")
 			}
+
+			$.ajax({
+				method : 'get',
+				data : {
+					'name' : name.value
+				},
+				url : 'addCheckNamne',
+
+				success : function(result) {
+					$('.nameerror').html(result).css({
+						"color" : "red",
+						"font-size" : "10%"
+					})
+				}
+
+			})
 		})
 
 		$("#type").on("input", function() {
@@ -186,9 +217,9 @@ input[type=number] {
 				$('.room-photoserror').html("")
 			}
 		})
-
+		let error = 'false';
 		let input = document.querySelectorAll(".input");
-		// let err = document.querySelectorAll(".err");
+		let err = document.querySelectorAll(".err");
 
 		$('#submit').on("click", function(event) {
 			for (let i = 0; i < input.length; i++) {
@@ -201,6 +232,24 @@ input[type=number] {
 
 			}
 
+		})
+
+		$('#submittest').on('click', function(event) {
+
+			for (let i = 0; i < err.length; i++) {
+				if (err[i].value != null)
+					error = 'true'
+			}
+
+			// 			if (error == 'true')
+			// 				$('#submit').prpo('disabled', true)
+
+			// 			else
+			// 				$('#submit').click
+
+			$('#submit').on("click", function(event) {
+				$('#room').submit();
+			});
 		})
 
 	}
@@ -276,7 +325,8 @@ input[type=number] {
 							<h1 class="title-single">新增房型</h1>
 							<div class="form-comments">
 								<form:form method="POST" action="${contextRoot}/admin/room/add"
-									modelAttribute="roomBean" enctype="multipart/form-data">
+									modelAttribute="roomBean" enctype="multipart/form-data"
+									id="room">
 									<div class="row">
 										<div class="col-md-6 mb-3">
 											<div class="form-group">
@@ -382,7 +432,8 @@ input[type=number] {
 										</div>
 									</div>
 									<div style="text-align: right">
-										<input type="submit" value="Submit" id="submit" />
+										<input type="submit" value="Submit" id="submit" /> <input
+											type="button" value="送出" id="submittest" />
 									</div>
 								</form:form>
 								<div class="col-md-6 mb-3">

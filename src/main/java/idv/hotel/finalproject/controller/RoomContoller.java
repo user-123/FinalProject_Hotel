@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import idv.hotel.finalproject.model.RoomBean;
@@ -205,6 +206,28 @@ public class RoomContoller {
 
 	}
 
+	@GetMapping("/admin/room/addCheckId")
+	@ResponseBody
+	public String findRoomId(@RequestParam Integer roomId) {
+		RoomBean rbi = rService.findByroomId(roomId);
+		if (rbi == null) {
+			return "";
+		} else {
+			return "此房號已存在";
+		}
+	}
+
+	@GetMapping("/admin/room/addCheckNamne")
+	@ResponseBody
+	public String findName(@RequestParam String name) {
+		RoomBean rbn = rService.findByname(name);
+		if (rbn == null) {
+			return "";
+		} else {
+			return "此房名已存在";
+		}
+	}
+
 	@DeleteMapping("admin/room/delete")
 	public String delete(@RequestParam Integer id) {
 		rService.delete(id);
@@ -282,5 +305,4 @@ public class RoomContoller {
 			return "redirect:/admin/room/backstage";
 		}
 	}
-
 }
