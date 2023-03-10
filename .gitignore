@@ -1,3 +1,20 @@
+########## Create by D.C. ##########
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+ 
+# Eclipse
+.metadata/
+bin/
+
+##### switch to ignore itself #####
+.gitignore
+
+
+
+
 ########## Create by GitHub Java Project Automatically ##########
 
 # Compiled class file
