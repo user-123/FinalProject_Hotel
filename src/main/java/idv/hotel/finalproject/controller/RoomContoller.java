@@ -305,4 +305,40 @@ public class RoomContoller {
 			return "redirect:/admin/room/backstage";
 		}
 	}
+
+	@GetMapping("/admin/room/updataCheckId")
+	@ResponseBody
+	public String updataFindRoomId(@RequestParam Integer roomId, @RequestParam Integer Id) {
+		RoomBean rbi = rService.findByroomId(roomId);
+		System.out.println(Id);
+		if (rbi != null) {
+			if (rbi.getId() == Id) {
+
+				return "";
+			} else {
+
+				return "此房號已存在";
+			}
+		} else {
+			return "";
+		}
+	}
+
+	@GetMapping("/admin/room/updataCheckNamne")
+	@ResponseBody
+	public String updataFindName(@RequestParam String name, @RequestParam Integer Id) {
+		RoomBean rbn = rService.findByname(name);
+		System.out.println(Id);
+		if (rbn != null) {
+			if (rbn.getId() == Id) {
+
+				return "";
+			} else {
+
+				return "此房名已存在";
+			}
+		} else {
+			return "";
+		}
+	}
 }

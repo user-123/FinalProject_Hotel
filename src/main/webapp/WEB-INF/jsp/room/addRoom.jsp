@@ -87,6 +87,10 @@ input[type=number] {
 						"color" : "red",
 						"font-size" : "10%"
 					})
+					if (result != "")
+						$('#submit').prop('disabled', true)
+					else
+						$('#submit').prop('disabled', false)
 				}
 			})
 		})
@@ -114,6 +118,11 @@ input[type=number] {
 						"color" : "red",
 						"font-size" : "10%"
 					})
+					if (result != "")
+						$('#submittest').prop('disabled', true)
+
+					else
+						$('#submittest').prop('disabled', false)
 				}
 
 			})
@@ -217,9 +226,7 @@ input[type=number] {
 				$('.room-photoserror').html("")
 			}
 		})
-		let error = 'false';
 		let input = document.querySelectorAll(".input");
-		let err = document.querySelectorAll(".err");
 
 		$('#submit').on("click", function(event) {
 			for (let i = 0; i < input.length; i++) {
@@ -234,24 +241,14 @@ input[type=number] {
 
 		})
 
-		$('#submittest').on('click', function(event) {
-
-			for (let i = 0; i < err.length; i++) {
-				if (err[i].value != null)
-					error = 'true'
-			}
-
-			// 			if (error == 'true')
-			// 				$('#submit').prpo('disabled', true)
-
-			// 			else
-			// 				$('#submit').click
-
-			$('#submit').on("click", function(event) {
-				$('#room').submit();
-			});
+		$('#submitShow').on('click', function(event) {
+			if (!$("#submittest").prop('disabled'))
+				$('#submittest').click()
 		})
-
+		$('#submittest').on('click', function(event) {
+			if (!$("#submit").prop('disabled'))
+				$('#submit').click()
+		})
 	}
 </script>
 </head>
@@ -432,15 +429,17 @@ input[type=number] {
 										</div>
 									</div>
 									<div style="text-align: right">
-										<input type="submit" value="Submit" id="submit" /> <input
-											type="button" value="送出" id="submittest" />
+										<input style="display: none" type="submit" value="Submit"
+											id="submit" /> <input style="display: none" type="button"
+											value="submittest" id="submittest" /> <input type="button"
+											value="確認" id="submitShow" />
 									</div>
 								</form:form>
 								<div class="col-md-6 mb-3">
 									<div class="form-group">
 										<a class="btn btn-danger"
-											href="<c:url value="
-															/admin/room/backstage" />">上一頁</a>
+											href="${contextRoot}
+															/admin/room/backstage">上一頁</a>
 									</div>
 								</div>
 							</div>
