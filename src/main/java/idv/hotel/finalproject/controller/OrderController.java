@@ -60,12 +60,14 @@ public class OrderController {
 		LoginBean uid = ls.findById(userId);
 		data.setRoomid(rid);
 		data.setUserid(uid);
-		oService.insert(data);
+		if(oService.insert(data)) {
+			return "redirect:/orders/show";
+		}
 		model.addAttribute("information", data);
 		// 將資料放入重定向的屬性中
 		redirectAttributes.addFlashAttribute("information", data);
 		// 訂單成立成功的頁面
-		return "redirect:/orders/show";
+		return "redirect:/orders/ordererror";
 	}
 
 	@GetMapping("/orders/show")
@@ -75,6 +77,11 @@ public class OrderController {
 		// 將資料放入模型中，以供顯示
 		model.addAttribute("information", information);
 		return "order/success";
+	}
+
+	@GetMapping("/orders/ordererror")
+	public String showFailPage() {
+		return "order/orderFail";
 	}
 
 	// 3.findHistory

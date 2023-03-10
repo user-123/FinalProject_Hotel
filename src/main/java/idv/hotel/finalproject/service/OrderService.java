@@ -18,7 +18,7 @@ public interface OrderService {
 	// 1.save(前台)
 	// 會員下訂=>儲存所有細節(orderlist+orderdetail)
 	// 控制會員只能使用自己的userid
-	public void insert(OrderListBean olb);
+	public boolean insert(OrderListBean olb);
 	//List：特定型別，不固定長度的陣列。
 	//Array：不特定型別，固定長度的陣列，長度需事先宣告。
 	//ArrayList：不特定型別，不固定長度的陣列。

@@ -24,7 +24,7 @@ public class OrderDetailBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer suborderId; // 子訂單
 	@ManyToOne(cascade=CascadeType.ALL)
 	//@JoinColumn(name = "FK_OrderList_Id")

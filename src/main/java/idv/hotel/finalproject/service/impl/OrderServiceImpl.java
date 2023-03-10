@@ -54,18 +54,19 @@ public class OrderServiceImpl implements OrderService {
 	// 會員下訂=>儲存所有細節(orderlist+orderdetail)
 	// 控制會員只能使用自己的userid
 	@Override
-	public void insert(OrderListBean olb) {
-		//olb.setSuborderId(orderCreate(olb));
-		orderCreate(olb);
-		olDao.save(olb);
+	public boolean insert(OrderListBean olb) {
+		boolean result = false;
 		if(checkOrder(olb, olb.getCheckindate(), olb.getCheckoutdate())) {
+			olb.setSuborderId(orderCreate(olb));
+			//orderCreate(olb);
+			olDao.save(olb);
 			System.out.println("檢查訂單先睹為快");
+			result = true;
 		}
+		//olb.setSuborderId(null);
+		System.out.println("檢查訂單外面");
 
-		olb.setSuborderId(null);
-
-
-
+		return result;
 	}
 	//List：特定型別，不固定長度的陣列。
 	//Array：不特定型別，固定長度的陣列，長度需事先宣告。
@@ -240,25 +241,25 @@ public class OrderServiceImpl implements OrderService {
 		Calendar checkoutDateCal = Calendar.getInstance();
 		checkinDateCal.setTime(olBean.getCheckindate());
 		checkoutDateCal.setTime(olBean.getCheckoutdate());
+		System.out.println("========01========");
 		Set<OrderDetailBean> odBeanSet = new LinkedHashSet<OrderDetailBean>(0);
-		OrderDetailBean odBean = new OrderDetailBean();
 		//OrderListBean olBeanTemp = new OrderListBean();
 		//olBean.setOrderid(olBean.getOrderid());
-
-
-
-		System.out.println("========01========");
-		odBean.setOrderId(olBean);
 		System.out.println("========02========");
-		odBean.setRoomId(Integer.parseInt(olBean.getRoomIdtoString()));
-		System.out.println("========03========");
+
+
+
 		while(checkinDateCal.before(checkoutDateCal)) {
-			System.out.println("========04========");
+			System.out.println("========03========");
+			OrderDetailBean odBean = new OrderDetailBean();
+			odBean.setOrderId(olBean);
+			odBean.setRoomId(Integer.parseInt(olBean.getRoomIdtoString()));
 			Date checkinDate = checkinDateCal.getTime();
 			//odBean.setSuborderId(Integer.parseInt(olBean.getOrderid() + System.currentTimeMillis()));
 			//odBean.setOrderId((OrderListBean.setOrderid(olBean.getOrderid()));
 			odBean.setLivingDate(checkinDate);
 			System.out.println(odBean);
+			System.out.println("========04========");
 			//odDao.save(odBean);		//改成save list
 			odBeanSet.add(odBean);
 			checkinDateCal.add(Calendar.DATE, 1);
