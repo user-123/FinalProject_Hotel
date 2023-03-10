@@ -129,7 +129,7 @@
 						<h1 class="title-single">${gree}</h1>
 						<div style="text-align: right">
 							<!-- 						之後路徑改成未付款訂單的頁面 -->
-							<input type="button" value="完成" class="btn btn-primary"
+							<input type="button" value="確認" class="btn btn-primary"
 								onclick="location.href='<c:url value='/orders/history' />?文彥的id傳過來的名字=${sessionScope.id}'">
 						</div>
 					</div>

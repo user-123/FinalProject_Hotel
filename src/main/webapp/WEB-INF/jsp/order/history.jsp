@@ -142,7 +142,7 @@
 													會員:${datas.userid.accountName}</div>
 											</div>
 											<div class="col-md-12 mb-3">
-												<div class="form-group">房號:${datas.roomid.roomId}</div>
+												<div class="form-group">房名:${datas.roomid.name}</div>
 											</div>
 											<div class="col-md-12 mb-3">
 												<div class="form-group">
@@ -162,14 +162,36 @@
 												<div class="form-group">備註:${datas.message}</div>
 											</div>
 											<div class="col-md-12 mb-3">
+												<div class="form-group">金額:${datas.roomid.price}</div>
+											</div>
+											<div class="col-md-12 mb-3">
 												<div class="form-group">付款狀態:${datas.paid}</div>
 											</div>
 											<div class="col-md-12 mb-3" style="text-align: right">
 												<c:choose>
 													<c:when test="${datas.paid=='未付款'}">
-														<form action="<c:url value='小憲的金流系統' />" method="get">
-															<input type="submit" class="btn btn-outline-info btn-sm"
-																value="付款">
+														<form id="idFormAioCheckOut" method="post"
+															action="<c:url value="/ECPay"/>">
+															<div style="display: none">
+																<div>
+																	<input type="text" name="id" value="${datas.id}">
+																	<label class="col-xs-12">房名:</label> <input type="text"
+																		name="ItemName" value="${datas.roomid.name}"
+																		class="form-control" readonly />
+																</div>
+																<div>
+																	<label class="col-xs-12">房型說明: </label> <input
+																		name="TradeDesc" class=" form-control"
+																		value="${datas.roomid.introduce}" readonly />
+																</div>
+																<div>
+																	<label class="col-xs-12">金額:</label> <input type="text"
+																		name="TotalAmount" value="${datas.roomid.price}"
+																		class="form-control" readonly />
+																</div>
+															</div>
+
+															<button type="submit" class="btn btn-outline-info btn-sm">付款</button>
 														</form>
 													</c:when>
 												</c:choose>

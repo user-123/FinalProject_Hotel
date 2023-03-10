@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ecpay.payment.integration.AllInOne;
+import idv.hotel.finalproject.model.OrderListBean;
 import idv.hotel.finalproject.service.EcpayService;
 
 @Controller
@@ -25,9 +26,9 @@ public class EcpayContoller {
 
 	@PostMapping("/ECPay")
 	@ResponseBody
-	public String processPayment(HttpServletRequest request, @RequestParam String ItemName,
-			@RequestParam String TradeDesc, @RequestParam String TotalAmount) {
-		String form = eService.genAioCheckOutALL(ItemName, TradeDesc, TotalAmount);
+	public String processPayment(@RequestParam String ItemName, @RequestParam String TradeDesc,
+			@RequestParam String TotalAmount, @RequestParam Integer id) {
+		String form = eService.genAioCheckOutALL(ItemName, TradeDesc, TotalAmount, id);
 
 		return form;
 	}
@@ -47,6 +48,9 @@ public class EcpayContoller {
 		// 消費者付款成功且檢查碼正確的時候： (RtnCode:交易狀態(1:成功，其餘為失敗))
 		if ("1".equals(dict.get("RtnCode")) && checkStatus == true) {
 			model.addAttribute("gree", "付款成功");
+//			OrderListBean bean = new OrderListBean();
+//			bean.setId(id);
+//			bean.setPaid("已付款");
 		} else {
 			model.addAttribute("gree", "付款失敗");
 		}

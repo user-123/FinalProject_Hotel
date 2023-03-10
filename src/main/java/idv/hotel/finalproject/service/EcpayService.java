@@ -4,5 +4,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface EcpayService {
-	public String genAioCheckOutALL(String ItemName,String TradeDesc,String TotalAmount);
+	public String genAioCheckOutALL(String ItemName,String TradeDesc,String TotalAmount,Integer id);
 }

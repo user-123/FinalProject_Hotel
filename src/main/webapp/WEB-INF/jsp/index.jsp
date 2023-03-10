@@ -81,8 +81,7 @@
 	<div class="container my-5 border shadow p-5 w-75">
 
 		<form id="idFormAioCheckOut" method="post"
-			action="<c:url value="/ECPay"/>"
-			class="border shadow p-3 mb-5">
+			action="<c:url value="/ECPay"/>" class="border shadow p-3 mb-5">
 			<div class="row text-primary ">
 				<div class="mb-3 col-sm-5">
 					<label class="col-xs-12">房型:</label> <input type="text"
@@ -100,7 +99,7 @@
 				</div>
 			</div>
 
-			<button type="submit" class="btn btn-primary">結帳</button>
+			<button type="submit" class="btn btn-outline-info btn-sm">付款</button>
 		</form>
 	</div>
 </body>
