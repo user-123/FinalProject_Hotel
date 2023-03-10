@@ -45,10 +45,14 @@ public class HomeController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth != null && auth.isAuthenticated()) {
 			if (!auth.getName().equals("anonymousUser")) {
-				session.setAttribute("email", auth.getName());
-				session.setAttribute("login", true);
-				session.setAttribute("id", loginService.findIdByEmail(auth.getName()));
-				session.setAttribute("lb", loginService.findById((Integer) session.getAttribute("id")));
+				if(loginService.findIdByEmail(auth.getName()) != null) {
+					session.setAttribute("email", auth.getName());
+					session.setAttribute("login", true);
+					session.setAttribute("id", loginService.findIdByEmail(auth.getName()));
+					session.setAttribute("lb", loginService.findById((Integer) session.getAttribute("id")));
+				}else {
+					return "redirect:/logout";
+				}
 			}
 			System.out.println(session.getAttribute("email"));
 		}
