@@ -87,7 +87,7 @@
 									<li><a class="dropdown-item"
 										href="<c:url value='/searchinfo' />">查詢資料</a></li>
 									<li><a class="dropdown-item"
-										href="<c:url value='/orders/history' />?文彥的id傳過來的名字=${sessionScope.id}">歷史訂單</a></li>
+										href="<c:url value='/orders/history' />?accountId=${sessionScope.id}">歷史訂單</a></li>
 									<sec:authorize access="hasAuthority('admin')">
 										<li><a class="dropdown-item"
 											href="<c:url value="/admin/room/backstage"/>">後台</a></li>
@@ -156,7 +156,7 @@
 										</div>
 
 										<!-- 會員 -->
-										<input type="hidden" name="文彥的id傳過來的名字"
+										<input type="hidden" name="userId"
 											value="${sessionScope.id}" />
 
 

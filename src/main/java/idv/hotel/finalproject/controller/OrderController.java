@@ -36,7 +36,10 @@ public class OrderController {
 	// 從homecontroller發請求過來
 	// 此時他看到的是addOrder.jsp
 	@GetMapping("/orders/add")
-	public String addMessagePage(Model model, @RequestParam("Id") Integer roomId) {
+	public String addMessagePage(Model model, @RequestParam(value="Id", required=false) Integer roomId) {
+		if(roomId == null) {
+			return "redirect:/public/room/orderAllShow";
+		}
 		OrderListBean ol = new OrderListBean();
 		model.addAttribute("Id", roomId);
 		model.addAttribute("information", ol);
@@ -48,9 +51,9 @@ public class OrderController {
 	// 把資料送進資料庫後顯示success.jsp
 	@PostMapping("/orders/post")
 	public String addMessagePost(@ModelAttribute("information") OrderListBean data, @RequestParam("rId") Integer roomId,
-			@RequestParam("文彥的id傳過來的名字") Integer userId, Model model, RedirectAttributes redirectAttributes) {
+			@RequestParam("userId") Integer userId, Model model, RedirectAttributes redirectAttributes) {
 		data.setOrderid(oService.createorderid());
-		data.setPaid("未付款");
+		//data.setPaid("未付款");
 		// rr後面的方法名稱需換成小憲service的方法
 		RoomBean rid = rs.find(roomId);
 		// lr後面的方法名稱需換成文彥service的方法
@@ -77,7 +80,7 @@ public class OrderController {
 	// 3.findHistory
 	// 查詢特定userID的訂單資料，我們幫他固定UserID，限制他只能看自己的
 	@GetMapping("/orders/history")
-	public String findHistory(@RequestParam("文彥的id傳過來的名字") Integer userId, Model model) {
+	public String findHistory(@RequestParam("accountId") Integer userId, Model model) {
 		List<OrderListBean> olB = oService.findHistory(userId);
 		model.addAttribute("datas", olB);
 		return "order/history";
@@ -87,11 +90,11 @@ public class OrderController {
 	// 會員在history.jsp按下[刪除]，發送此請求
 	// 未付款前才可取消，設計若他付款後欲取消，由飯店方取消
 	@DeleteMapping("/orders/delete")
-	public String deleteMessageF(@RequestParam("文彥的id傳過來的名字") Integer userId, @RequestParam String orderid,
+	public String deleteMessageF(@RequestParam("userId") Integer userId, @RequestParam String orderid,
 			RedirectAttributes redirectAttributes) {
 		oService.deleteDataByOrderIdF(orderid);
 		// 將資料放入重定向的屬性中
-		redirectAttributes.addAttribute("文彥的id傳過來的名字", userId);
+		redirectAttributes.addAttribute("userId", userId);
 		return "redirect:/orders/history";
 	}
 

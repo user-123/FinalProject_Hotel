@@ -1,22 +1,31 @@
 package idv.hotel.finalproject.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "Order_List")
@@ -29,6 +38,10 @@ public class OrderListBean implements Serializable {
 	private String orderid;	// 訂單編號
 	// 用於sql(數據庫)的:java.sql.Date只能存放年月日，java.sql.Timestamp能存放年月日時分秒
 	// 非用於sql的:java.util.Date能夠存放年月日時分秒
+	//@JsonBackReference
+	@JsonManagedReference("order_suborder")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="orderId", fetch=FetchType.LAZY, orphanRemoval=false)
+	private Set<OrderDetailBean> suborderId = new LinkedHashSet<OrderDetailBean>(0);
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "FK_Logininfo_Id")
 	private LoginBean userid;	// 會員
@@ -43,7 +56,7 @@ public class OrderListBean implements Serializable {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date checkoutdate;	// 退房日期
 	private String message;	// 備註其他需求
-	private String paid;	// 付款狀態
+	private String paid = "未付款";	// 付款狀態
 
 	//---------------------生成訂單時間(下訂時間)-----------------------------
 	@PrePersist
@@ -53,11 +66,12 @@ public class OrderListBean implements Serializable {
 		}
 	}
 
-	public OrderListBean(Integer id, String orderid, LoginBean userid, RoomBean roomid, Date orderdate,
+	public OrderListBean(Integer id, String orderid, Set<OrderDetailBean> suborderId, LoginBean userid, RoomBean roomid, Date orderdate,
 			Date checkindate, Date checkoutdate, String message, String paid) {
 		super();
 		this.id = id;
 		this.orderid = orderid;
+		this.suborderId = suborderId;
 		this.userid = userid;
 		this.roomid = roomid;
 		this.orderdate = orderdate;
@@ -81,6 +95,14 @@ public class OrderListBean implements Serializable {
 
 	public void setOrderid(String orderid) {
 		this.orderid = orderid;
+	}
+
+	public Set<OrderDetailBean> getSuborderId() {
+		return suborderId;
+	}
+
+	public void setSuborderId(Set<OrderDetailBean> suborderId) {
+		this.suborderId = suborderId;
 	}
 
 	public LoginBean getUserid() {

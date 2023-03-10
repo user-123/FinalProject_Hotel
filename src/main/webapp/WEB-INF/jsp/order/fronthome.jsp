@@ -14,12 +14,12 @@
 
 <form action="<c:url value='/front/orders/add' />" method="get">
   <input type="hidden" name="Id" value="3" /> 
-  <input type="hidden" name="文彥的id傳過來的名字" value="3" /> <input
+  <input type="hidden" name="userId" value="3" /> <input
    type="submit" class="btn btn-outline-info btn-sm" value="訂房">
  </form>
 
 <form action="<c:url value='/front/orders/history' />" method="get">
-  <input type="hidden" name="文彥的id傳過來的名字" value="3" /> <input
+  <input type="hidden" name="userId" value="3" /> <input
    type="submit" class="btn btn-outline-info btn-sm" value="歷史">
  </form>
 </body>

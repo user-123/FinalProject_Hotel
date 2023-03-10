@@ -15,6 +15,6 @@ import idv.hotel.finalproject.model.OrderListBean;
 
 public interface OrderDetailDao extends JpaRepository<OrderDetailBean, Integer> {
 
-	@Query(value="from OrderDetailBean where roomId = ?1 and checkindate = ?2 ")
-	public OrderDetailBean findByRoomIdAndCheckinDate(Integer roomId, Date checkinDate);
+	@Query(value="from OrderDetailBean where roomId = ?1 and livingDate = ?2 ")
+	public OrderDetailBean findByRoomIdAndLivingDate(Integer roomId, Date livingDate);
 }

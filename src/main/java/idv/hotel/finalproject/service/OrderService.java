@@ -2,7 +2,9 @@ package idv.hotel.finalproject.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
+import idv.hotel.finalproject.model.OrderDetailBean;
 import idv.hotel.finalproject.model.OrderListBean;
 
 public interface OrderService {
@@ -74,6 +76,6 @@ public interface OrderService {
 	public boolean checkOrder(OrderListBean roomId, Date checkinDate, Date checkoutDate);
 
 	//成立訂單，完成寫入DB，回傳true
-	public boolean orderCreate(OrderListBean roomId, Date checkinDate, Date checkoutDate);
+	public Set<OrderDetailBean> orderCreate(OrderListBean olBean);
 
 }
