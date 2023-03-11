@@ -165,6 +165,8 @@
 										action="<c:url value="/ECPay"/>">
 										<div style="display: none">
 											<div>
+												<input type="text" name="id" value="${information.id}">
+
 												<label class="col-xs-12">房名:</label> <input type="text"
 													name="ItemName" value="${information.roomid.name}"
 													class="form-control" readonly />

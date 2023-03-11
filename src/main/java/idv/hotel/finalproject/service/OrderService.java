@@ -50,5 +50,8 @@ public interface OrderService {
 	// 8.deleteDataByOrderId(後台)
 	// 不做確認就刪除，反正沒有該筆資料也不會刪到東西
 //	public void deleteDataByOrderIdB(String orderid) ;
+	
+//	綠界更改訂單狀態欄位
+	public OrderListBean findId(Integer Id);
 
 }

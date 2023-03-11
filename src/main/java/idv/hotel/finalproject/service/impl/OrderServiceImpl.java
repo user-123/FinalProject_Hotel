@@ -3,6 +3,7 @@ package idv.hotel.finalproject.service.impl;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -105,5 +106,12 @@ public class OrderServiceImpl implements OrderService {
 //	public void deleteDataByOrderIdB(String orderid) {
 //		olDao.deleteDataByOrderId(orderid);
 //	}
+
+	@Override
+	public OrderListBean findId(Integer Id) {
+		Optional<OrderListBean> orderListBean = olDao.findById(Id);
+		
+		return orderListBean.get();
+	}
 
 }

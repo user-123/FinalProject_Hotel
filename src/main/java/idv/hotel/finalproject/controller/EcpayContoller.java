@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ecpay.payment.integration.AllInOne;
 import idv.hotel.finalproject.model.OrderListBean;
 import idv.hotel.finalproject.service.EcpayService;
+import idv.hotel.finalproject.service.OrderService;
 
 @Controller
 public class EcpayContoller {
@@ -24,17 +25,21 @@ public class EcpayContoller {
 	@Autowired
 	private EcpayService eService;
 
+	@Autowired
+	private OrderService oService;
+
 	@PostMapping("/ECPay")
 	@ResponseBody
-	public String processPayment(@RequestParam String ItemName, @RequestParam String TradeDesc,
-			@RequestParam String TotalAmount, @RequestParam Integer id) {
-		String form = eService.genAioCheckOutALL(ItemName, TradeDesc, TotalAmount, id);
-
+	public String processPayment(HttpServletRequest request, @RequestParam String ItemName,
+			@RequestParam String TradeDesc, @RequestParam String TotalAmount, @RequestParam Integer id) {
+		String form = eService.genAioCheckOutALL(ItemName, TradeDesc, TotalAmount);
+		request.getSession().setAttribute("Id", id);
 		return form;
 	}
 
 	@PostMapping("/ECPayEnd")
 	public String processPaymentResult(HttpServletRequest request, Model model) {
+		Integer Id = (Integer) request.getSession().getAttribute("Id");
 
 		Hashtable<String, String> dict = new Hashtable<String, String>();
 		Enumeration<String> enumeration = request.getParameterNames();
@@ -48,9 +53,10 @@ public class EcpayContoller {
 		// 消費者付款成功且檢查碼正確的時候： (RtnCode:交易狀態(1:成功，其餘為失敗))
 		if ("1".equals(dict.get("RtnCode")) && checkStatus == true) {
 			model.addAttribute("gree", "付款成功");
-//			OrderListBean bean = new OrderListBean();
-//			bean.setId(id);
-//			bean.setPaid("已付款");
+			OrderListBean bean = oService.findId(Id);
+			System.out.println(bean);
+			bean.setPaid("已付款");
+			oService.insert(bean);
 		} else {
 			model.addAttribute("gree", "付款失敗");
 		}

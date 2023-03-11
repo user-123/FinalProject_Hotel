@@ -13,10 +13,8 @@ public class EcpayServiceImpl implements EcpayService {
 	private static AllInOne all = new AllInOne("");
 
 	@Override
-	public String genAioCheckOutALL(String ItemName, String TradeDesc, String TotalAmount, Integer id) {
+	public String genAioCheckOutALL(String ItemName, String TradeDesc, String TotalAmount) {
 
-		System.out.println("------------------");
-		System.out.println(id);
 		AioCheckOutALL obj = new AioCheckOutALL();
 		obj.setMerchantTradeNo(String.format("III%d", new Date().getTime())); // 特店交易編號均為唯一值，不可重複使用。英數字大小寫混合。
 		obj.setMerchantTradeDate(String.format("%tY/%<tm/%<td %<tH:%<tM:%<tS", new Date())); // 特店交易時間。格式為：yyyy/MM/dd
