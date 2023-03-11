@@ -9,6 +9,12 @@ import idv.hotel.finalproject.model.RoomBean;
 
 public interface RoomDao extends JpaRepository<RoomBean, Integer> {
 
-	@Query(value="from room where type = ?1")
+	@Query(value = "from room where type = ?1")
 	public List<RoomBean> findByType(String type);
+
+	@Query(value = "from room where roomId = ?1")
+	public RoomBean findByroomId(Integer roomId);
+
+	@Query(value = "from room where name = ?1")
+	public RoomBean findByname(String name);
 }

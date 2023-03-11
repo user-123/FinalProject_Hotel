@@ -48,7 +48,7 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- ecpay API -->
+		<!-- for EcPay API -->
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -96,7 +96,6 @@
 		<!-- switch_end -->
 
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>

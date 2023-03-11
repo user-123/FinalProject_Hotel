@@ -7,6 +7,7 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
 <link rel="icon" href="<c:url value='/favicon.ico' />">
 <meta charset="UTF-8" />
@@ -251,6 +252,7 @@
 	}
 </script>
 </head>
+
 <body>
 	<!-- ======= Header/Navbar ======= -->
 	<nav
@@ -288,8 +290,7 @@
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">會員</a>
-						<c:choose>
+						aria-haspopup="true" aria-expanded="false">會員</a> <c:choose>
 							<c:when test="${sessionScope.login==true}">
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 									<li><a class="dropdown-item"
@@ -316,8 +317,7 @@
 										href="<c:url value='/public/register' />">註冊</a></li>
 								</ul>
 							</c:otherwise>
-						</c:choose>
-					</li>
+						</c:choose></li>
 				</ul>
 			</div>
 
@@ -540,4 +540,5 @@
 	<!-- Template Main JS File -->
 	<script src='<c:url value="/assets/js/main.js"/>'></script>
 </body>
+
 </html>

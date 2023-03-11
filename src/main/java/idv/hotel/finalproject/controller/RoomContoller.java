@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import idv.hotel.finalproject.model.RoomBean;
@@ -170,18 +171,20 @@ public class RoomContoller {
 
 	}
 
-	@PostMapping("/admin/room/add") // 1.name跟type卡控有問題
+	@PostMapping("/admin/room/add")
 	public String add(@ModelAttribute("roomBean") RoomBean rB, @RequestParam("files") MultipartFile[] files,
 			Model model) throws IOException {
 		Integer roomId = rB.getRoomId();
 		String name = rB.getName();
 		String type = rB.getType();
 		Integer price = rB.getPrice();
-		if (roomId == null || name == "") {
-			model.addAttribute("err", "輸入資料不完整");
+		RoomBean rbi = rService.findByroomId(roomId);
+		RoomBean rbn = rService.findByname(name);
+		if (roomId == null || name.equals("")) {
 			return "room/addRoom";
-		} else if (type == "" || price == null) {
-			model.addAttribute("err", "輸入資料不完整");
+		} else if (type.equals("") || price == null) {
+			return "room/addRoom";
+		} else if (rbi != null || rbn != null) {
 			return "room/addRoom";
 		} else {
 
@@ -195,13 +198,34 @@ public class RoomContoller {
 				photos.add(roomPhotoBean);
 			}
 			rB.setRoomPhotoBeans(photos);
-			System.out.println(rB);
 
 			System.out.println(rB);
 			rService.create(rB);
 			return "redirect:/admin/room/backstage";
 		}
 
+	}
+
+	@GetMapping("/admin/room/addCheckId")
+	@ResponseBody
+	public String findRoomId(@RequestParam Integer roomId) {
+		RoomBean rbi = rService.findByroomId(roomId);
+		if (rbi == null) {
+			return "";
+		} else {
+			return "此房號已存在";
+		}
+	}
+
+	@GetMapping("/admin/room/addCheckNamne")
+	@ResponseBody
+	public String findName(@RequestParam String name) {
+		RoomBean rbn = rService.findByname(name);
+		if (rbn == null) {
+			return "";
+		} else {
+			return "此房名已存在";
+		}
 	}
 
 	@DeleteMapping("admin/room/delete")
@@ -211,35 +235,70 @@ public class RoomContoller {
 	}
 
 	@GetMapping("admin/room/edit")
-	public String edit(@RequestParam Integer id, Model model) {
+	public String edit(@RequestParam("id1") Integer id, Model model) {
 		RoomBean roomBean = rService.find(id);
 		model.addAttribute("roomBean", roomBean);
 		return "room/editRoom";
 	}
 
-	@PutMapping("admin/room/update") // 1.name跟type卡控有問題 2.空字串跳轉問題...
+	@PutMapping("admin/room/update")
 	public String update(@ModelAttribute("roomBean") RoomBean roomBean, @RequestParam("files") MultipartFile[] files,
 			Model model) throws IOException {
+		Integer Id = roomBean.getId();
 		Integer roomId = roomBean.getRoomId();
 		String name = roomBean.getName();
 		String type = roomBean.getType();
 		Integer price = roomBean.getPrice();
-		if (roomId == null || name == "") {
+		RoomBean rbi = rService.findByroomId(roomId);
+		RoomBean rbn = rService.findByname(name);
+		if (roomId == null || name.equals("")) {
 			return "redirect:/admin/room/backstage";
-		} else if (type == "" || price == null) {
+		} else if (type.equals("") || price == null) {
 			return "redirect:/admin/room/backstage";
+
+		} else if (rbi != null) {
+			if (rbi.getId() == Id) {
+				if (rbn != null) {
+					if (rbn.getId() == Id) {
+
+						rService.create(roomBean);
+
+						return "redirect:/admin/room/backstage";
+					} else {
+
+						return "redirect:/admin/room/backstage";
+					}
+				}
+				rService.create(roomBean);
+
+				return "redirect:/admin/room/backstage";
+			} else {
+
+				return "redirect:/admin/room/backstage";
+			}
+
+		} else if (rbn != null) {
+			if (rbn.getId() == Id) {
+
+				rService.create(roomBean);
+
+				return "redirect:/admin/room/backstage";
+			} else {
+
+				return "redirect:/admin/room/backstage";
+			}
 		} else {
 
-			List<RoomPhotoBean> photos = new LinkedList<>();
-
-			for (MultipartFile file : files) {
-				RoomPhotoBean roomPhotoBean = new RoomPhotoBean();
-				byte[] photoByte = file.getBytes();
-				roomPhotoBean.setPhotoFile(photoByte);
-
-				photos.add(roomPhotoBean);
-			}
-			roomBean.setRoomPhotoBeans(photos);
+//			List<RoomPhotoBean> photos = new LinkedList<>();
+//
+//			for (MultipartFile file : files) {
+//				RoomPhotoBean roomPhotoBean = new RoomPhotoBean();
+//				byte[] photoByte = file.getBytes();
+//				roomPhotoBean.setPhotoFile(photoByte);
+//
+//				photos.add(roomPhotoBean);
+//			}
+//			roomBean.setRoomPhotoBeans(photos);
 			System.out.println(roomBean);
 			rService.create(roomBean);
 
@@ -247,4 +306,39 @@ public class RoomContoller {
 		}
 	}
 
+	@GetMapping("/admin/room/updataCheckId")
+	@ResponseBody
+	public String updataFindRoomId(@RequestParam Integer roomId, @RequestParam Integer Id) {
+		RoomBean rbi = rService.findByroomId(roomId);
+		System.out.println(Id);
+		if (rbi != null) {
+			if (rbi.getId() == Id) {
+
+				return "";
+			} else {
+
+				return "此房號已存在";
+			}
+		} else {
+			return "";
+		}
+	}
+
+	@GetMapping("/admin/room/updataCheckNamne")
+	@ResponseBody
+	public String updataFindName(@RequestParam String name, @RequestParam Integer Id) {
+		RoomBean rbn = rService.findByname(name);
+		System.out.println(Id);
+		if (rbn != null) {
+			if (rbn.getId() == Id) {
+
+				return "";
+			} else {
+
+				return "此房名已存在";
+			}
+		} else {
+			return "";
+		}
+	}
 }

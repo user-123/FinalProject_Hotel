@@ -11,7 +11,7 @@
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<script src="<c:url value='/javascript/jquery-ui.min.js'/>" ></script> 
+<script src="<c:url value='/javascript/jquery-ui.min.js'/>" ></script>
 <script src="<c:url value='/javascript/jquery-3.6.0.min.js'/>" ></script>
 <script>
         $(function () {
@@ -77,11 +77,11 @@
 				id="navbarDefault">
 				<ul class="navbar-nav">
 
-					<li class="nav-item"><a class="nav-link active" href="#">會員管理</a></li>
+					<li class="nav-item"><a class="nav-link active" href="<c:url value='/admin/backstage' />">會員管理</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="#">訂單管理</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="#">房型管理</a></li>
+					<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/room/backstage' />">房型管理</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="#">設施管理</a></li>
 
@@ -139,12 +139,12 @@
 <!--       </li> -->
     </ul>
 
-    
+
 
     <div id="search">
       	<jsp:include page="adminsearch.jsp"></jsp:include>
     </div>
-    <div id="insert">   
+    <div id="insert">
 		<jsp:include page="register.jsp"></jsp:include>
     </div>
 <!--     <div id="update">    -->

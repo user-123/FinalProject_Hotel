@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import idv.hotel.finalproject.service.RoomService;
 import idv.hotel.finalproject.dao.RoomDao;
 import idv.hotel.finalproject.model.RoomBean;
+
 @Service
 public class RoomServiceImpl implements RoomService {
 	@Autowired
@@ -42,7 +43,19 @@ public class RoomServiceImpl implements RoomService {
 
 	@Override
 	public RoomBean ReferenceById(Integer Id) {
-		RoomBean bean =rDao.getReferenceById(Id);
+		RoomBean bean = rDao.getReferenceById(Id);
+		return bean;
+	}
+
+	@Override
+	public RoomBean findByroomId(Integer roomId) {
+		RoomBean bean = rDao.findByroomId(roomId);
+		return bean;
+	}
+
+	@Override
+	public RoomBean findByname(String name) {
+		RoomBean bean = rDao.findByname(name);
 		return bean;
 	}
 }
