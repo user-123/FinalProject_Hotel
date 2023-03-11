@@ -368,7 +368,7 @@ window.onload = function() {
 										href="<c:url value='/orders/history' />?accountId=${sessionScope.id}">歷史訂單</a></li>
 									<sec:authorize access="hasAuthority('admin')">
 										<li><a class="dropdown-item"
-											href="<c:url value="/admin/room/backstage"/>">後台</a></li>
+											href="<c:url value="/admin/backstage"/>">後台</a></li>
 									</sec:authorize>
 									<li><a class="dropdown-item "
 										href="<c:url value='/logout'/>"> <input type="hidden"

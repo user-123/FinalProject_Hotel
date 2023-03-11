@@ -22,7 +22,7 @@
 						aria-current="page"
 						href="<c:url value="/public/room/allShow"/>">展示房型</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="<c:url value="/admin/room/backstage"/>">後台-房型</a></li>
+						href="<c:url value="/admin/backstage"/>">後台-房型</a></li>
 				</ul>
 			</div>
 		</div>

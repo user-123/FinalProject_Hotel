@@ -294,7 +294,13 @@ public class OrderServiceImpl implements OrderService {
 		}
 		*/
 		return odBeanSet;
+	}
 
+	@Override
+	public OrderListBean findId(Integer Id) {
+		Optional<OrderListBean> orderListBean = olDao.findById(Id);
+
+		return orderListBean.get();
 	}
 
 }

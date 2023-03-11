@@ -75,7 +75,7 @@
 				</tr>
 				<tr>
 					<td><a class="btn btn-danger"
-						href="<c:url value="/admin/room/backstage"/>">上一頁</a></td>
+						href="<c:url value="/admin/backstage"/>">上一頁</a></td>
 				</tr>
 
 			</table>

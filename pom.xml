@@ -26,7 +26,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -49,7 +48,12 @@
 			<scope>test</scope>
 		</dependency>
 
-
+		<!-- ecpay API -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
 
 
 
@@ -73,25 +77,23 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-taglibs</artifactId>
-		    <scope>compile</scope>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
-	      <groupId>org.springframework.boot</groupId>
-	      <artifactId>spring-boot-starter-mail</artifactId>
-	    </dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
 		<!-- yan_end -->
 
-		<!-- switch_start -->	<!-- if you start Spring Boot fail, switch this dependency -->
+		<!-- switch_start -->
+		<!-- if you start Spring Boot fail, switch this dependency -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
 		<!-- switch_end -->
-
-
-
 
 	</dependencies>
 
@@ -103,10 +105,6 @@
 			</plugin>
 		</plugins>
 	</build>
-
-
-
-
 
 	<!-- yan_start -->
 	<repositories>
@@ -146,7 +144,5 @@
 		</pluginRepository>
 	</pluginRepositories>
 	<!-- yan_end -->
-
-
 
 </project>
