@@ -1,7 +1,7 @@
 package idv.hotel.finalproject.model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,84 +13,98 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "Order_Detail")
 public class OrderDetailBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer suborderId; // 子訂單
 	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name = "FK_OrderList_Id")
-	//@JoinColumn(name = "FK_OrderList_Id", nullable = false)
+	//@JoinColumn(name = "FK_OrderList_Id")
+	@JsonBackReference("order_suborder")
+	@JoinColumn(name = "FK_OrderList_Id", nullable = false)
 	private OrderListBean orderId; // 訂單編號
 	// 用於sql(數據庫)的:java.sql.Date只能存放年月日，java.sql.Timestamp能存放年月日時分秒
 	// 非用於sql的:java.util.Date能夠存放年月日時
 	//@Column(nullable = false)
 	private Integer roomId; // 房號
-	//@Column(nullable = false)
-	private Timestamp checkindate; // 入住日期
+	@Column(nullable = false)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date livingDate; // 入住日期
 	private String message; // 備註其他需求
 
 	public OrderDetailBean() {}
 
-	public OrderDetailBean(Integer suborderId, OrderListBean orderId, Integer roomId, Timestamp checkindate,
+	//@Autowired
+	public OrderDetailBean(Integer suborderId, OrderListBean orderId, Integer roomId, Date livingDate,
 			String message) {
 		super();
 		this.suborderId = suborderId;
 		this.orderId = orderId;
 		this.roomId = roomId;
-		this.checkindate = checkindate;
+		this.livingDate = livingDate;
 		this.message = message;
 	}
+
 
 	public Integer getSuborderId() {
 		return suborderId;
 	}
 
+
 	public void setSuborderId(Integer suborderId) {
 		this.suborderId = suborderId;
 	}
+
 
 	public OrderListBean getOrderId() {
 		return orderId;
 	}
 
+
 	public void setOrderId(OrderListBean orderId) {
 		this.orderId = orderId;
 	}
+
 
 	public Integer getRoomId() {
 		return roomId;
 	}
 
+
 	public void setRoomId(Integer roomId) {
 		this.roomId = roomId;
 	}
 
-	public Timestamp getCheckindate() {
-		return checkindate;
+	public Date getLivingDate() {
+		return livingDate;
 	}
 
-	public void setCheckindate(Timestamp checkindate) {
-		this.checkindate = checkindate;
+
+	public void setLivingDate(Date livingDate) {
+		this.livingDate = livingDate;
 	}
+
 
 	public String getMessage() {
 		return message;
 	}
 
+
 	public void setMessage(String message) {
 		this.message = message;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 
 	@Override
 	public String toString() {
-		return "OrderDetailBean [suborderId=" + suborderId + ", orderId=" + orderId + ", roomId=" + roomId  + ", checkindate=" + checkindate + ", roomservice=" + message + "]";
+		return "OrderDetailBean [suborderId=" + suborderId + ", orderId=" + orderId + ", roomId=" + roomId  + ", livingDate=" + livingDate + ", roomservice=" + message + "]";
 	}
 }

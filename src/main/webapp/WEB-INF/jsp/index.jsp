@@ -74,7 +74,7 @@
 	</form>
 
 	<form action="<c:url value='/orders/history' />" method="get">
-		<input type="hidden" name="文彥的id傳過來的名字" value="${sessionScope.id}" />
+		<input type="hidden" name="userId" value="${sessionScope.id}" />
 		<input type="submit" class="btn btn-outline-info btn-sm" value="歷史">
 	</form>
 

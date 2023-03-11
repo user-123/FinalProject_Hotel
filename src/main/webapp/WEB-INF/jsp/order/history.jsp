@@ -1,8 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -76,8 +78,7 @@
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">會員</a>
-						<c:choose>
+						aria-haspopup="true" aria-expanded="false">會員</a> <c:choose>
 							<c:when test="${sessionScope.login==true}">
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 									<li><a class="dropdown-item"
@@ -85,7 +86,7 @@
 									<li><a class="dropdown-item"
 										href="<c:url value='/searchinfo' />">查詢資料</a></li>
 									<li><a class="dropdown-item"
-										href="<c:url value='/orders/history' />?文彥的id傳過來的名字=${sessionScope.id}">歷史訂單</a></li>
+										href="<c:url value='/orders/history' />?accountId=${sessionScope.id}">歷史訂單</a></li>
 									<sec:authorize access="hasAuthority('admin')">
 										<li><a class="dropdown-item"
 											href="<c:url value="/admin/room/backstage"/>">後台</a></li>
@@ -104,8 +105,7 @@
 										href="<c:url value='/public/register' />">註冊</a></li>
 								</ul>
 							</c:otherwise>
-						</c:choose>
-					</li>
+						</c:choose></li>
 				</ul>
 			</div>
 
@@ -161,14 +161,25 @@
 											<div class="col-md-12 mb-3">
 												<div class="form-group">備註:${datas.message}</div>
 											</div>
+											<div class="col-md-12 mb-3">
+												<div class="form-group">付款狀態:${datas.paid}</div>
+											</div>
 											<div class="col-md-12 mb-3" style="text-align: right">
+												<c:choose>
+													<c:when test="${datas.paid=='未付款'}">
+														<form action="<c:url value='小憲的金流系統' />" method="get">
+															<input type="submit" class="btn btn-outline-info btn-sm"
+																value="付款">
+														</form>
+													</c:when>
+												</c:choose>
 												<!--********************onSubmit為form表單原生的屬性，判斷回傳之布林值決定下一步******************** -->
 												<form action="${contextRoot}/orders/delete" method="post"
 													onSubmit="return popup2();">
 
 													<input type="hidden" name="orderid"
 														value="${datas.orderid}" /> <input type="hidden"
-														name="文彥的id傳過來的名字" value="${datas.userid.accountId}" /> <input
+														name="userId" value="${datas.userid.accountId}" /> <input
 														type="hidden" name="_method" value="delete" /> <input
 														type="submit" class="btn btn-outline-danger btn-sm"
 														value="刪除">
@@ -186,9 +197,6 @@
 															}
 														};
 													</script>
-
-
-
 												</form>
 											</div>
 										</div>

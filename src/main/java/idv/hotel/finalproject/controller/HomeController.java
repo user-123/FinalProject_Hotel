@@ -26,12 +26,12 @@ public class HomeController {
 		this.memberService = memberService;
 		this.context = context;
 	}
-	
+
 	@PostMapping("/")
 	public String home1() {
 		return "home";
 	}
-	
+
 	@GetMapping("/")
 	public String home(HttpServletRequest request,HttpSession session) {
 //		if(session.getAttribute("email")!=null) {
@@ -40,24 +40,28 @@ public class HomeController {
 //        	request.setAttribute("login", true);
 //        }
 //		return "home";
-		
-		
-		
+
+
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	    if (auth != null && auth.isAuthenticated()) {
-	    	if(!auth.getName().equals("anonymousUser")) {
-		        session.setAttribute("email", auth.getName());
-		        session.setAttribute("login", true);
-		        session.setAttribute("id", loginService.findIdByEmail(auth.getName()));
-		        session.setAttribute("lb", loginService.findById((Integer)session.getAttribute("id")));
-	    	}
-	        System.out.println(session.getAttribute("email"));
-	    }
-	    return "home";
+		if (auth != null && auth.isAuthenticated()) {
+			if (!auth.getName().equals("anonymousUser")) {
+				if(loginService.findIdByEmail(auth.getName()) != null) {
+					session.setAttribute("email", auth.getName());
+					session.setAttribute("login", true);
+					session.setAttribute("id", loginService.findIdByEmail(auth.getName()));
+					session.setAttribute("lb", loginService.findById((Integer) session.getAttribute("id")));
+				}else {
+					return "redirect:/logout";
+				}
+			}
+			System.out.println(session.getAttribute("email"));
+		}
+		return "home";
 	}
-	
-	
-	
+
+
+
 	@GetMapping("/public/about")
 	public String about() {
 		return "about";
@@ -70,14 +74,14 @@ public class HomeController {
 	public String backstage() {
 		return "backstage";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
 }
