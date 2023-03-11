@@ -133,10 +133,18 @@
 							<h1 class="title-single">訂單一覽</h1>
 							<div class="form-comments">
 								<div class="title-box-d">
-									<h5 class="title-d">訂單明細</h5>
+									<h5 class="title-d">用下訂日期查詢</h5>
 								</div>
+								<form:form action="${contextRoot}/admin/orders/databyorderdate"
+									modelAttribute="orderdate">
+									<form:input path="orderdate" type="date"
+										class="form-control form-control-lg form-control-a"
+										required="true" />
+									<br />
+									<button type="submit" class="btn btn-primary">送出</button>
+								</form:form>
 								<c:forEach var="datas" items="${datas}">
-								<input type="hidden" name="id" value="${datas.id}" />
+								<label hidden="hidden">${datas.id}</label>
 									<div class="row">
 										<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow">
 											<div class="col-md-12 mb-3">
@@ -150,8 +158,7 @@
 												<div class="form-group">訂單編號:${datas.orderid}</div>
 											</div>
 											<div class="col-md-12 mb-3">
-												<div class="form-group">
-													會員:${datas.userid.accountName}</div>
+												<div class="form-group">會員:${datas.userid.accountName}</div>
 											</div>
 											<div class="col-md-12 mb-3">
 												<div class="form-group">房號:${datas.roomid.roomId}</div>
@@ -186,19 +193,18 @@
 														value="編輯訂單">
 												</form>
 												<!--********************[刪除按鈕]******************** -->
-												<!--onSubmit為form表單原生的屬性，判斷回傳之布林值決定下一步-->
+												<!--********************onSubmit為form表單原生的屬性，判斷回傳之布林值決定下一步******************** -->
 												<form action="${contextRoot}/admin/orders/backstagedel"
 													method="post" onSubmit="return popup2();">
-
 													<input type="hidden" name="orderid"
 														value="${datas.orderid}" /> 
-														 <input type="hidden"
-														name="jsp" value="allData" /> 
-														<input type="hidden" name="searchid" value="" /> 
-														<input type="hidden" name="_method" value="delete" /> <input type="submit"
-														class="btn btn-outline-danger btn-sm" value="刪除訂單">
+														<input type="hidden"
+														name="jsp" value="byOrderdate" /> 
+														<input type="hidden" name="searchid" value="${datas.orderdate}" /><input type="hidden"
+														name="_method" value="delete" /> <input type="submit"
+														class="btn btn-outline-danger btn-sm" value="刪除">
 
-													<!--********************刪除前做再次確認******************** -->
+													<!--********************刪除前用來再次確認******************** -->
 
 													<script>
 														function popup2() {
@@ -214,7 +220,7 @@
 												</form>
 											</div>
 										</div>
-										</div>
+									</div>
 								</c:forEach>
 							</div>
 						</div>
