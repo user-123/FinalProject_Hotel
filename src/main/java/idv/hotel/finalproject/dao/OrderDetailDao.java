@@ -17,4 +17,11 @@ public interface OrderDetailDao extends JpaRepository<OrderDetailBean, Integer> 
 
 	@Query(value="from OrderDetailBean where roomId = ?1 and livingDate = ?2 ")
 	public OrderDetailBean findByRoomIdAndLivingDate(Integer roomId, Date livingDate);
+
+	//應該改成讓spring boot自動關聯刪除，則此方法可棄用
+	//@Transactional
+	@Modifying
+	//@Query(value="delete from Order_Detail where FK_OrderList_Id=?1",nativeQuery=true)
+	@Query(value="delete from OrderDetailBean od WHERE od.orderId = :orderListId")
+	public void deleteDataByOrderId(@Param("orderListId") OrderListBean olBean);
 }

@@ -40,7 +40,7 @@ public class OrderListBean implements Serializable {
 	// 非用於sql的:java.util.Date能夠存放年月日時分秒
 	//@JsonBackReference
 	@JsonManagedReference("order_suborder")
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="orderId", fetch=FetchType.LAZY, orphanRemoval=false)
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="orderId", fetch=FetchType.LAZY, orphanRemoval=true)
 	private Set<OrderDetailBean> suborderId = new LinkedHashSet<OrderDetailBean>(0);
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "FK_Logininfo_Id")

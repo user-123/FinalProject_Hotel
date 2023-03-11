@@ -120,8 +120,11 @@ public class OrderServiceImpl implements OrderService {
 	// 8.deleteDataByOrderId(前台)
 	// 尚未付款前可刪除訂單
 	@Override
-	public void deleteDataByOrderIdF(String orderid) {
-		olDao.deleteDataByOrderId(orderid);
+	@Transactional
+	public void deleteDataByOrderIdF(String orderId) {
+		OrderListBean olBean = olDao.findDataByOrderId(orderId);
+		odDao.deleteDataByOrderId(olBean);
+		olDao.deleteDataByOrderId(orderId);
 	}
 //	// 8.deleteDataByOrderId(後台)
 //	// 不做確認就刪除，反正沒有該筆資料也不會刪到東西

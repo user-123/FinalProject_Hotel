@@ -29,9 +29,9 @@ public class OrderController {
 	@Autowired
 	private OrderService oService;
 	@Autowired
-	private RoomService rs;
+	private RoomService rService;
 	@Autowired
-	private LoginService ls;
+	private LoginService lService;
 
 	// 從homecontroller發請求過來
 	// 此時他看到的是addOrder.jsp
@@ -40,6 +40,11 @@ public class OrderController {
 		if(roomId == null) {
 			return "redirect:/public/room/orderAllShow";
 		}
+		//應該要改寫為使用service回傳值設定Attribute
+		RoomBean rBean = rService.find(roomId);
+		model.addAttribute("roomName", rBean.getName());
+		model.addAttribute("roomId", rBean.getRoomId());
+
 		OrderListBean ol = new OrderListBean();
 		model.addAttribute("Id", roomId);
 		model.addAttribute("information", ol);
@@ -55,19 +60,19 @@ public class OrderController {
 		data.setOrderid(oService.createorderid());
 		//data.setPaid("未付款");
 		// rr後面的方法名稱需換成小憲service的方法
-		RoomBean rid = rs.find(roomId);
+		RoomBean rid = rService.find(roomId);
 		// lr後面的方法名稱需換成文彥service的方法
-		LoginBean uid = ls.findById(userId);
+		LoginBean uid = lService.findById(userId);
 		data.setRoomid(rid);
 		data.setUserid(uid);
 		if(oService.insert(data)) {
+			model.addAttribute("information", data);
+			// 將資料放入重定向的屬性中
+			redirectAttributes.addFlashAttribute("information", data);
+			// 訂單成立成功的頁面
 			return "redirect:/orders/show";
 		}
-		model.addAttribute("information", data);
-		// 將資料放入重定向的屬性中
-		redirectAttributes.addFlashAttribute("information", data);
-		// 訂單成立成功的頁面
-		return "redirect:/orders/ordererror";
+		return "redirect:/orders/orderfail";
 	}
 
 	@GetMapping("/orders/show")
@@ -79,9 +84,9 @@ public class OrderController {
 		return "order/success";
 	}
 
-	@GetMapping("/orders/ordererror")
+	@GetMapping("/orders/orderfail")
 	public String showFailPage() {
-		return "order/orderFail";
+		return "order/orderFailPage";
 	}
 
 	// 3.findHistory
@@ -101,7 +106,7 @@ public class OrderController {
 			RedirectAttributes redirectAttributes) {
 		oService.deleteDataByOrderIdF(orderid);
 		// 將資料放入重定向的屬性中
-		redirectAttributes.addAttribute("userId", userId);
+		redirectAttributes.addAttribute("accountId", userId);
 		return "redirect:/orders/history";
 	}
 
@@ -181,15 +186,24 @@ public class OrderController {
 	//測試用，應該寫在service
 
 	//回應房間狀態請求
-	@GetMapping("/public/orders/checkroom")		//測試用public
+	@GetMapping("/orders/checkroom")
 	@ResponseBody
 	public List<Boolean> checkRoom(@RequestParam Integer roomId, @RequestParam String dateString) throws ParseException {		//待確認service argument型別
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = dateFormat.parse(dateString);
 		return oService.checkRoomState(roomId, date);
 	}
+
+	//////////測試用
 	@GetMapping("/public/orders/calendar")		//測試用public
 	public String calendarPage() {		//待確認service argument型別
 		return "order/calendar";
+	}
+	@GetMapping("/public/orders/checkroom")		//測試用public
+	@ResponseBody
+	public List<Boolean> checkRoomTest(@RequestParam Integer roomId, @RequestParam String dateString) throws ParseException {		//待確認service argument型別
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = dateFormat.parse(dateString);
+		return oService.checkRoomState(roomId, date);
 	}
 }

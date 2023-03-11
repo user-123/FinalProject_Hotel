@@ -55,8 +55,9 @@ public interface OrderListDao extends JpaRepository<OrderListBean, Integer> {
 	// 8.deleteDataByOrderId(前後台)
 	// 前台：尚未付款前可刪除訂單
 	// 後台；不做確認就刪除，反正沒有該筆資料也不會刪到東西
-	@Transactional
+	//@Transactional
 	@Modifying
-	@Query(value = "delete from Order_List where orderid=?1",nativeQuery=true)
-	public void deleteDataByOrderId(String orderid);
+	//@Query(value = "delete from Order_List where orderid=?1",nativeQuery=true)
+	@Query(value="delete from OrderListBean ol WHERE ol.orderid = :orderId")
+	public void deleteDataByOrderId(String orderId);
 }

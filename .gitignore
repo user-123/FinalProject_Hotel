@@ -12,6 +12,8 @@ bin/
 ##### switch to ignore itself #####
 .gitignore
 
+# user upload file
+src/*/webapp/uploadDir/*.*
 
 
 
