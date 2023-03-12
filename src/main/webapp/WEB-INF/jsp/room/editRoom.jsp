@@ -432,7 +432,9 @@ input[type=number] {
 											<div class="form-group">
 												<label for="room-photos">圖片:</label> <input type="file"
 													id="room-photos" class="input" name="files" required="true"
-													multiple> <span class="room-photoserror err"></span>
+													multiple><br>
+												<span class="room-photoserror err"></span>
+												<div id="preview-images"></div>
 											</div>
 										</div>
 									</div>

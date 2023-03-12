@@ -1,7 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
-
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
+<c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,6 +47,61 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<style>
+#slideshow {
+	position: relative;
+	overflow: hidden;
+	width: 1400px;
+	height: 700px;
+}
+
+#slideshow .slides {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#slideshow .slides img {
+	display: none;
+	width: 100%;
+	height: 100%;
+}
+
+#slideshow .slides img.active {
+	display: block;
+}
+</style>
+<script>
+	window.onload = function() {
+		$(function() {
+			var slides = $('.slides img');
+			var currentIndex = 0;
+			slides.eq(currentIndex).addClass('active');
+
+// 			function showNextSlide() {
+// 				slides.eq(currentIndex).removeClass('active');
+// 				currentIndex = (currentIndex + 1) % slides.length;
+// 				slides.eq(currentIndex).addClass('active');
+// 			}
+
+			function showPrevSlide() {
+				slides.eq(currentIndex).removeClass('active');
+				currentIndex = (currentIndex - 1 + slides.length)
+						% slides.length;
+				slides.eq(currentIndex).addClass('active');
+			}
+
+// 			$('.controls .prev').click(showNextSlide);
+			$('.slides #img').click(showPrevSlide);
+
+			setInterval(showNextSlide, 3000);
+		});
+	}
+</script>
+
 </head>
 
 <body>
@@ -85,8 +142,7 @@
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">會員</a>
-						<c:choose>
+						aria-haspopup="true" aria-expanded="false">會員</a> <c:choose>
 							<c:when test="${sessionScope.login==true}">
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 									<li><a class="dropdown-item"
@@ -94,10 +150,12 @@
 									<li><a class="dropdown-item"
 										href="<c:url value='/searchinfo' />">查詢資料</a></li>
 									<li><a class="dropdown-item"
-										href="<c:url value='/orders/history' />?文彥的id傳過來的名字=${sessionScope.id}">歷史訂單</a></li>
+										href="<c:url value='/orders/history' />?文彥的id傳過來的名字=${sessionScope.id}">歷史訂單</a>
+									</li>
 									<sec:authorize access="hasAuthority('admin')">
 										<li><a class="dropdown-item"
-											href="<c:url value="/admin/room/backstage"/>">後台</a></li>
+											href="<c:url value="
+															/admin/room/backstage" />">後台</a></li>
 									</sec:authorize>
 									<li><a class="dropdown-item "
 										href="<c:url value='/logout'/>"> <input type="hidden"
@@ -113,8 +171,7 @@
 										href="<c:url value='/public/register' />">註冊</a></li>
 								</ul>
 							</c:otherwise>
-						</c:choose>
-					</li>
+						</c:choose></li>
 
 				</ul>
 			</div>
@@ -154,6 +211,14 @@
 		<section class="property-grid grid">
 			<div class="container">
 				<div class="row">
+					<div id="slideshow">
+						<div class="slides">
+							<c:forEach items="${room.roomPhotoBeans}" var="photo">
+								<img id="img" src="<c:url value='/roomId/${photo.photoFile}'/>">
+							</c:forEach>
+						</div>
+					</div>
+
 					<h5>房型: ${room.type}</h5>
 					<h5>價錢: ${room.price}</h5>
 					<h5>房型介紹: ${room.roomNameIntroduction}</h5>
@@ -161,9 +226,6 @@
 					<h5>設備: ${room.equipment}</h5>
 					<h5>服務: ${room.service}</h5>
 					<h5>備註: ${room.remark}</h5>
-					<br> <br> <img width='300px'
-						src="http://localhost:8081/my-house/public/room/show">
-
 				</div>
 			</div>
 		</section>

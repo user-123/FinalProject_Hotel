@@ -32,8 +32,8 @@ public class RoomServiceImpl implements RoomService {
 	}
 
 	@Override
-	public void create(RoomBean roomBean) {
-		rDAO.save(roomBean);
+	public RoomBean create(RoomBean roomBean) {
+		return rDAO.save(roomBean);
 	}
 
 	@Override

@@ -1,7 +1,5 @@
 package idv.hotel.finalproject.service.impl;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +13,13 @@ public class RoomPhotoServiceImpl implements RoomPhotoService {
 	@Autowired
 	private RoomPhotoDao rPB;
 
-	public RoomPhotoServiceImpl() {}
+	public RoomPhotoServiceImpl() {
+	}
 
 	@Override
-	public RoomPhotoBean find(Integer oneId) {
-		Optional<RoomPhotoBean> rPBOptional = rPB.findById(oneId);
-		return rPBOptional.get();
+	public void saveImg(RoomPhotoBean photoBean) {
+
+		rPB.save(photoBean);
 	}
 
 }

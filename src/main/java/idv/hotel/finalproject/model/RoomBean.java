@@ -38,12 +38,11 @@ public class RoomBean {
 	@Column(columnDefinition = "nvarchar(255)")
 	private String remark;
 
-//	@JsonManagedReference // 主要序列化方
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "fk_room_id")
+	@OneToMany(mappedBy = "roomBean", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<RoomPhotoBean> roomPhotoBeans = new ArrayList<>();
 
-	public RoomBean() {}
+	public RoomBean() {
+	}
 
 	public RoomBean(Integer Id, Integer roomId, String name, String type, Integer price, String roomNameIntroduction,
 			String introduce, String equipment, String service, String remark) {

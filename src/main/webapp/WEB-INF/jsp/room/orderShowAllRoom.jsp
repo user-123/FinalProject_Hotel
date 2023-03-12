@@ -1,6 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -84,8 +86,7 @@
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">會員</a>
-						<c:choose>
+						aria-haspopup="true" aria-expanded="false">會員</a> <c:choose>
 							<c:when test="${sessionScope.login==true}">
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 									<li><a class="dropdown-item"
@@ -112,8 +113,7 @@
 										href="<c:url value='/public/register' />">註冊</a></li>
 								</ul>
 							</c:otherwise>
-						</c:choose>
-					</li>
+						</c:choose></li>
 
 				</ul>
 			</div>
@@ -168,12 +168,11 @@
 						</div>
 					</div>
 					<c:forEach items="${room}" var="msg">
-						<form action="<c:url value="/public/room/orderShow" />"
-							method="get">
-							<input type="hidden" name="Id" value="${msg.id}" /> <input
-								type="submit" class="btn btn-outline-info btn-sm"
-								value="${msg.roomId}">
-						</form>
+
+						<a href="<c:url value="/public/room/orderShow" />?Id=${msg.id}"><img
+							src="<c:url value='/roomId/${msg.roomPhotoBeans[0].photoFile}'/>"
+							width="800px" height="400px"></a>
+
 					</c:forEach>
 					<!-- 					   				---圖片---				                     -->
 					<!-- 					<div class="col-md-4"> -->

@@ -15,7 +15,7 @@ public interface RoomService {
 
 	public List<RoomBean> findType(String type);
 
-	public void create(RoomBean roomBean);
+	public RoomBean create(RoomBean roomBean);
 
 	public void delete(Integer Id);
 

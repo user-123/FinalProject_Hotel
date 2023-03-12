@@ -1,13 +1,19 @@
 package idv.hotel.finalproject.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,6 +36,9 @@ public class RoomContoller {
 	private RoomService rService;
 	@Autowired
 	private RoomPhotoService rpService;
+
+	@Value("${file.upload-dir}")
+	private String photoFile;
 
 	@GetMapping("/admin/room/backstage")
 	public String finAllBackstage(Model model) {
@@ -56,39 +65,8 @@ public class RoomContoller {
 		return "room/orderShowAllRoom";
 	}
 
-	@GetMapping("/public/room/orderShow") // 照片無法顯示
+	@GetMapping("/public/room/orderShow")
 	public String findOrder(@RequestParam Integer Id, Model model) {
-		System.out.println("測試1");
-		System.out.println(Id);
-		RoomBean roomBean = rService.ReferenceById(Id);
-		System.out.println("測試2");
-		System.out.println(roomBean);
-		List<RoomPhotoBean> photos = roomBean.getRoomPhotoBeans();
-		System.out.println("測試3");
-		System.out.println(photos);
-
-		for (RoomPhotoBean onePhoto : photos) {
-			Integer oneId = onePhoto.getId();
-			System.out.println("測試4");
-			System.out.println(oneId);
-			Optional<RoomPhotoBean> optional = Optional.ofNullable(rpService.find(oneId));
-			System.out.println("測試5");
-			System.out.println(optional);
-			if (optional.isPresent()) {
-				RoomPhotoBean photo = optional.get();
-				System.out.println("測試6");
-				System.out.println(photo);
-				byte[] photoFile = photo.getPhotoFile();
-				System.out.println("測試7");
-				System.out.println(photoFile);
-				ResponseEntity<byte[]> msg = ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(photoFile);
-				System.out.println("測試8");
-				System.out.println(ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(photoFile));
-
-//				model.addAttribute("msg",msg);
-
-			}
-		}
 
 		RoomBean room = rService.find(Id);
 		model.addAttribute("room", room);
@@ -113,39 +91,8 @@ public class RoomContoller {
 		return "room/showAllRoom";
 	}
 
-	@GetMapping("/public/room/show") // 照片無法顯示
+	@GetMapping("/public/room/show")
 	public String find(@RequestParam Integer Id, Model model) {
-		System.out.println("測試1");
-		System.out.println(Id);
-		RoomBean roomBean = rService.ReferenceById(Id);
-		System.out.println("測試2");
-		System.out.println(roomBean);
-		List<RoomPhotoBean> photos = roomBean.getRoomPhotoBeans();
-		System.out.println("測試3");
-		System.out.println(photos);
-
-		for (RoomPhotoBean onePhoto : photos) {
-			Integer oneId = onePhoto.getId();
-			System.out.println("測試4");
-			System.out.println(oneId);
-			Optional<RoomPhotoBean> optional = Optional.ofNullable(rpService.find(oneId));
-			System.out.println("測試5");
-			System.out.println(optional);
-			if (optional.isPresent()) {
-				RoomPhotoBean photo = optional.get();
-				System.out.println("測試6");
-				System.out.println(photo);
-				byte[] photoFile = photo.getPhotoFile();
-				System.out.println("測試7");
-				System.out.println(photoFile);
-				ResponseEntity<byte[]> msg = ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(photoFile);
-				System.out.println("測試8");
-				System.out.println(ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(photoFile));
-
-//				model.addAttribute("msg",msg);
-
-			}
-		}
 
 		RoomBean room = rService.find(Id);
 		model.addAttribute("room", room);
@@ -173,7 +120,7 @@ public class RoomContoller {
 
 	@PostMapping("/admin/room/add")
 	public String add(@ModelAttribute("roomBean") RoomBean rB, @RequestParam("files") MultipartFile[] files,
-			Model model) throws IOException {
+			Model model, HttpServletRequest request) throws IOException {
 		Integer roomId = rB.getRoomId();
 		String name = rB.getName();
 		String type = rB.getType();
@@ -188,19 +135,29 @@ public class RoomContoller {
 			return "room/addRoom";
 		} else {
 
-			List<RoomPhotoBean> photos = new LinkedList<>();
+			RoomBean bean = rService.create(rB);
 
-			for (MultipartFile file : files) {
-				RoomPhotoBean roomPhotoBean = new RoomPhotoBean();
-				byte[] photoByte = file.getBytes();
-				roomPhotoBean.setPhotoFile(photoByte);
+			for (MultipartFile photo : files) {
+				if (!photo.isEmpty()) {
 
-				photos.add(roomPhotoBean);
+					Integer Id = bean.getId();
+					String nameImg = Id + "." + photo.getOriginalFilename();
+					RoomPhotoBean roomPhotoBean = new RoomPhotoBean();
+					roomPhotoBean.setRoomBean(bean);
+					roomPhotoBean.setPhotoFile(nameImg);
+
+					rpService.saveImg(roomPhotoBean);
+
+					String photoFilePath = request.getServletContext().getRealPath(photoFile);
+					File roomImg = new File(photoFilePath);
+					if (!roomImg.isDirectory())
+						roomImg.mkdirs();
+
+					Path path = Paths.get(photoFilePath, nameImg);
+					Files.write(path, photo.getBytes());
+				}
 			}
-			rB.setRoomPhotoBeans(photos);
 
-			System.out.println(rB);
-			rService.create(rB);
 			return "redirect:/admin/room/backstage";
 		}
 
@@ -289,17 +246,6 @@ public class RoomContoller {
 			}
 		} else {
 
-//			List<RoomPhotoBean> photos = new LinkedList<>();
-//
-//			for (MultipartFile file : files) {
-//				RoomPhotoBean roomPhotoBean = new RoomPhotoBean();
-//				byte[] photoByte = file.getBytes();
-//				roomPhotoBean.setPhotoFile(photoByte);
-//
-//				photos.add(roomPhotoBean);
-//			}
-//			roomBean.setRoomPhotoBeans(photos);
-			System.out.println(roomBean);
 			rService.create(roomBean);
 
 			return "redirect:/admin/room/backstage";
