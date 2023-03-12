@@ -49,10 +49,6 @@
 			<scope>test</scope>
 		</dependency>
 
-
-
-
-
 		<!-- yan_start -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -89,10 +85,6 @@
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
 		<!-- switch_end -->
-
-
-
-
 	</dependencies>
 
 	<build>
@@ -103,10 +95,6 @@
 			</plugin>
 		</plugins>
 	</build>
-
-
-
-
 
 	<!-- yan_start -->
 	<repositories>
@@ -127,6 +115,7 @@
 			</releases>
 		</repository>
 	</repositories>
+
 	<pluginRepositories>
 		<pluginRepository>
 			<id>spring-milestones</id>
@@ -146,7 +135,5 @@
 		</pluginRepository>
 	</pluginRepositories>
 	<!-- yan_end -->
-
-
 
 </project>

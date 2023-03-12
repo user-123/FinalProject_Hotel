@@ -432,7 +432,7 @@
 										<div class="col-md-12 mb-3">
 											<div class="form-group">
 												<form:label path="message">備註</form:label>
-												<form:input class="form-control" name="message" path="message"
+												<form:input class="form-control" path="message"
 													placeholder="請輸入不超過30個字" maxlength="30" />
 											</div>
 										</div>

@@ -4,7 +4,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -20,7 +19,6 @@ public class HomeController {
 	MemberService memberService;
 	ServletContext context;
 
-	@Autowired
 	public HomeController(MemberService memberService, LoginService loginService, ServletContext context) {
 		super();
 		this.loginService = loginService;
