@@ -74,9 +74,13 @@ public class OrderController {
 	// 3.findHistory
 	// 查詢特定userID的訂單資料，我們幫他固定UserID，限制他只能看自己的
 	@GetMapping("/orders/history")
-	public String findHistory(@RequestParam("文彥的id傳過來的名字") Integer userId, Model model) {
+	public String findHistory(@RequestParam("文彥的id傳過來的名字") Integer userId, Model model,
+			 RedirectAttributes redirectAttributes) {
 		List<OrderListBean> olB = oService.findHistory(userId);
 		model.addAttribute("datas", olB);
+		// 從重定向屬性中取出資料
+		String orderId = (String) model.asMap().get("orderid");
+		model.addAttribute("orderId", orderId);
 		return "order/history";
 	}
 
@@ -85,11 +89,12 @@ public class OrderController {
 	// 會員在history.jsp按下[刪除]，發送此請求
 	// 未付款前才可取消，設計若他付款後欲取消，由飯店方取消
 	@DeleteMapping("/orders/delete")
-	public String deleteMessageF(@RequestParam("文彥的id傳過來的名字") Integer userId, @RequestParam String orderid,
-			RedirectAttributes redirectAttributes) {
+	public String deleteMessageF(@RequestParam("文彥的id傳過來的名字") Integer userId,
+			@RequestParam("orderid") String orderid, RedirectAttributes redirectAttributes) {
 		oService.deleteDataByOrderId(orderid);
 		// 將資料放入重定向的屬性中
 		redirectAttributes.addAttribute("文彥的id傳過來的名字", userId);
+		redirectAttributes.addAttribute("orderid", orderid);
 
 		return "redirect:/orders/history";
 	}
@@ -204,22 +209,28 @@ public class OrderController {
 	// **************************admin按下[編輯]按鈕，發送此請求******************************
 	// 錯誤未排除:1.資料庫有正常更新，但前端需思考一下 2.orderdate毫秒會更改!!(雖然好像沒有很大的關係
 	// 後台
-	// step1
+	// step1導到編輯的jsp
 	@GetMapping("/admin/orders/update")
 	public String editData(@RequestParam Integer id, Model model, @RequestParam("orderdate") String orderdate,
-			RedirectAttributes redirectAttributes) {
-		// 將資料放入重定向的屬性中
-		redirectAttributes.addFlashAttribute("orderdate", orderdate);
+			@RequestParam("jsp") String jsp, @RequestParam("searchid") String searchid) {
+		model.addAttribute("orderdate", orderdate);
 		OrderListBean datas = oService.findById(id);
 		model.addAttribute("datas", datas);
+		model.addAttribute("jsp", jsp);
+		model.addAttribute("searchid", searchid);
 
 		return "order/editData";
 	}
 
+	// step2在editData.jsp按下修改
 	// 必須保留id送過來!!!因為若沒id他會新增，有id就會update(更新)
 	@PutMapping("/admin/orders/editallData")
 	public String update(@ModelAttribute("datas") OrderListBean datas, RedirectAttributes redirectAttributes,
-			@RequestParam Integer id, Model model) {
+			@RequestParam Integer id, @RequestParam("jsp") String jsp, @RequestParam("searchid") String searchid,
+			Model model) {
+		// 將資料放入重定向的屬性中
+		redirectAttributes.addFlashAttribute("jsp", jsp);
+		redirectAttributes.addFlashAttribute("searchid", searchid);
 		// 從重定向屬性中取出資料
 		String orderdate = (String) model.asMap().get("orderdate");
 		model.addAttribute("datas", orderdate);
@@ -229,7 +240,7 @@ public class OrderController {
 		return "redirect:/admin/orders/updateok";
 	}
 
-	// step2
+	// step3
 	// 卡控回傳值--更新後返還之jsp
 	@GetMapping("/admin/orders/updateok")
 	public String afterUpdate(Model model, RedirectAttributes redirectAttributes) {
@@ -303,5 +314,4 @@ public class OrderController {
 		}
 		return value;
 	}
-
 }

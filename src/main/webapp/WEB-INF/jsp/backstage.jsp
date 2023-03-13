@@ -47,7 +47,7 @@
 </head>
 
 <body>
-<!-- ======= Header/Navbar ======= -->
+	<!-- ======= Header/Navbar ======= -->
 	<nav
 		class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
 		<div class="container">
@@ -67,21 +67,21 @@
 					<li class="nav-item"><a class="nav-link active" href="#">會員管理</a></li>
 
 					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" id="navbarDropdown" role="button" 
-						data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">訂單管理</a> 
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<li><a class="dropdown-item"
-										href="<c:url value='/admin/orders/findall' />">訂單一覽</a></li>
-									<li><a class="dropdown-item"
-										href="<c:url value='/admin/orders/byuserid' />">用會員ID查詢</a></li>
-									<li><a class="dropdown-item"
-										href="<c:url value='/admin/orders/byorderid' />">用訂單編號查詢</a></li>
-									<li><a class="dropdown-item"
-										href="<c:url value='/admin/orders/byorderdate' />">用下訂日期查詢</a></li>
-									<li><a class="dropdown-item"
-										href="<c:url value='/admin/orders/byroomid' />">用房型查詢</a></li>
-								</ul>
-							</li>
+						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+						data-bs-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">訂單管理</a>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<li><a class="dropdown-item"
+								href="<c:url value='/admin/orders/findall' />">訂單一覽</a></li>
+							<li><a class="dropdown-item"
+								href="<c:url value='/admin/orders/byuserid' />">用會員ID查詢</a></li>
+							<li><a class="dropdown-item"
+								href="<c:url value='/admin/orders/byorderid' />">用訂單編號查詢</a></li>
+							<li><a class="dropdown-item"
+								href="<c:url value='/admin/orders/byorderdate' />">用下訂日期查詢</a></li>
+							<li><a class="dropdown-item"
+								href="<c:url value='/admin/orders/byroomid' />">用房型查詢</a></li>
+						</ul></li>
 
 					<li class="nav-item"><a class="nav-link " href="#">房型管理</a></li>
 
@@ -89,6 +89,8 @@
 
 					<li class="nav-item"><a class="nav-link " href="#">景點管理</a></li>
 
+					<li class="nav-item"><a class="nav-link"
+						href="<c:url value='/admin/messages/messages' />">留言管理</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"

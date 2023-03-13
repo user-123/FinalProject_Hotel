@@ -75,6 +75,9 @@
 
 					<li class="nav-item"><a class="nav-link " href="#">周邊景點</a></li>
 
+					<li class="nav-item"><a class="nav-link "
+						href="<c:url value='/public/message/messages'/>">評價我們</a></li>
+						
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
@@ -164,34 +167,30 @@
 											value="付款">
 									</form>
 									<!--********************onSubmit為form表單原生的屬性，判斷回傳之布林值決定下一步******************** -->
-												<form action="${contextRoot}/orders/delete" method="post"
-													onSubmit="return popup2();">
+									<form action="${contextRoot}/orders/delete" method="post"
+										onSubmit="return popup1();">
 
-													<input type="hidden" name="orderid"
-														value="${datas.orderid}" /> <input type="hidden"
-														name="文彥的id傳過來的名字" value="${datas.userid.accountId}" /> <input
-														type="hidden" name="_method" value="delete" /> <input
-														type="submit" class="btn btn-outline-danger btn-sm"
-														value="刪除">
+										<input type="hidden" name="orderid" value="${datas.orderid}" />
+										<input type="hidden" name="文彥的id傳過來的名字"
+											value="${datas.userid.accountId}" /> <input type="hidden"
+											name="_method" value="delete" /> <input type="submit"
+											class="btn btn-outline-danger btn-sm" value="刪除">
 
-													<!--********************刪除前用來做再次確認的範本******************** -->
+										<!--********************刪除前用來做再次確認的範本******************** -->
 
-													<script>
-														function popup2() {
-															if (confirm('您確定要刪除嗎') == true) {
-																//作刪除的動作(送出表單)
-																return true;
-															} else {
-																//返還history.jsp(當沒發生過)
-																return false;
-															}
-														};
-													</script>
-												</form>
+										<script>
+											function popup1() {
+												if (confirm('您確定要刪除嗎') == true) {
+													//作刪除的動作(送出表單)
+													return true;
+												} else {
+													//返還history.jsp(當沒發生過)
+													return false;
+												}
+											};
+										</script>
+									</form>
 								</div>
-
-
-
 							</div>
 						</div>
 					</div>

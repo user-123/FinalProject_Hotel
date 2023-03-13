@@ -1,10 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://www.springframework.org/security/tags"
-	prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -40,6 +39,7 @@
 
 <!-- Template Main CSS File -->
 <link href="<c:url value='/assets/css/style.css'/>" rel="stylesheet">
+
 </head>
 <body>
 	<!-- ======= Header/Navbar ======= -->
@@ -74,14 +74,15 @@
 					<li class="nav-item"><a class="nav-link " href="#">休閒設施</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="#">周邊景點</a></li>
-
+					
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/message/messages'/>">評價我們</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">會員</a> <c:choose>
+						aria-haspopup="true" aria-expanded="false">會員</a>
+						<c:choose>
 							<c:when test="${sessionScope.login==true}">
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 									<li><a class="dropdown-item"
@@ -108,117 +109,69 @@
 										href="<c:url value='/public/register' />">註冊</a></li>
 								</ul>
 							</c:otherwise>
-						</c:choose></li>
+						</c:choose>
+					</li>
 				</ul>
 			</div>
 
 		</div>
 	</nav>
 	<!-- End Header/Navbar -->
-	<input type="hidden" value="${orderId}" id="orderId" />
-	<script>
-		const orderIdValue = document.getElementById("orderId");
-
-		window.onload = function() {
-			alert(orderIdValue.value);
-			if ($("#orderId").value == null) {
-				alert("刪除成功");
-				return true;
-			} else {
-				alert("刪除失敗");
-				return false;
-			}
-		};
-	</script>
 	<main id="main">
 		<section class="intro-single">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12 col-lg-8">
 						<div class="title-single-box">
-							<h1 class="title-single">歷史訂單</h1>
+							<h1 class="title-single">評價我們</h1>
+
 							<div class="form-comments">
 								<div class="title-box-d">
-									<h5 class="title-d">訂單明細</h5>
+									<h5 class="title-d">即刻下訂</h5>
 								</div>
-								<c:forEach var="datas" items="${datas}">
+
+								<form:form class="form-a" action="${contextRoot}/orders/post"
+									modelAttribute="information">
 									<div class="row">
-										<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow">
-											<div class="col-md-12 mb-3">
-												<div class="form-group">
-													訂單成立時間:
-													<fmt:formatDate pattern="yyyy-MM-dd ,a hh:mm:ss EEEE"
-														value="${datas.orderdate}" />
-												</div>
-											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">訂單編號:${datas.orderid}</div>
-											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">
-													會員:${datas.userid.accountName}</div>
-											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">房號:${datas.roomid.roomId}</div>
-											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">
-													入住日期:
-													<fmt:formatDate pattern="yyyy-MM-dd"
-														value="${datas.checkindate}" />
-												</div>
-											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">
-													退房日期:
-													<fmt:formatDate pattern="yyyy-MM-dd"
-														value="${datas.checkoutdate}" />
-												</div>
-											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">備註:${datas.message}</div>
-											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">付款狀態:${datas.paid}</div>
-											</div>
-											<div class="col-md-12 mb-3" style="text-align: right">
-												<c:choose>
-													<c:when test="${datas.paid=='未付款'}">
-														<form action="<c:url value='小憲的金流系統' />" method="get">
-															<input type="submit" class="btn btn-outline-info btn-sm"
-																value="付款">
-														</form>
-													</c:when>
-												</c:choose>
-												<!--********************onSubmit為form表單原生的屬性，判斷回傳之布林值決定下一步******************** -->
-												<form action="${contextRoot}/orders/delete" method="post"
-													onSubmit="return popup2();">
-
-													<input type="hidden" name="orderid"
-														value="${datas.orderid}" /> <input type="hidden"
-														name="文彥的id傳過來的名字" value="${datas.userid.accountId}" /> <input
-														type="hidden" name="_method" value="delete" /> <input
-														type="submit" class="btn btn-outline-danger btn-sm"
-														value="刪除">
-
-													<!--********************刪除前用來做再次確認的範本******************** -->
-
-													<script>
-														function popup2() {
-															if (confirm('您確定要刪除嗎') == true) {
-																//作刪除的動作(送出表單)
-																return true;
-															} else {
-																//返還history.jsp(當沒發生過)
-																return false;
-															}
-														};
-													</script>
-												</form>
+										<div class="col-md-6 mb-3">
+											<div class="form-group">
+												<form:label path="checkindate">入住日期*</form:label>
+												<form:input path="checkindate" type="text"
+													class="form-control form-control-lg form-control-a"
+													placeholder="入住日期" required="true" />
 											</div>
 										</div>
+
+										<div class="col-md-6 mb-3">
+											<div class="form-group">
+												<form:label path="checkoutdate">退房日期*</form:label>
+												<form:input path="checkoutdate" type="text"
+													class="form-control form-control-lg form-control-a"
+													id="inputEmail1" placeholder="退房日期" required="true" />
+											</div>
+										</div>
+										<div class="col-md-12 mb-3">
+											<div class="form-group">
+												<form:label path="message">備註</form:label>
+												<form:input class="form-control" path="message"
+													placeholder="請輸入不超過30個字" maxlength="30" />
+											</div>
+										</div>
+
+										<!-- 會員 -->
+										<input type="hidden" name="文彥的id傳過來的名字"
+											value="${sessionScope.id}" />
+
+
+										<!-- 房號 -->
+										<input type="hidden" name="rId" value="${Id}" />
+
 									</div>
-								</c:forEach>
+
+									<button type="submit" class="btn btn-primary"
+										style="text-align: right;">送出</button>
+
+								</form:form>
 							</div>
 						</div>
 					</div>
@@ -226,6 +179,7 @@
 			</div>
 		</section>
 	</main>
+
 	<!-- ======= Footer ======= -->
 
 	<footer>

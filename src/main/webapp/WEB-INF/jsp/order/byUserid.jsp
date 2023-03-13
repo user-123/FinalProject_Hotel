@@ -94,6 +94,8 @@
 
 					<li class="nav-item"><a class="nav-link " href="#">景點管理</a></li>
 
+					<li class="nav-item"><a class="nav-link"
+						href="<c:url value='/admin/messages/messages' />">評價管理</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
@@ -145,7 +147,7 @@
 									<button type="submit" class="btn btn-primary">送出</button>
 								</form:form>
 								<c:forEach var="datas" items="${datas}">
-								<label hidden="hidden">${datas.id}</label>
+									<label hidden="hidden">${datas.id}</label>
 									<div class="row">
 										<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow">
 											<div class="col-md-12 mb-3">
@@ -188,10 +190,11 @@
 												<!--********************[編輯按鈕]******************** -->
 												<form action="${contextRoot}/admin/orders/update"
 													method="get">
-													<input type="hidden" name="id" value="${datas.id}" /> 
-													<input type="hidden" name="orderdate" value="${datas.orderdate}" /> 
+													<input type="hidden" name="id" value="${datas.id}" /> <input
+														type="hidden" name="jsp" value="byUserid" /> <input
+														type="hidden" name="orderdate" value="${datas.orderdate}" />
 													<input type="submit" class="btn btn-outline-info btn-sm"
-														value="編輯訂單">
+														value="編輯">
 												</form>
 												<!--********************[刪除按鈕]******************** -->
 												<!--********************onSubmit為form表單原生的屬性，判斷回傳之布林值決定下一步******************** -->
@@ -200,11 +203,11 @@
 
 													<input type="hidden" name="orderid"
 														value="${datas.orderid}" /> <input type="hidden"
-														name="jsp" value="byUserid" /> 
-														<input type="hidden" name="searchid" value="${datas.userid.accountId}" /> 
-														<input type="hidden"
-														name="_method" value="delete" /> <input type="submit"
-														class="btn btn-outline-danger btn-sm" value="刪除">
+														name="jsp" value="byUserid" /> <input type="hidden"
+														name="searchid" value="${datas.userid.accountId}" /> <input
+														type="hidden" name="_method" value="delete" /> <input
+														type="submit" class="btn btn-outline-danger btn-sm"
+														value="刪除">
 
 													<!--********************刪除前用來做再次確認的範本******************** -->
 

@@ -94,7 +94,9 @@
 
 					<li class="nav-item"><a class="nav-link " href="#">景點管理</a></li>
 
-
+					<li class="nav-item"><a class="nav-link"
+						href="<c:url value='/admin/messages/messages' />">評價管理</a></li>
+						
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
@@ -200,8 +202,9 @@
 													</div>
 												</div>
 												<div class="col-md-12 mb-3" style="text-align: right">
-												<input type="hidden" name="id" value="${datas.id}" />
-												<form:input path="orderdate" type="hidden" />
+													<input type="hidden" name="id" value="${datas.id}" /> <input
+														type="hidden" name="jsp" value="allData" />
+													<form:input path="orderdate" type="hidden" />
 													<button type="submit" class="btn btn-primary">送出</button>
 												</div>
 											</div>
