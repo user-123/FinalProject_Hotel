@@ -25,8 +25,8 @@ public class RoomPhotoServiceImpl implements RoomPhotoService {
 	}
 
 	@Override
-	public List<RoomPhotoBean> findByFk(Integer roomId) {
-		return rPB.findByFk(roomId);
+	public List<RoomPhotoBean> findByFk(Integer Id) {
+		return rPB.findByFk(Id);
 	}
 
 }

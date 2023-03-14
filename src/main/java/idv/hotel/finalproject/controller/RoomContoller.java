@@ -227,16 +227,23 @@ public class RoomContoller {
 			if (rbi.getId() == Id) {
 				if (rbn != null) {
 					if (rbn.getId() == Id) {
-
-						RoomBean bean = rService.create(roomBean);
+						List<RoomPhotoBean> photoBean = rpService.findByFk(Id);
+						rService.create(roomBean);
 
 						for (MultipartFile photo : files) {
 
 							if (!photo.isEmpty()) {
-								Integer Id1 = bean.getId();
-								String nameImg = Id1 + "." + photo.getOriginalFilename();
+								String pathImg = request.getServletContext().getRealPath(photoFile);
+								for (RoomPhotoBean ph : photoBean) {
+									File file = new File(pathImg + "/" + ph.getPhotoFile());
+									System.out.println(file);
+									if (file.exists()) {
+										file.delete();
+									}
+								}
+								String nameImg = Id + "." + photo.getOriginalFilename();
 								RoomPhotoBean roomPhotoBean = new RoomPhotoBean();
-								roomPhotoBean.setRoomBean(bean);
+								roomPhotoBean.setRoomBean(roomBean);
 								roomPhotoBean.setPhotoFile(nameImg);
 
 								rpService.saveImg(roomPhotoBean);
@@ -249,12 +256,13 @@ public class RoomContoller {
 								Path path = Paths.get(photoFilePath, nameImg);
 								Files.write(path, photo.getBytes());
 							} else {
-								List<RoomPhotoBean> photoBean = rpService.findByFk(Id);
 								for (RoomPhotoBean ph : photoBean) {
 									String pp = ph.getPhotoFile();
 									RoomPhotoBean roomPhotoBean = new RoomPhotoBean();
-									roomPhotoBean.setRoomBean(bean);
+									roomPhotoBean.setRoomBean(roomBean);
 									roomPhotoBean.setPhotoFile(pp);
+
+									rpService.saveImg(roomPhotoBean);
 								}
 							}
 						}
@@ -265,14 +273,23 @@ public class RoomContoller {
 						return "redirect:/admin/room/backstage";
 					}
 				}
-				RoomBean bean = rService.create(roomBean);
+				List<RoomPhotoBean> photoBean = rpService.findByFk(Id);
+				rService.create(roomBean);
 
 				for (MultipartFile photo : files) {
+
 					if (!photo.isEmpty()) {
-						Integer Id1 = bean.getId();
-						String nameImg = Id1 + "." + photo.getOriginalFilename();
+						String pathImg = request.getServletContext().getRealPath(photoFile);
+						for (RoomPhotoBean ph : photoBean) {
+							File file = new File(pathImg + "/" + ph.getPhotoFile());
+							System.out.println(file);
+							if (file.exists()) {
+								file.delete();
+							}
+						}
+						String nameImg = Id + "." + photo.getOriginalFilename();
 						RoomPhotoBean roomPhotoBean = new RoomPhotoBean();
-						roomPhotoBean.setRoomBean(bean);
+						roomPhotoBean.setRoomBean(roomBean);
 						roomPhotoBean.setPhotoFile(nameImg);
 
 						rpService.saveImg(roomPhotoBean);
@@ -284,6 +301,15 @@ public class RoomContoller {
 
 						Path path = Paths.get(photoFilePath, nameImg);
 						Files.write(path, photo.getBytes());
+					} else {
+						for (RoomPhotoBean ph : photoBean) {
+							String pp = ph.getPhotoFile();
+							RoomPhotoBean roomPhotoBean = new RoomPhotoBean();
+							roomPhotoBean.setRoomBean(roomBean);
+							roomPhotoBean.setPhotoFile(pp);
+
+							rpService.saveImg(roomPhotoBean);
+						}
 					}
 				}
 
@@ -295,16 +321,23 @@ public class RoomContoller {
 
 		} else if (rbn != null) {
 			if (rbn.getId() == Id) {
-
-				RoomBean bean = rService.create(roomBean);
+				List<RoomPhotoBean> photoBean = rpService.findByFk(Id);
+				rService.create(roomBean);
 
 				for (MultipartFile photo : files) {
-					if (!photo.isEmpty()) {
 
-						Integer Id1 = bean.getId();
-						String nameImg = Id1 + "." + photo.getOriginalFilename();
+					if (!photo.isEmpty()) {
+						String pathImg = request.getServletContext().getRealPath(photoFile);
+						for (RoomPhotoBean ph : photoBean) {
+							File file = new File(pathImg + "/" + ph.getPhotoFile());
+							System.out.println(file);
+							if (file.exists()) {
+								file.delete();
+							}
+						}
+						String nameImg = Id + "." + photo.getOriginalFilename();
 						RoomPhotoBean roomPhotoBean = new RoomPhotoBean();
-						roomPhotoBean.setRoomBean(bean);
+						roomPhotoBean.setRoomBean(roomBean);
 						roomPhotoBean.setPhotoFile(nameImg);
 
 						rpService.saveImg(roomPhotoBean);
@@ -316,6 +349,15 @@ public class RoomContoller {
 
 						Path path = Paths.get(photoFilePath, nameImg);
 						Files.write(path, photo.getBytes());
+					} else {
+						for (RoomPhotoBean ph : photoBean) {
+							String pp = ph.getPhotoFile();
+							RoomPhotoBean roomPhotoBean = new RoomPhotoBean();
+							roomPhotoBean.setRoomBean(roomBean);
+							roomPhotoBean.setPhotoFile(pp);
+
+							rpService.saveImg(roomPhotoBean);
+						}
 					}
 				}
 
@@ -326,15 +368,23 @@ public class RoomContoller {
 			}
 		} else {
 
-			RoomBean bean = rService.create(roomBean);
+			List<RoomPhotoBean> photoBean = rpService.findByFk(Id);
+			rService.create(roomBean);
 
 			for (MultipartFile photo : files) {
-				if (!photo.isEmpty()) {
 
-					Integer Id1 = bean.getId();
-					String nameImg = Id1 + "." + photo.getOriginalFilename();
+				if (!photo.isEmpty()) {
+					String pathImg = request.getServletContext().getRealPath(photoFile);
+					for (RoomPhotoBean ph : photoBean) {
+						File file = new File(pathImg + "/" + ph.getPhotoFile());
+						System.out.println(file);
+						if (file.exists()) {
+							file.delete();
+						}
+					}
+					String nameImg = Id + "." + photo.getOriginalFilename();
 					RoomPhotoBean roomPhotoBean = new RoomPhotoBean();
-					roomPhotoBean.setRoomBean(bean);
+					roomPhotoBean.setRoomBean(roomBean);
 					roomPhotoBean.setPhotoFile(nameImg);
 
 					rpService.saveImg(roomPhotoBean);
@@ -346,6 +396,15 @@ public class RoomContoller {
 
 					Path path = Paths.get(photoFilePath, nameImg);
 					Files.write(path, photo.getBytes());
+				} else {
+					for (RoomPhotoBean ph : photoBean) {
+						String pp = ph.getPhotoFile();
+						RoomPhotoBean roomPhotoBean = new RoomPhotoBean();
+						roomPhotoBean.setRoomBean(roomBean);
+						roomPhotoBean.setPhotoFile(pp);
+
+						rpService.saveImg(roomPhotoBean);
+					}
 				}
 			}
 

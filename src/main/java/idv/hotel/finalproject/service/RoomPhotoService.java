@@ -11,7 +11,7 @@ public interface RoomPhotoService {
 
 	public void saveImg(RoomPhotoBean photoBean);
 
-	public List<RoomPhotoBean> findByFk(Integer roomId);
+	public List<RoomPhotoBean> findByFk(Integer Id);
 		
 	
 }
