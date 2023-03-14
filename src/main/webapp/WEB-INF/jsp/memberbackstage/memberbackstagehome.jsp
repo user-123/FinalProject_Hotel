@@ -11,8 +11,8 @@
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<script src="<c:url value='/javascript/jquery-ui.min.js'/>" ></script>
 <script src="<c:url value='/javascript/jquery-3.6.0.min.js'/>" ></script>
+<script src="<c:url value='/javascript/jquery-ui.min.js'/>" ></script>
 <script>
         $(function () {
             $("#tabs").tabs();
@@ -70,18 +70,32 @@
 				aria-label="Toggle navigation">
 				<span></span> <span></span> <span></span>
 			</button>
-			<a class="navbar-brand text-brand" href="<c:url value='#'/>"><span
+			<a class="navbar-brand text-brand" href="<c:url value='/admin/backstage' />"><span
 				class="color-b">XXX飯店管理系統</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
 				<ul class="navbar-nav">
 
-					<li class="nav-item"><a class="nav-link active" href="<c:url value='/admin/backstage' />">會員管理</a></li>
+					<!-- <li class="nav-item"><a class="nav-link" href="#">XXX</a></li> -->
+					<li class="nav-item"><a class="nav-link active" href="<c:url value='/admin/backstage/member' />">會員管理</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="#">訂單管理</a></li>
+					<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">訂單管理</a>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<li><a class="dropdown-item"
+								href="<c:url value='/admin/orders/findall' />">訂單一覽</a></li>
+							<li><a class="dropdown-item"
+								href="<c:url value='/admin/orders/byuserid' />">用會員ID查詢</a></li>
+							<li><a class="dropdown-item"
+								href="<c:url value='/admin/orders/byorderid' />">用訂單編號查詢</a></li>
+							<li><a class="dropdown-item"
+								href="<c:url value='/admin/orders/byorderdate' />">用下訂日期查詢</a></li>
+							<li><a class="dropdown-item"
+								href="<c:url value='/admin/orders/byroomid' />">用房型查詢</a></li>
+						</ul>
+					</li>
 
-					<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/room/backstage' />">房型管理</a></li>
+					<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/backstage/room' />">房型管理</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="#">設施管理</a></li>
 

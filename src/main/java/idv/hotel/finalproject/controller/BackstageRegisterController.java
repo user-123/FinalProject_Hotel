@@ -38,43 +38,43 @@ public class BackstageRegisterController {
 		this.memberService = memberService;
 		this.context = context;
 	}
-	
-	
+
+
 	@ModelAttribute("loginBean")
 	public LoginBean init() {
 		LoginBean lb = new LoginBean();
-		return lb; 
+		return lb;
 	}
-	
+
 	@InitBinder
 	public void whiteListing(WebDataBinder binder) {
 		binder.setAllowedFields(
-				"accountName", 
+				"accountName",
 				"password",
 				"email",
 				"confirm",
 				"search"
 				);
 	}
-	
-	
-	
-	
-	@GetMapping("/admin/backstage")
+
+
+
+
+	@GetMapping("/admin/backstage/member")
 	public String backstage() {
 		return "memberbackstage/memberbackstagehome";
 	}
-	
-	
 
-	@PostMapping("/admin/insertadmin")
+
+
+	@PostMapping("/admin/backstage/insertadmin")
 	@ResponseBody
 	public String register(@ModelAttribute("loginBean") LoginBean lb,
 			BindingResult bindingResult, Model model ) {
 		String result = "";
-		
+
 		new LoginValidator().validate(lb, bindingResult);
-	
+
 		if (bindingResult.hasErrors()) {
 			List<ObjectError> list = bindingResult.getAllErrors();
 			for(ObjectError error : list) {
@@ -90,7 +90,7 @@ public class BackstageRegisterController {
 				if(error.getCode().equals("loginBean.name.size")) {
 					System.out.println("loginBean.name.size");
 				}
-				
+
 			}
 			return "新增失敗";
 		}
@@ -101,18 +101,18 @@ public class BackstageRegisterController {
 			result = "新增失敗";
 		}
 		return result;
-	}	
-	
-	
-	
-	@GetMapping("/admin/search")
+	}
+
+
+
+	@GetMapping("/admin/backstage/search")
 	@ResponseBody
 	public ArrayList<ArrayList<String>> search(@RequestParam String search,Model model,HttpServletRequest request) {
 		return loginService.showAdmin(request,search);
 	}
-	
-	
-	@DeleteMapping("/admin/deleterow")
+
+
+	@DeleteMapping("/admin/backstage/deleterow")
 	@ResponseBody
 	public String delete(@RequestParam String deleteId) {
 		if(loginService.findById(Integer.valueOf(deleteId)).getMember()!=null) {
@@ -122,13 +122,13 @@ public class BackstageRegisterController {
 		loginService.deleteLb(Integer.valueOf(deleteId));
 		return "";
 	}
-	
-	
-	
+
+
+
 //	@PutMapping("/admin/updaterow")
 //	@ResponseBody
 //	public String update() {
-//		
+//
 //		return "";
 //	}
 

@@ -14,10 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import idv.hotel.finalproject.dao.LoginDao;
 import idv.hotel.finalproject.dao.OrderDetailDao;
 import idv.hotel.finalproject.dao.OrderListDao;
+import idv.hotel.finalproject.dao.RoomDao;
+import idv.hotel.finalproject.model.LoginBean;
 import idv.hotel.finalproject.model.OrderDetailBean;
 import idv.hotel.finalproject.model.OrderListBean;
+import idv.hotel.finalproject.model.RoomBean;
 import idv.hotel.finalproject.service.OrderService;
 
 @Transactional
@@ -28,6 +32,10 @@ public class OrderServiceImpl implements OrderService {
 	private OrderListDao olDao;
 	@Autowired
 	private OrderDetailDao odDao;
+	@Autowired
+	private LoginDao lDao;
+	@Autowired
+	private RoomDao rDao;
 
 	//private Optional<OrderDetailBean> odBean = odDao.findById(0);
 
@@ -47,9 +55,17 @@ public class OrderServiceImpl implements OrderService {
 		String serial = dateString + x;
 		return serial;
 	}
+	// 9.save(後台)
+	public OrderListBean findById(Integer id) {
+		Optional<OrderListBean> optional = olDao.findById(id);
 
-	//---------------------1.先讓功能可以正常使用(未做)-----------------------------
-	//---------------------2.卡控會員自己只能找到自己的資料![1,3,8](未做)-----------------------------
+		if(optional.isEmpty()) {
+			return null;
+		}
+
+		return optional.get();
+	}
+
 	// 1.save(前台)
 	// 會員下訂=>儲存所有細節(orderlist+orderdetail)
 	// 控制會員只能使用自己的userid
@@ -71,67 +87,82 @@ public class OrderServiceImpl implements OrderService {
 	//List：特定型別，不固定長度的陣列。
 	//Array：不特定型別，固定長度的陣列，長度需事先宣告。
 	//ArrayList：不特定型別，不固定長度的陣列。
+
 	// 2.findAll(後台)
-//	@Override
-//	public List<OrderListBean> findAll() {
-//		return olDao.findAll();
-//	}
+	@Override
+	public List<OrderListBean> findAll() {
+		return olDao.findAll();
+	}
+
 	// 3.findHistory(前台)
 	// 查詢特定userid的訂單資料
 	// 前台:查詢特定userID的訂單資料，我們幫他固定UserID，限制他只能看自己的
 	@Override
 	public List<OrderListBean> findHistory(Integer userid) {
-		return olDao.findDataByUserId(userid);
+		return olDao.findDataByUserIdF(userid);
 	}
-//	// 3.findDataByUserId(後台)
-//	// 查詢特定userid的訂單資料
+
+	// 3.findDataByUserId(後台)
+	// 查詢特定userid的訂單資料
+	@Override
+	public List<OrderListBean> findDataByUserIdB(String userid) {
+		//D.C.：你欠揍哦，前後台找法不一樣哦，dao不是直接複製貼上齁，或改個type，不過這不能完全怪你，有一小半是硯硯的鍋，他會員系統給的argument亂七八糟，我已經嘴過了，但是這就是用原生語句查的缺點
+		//邏輯上，如果都是用entity操作，那hql語句會完全一樣，但你用原生語句就要看你現在是在拿什麼資料查，下面我直接照你的code改寫，if(等我有時間&&腦袋撞到) {再幫你全部重寫吧}
+		//我直接改成用hql查，你想寫原生的話就是先查"accountName"得到"accountId"再丟進這裡查
+		//啊嘿，我錯了，說明寫在controller我沒看清楚，只是你type本來也好像是錯的，還是我眼花了@@
+		LoginBean lBean = lDao.findByAccountName(userid);
+		return olDao.findDataByUserIdB(lBean);
+	}
+
+	// 4.findDataByOrderId(前台)
+	// 查詢特定orderid的訂單資料
+	// 讓會員可以利用訂單編號查詢自己的訂單紀錄
+	// 先做findDataByUser再篩選出orderid，避免user查到不屬於他的訂單資訊
 //	@Override
-//	public List<OrderListBean> findDataByUserIdB(Integer userid) {
-//		return olDao.findDataByUserId(userid);
+//	public OrderListBean findDataByOrderIdF(String orderid) {
+//		return olDao.findDataByOrderIdF(orderid);
 //	}
-//	// 4.findDataByOrderId(後台)
-//	// 查詢特定orderid的訂單資料
-//	// 讓會員可以利用訂單編號查詢自己的訂單紀錄
-//	// 先做findDataByUser再篩選出orderid，避免user查到不屬於他的訂單資訊
-//	@Override
-//	public OrderListBean findDataByOrderId(String orderid) {
-//		return olDao.findDataByOrderId(orderid);
-//	}
+
+	// 4.findDataByOrderId(後台)
+	// 查詢特定orderid的訂單資料
+	// 讓會員可以利用訂單編號查詢自己的訂單紀錄
+	// 先做findDataByUser再篩選出orderid，避免user查到不屬於他的訂單資訊
+	@Override
+	public OrderListBean findDataByOrderIdB(String orderid) {
+		return olDao.findDataByOrderIdB(orderid);
+	}
+
 //	// 5.findDataByCheckdate(後台)
 //	// 查詢特定日期的訂單資料
 //	@Override
-//	public List<OrderListBean> findDataByCheckdate(Timestamp cd) {
+//	public List<OrderListBean> findDataByCheckdate(Date cd) {
 //		return olDao.findDataByCheckdate(cd);
 //	}
-//
-//	// 6.findDataByOrderdate(後台)
-//	// 查詢特定日期的訂單資料(訂單成立日期)
-//	@Override
-//	public List<OrderListBean> findDataByOrderdate(Date order) {
-//		return olDao.findDataByOrderdate(order);
-//	}
-//
-//	// 7.findDataByRoomId(後台)
-//	// 查詢特定房型的訂單資料
-//	@Override
-//	public List<OrderListBean> findDataByRoomId(RoomBean roomid) {
-//		return olDao.findDataByRoomId(roomid);
-//	}
-	// 8.deleteDataByOrderId(前台)
+
+	// 6.findDataByOrderdate(後台)
+	// 查詢特定下訂日期的訂單資料(訂單成立日期)
+	@Override
+	public List<OrderListBean> findDataByOrderdate(String order) {
+		return olDao.findDataByOrderdate(order);
+	}
+
+	// 7.findDataByRoomId(後台)
+	// 查詢特定房型的訂單資料
+	@Override
+	public List<OrderListBean> findDataByRoomId(Integer roomId) {
+		RoomBean rBean = rDao.findByRoomNum(roomId);
+		return olDao.findDataByRoomId(rBean);
+	}
+
+	// 8.deleteDataByOrderId(前後台)
 	// 尚未付款前可刪除訂單
 	@Override
 	@Transactional
-	public void deleteDataByOrderIdF(String orderId) {
-		OrderListBean olBean = olDao.findDataByOrderId(orderId);
+	public void deleteDataByOrderId(String orderId) {
+		OrderListBean olBean = olDao.findDataByOrderIdB(orderId);
 		odDao.deleteDataByOrderId(olBean);
 		olDao.deleteDataByOrderId(orderId);
 	}
-//	// 8.deleteDataByOrderId(後台)
-//	// 不做確認就刪除，反正沒有該筆資料也不會刪到東西
-//	@Override
-//	public void deleteDataByOrderIdB(String orderid) {
-//		olDao.deleteDataByOrderId(orderid);
-//	}
 
 
 
@@ -142,12 +173,10 @@ public class OrderServiceImpl implements OrderService {
 
 
 
-	//確認房間狀態 (如果房間為空回傳true)	//思考需不需要改為每月的array，方便一次查詢	//修改中
+	//確認1個月的房間狀態 (如果房間為空回傳true)
 	public List<Boolean> checkRoomState(Integer roomId, Date monthOfDate) {
 		List<Boolean> roomStatus = new ArrayList<>();
 		//Integer roomId_Integer = Integer.parseInt(roomId.getRoomIdtoString());
-
-
 
 		//Timestamp timestamp = Timestamp.valueOf("2023-10-01 13:13:13");		//測試用，等改成接入資料
 		//Calendar calendar = Calendar.getInstance();

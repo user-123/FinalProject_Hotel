@@ -18,8 +18,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-@Entity
-@Table(name = "Order_Detail")
+@Entity//(name="OrderDetailBean")
+@Table(name="Order_Detail")
 public class OrderDetailBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -105,6 +105,6 @@ public class OrderDetailBean implements Serializable {
 
 	@Override
 	public String toString() {
-		return "OrderDetailBean [suborderId=" + suborderId + ", orderId=" + orderId + ", roomId=" + roomId  + ", livingDate=" + livingDate + ", roomservice=" + message + "]";
+		return "OrderDetailBean [suborderId=" + suborderId + ", roomId=" + roomId  + ", livingDate=" + livingDate + ", roomservice=" + message + "]";
 	}
 }

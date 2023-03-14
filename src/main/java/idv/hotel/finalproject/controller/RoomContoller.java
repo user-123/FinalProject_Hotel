@@ -31,17 +31,17 @@ public class RoomContoller {
 	@Autowired
 	private RoomPhotoService rpService;
 
-	@GetMapping("/admin/room/backstage")
+	@GetMapping("admin/backstage/room")
 	public String finAllBackstage(Model model) {
 		List<RoomBean> roomBs = rService.findAll();
 		model.addAttribute("room", roomBs);
 		return "room/backstageRoom";
 	}
 
-	@GetMapping("/admin/room/backstageShowType")
+	@GetMapping("admin/backstage/roomShowType")
 	public String findTypebackstage(@RequestParam String type, Model model) {
 		if (type == "") {
-			return "redirect:/admin/room/backstage";
+			return "redirect:/admin/backstage/room";
 		} else {
 			List<RoomBean> roomType = rService.findType(type);
 			model.addAttribute("room", roomType);
@@ -201,7 +201,7 @@ public class RoomContoller {
 
 			System.out.println(rB);
 			rService.create(rB);
-			return "redirect:/admin/room/backstage";
+			return "redirect:/admin/backstage/room";
 		}
 
 	}
@@ -231,7 +231,7 @@ public class RoomContoller {
 	@DeleteMapping("admin/room/delete")
 	public String delete(@RequestParam Integer id) {
 		rService.delete(id);
-		return "redirect:/admin/room/backstage";
+		return "redirect:/admin/backstage/room";
 	}
 
 	@GetMapping("admin/room/edit")
@@ -252,9 +252,9 @@ public class RoomContoller {
 		RoomBean rbi = rService.findByroomId(roomId);
 		RoomBean rbn = rService.findByname(name);
 		if (roomId == null || name.equals("")) {
-			return "redirect:/admin/room/backstage";
+			return "redirect:/admin/backstage/room";
 		} else if (type.equals("") || price == null) {
-			return "redirect:/admin/room/backstage";
+			return "redirect:/admin/backstage/room";
 
 		} else if (rbi != null) {
 			if (rbi.getId() == Id) {
@@ -263,18 +263,18 @@ public class RoomContoller {
 
 						rService.create(roomBean);
 
-						return "redirect:/admin/room/backstage";
+						return "redirect:/admin/backstage/room";
 					} else {
 
-						return "redirect:/admin/room/backstage";
+						return "redirect:/admin/backstage/room";
 					}
 				}
 				rService.create(roomBean);
 
-				return "redirect:/admin/room/backstage";
+				return "redirect:/admin/backstage/room";
 			} else {
 
-				return "redirect:/admin/room/backstage";
+				return "redirect:/admin/backstage/room";
 			}
 
 		} else if (rbn != null) {
@@ -282,10 +282,10 @@ public class RoomContoller {
 
 				rService.create(roomBean);
 
-				return "redirect:/admin/room/backstage";
+				return "redirect:/admin/backstage/room";
 			} else {
 
-				return "redirect:/admin/room/backstage";
+				return "redirect:/admin/backstage/room";
 			}
 		} else {
 
@@ -302,7 +302,7 @@ public class RoomContoller {
 			System.out.println(roomBean);
 			rService.create(roomBean);
 
-			return "redirect:/admin/room/backstage";
+			return "redirect:/admin/backstage/room";
 		}
 	}
 

@@ -14,6 +14,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
 @Table(name="member")
 public class MemberBean implements Serializable {
@@ -28,6 +30,7 @@ public class MemberBean implements Serializable {
 	private java.util.Date birthDate;
 	private String gender;
 	private String photoPath;
+	//@JsonBackReference("login_member")
 	@OneToOne(cascade =CascadeType.PERSIST)
 	@JoinColumn(name="accountId", foreignKey=@ForeignKey(name = "fk_mem_log"))
 	private LoginBean accountId;
@@ -98,8 +101,7 @@ public class MemberBean implements Serializable {
 
 	@Override
 	public String toString() {
-		return "MemberBean [memberId=" + memberId + ", userName=" + userName + ", address=" + address  + ", phone=" + phone + ", birthDate=" + birthDate + ", gender=" + gender + ", photoPath="
-				+ photoPath + ", accountId=" + accountId + "]";
+		return "MemberBean [memberId=" + memberId + ", userName=" + userName + ", address=" + address  + ", phone=" + phone + ", birthDate=" + birthDate + ", gender=" + gender + ", photoPath=" + photoPath + "]";
 	}
 
 

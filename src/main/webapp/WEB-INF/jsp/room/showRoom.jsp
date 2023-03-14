@@ -162,7 +162,7 @@
 					<h5>服務: ${room.service}</h5>
 					<h5>備註: ${room.remark}</h5>
 					<br> <br> <img width='300px'
-						src="http://localhost:8081/my-house/public/room/show">
+						src="#">
 
 				</div>
 			</div>

@@ -19,8 +19,9 @@ public class HomeController {
 	LoginService loginService;
 	MemberService memberService;
 	ServletContext context;
+
 	@Autowired
-	public HomeController(MemberService memberService,LoginService loginService, ServletContext context) {
+	public HomeController(MemberService memberService, LoginService loginService, ServletContext context) {
 		super();
 		this.loginService = loginService;
 		this.memberService = memberService;
@@ -70,7 +71,7 @@ public class HomeController {
 	public String index() {
 		return "index";
 	}
-	@GetMapping("/public/backstage")
+	@GetMapping("/admin/backstage")
 	public String backstage() {
 		return "backstage";
 	}

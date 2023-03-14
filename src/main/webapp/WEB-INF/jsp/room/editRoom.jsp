@@ -445,7 +445,7 @@ input[type=number] {
 								<div class="col-md-6 mb-3">
 									<div class="form-group">
 										<a class="btn btn-danger"
-											href="<c:url value="/admin/room/backstage"/>">上一頁</a>
+											href="<c:url value="admin/backstage/room"/>">上一頁</a>
 									</div>
 								</div>
 							</div>
