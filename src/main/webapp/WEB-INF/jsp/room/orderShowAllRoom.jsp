@@ -47,6 +47,32 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
+<style>
+.image-container {
+	position: relative;
+	width: 600px; /* Change to your image width */
+	height: 300px; /* Change to your image height */
+	overflow: hidden;
+}
+
+.image-container:hover img {
+	transform: scale(1.2); /* Change to your desired scale amount */
+}
+
+.image-container img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 10s ease;
+	/* Change to your desired transition duration */
+}
+</style>
+
+
 </head>
 
 <body>
@@ -168,11 +194,12 @@
 						</div>
 					</div>
 					<c:forEach items="${room}" var="msg">
-
-						<a href="<c:url value="/public/room/orderShow" />?Id=${msg.id}"><img
-							src="<c:url value='/roomId/${msg.roomPhotoBeans[0].photoFile}'/>"
-							width="800px" height="400px"></a>
-
+						<div class="image-container">
+							<a href="<c:url value="/public/room/orderShow" />?Id=${msg.id}"
+								class="col-12 col-md-6"><img
+								src="<c:url value='/roomId/${msg.roomPhotoBeans[0].photoFile}'/>"
+								width="100%" height="100%"></a>
+						</div>
 					</c:forEach>
 					<!-- 					   				---圖片---				                     -->
 					<!-- 					<div class="col-md-4"> -->

@@ -1,5 +1,7 @@
 package idv.hotel.finalproject.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,11 @@ public class RoomPhotoServiceImpl implements RoomPhotoService {
 	public void saveImg(RoomPhotoBean photoBean) {
 
 		rPB.save(photoBean);
+	}
+
+	@Override
+	public List<RoomPhotoBean> findByFk(Integer roomId) {
+		return rPB.findByFk(roomId);
 	}
 
 }

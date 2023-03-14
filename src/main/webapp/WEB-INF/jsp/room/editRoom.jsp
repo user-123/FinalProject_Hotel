@@ -61,6 +61,13 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 input[type=number] {
 	-moz-appearance: textfield;
 }
+
+/* 圖片大小 */
+img {
+	max-width: 100px;
+	max-height: 100px;
+	object-fit: contain;
+}
 </style>
 <script>
 	window.onload = function() {
@@ -219,17 +226,6 @@ input[type=number] {
 			}
 		})
 
-		$("#room-photos").on("input", function() {
-			let room_photos = document.getElementById("room-photos");
-			if (room_photos.value == "") {
-				$('.room-photoserror').html("必選").css({
-					"color" : "red",
-					"font-size" : "10%"
-				})
-			} else {
-				$('.room-photoserror').html("")
-			}
-		})
 		let input = document.querySelectorAll(".input");
 
 		$('#submit').on("click", function(event) {
@@ -253,6 +249,45 @@ input[type=number] {
 			if (!$("#submit").prop('disabled'))
 				$('#submit').click()
 		})
+
+		$('#room-photos').on('change', function(event) {
+			var previewImages = $('#preview-images');
+			previewImages.empty();
+
+			var files = this.files;
+			var isAllImages = true;
+
+			for (var i = 0; i < files.length; i++) {
+				var file = files[i];
+				var fileType = file.type;
+
+				if (fileType.indexOf('image') === -1) {
+					isAllImages = false;
+					break;
+				}
+			}
+
+			if (!isAllImages) {
+				alert('請選擇圖片格式');
+				this.value = '';
+
+			} else {
+
+				for (var i = 0; i < files.length; i++) {
+					var file = files[i];
+					var reader = new FileReader();
+
+					reader.onload = function(event) {
+						console.log(event.target.result)
+						var img = $('<img>').attr('src', event.target.result);
+						previewImages.append(img);
+					}
+
+					reader.readAsDataURL(file);
+				}
+			}
+		});
+
 	}
 </script>
 
@@ -431,10 +466,14 @@ input[type=number] {
 										<div class="col-md-6 mb-3">
 											<div class="form-group">
 												<label for="room-photos">圖片:</label> <input type="file"
-													id="room-photos" class="input" name="files" required="true"
-													multiple><br>
+													id="room-photos" name="files" accept="image/*" multiple><br>
 												<span class="room-photoserror err"></span>
-												<div id="preview-images"></div>
+												<div id="preview-images">
+													<c:forEach items="${roomBean.roomPhotoBeans}" var="photo">
+														<img id="img" name="img"
+															src="<c:url value='/roomId/${photo.photoFile}'/>">
+													</c:forEach>
+												</div>
 											</div>
 										</div>
 									</div>

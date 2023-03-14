@@ -81,11 +81,11 @@
 			var currentIndex = 0;
 			slides.eq(currentIndex).addClass('active');
 
-// 			function showNextSlide() {
-// 				slides.eq(currentIndex).removeClass('active');
-// 				currentIndex = (currentIndex + 1) % slides.length;
-// 				slides.eq(currentIndex).addClass('active');
-// 			}
+			// 			function showNextSlide() {
+			// 				slides.eq(currentIndex).removeClass('active');
+			// 				currentIndex = (currentIndex + 1) % slides.length;
+			// 				slides.eq(currentIndex).addClass('active');
+			// 			}
 
 			function showPrevSlide() {
 				slides.eq(currentIndex).removeClass('active');
@@ -94,7 +94,7 @@
 				slides.eq(currentIndex).addClass('active');
 			}
 
-// 			$('.controls .prev').click(showNextSlide);
+			// 			$('.controls .prev').click(showNextSlide);
 			$('.slides #img').click(showPrevSlide);
 
 			setInterval(showNextSlide, 3000);

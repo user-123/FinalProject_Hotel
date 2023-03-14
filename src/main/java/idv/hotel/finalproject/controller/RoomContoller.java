@@ -186,7 +186,17 @@ public class RoomContoller {
 	}
 
 	@DeleteMapping("admin/room/delete")
-	public String delete(@RequestParam Integer id) {
+	public String delete(@RequestParam Integer id, HttpServletRequest request) {
+
+		String path = request.getServletContext().getRealPath(photoFile);
+		RoomBean roomBean = rService.find(id);
+		List<RoomPhotoBean> images = roomBean.getRoomPhotoBeans();
+		for (RoomPhotoBean image : images) {
+			File file = new File(path + "/" + image.getPhotoFile());
+			if (file.exists()) {
+				file.delete();
+			}
+		}
 		rService.delete(id);
 		return "redirect:/admin/room/backstage";
 	}
@@ -200,7 +210,7 @@ public class RoomContoller {
 
 	@PutMapping("admin/room/update")
 	public String update(@ModelAttribute("roomBean") RoomBean roomBean, @RequestParam("files") MultipartFile[] files,
-			Model model) throws IOException {
+			Model model, HttpServletRequest request) throws IOException {
 		Integer Id = roomBean.getId();
 		Integer roomId = roomBean.getRoomId();
 		String name = roomBean.getName();
@@ -218,7 +228,36 @@ public class RoomContoller {
 				if (rbn != null) {
 					if (rbn.getId() == Id) {
 
-						rService.create(roomBean);
+						RoomBean bean = rService.create(roomBean);
+
+						for (MultipartFile photo : files) {
+
+							if (!photo.isEmpty()) {
+								Integer Id1 = bean.getId();
+								String nameImg = Id1 + "." + photo.getOriginalFilename();
+								RoomPhotoBean roomPhotoBean = new RoomPhotoBean();
+								roomPhotoBean.setRoomBean(bean);
+								roomPhotoBean.setPhotoFile(nameImg);
+
+								rpService.saveImg(roomPhotoBean);
+
+								String photoFilePath = request.getServletContext().getRealPath(photoFile);
+								File roomImg = new File(photoFilePath);
+								if (!roomImg.isDirectory())
+									roomImg.mkdirs();
+
+								Path path = Paths.get(photoFilePath, nameImg);
+								Files.write(path, photo.getBytes());
+							} else {
+								List<RoomPhotoBean> photoBean = rpService.findByFk(Id);
+								for (RoomPhotoBean ph : photoBean) {
+									String pp = ph.getPhotoFile();
+									RoomPhotoBean roomPhotoBean = new RoomPhotoBean();
+									roomPhotoBean.setRoomBean(bean);
+									roomPhotoBean.setPhotoFile(pp);
+								}
+							}
+						}
 
 						return "redirect:/admin/room/backstage";
 					} else {
@@ -226,7 +265,27 @@ public class RoomContoller {
 						return "redirect:/admin/room/backstage";
 					}
 				}
-				rService.create(roomBean);
+				RoomBean bean = rService.create(roomBean);
+
+				for (MultipartFile photo : files) {
+					if (!photo.isEmpty()) {
+						Integer Id1 = bean.getId();
+						String nameImg = Id1 + "." + photo.getOriginalFilename();
+						RoomPhotoBean roomPhotoBean = new RoomPhotoBean();
+						roomPhotoBean.setRoomBean(bean);
+						roomPhotoBean.setPhotoFile(nameImg);
+
+						rpService.saveImg(roomPhotoBean);
+
+						String photoFilePath = request.getServletContext().getRealPath(photoFile);
+						File roomImg = new File(photoFilePath);
+						if (!roomImg.isDirectory())
+							roomImg.mkdirs();
+
+						Path path = Paths.get(photoFilePath, nameImg);
+						Files.write(path, photo.getBytes());
+					}
+				}
 
 				return "redirect:/admin/room/backstage";
 			} else {
@@ -237,7 +296,28 @@ public class RoomContoller {
 		} else if (rbn != null) {
 			if (rbn.getId() == Id) {
 
-				rService.create(roomBean);
+				RoomBean bean = rService.create(roomBean);
+
+				for (MultipartFile photo : files) {
+					if (!photo.isEmpty()) {
+
+						Integer Id1 = bean.getId();
+						String nameImg = Id1 + "." + photo.getOriginalFilename();
+						RoomPhotoBean roomPhotoBean = new RoomPhotoBean();
+						roomPhotoBean.setRoomBean(bean);
+						roomPhotoBean.setPhotoFile(nameImg);
+
+						rpService.saveImg(roomPhotoBean);
+
+						String photoFilePath = request.getServletContext().getRealPath(photoFile);
+						File roomImg = new File(photoFilePath);
+						if (!roomImg.isDirectory())
+							roomImg.mkdirs();
+
+						Path path = Paths.get(photoFilePath, nameImg);
+						Files.write(path, photo.getBytes());
+					}
+				}
 
 				return "redirect:/admin/room/backstage";
 			} else {
@@ -246,7 +326,28 @@ public class RoomContoller {
 			}
 		} else {
 
-			rService.create(roomBean);
+			RoomBean bean = rService.create(roomBean);
+
+			for (MultipartFile photo : files) {
+				if (!photo.isEmpty()) {
+
+					Integer Id1 = bean.getId();
+					String nameImg = Id1 + "." + photo.getOriginalFilename();
+					RoomPhotoBean roomPhotoBean = new RoomPhotoBean();
+					roomPhotoBean.setRoomBean(bean);
+					roomPhotoBean.setPhotoFile(nameImg);
+
+					rpService.saveImg(roomPhotoBean);
+
+					String photoFilePath = request.getServletContext().getRealPath(photoFile);
+					File roomImg = new File(photoFilePath);
+					if (!roomImg.isDirectory())
+						roomImg.mkdirs();
+
+					Path path = Paths.get(photoFilePath, nameImg);
+					Files.write(path, photo.getBytes());
+				}
+			}
 
 			return "redirect:/admin/room/backstage";
 		}
