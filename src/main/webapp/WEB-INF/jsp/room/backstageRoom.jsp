@@ -44,6 +44,7 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
 </head>
 
 <body>
@@ -157,6 +158,7 @@
 						<th>設備</th>
 						<th>服務</th>
 						<th>備註</th>
+						<th>圖片</th>
 						<th>修改</th>
 					</tr>
 					<c:forEach items="${room}" var="msg">
@@ -171,6 +173,15 @@
 							<td>${msg.equipment}</td>
 							<td>${msg.service}</td>
 							<td>${msg.remark}</td>
+							<td><div id="slideshow">
+									<div class="slides">
+										<c:forEach items="${msg.roomPhotoBeans}" var="photo">
+											<img id="img"
+												src="<c:url value='/roomId/${photo.photoFile}'/>"
+												width="150px" height="100px">
+										</c:forEach>
+									</div>
+								</div></td>
 
 							<td>
 								<form action="<c:url value="/admin/room/edit" />" method="get">
