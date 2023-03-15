@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>XXX大飯店</title>
+<title>BackHome 貝殼窩</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -58,8 +58,8 @@
 				aria-label="Toggle navigation">
 				<span></span> <span></span> <span></span>
 			</button>
-			<a class="navbar-brand text-brand" href="<c:url value='#'/>">XXX<span
-				class="color-b">大飯店</span></a>
+			<a class="navbar-brand text-brand" href="<c:url value='#'/>">BackHome<span
+				class="color-b">貝殼窩</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
@@ -78,7 +78,7 @@
 
 					<li class="nav-item"><a class="nav-link " href="#">休閒設施</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="#">周邊景點</a></li>
+					<li class="nav-item"><a class="nav-link " href="<c:url value='public/attraction/list' />">周邊景點</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"

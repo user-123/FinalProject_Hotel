@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>XXX飯店管理系統</title>
+<title>BackHome 管理系統</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -56,8 +56,8 @@
 				aria-label="Toggle navigation">
 				<span></span> <span></span> <span></span>
 			</button>
-			<a class="navbar-brand text-brand" href="<c:url value='/admin/backstage' />"><span
-				class="color-b">XXX飯店管理系統</span></a>
+			<a class="navbar-brand text-brand" href="<c:url value='/admin/backstage' />">貝殼窩<span
+				class="color-b">管理系統</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
