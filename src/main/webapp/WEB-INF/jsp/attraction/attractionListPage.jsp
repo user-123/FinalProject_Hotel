@@ -27,6 +27,7 @@
 		<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 		<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" ></script>
 		<link href="https://code.jquery.com/ui/1.13.2/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+		<!-- D.C. Never End, Ya~Ya~Ya~ -->
 	</head>
 	<body>
 		<!-- ======= Header/Navbar ======= -->
@@ -155,17 +156,27 @@
 											console.log("Success:", response);
 											let attractionDetail = response;
 											let message = "<div>";
+											/*
 											$.each(attractionDetail, function(i) {
 												console.log(`\${i}:\${attractionDetail[i]}`);
 												message += `\${i}:\${attractionDetail[i]}<br />`;
 												});
+											*/
+											message += `
+												名稱：\${attractionDetail.attractionName}<br />
+												分類：\${attractionDetail.attractionCategory}<br />
+												地址：\${attractionDetail.attractionAddress}<br />
+												距離：\${attractionDetail.attractionDistance}<br />
+												介紹：\${attractionDetail.attractionIntroduction}<br />
+												照片：\${attractionDetail.attractionPhotoPath}<br />`;
 											message += `</div>`;
 											console.log(message);
 											let modal = $(message).dialog({
 							                    width: 600, modal: true, autoOpen: true,
-							                    buttons: [{text: "關閉", click: function() {$(this).dialog("close");}}]
+							                    buttons: [{text: "關閉", click: function() {$(this).remove();}}]
 							                });
 											$(".ui-dialog-titlebar").hide();
+											$(".ui-dialog-buttonset button:nth-child(1)").addClass("closeBtn btn btn-outline-secondary btn-sm");
 										})
 									}
 

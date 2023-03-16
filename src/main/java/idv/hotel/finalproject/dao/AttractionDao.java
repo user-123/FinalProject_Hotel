@@ -22,6 +22,7 @@ public interface AttractionDao extends JpaRepository<AttractionBean, Integer> {
 	List<AttractionBean> findByAttractionAddress(String address);
 	List<AttractionBean> findByAttractionDistance(Float distance);
 	List<AttractionBean> findByAttractionIntroduction(String introduction);
+	void deleteByAttractionId(Integer attractionId);
 
 	//客製查詢
 	List<AttractionBean> findByAttractionNameContaining(String attractionName);

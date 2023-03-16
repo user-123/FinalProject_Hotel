@@ -85,7 +85,7 @@
 
 					<li class="nav-item"><a class="nav-link " href="#">設施管理</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="#">景點管理</a></li>
+					<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/attraction/list' />">景點管理</a></li>
 
 
 					<li class="nav-item dropdown"><a

@@ -42,9 +42,21 @@ public class AttractionController {
 		return "attraction/attractionListPage";
 	}
 
+	@GetMapping("admin/attraction/list")
+	public String attractionBackHome(Model model) {
+		List<AttractionBean> aBeanList = aService.findDataAll();
+		model.addAttribute("attraction", aBeanList);
+		return "attraction/attractionListPageBackground";
+	}
+
 	@GetMapping("public/attraction/findByCategory")
 	public String attractionFrontFindByCategory(@RequestParam(required = false, defaultValue = "all") String category) {
 		return "redirect:/public/attraction/list?category="+category;
+	}
+
+	@GetMapping("admin/attraction/findByCategory")
+	public String attractionBackFindByCategory(@RequestParam(required = false, defaultValue = "all") String category) {
+		return "redirect:/admin/attraction/list?category="+category;
 	}
 
 	@GetMapping("public/attraction/checkoutAttractionDetail")
@@ -54,10 +66,46 @@ public class AttractionController {
 		return aBean;
 	}
 
-	@GetMapping("admin/attraction/list")
-	public String attractionBackHome() {
-		return "attraction/attractionListPage";
+	@GetMapping("admin/attraction/checkoutAttractionDetail")
+	@ResponseBody
+	public AttractionBean attractionBackFindById(@RequestParam(required = true) Integer id) {
+		AttractionBean aBean = aService.findDataById(id);
+		return aBean;
 	}
+
+	@PostMapping("admin/attraction/updateAttractionDetail")
+	@ResponseBody
+	public boolean attractionBackUpdateById(@RequestParam Integer id, @RequestParam Integer num, @RequestParam String name, @RequestParam String category, @RequestParam String address, @RequestParam float distance, @RequestParam String introduction, @RequestParam String photoPath) {
+		boolean updateResult=false;
+		AttractionBean aBean = aService.findDataById(id);
+		if(aBean != null) {
+			aBean.setAttractionNum(num);
+			aBean.setAttractionName(name);
+			aBean.setAttractionCategory(category);
+			aBean.setAttractionAddress(address);
+			aBean.setAttractionDistance(distance);
+			aBean.setAttractionIntroduction(introduction);
+			if(photoPath != null) {
+				aBean.setAttractionPhotoPath(photoPath);
+			}
+			if(aService.updateDataById(aBean)) {
+				updateResult=true;
+			}
+		}
+		return updateResult;
+	}
+
+	@DeleteMapping("admin/attraction/deleteAttractionDetail")
+	@ResponseBody
+	public boolean attractionBackDeleteById(@RequestParam Integer id) {
+		boolean deleteResult=false;
+		if(aService.deleteDataById(id)) {
+			deleteResult=true;
+		}
+		return deleteResult;
+	}
+
+
 
 	//////////D.C.測試用
 	@GetMapping("/public/attraction/XXXXX")

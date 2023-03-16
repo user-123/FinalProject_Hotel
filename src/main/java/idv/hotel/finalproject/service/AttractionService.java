@@ -27,9 +27,9 @@ public interface AttractionService {
 	public AttractionBean saveDataById(Integer id);
 	public List<AttractionBean> saveDataByNum(Integer Num);
 	//更新資料
-	public List<AttractionBean> updateDataById(Integer id);
+	public boolean updateDataById(AttractionBean aBean);
 	//刪除資料
-	public List<AttractionBean> deleteDataById(Integer id);
+	public boolean deleteDataById(Integer id);
 	//商業邏輯
 
 

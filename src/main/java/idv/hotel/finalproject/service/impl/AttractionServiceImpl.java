@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import idv.hotel.finalproject.service.AttractionService;
 import idv.hotel.finalproject.dao.AttractionDao;
@@ -115,14 +116,22 @@ public class AttractionServiceImpl implements AttractionService {
 	}
 
 	@Override
-	public List<AttractionBean> updateDataById(Integer id) {
-		// TODO 自動產生的方法 Stub
-		return null;
+	@Transactional
+	public boolean updateDataById(AttractionBean aBean) {
+		boolean result=false;
+		AttractionBean aBeanReturn = aDao.save(aBean);
+		if(aBeanReturn != null) {
+			result=true;
+		}
+		return result;
 	}
 
 	@Override
-	public List<AttractionBean> deleteDataById(Integer id) {
-		// TODO 自動產生的方法 Stub
-		return null;
+	@Transactional
+	public boolean deleteDataById(Integer id) {
+		boolean result=false;
+		aDao.deleteByAttractionId(id);
+		result=true;
+		return result;
 	}
 }
