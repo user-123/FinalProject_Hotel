@@ -152,16 +152,6 @@ public class OrderController {
 		return "order/byOrderid";
 	}
 
-	// **************************後台訂單管理下拉選單--用某日查詢******************************
-	// 5.findDataByCheckdate
-//	@GetMapping("/admin/orders/bycheckdate")
-//	public String findDataByCheckdate(@RequestParam(required = false, defaultValue = "0") Timestamp checkdate,
-//			Model model) {
-//		model.addAttribute("bycheckdate", oService.findDataByCheckdate(checkdate));
-//		// 顯示所有房間狀況
-//		return "order/bycheckdate";
-//	}
-
 	// **************************後台訂單管理下拉選單--用下訂日期查詢******************************
 	// 前端需卡控:若無該搜尋日期=>跳sweetalert
 	// 6.findDataByOrderdate

@@ -1,9 +1,11 @@
- <%@ page language="java" contentType="text/html; charset=UTF-8"
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -39,7 +41,54 @@
 
 <!-- Template Main CSS File -->
 <link href="<c:url value='/assets/css/style.css'/>" rel="stylesheet">
+<!-- Bootstrap core CSS -->
+<link
+	href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css"
+	rel="stylesheet">
+<!-- FontAwesome core CSS -->
+<link
+	href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/htmleaf-demo.css">
+<style>
+a {
+	color: #f1c40f;
+}
 
+a:hover, a:active, a:focus {
+	color: #dab10d;
+}
+
+.rating-stars {
+	width: 100%;
+	text-align: left;
+}
+
+.rating-stars .rating-stars-container {
+	font-size: 0px;
+}
+
+.rating-stars .rating-stars-container .rating-star {
+	display: inline-block;
+	font-size: 32px;
+	color: #555555;
+	cursor: pointer;
+	padding: 5px 1px;
+}
+
+.rating-stars .rating-stars-container .rating-star.is--active,
+	.rating-stars .rating-stars-container .rating-star.is--hover {
+	color: #f1c40f;
+}
+
+.rating-stars .rating-stars-container .rating-star.is--no-hover {
+	color: #555555;
+}
+
+.readonlystars {
+	pointer-events: none;
+}
+</style>
 </head>
 <body>
 	<!-- ======= Header/Navbar ======= -->
@@ -74,15 +123,14 @@
 					<li class="nav-item"><a class="nav-link " href="#">休閒設施</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="#">周邊景點</a></li>
-					
+
 					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/message/messages'/>">評價我們</a></li>
+						href="<c:url value='/public/messages/all'/>">評價&回饋</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">會員</a>
-						<c:choose>
+						aria-haspopup="true" aria-expanded="false">會員</a> <c:choose>
 							<c:when test="${sessionScope.login==true}">
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 									<li><a class="dropdown-item"
@@ -109,8 +157,7 @@
 										href="<c:url value='/public/register' />">註冊</a></li>
 								</ul>
 							</c:otherwise>
-						</c:choose>
-					</li>
+						</c:choose></li>
 				</ul>
 			</div>
 
@@ -123,55 +170,102 @@
 				<div class="row">
 					<div class="col-md-12 col-lg-8">
 						<div class="title-single-box">
-							<h1 class="title-single">評價我們</h1>
-
+							<h1 class="title-single">評價&回饋</h1>
+							<div class="title-box-d">
+								<h5 class="title-d">撰寫評論</h5>
+							</div>
 							<div class="form-comments">
-								<div class="title-box-d">
-									<h5 class="title-d">即刻下訂</h5>
-								</div>
-
-								<form:form class="form-a" action="${contextRoot}/orders/post"
+								<form:form class="form-a" action="${contextRoot}/messages/post"
 									modelAttribute="information">
-									<div class="row">
-										<div class="col-md-6 mb-3">
-											<div class="form-group">
-												<form:label path="checkindate">入住日期*</form:label>
-												<form:input path="checkindate" type="text"
-													class="form-control form-control-lg form-control-a"
-													placeholder="入住日期" required="true" />
+									<!-- 會員 -->
+									<input type="hidden" name="userid" value="${sessionScope.id}" />
+									<!-- 評分星星 -->
+									<div class="overflow-hidden">
+										<div class="rating-stars block" id="rating">
+											<input type="hidden" name="stars"
+												class="form-control rating-value" id="rating-stars-value">
+											<div class="rating-stars-container">
+												<div class="rating-star">
+													<i class="fa fa-star"></i>
+												</div>
+												<div class="rating-star">
+													<i class="fa fa-star"></i>
+												</div>
+												<div class="rating-star">
+													<i class="fa fa-star"></i>
+												</div>
+												<div class="rating-star">
+													<i class="fa fa-star"></i>
+												</div>
+												<div class="rating-star">
+													<i class="fa fa-star"></i>
+												</div>
 											</div>
 										</div>
-
-										<div class="col-md-6 mb-3">
-											<div class="form-group">
-												<form:label path="checkoutdate">退房日期*</form:label>
-												<form:input path="checkoutdate" type="text"
-													class="form-control form-control-lg form-control-a"
-													id="inputEmail1" placeholder="退房日期" required="true" />
-											</div>
-										</div>
-										<div class="col-md-12 mb-3">
-											<div class="form-group">
-												<form:label path="message">備註</form:label>
-												<form:input class="form-control" path="message"
-													placeholder="請輸入不超過30個字" maxlength="30" />
-											</div>
-										</div>
-
-										<!-- 會員 -->
-										<input type="hidden" name="文彥的id傳過來的名字"
-											value="${sessionScope.id}" />
-
-
-										<!-- 房號 -->
-										<input type="hidden" name="rId" value="${Id}" />
-
 									</div>
-
-									<button type="submit" class="btn btn-primary"
-										style="text-align: right;">送出</button>
-
+									<div class="input-group">
+										<form:textarea path="usertext" class="form-control" rows=""
+											cols="" />
+									</div>
+									<br />
+									<div style="text-align: right">
+										<button type="submit" class="btn btn-primary">送出</button>
+									</div>
 								</form:form>
+								<h3 style="text-align:left;">
+								<fmt:formatNumber pattern="平均星數: #.0" value="${averageStar}" />
+								</h3>
+								<c:forEach var="datas" items="${datas}">
+									<label hidden="hidden">${datas[0]}</label>
+									<div class="row">
+										<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow">
+											<div class="rating-stars block" id="another-rating">
+												<input type="hidden" readonly="readonly"
+													class="form-control rating-value"
+													id="another-rating-stars-value" value="${datas[4]}">
+												<div class="rating-stars-container">
+													<div class="rating-star readonlystars">
+														<i class="fa fa-star"></i>
+													</div>
+													<div class="rating-star readonlystars">
+														<i class="fa fa-star"></i>
+													</div>
+													<div class="rating-star readonlystars">
+														<i class="fa fa-star"></i>
+													</div>
+													<div class="rating-star readonlystars">
+														<i class="fa fa-star"></i>
+													</div>
+													<div class="rating-star readonlystars">
+														<i class="fa fa-star"></i>
+													</div>
+												</div>
+											</div>
+
+
+											<div class="col-md-12 mb-3">
+												<div class="form-group">會員:${datas[6]}</div>
+											</div>
+											<div class="col-md-12 mb-3">
+												<div style="width: 700px;">
+													<div class="form-group">內容:${datas[5]}</div>
+												</div>
+											</div>
+											<div class="col-md-12 mb-3">
+												<div class="form-group">
+													<fmt:formatDate pattern="yyyy-MM-dd ,a hh:mm:ss EEEE"
+														value="${datas[2]}" />
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- 顯示回覆 -->
+									<c:if test="${not empty datas[1]}">
+										<h3>業主回覆</h3>
+											<p>${datas[1]}</p>
+											<p>${datas[3]}</p>
+									</c:if>
+								</c:forEach>
 							</div>
 						</div>
 					</div>
@@ -222,5 +316,30 @@
 
 	<!-- Template Main JS File -->
 	<script src='<c:url value="/assets/js/main.js"/>'></script>
+
+	<!-- 評分星星 -->
+	<script src='<c:url value="/javascript/jquery-1.11.0.min.js"/>'
+		type="text/javascript"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script
+		src="https://cdn.bootcss.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+	<script src='<c:url value="/javascript/jquery.rating-stars.min.js"/>'></script>
+	<script>
+		var ratingOptions = {
+			selectors : {
+				starsSelector : '.rating-stars',
+				starSelector : '.rating-star',
+				starActiveClass : 'is--active',
+				starHoverClass : 'is--hover',
+				starNoHoverClass : 'is--no-hover',
+				targetFormElementSelector : '.rating-value'
+			}
+		};
+
+		$(".rating-stars").ratingStars(ratingOptions);
+	</script>
+
 </body>
 </html>

@@ -76,7 +76,7 @@
 					<li class="nav-item"><a class="nav-link " href="#">周邊景點</a></li>
 
 					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/message/messages'/>">評價我們</a></li>
+						href="<c:url value='/public/messages/all'/>">評價&回饋</a></li>
 						
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
@@ -176,7 +176,7 @@
 											name="_method" value="delete" /> <input type="submit"
 											class="btn btn-outline-danger btn-sm" value="刪除">
 
-										<!--********************刪除前用來做再次確認的範本******************** -->
+										<!--********************刪除前用來再次確認******************** -->
 
 										<script>
 											function popup1() {

@@ -95,7 +95,7 @@
 					<li class="nav-item"><a class="nav-link " href="#">景點管理</a></li>
 
 					<li class="nav-item"><a class="nav-link"
-						href="<c:url value='/admin/orders/messages' />">評價管理</a></li>
+						href="<c:url value='/admin/messages/backendall' />">評價管理</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
@@ -143,7 +143,9 @@
 										class="form-control form-control-lg form-control-a"
 										required="true" />
 									<br />
+									<div style="text-align: right">
 									<button type="submit" class="btn btn-primary">送出</button>
+									</div>
 								</form:form>
 								<c:forEach var="datas" items="${datas}">
 									<label hidden="hidden">${datas.id}</label>

@@ -47,7 +47,7 @@ public class SecurityConfig {
 
 		http.authorizeHttpRequests()
 				// 不需要被認證的頁面：/loginpage
-				.antMatchers("/public/**", "/", "/javascript/**", "/loginpage", "/assets/**").permitAll()
+				.antMatchers("/public/**", "/", "/javascript/**", "/loginpage", "/assets/**","/fonts/**").permitAll()
 				.antMatchers("/admin/**").hasAuthority("admin").anyRequest().authenticated();
 
 		// 權限判斷

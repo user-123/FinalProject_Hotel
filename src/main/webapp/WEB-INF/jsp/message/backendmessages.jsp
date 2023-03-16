@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -40,6 +41,54 @@
 
 <!-- Template Main CSS File -->
 <link href="<c:url value='/assets/css/style.css'/>" rel="stylesheet">
+<!-- Bootstrap core CSS -->
+<link
+	href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css"
+	rel="stylesheet">
+<!-- FontAwesome core CSS -->
+<link
+	href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/htmleaf-demo.css">
+<style>
+a {
+	color: #f1c40f;
+}
+
+a:hover, a:active, a:focus {
+	color: #dab10d;
+}
+
+.rating-stars {
+	width: 100%;
+	text-align: left;
+}
+
+.rating-stars .rating-stars-container {
+	font-size: 0px;
+}
+
+.rating-stars .rating-stars-container .rating-star {
+	display: inline-block;
+	font-size: 32px;
+	color: #555555;
+	cursor: pointer;
+	padding: 5px 1px;
+}
+
+.rating-stars .rating-stars-container .rating-star.is--active,
+	.rating-stars .rating-stars-container .rating-star.is--hover {
+	color: #f1c40f;
+}
+
+.rating-stars .rating-stars-container .rating-star.is--no-hover {
+	color: #555555;
+}
+
+.readonlystars {
+	pointer-events: none;
+}
+</style>
 </head>
 <body>
 	<!-- ======= Header/Navbar ======= -->
@@ -52,31 +101,40 @@
 				aria-label="Toggle navigation">
 				<span></span> <span></span> <span></span>
 			</button>
-			<a class="navbar-brand text-brand" href="<c:url value='/'/>">XXX<span
-				class="color-b">大飯店</span></a>
+			<a class="navbar-brand text-brand" href="<c:url value='#'/>"><span
+				class="color-b">XXX飯店管理系統</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
 				<ul class="navbar-nav">
 
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/'/>">首頁</a></li>
+					<li class="nav-item"><a class="nav-link active" href="#">會員管理</a></li>
 
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/about'/>">關於XXX</a></li>
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+						data-bs-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">訂單管理</a>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<li><a class="dropdown-item"
+								href="<c:url value='/admin/orders/findall' />">訂單一覽</a></li>
+							<li><a class="dropdown-item"
+								href="<c:url value='/admin/orders/byuserid' />">用會員ID查詢</a></li>
+							<li><a class="dropdown-item"
+								href="<c:url value='/admin/orders/byorderid' />">用訂單編號查詢</a></li>
+							<li><a class="dropdown-item"
+								href="<c:url value='/admin/orders/byorderdate' />">用下訂日期查詢</a></li>
+							<li><a class="dropdown-item"
+								href="<c:url value='/admin/orders/byroomid' />">用房型查詢</a></li>
+						</ul></li>
 
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/room/allShow'/>">房型</a></li>
+					<li class="nav-item"><a class="nav-link " href="#">房型管理</a></li>
 
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/room/orderAllShow'/>">訂房</a></li>
+					<li class="nav-item"><a class="nav-link " href="#">設施管理</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="#">休閒設施</a></li>
+					<li class="nav-item"><a class="nav-link " href="#">景點管理</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="#">周邊景點</a></li>
-
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/messages/all'/>">評價&回饋</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="<c:url value='/admin/messages/backendall' />">評價管理</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
@@ -84,16 +142,7 @@
 						aria-haspopup="true" aria-expanded="false">會員</a> <c:choose>
 							<c:when test="${sessionScope.login==true}">
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<li><a class="dropdown-item"
-										href="<c:url value='/addinfo' />">填寫及修改基本資料</a></li>
-									<li><a class="dropdown-item"
-										href="<c:url value='/searchinfo' />">查詢資料</a></li>
-									<li><a class="dropdown-item"
-										href="<c:url value='/orders/history' />?文彥的id傳過來的名字=${sessionScope.id}">歷史訂單</a></li>
-									<sec:authorize access="hasAuthority('admin')">
-										<li><a class="dropdown-item"
-											href="<c:url value="/admin/room/backstage"/>">後台</a></li>
-									</sec:authorize>
+									<li><a class="dropdown-item" href="<c:url value='/'/>">前台</a></li>
 									<li><a class="dropdown-item "
 										href="<c:url value='/logout'/>"> <input type="hidden"
 											name="${_csrf.parameterName}" value="${_csrf.token}" />登出
@@ -115,94 +164,68 @@
 		</div>
 	</nav>
 	<!-- End Header/Navbar -->
-	<input type="hidden" value="${orderId}" id="orderId" />
-	<script>
-		const orderIdValue = document.getElementById("orderId");
-
-		window.onload = function() {
-			alert(orderIdValue.value);
-			if ($("#orderId").value == null) {
-				alert("刪除成功");
-				return true;
-			} else {
-				alert("刪除失敗");
-				return false;
-			}
-		};
-	</script>
 	<main id="main">
 		<section class="intro-single">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12 col-lg-8">
 						<div class="title-single-box">
-							<h1 class="title-single">歷史訂單</h1>
+							<h1 class="title-single">評價管理</h1>
 							<div class="form-comments">
-								<div class="title-box-d">
-									<h5 class="title-d">訂單明細</h5>
-								</div>
 								<c:forEach var="datas" items="${datas}">
+									<label hidden="hidden">${datas[0]}</label>
 									<div class="row">
 										<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow">
+											<!-- 顯示留言 -->
+											<div class="rating-stars block" id="another-rating">
+												<input type="hidden" readonly="readonly"
+													class="form-control rating-value"
+													id="another-rating-stars-value" value="${datas[4]}">
+												<div class="rating-stars-container">
+													<div class="rating-star readonlystars">
+														<i class="fa fa-star"></i>
+													</div>
+													<div class="rating-star readonlystars">
+														<i class="fa fa-star"></i>
+													</div>
+													<div class="rating-star readonlystars">
+														<i class="fa fa-star"></i>
+													</div>
+													<div class="rating-star readonlystars">
+														<i class="fa fa-star"></i>
+													</div>
+													<div class="rating-star readonlystars">
+														<i class="fa fa-star"></i>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-12 mb-3">
+												<div class="form-group">會員:${datas[6]}</div>
+											</div>
+											<div class="col-md-12 mb-3">
+												<div style="width: 700px;">
+													<div class="form-group">內容:${datas[5]}</div>
+												</div>
+											</div>
 											<div class="col-md-12 mb-3">
 												<div class="form-group">
-													訂單成立時間:
 													<fmt:formatDate pattern="yyyy-MM-dd ,a hh:mm:ss EEEE"
-														value="${datas.orderdate}" />
+														value="${datas[2]}" />
 												</div>
-											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">訂單編號:${datas.orderid}</div>
-											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">
-													會員:${datas.userid.accountName}</div>
-											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">房號:${datas.roomid.roomId}</div>
-											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">
-													入住日期:
-													<fmt:formatDate pattern="yyyy-MM-dd"
-														value="${datas.checkindate}" />
-												</div>
-											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">
-													退房日期:
-													<fmt:formatDate pattern="yyyy-MM-dd"
-														value="${datas.checkoutdate}" />
-												</div>
-											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">備註:${datas.message}</div>
-											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">付款狀態:${datas.paid}</div>
 											</div>
 											<div class="col-md-12 mb-3" style="text-align: right">
-												<c:choose>
-													<c:when test="${datas.paid=='未付款'}">
-														<form action="<c:url value='小憲的金流系統' />" method="get">
-															<input type="submit" class="btn btn-outline-info btn-sm"
-																value="付款">
-														</form>
-													</c:when>
-												</c:choose>
+												<button class="btn btn-outline-primary btn-sm" id="replyBtn"
+													onClick="showReply(${datas[0]})">回覆</button>
 												<!--********************onSubmit為form表單原生的屬性，判斷回傳之布林值決定下一步******************** -->
-												<form action="${contextRoot}/orders/delete" method="post"
-													onSubmit="return popup2();">
+												<form action="${contextRoot}/admin/messages/delete"
+													method="post" onSubmit="return popup2();">
 
-													<input type="hidden" name="orderid"
-														value="${datas.orderid}" /> <input type="hidden"
-														name="文彥的id傳過來的名字" value="${datas.userid.accountId}" /> <input
+													<input type="hidden" name="id" value="${datas[0]}" /> <input
 														type="hidden" name="_method" value="delete" /> <input
 														type="submit" class="btn btn-outline-danger btn-sm"
 														value="刪除">
 
 													<!--********************刪除前用來再次確認******************** -->
-
 													<script>
 														function popup2() {
 															if (confirm('您確定要刪除嗎') == true) {
@@ -217,7 +240,34 @@
 												</form>
 											</div>
 										</div>
+										<!-- 顯示回覆 -->
+										<c:if test="${not empty datas[1]}">
+											<div>
+												<h3>業主回覆</h3>
+												<p>${datas[1]}</p>
+												<fmt:formatDate pattern="yyyy-MM-dd ,a hh:mm:ss EEEE"
+														value="${datas[3]}" />
+											</div>
+										</c:if>
 									</div>
+									<div class="col-md-12 mb-3" id="${datas[0]}"
+										style="display: none;">
+										<form:form action="${contextRoot}/admin/messages/edit"
+											method="put" modelAttribute="messages">
+											<form:input path="id" type="hidden" value="${datas[0]}"/>
+											<form:input path="stars" type="hidden" />
+											<form:input path="usertext" type="hidden" value="${datas[5]}"/>
+											<form:input path="userid" type="hidden" />
+											<form:input path="messagetime" type="hidden" />										
+											請輸入回覆內容：
+											<form:textarea path="admintext" ></form:textarea>
+											<div class="col-md-12 mb-3" style="text-align: right">
+												<input type="submit" class="btn btn-outline-primary btn-sm"
+													value="送出">
+											</div>
+										</form:form>
+									</div>
+
 								</c:forEach>
 							</div>
 						</div>
@@ -226,6 +276,7 @@
 			</div>
 		</section>
 	</main>
+
 	<!-- ======= Footer ======= -->
 
 	<footer>
@@ -268,5 +319,36 @@
 
 	<!-- Template Main JS File -->
 	<script src='<c:url value="/assets/js/main.js"/>'></script>
+
+	<!-- 評分星星 -->
+	<script src='<c:url value="/javascript/jquery-1.11.0.min.js"/>'
+		type="text/javascript"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script
+		src="https://cdn.bootcss.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+	<script src='<c:url value="/javascript/jquery.rating-stars.min.js"/>'></script>
+	<script>
+		var ratingOptions = {
+			selectors : {
+				starsSelector : '.rating-stars',
+				starSelector : '.rating-star',
+				starActiveClass : 'is--active',
+				starHoverClass : 'is--hover',
+				starNoHoverClass : 'is--no-hover',
+				targetFormElementSelector : '.rating-value'
+			}
+		};
+
+		$(".rating-stars").ratingStars(ratingOptions);
+	</script>
+
+	<script>
+		function showReply(id) {
+			// 顯示輸入框
+			document.getElementById(id).style.display = "block";
+		}
+	</script>
 </body>
 </html>

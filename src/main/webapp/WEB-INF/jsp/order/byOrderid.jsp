@@ -95,7 +95,7 @@
 					<li class="nav-item"><a class="nav-link " href="#">景點管理</a></li>
 
 					<li class="nav-item"><a class="nav-link"
-						href="<c:url value='/admin/messages/messages' />">評價管理</a></li>
+						href="<c:url value='/admin/messages/backendall' />">評價管理</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
@@ -144,7 +144,9 @@
 											cols="" />
 									</div>
 									<br />
+									<div style="text-align: right">
 									<button type="submit" class="btn btn-primary">送出</button>
+									</div>
 								</form:form>
 								<c:choose>
 									<c:when test="${datas==null}">
@@ -210,7 +212,7 @@
 															name="_method" value="delete" /> <input type="submit"
 															class="btn btn-outline-danger btn-sm" value="刪除">
 
-														<!--********************刪除前用來做再次確認的範本******************** -->
+														<!--********************刪除前用來再次確認******************** -->
 
 														<script>
 															function popup2() {

@@ -26,7 +26,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -48,11 +47,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
-
-
-
-
 		<!-- yan_start -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -73,28 +67,23 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-taglibs</artifactId>
-		    <scope>compile</scope>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
-	      <groupId>org.springframework.boot</groupId>
-	      <artifactId>spring-boot-starter-mail</artifactId>
-	    </dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
 		<!-- yan_end -->
-
-		<!-- switch_start -->	<!-- if you start Spring Boot fail, switch this dependency -->
+		<!-- switch_start -->
+		<!-- if you start Spring Boot fail, switch this dependency -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
 		<!-- switch_end -->
-
-
-
-
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -103,11 +92,6 @@
 			</plugin>
 		</plugins>
 	</build>
-
-
-
-
-
 	<!-- yan_start -->
 	<repositories>
 		<repository>
@@ -146,7 +130,4 @@
 		</pluginRepository>
 	</pluginRepositories>
 	<!-- yan_end -->
-
-
-
 </project>
