@@ -42,7 +42,7 @@ public class SecurityConfig {
 				}).deleteCookies("JSESSIONID")
 
 				.and().rememberMe().rememberMeParameter("remember-me").userDetailsService(userDetailsService)
-				.tokenValiditySeconds(60 * 60);
+				.tokenValiditySeconds(60 * 60 * 24);
 //		http.csrf().ignoringAntMatchers("/");
 
 		http.authorizeHttpRequests()

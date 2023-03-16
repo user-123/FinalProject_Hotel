@@ -21,13 +21,12 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page"
-						href="<c:url value="/public/room/allShow"/>">展示房型</a></li>
+						aria-current="page" href="<c:url value="/public/room/allShow"/>">展示房型</a></li>
 
 
 					<sec:authorize access="hasAuthority('admin')">
 						<li class="nav-item"><a class="nav-link"
-							href="<c:url value="/admin/room/backstage"/>">後台-房型</a></li>
+							href="<c:url value="/admin/backstage"/>">後台-房型</a></li>
 					</sec:authorize>
 
 				</ul>
@@ -74,12 +73,34 @@
 	</form>
 
 	<form action="<c:url value='/orders/history' />" method="get">
-		<input type="hidden" name="文彥的id傳過來的名字" value="${sessionScope.id}" />
+		<input type="hidden" name="userId" value="${sessionScope.id}" />
 		<input type="submit" class="btn btn-outline-info btn-sm" value="歷史">
 	</form>
 
 
+	<div class="container my-5 border shadow p-5 w-75">
 
+		<form id="idFormAioCheckOut" method="post"
+			action="<c:url value="/ECPay"/>" class="border shadow p-3 mb-5">
+			<div class="row text-primary ">
+				<div class="mb-3 col-sm-5">
+					<label class="col-xs-12">房型:</label> <input type="text"
+						name="ItemName" value="菁英天際套房" class="form-control" readonly />
+				</div>
+				<div class="mb-3 col-sm-4">
+					<label class="col-xs-12">房型說明: </label> <input name="TradeDesc"
+						class=" form-control" value="此房型為兩單床合併為一大床房型" readonly />
 
+				</div>
+				<div class="mb-3 col-sm-3">
+					<label class="col-xs-12">總計:</label> <input type="text"
+						name="TotalAmount" value="3000" class="form-control" readonly />
+
+				</div>
+			</div>
+
+			<button type="submit" class="btn btn-outline-info btn-sm">付款</button>
+		</form>
+	</div>
 </body>
 </html>

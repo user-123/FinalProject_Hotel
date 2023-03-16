@@ -1,5 +1,9 @@
 package idv.hotel.finalproject.service;
 
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
+
 import idv.hotel.finalproject.model.LoginBean;
 
 public interface LoginService {
@@ -13,6 +17,8 @@ public interface LoginService {
 	LoginBean loginFail(String email, String password);
 
 	Integer findIdByEmail(String email);
+	
+	
 
 	LoginBean findById(Integer id);
 //	LoginBean findByEmailAndPassword(String email,String password);
@@ -21,8 +27,8 @@ public interface LoginService {
 
 //	void update(LoginBean bean);
 
-//	void deleteById(Integer key);
-
+	void deleteLb(Integer deleteId);
+	ArrayList<ArrayList<String>> showAdmin(HttpServletRequest request,String search);
 
 
 }

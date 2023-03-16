@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,36 +13,43 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "Order_Detail")
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+@Entity//(name="OrderDetailBean")
+@Table(name="Order_Detail")
 public class OrderDetailBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer suborderId; // 子訂單
 	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name = "FK_OrderList_Id")
-	//@JoinColumn(name = "FK_OrderList_Id", nullable = false)
+	//@JoinColumn(name = "FK_OrderList_Id")
+	@JsonBackReference("order_suborder")
+	@JoinColumn(name = "FK_OrderList_Id", nullable = false)
 	private OrderListBean orderId; // 訂單編號
 	// 用於sql(數據庫)的:java.sql.Date只能存放年月日，java.sql.Timestamp能存放年月日時分秒
 	// 非用於sql的:java.util.Date能夠存放年月日時
 	//@Column(nullable = false)
 	private Integer roomId; // 房號
-	//@Column(nullable = false)
-	private Date checkindate; // 入住日期
+	@Column(nullable = false)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date livingDate; // 入住日期
 	private String message; // 備註其他需求
 
 	public OrderDetailBean() {}
 
-	
-	public OrderDetailBean(Integer suborderId, OrderListBean orderId, Integer roomId, Date checkindate,
+	//@Autowired
+	public OrderDetailBean(Integer suborderId, OrderListBean orderId, Integer roomId, Date livingDate,
 			String message) {
 		super();
 		this.suborderId = suborderId;
 		this.orderId = orderId;
 		this.roomId = roomId;
-		this.checkindate = checkindate;
+		this.livingDate = livingDate;
 		this.message = message;
 	}
 
@@ -75,14 +83,13 @@ public class OrderDetailBean implements Serializable {
 		this.roomId = roomId;
 	}
 
-
-	public Date getCheckindate() {
-		return checkindate;
+	public Date getLivingDate() {
+		return livingDate;
 	}
 
 
-	public void setCheckindate(Date checkindate) {
-		this.checkindate = checkindate;
+	public void setLivingDate(Date livingDate) {
+		this.livingDate = livingDate;
 	}
 
 
@@ -98,6 +105,6 @@ public class OrderDetailBean implements Serializable {
 
 	@Override
 	public String toString() {
-		return "OrderDetailBean [suborderId=" + suborderId + ", orderId=" + orderId + ", roomId=" + roomId  + ", checkindate=" + checkindate + ", roomservice=" + message + "]";
+		return "OrderDetailBean [suborderId=" + suborderId + ", roomId=" + roomId  + ", livingDate=" + livingDate + ", roomservice=" + message + "]";
 	}
 }

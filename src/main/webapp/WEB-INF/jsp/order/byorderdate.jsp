@@ -62,19 +62,17 @@
 				aria-label="Toggle navigation">
 				<span></span> <span></span> <span></span>
 			</button>
-			<a class="navbar-brand text-brand" href="<c:url value='#'/>"><span
+			<a class="navbar-brand text-brand" href="<c:url value='/admin/backstage' />"><span
 				class="color-b">XXX飯店管理系統</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
 				<ul class="navbar-nav">
 
-					<li class="nav-item"><a class="nav-link active" href="#">會員管理</a></li>
+					<!-- <li class="nav-item"><a class="nav-link" href="#">XXX</a></li> -->
+					<li class="nav-item"><a class="nav-link" href="<c:url value='/admin/backstage/member' />">會員管理</a></li>
 
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
-						data-bs-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false">訂單管理</a>
+					<li class="nav-item dropdown"><a class="nav-link dropdown-toggle active" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">訂單管理</a>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/findall' />">訂單一覽</a></li>
@@ -82,13 +80,19 @@
 								href="<c:url value='/admin/orders/byuserid' />">用會員ID查詢</a></li>
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/byorderid' />">用訂單編號查詢</a></li>
-							<li><a class="dropdown-item"
+							<li><a class="dropdown-item active"
 								href="<c:url value='/admin/orders/byorderdate' />">用下訂日期查詢</a></li>
 							<li><a class="dropdown-item"
-								href="<c:url value='/admin/orders/byroomid' />">用房型查詢</a></li>
+<<<<<<< HEAD:src/main/webapp/WEB-INF/jsp/order/byOrderdate.jsp
+								href="<c:url value='/admin/messages/byroomid' />">用房型查詢</a></li>
 						</ul></li>
+=======
+								href="<c:url value='/admin/orders/byroomid' />">用房型查詢</a></li>
+						</ul>
+					</li>
+>>>>>>> 3ed34646a540606683d940d7e6af26838735f2ed:src/main/webapp/WEB-INF/jsp/order/byorderdate.jsp
 
-					<li class="nav-item"><a class="nav-link " href="#">房型管理</a></li>
+					<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/backstage/room' />">房型管理</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="#">設施管理</a></li>
 
@@ -135,14 +139,13 @@
 							<h1 class="title-single">訂單一覽</h1>
 							<div class="form-comments">
 								<div class="title-box-d">
-									<h5 class="title-d">用會員ID查詢</h5>
+									<h5 class="title-d">用下訂日期查詢</h5>
 								</div>
-								<form:form action="${contextRoot}/admin/orders/databyuserid"
-									modelAttribute="userid">
-									<div class="input-group">
-										<form:textarea path="userid" class="form-control" rows=""
-											cols="" />
-									</div>
+								<form:form action="${contextRoot}/admin/orders/databyorderdate"
+									modelAttribute="orderdate">
+									<form:input path="orderdate" type="date"
+										class="form-control form-control-lg form-control-a"
+										required="true" />
 									<br />
 									<div style="text-align: right">
 									<button type="submit" class="btn btn-primary">送出</button>
@@ -192,9 +195,14 @@
 												<!--********************[編輯按鈕]******************** -->
 												<form action="${contextRoot}/admin/orders/update"
 													method="get">
+<<<<<<< HEAD:src/main/webapp/WEB-INF/jsp/order/byOrderdate.jsp
 													<input type="hidden" name="id" value="${datas.id}" /> <input
-														type="hidden" name="jsp" value="byUserid" /> <input
+														type="hidden" name="jsp" value="byOrderdate" /> <input
 														type="hidden" name="orderdate" value="${datas.orderdate}" />
+=======
+													<input type="hidden" name="id" value="${datas.id}" />
+													<input type="hidden" name="orderdate" value="${datas.orderdate}" />
+>>>>>>> 3ed34646a540606683d940d7e6af26838735f2ed:src/main/webapp/WEB-INF/jsp/order/byorderdate.jsp
 													<input type="submit" class="btn btn-outline-info btn-sm"
 														value="編輯">
 												</form>
@@ -202,14 +210,22 @@
 												<!--********************onSubmit為form表單原生的屬性，判斷回傳之布林值決定下一步******************** -->
 												<form action="${contextRoot}/admin/orders/backstagedel"
 													method="post" onSubmit="return popup2();">
-
 													<input type="hidden" name="orderid"
+<<<<<<< HEAD:src/main/webapp/WEB-INF/jsp/order/byOrderdate.jsp
 														value="${datas.orderid}" /> <input type="hidden"
-														name="jsp" value="byUserid" /> <input type="hidden"
-														name="searchid" value="${datas.userid.accountId}" /> <input
+														name="jsp" value="byOrderdate" /> <input type="hidden"
+														name="searchid" value="${datas.orderdate}" /><input
 														type="hidden" name="_method" value="delete" /> <input
 														type="submit" class="btn btn-outline-danger btn-sm"
 														value="刪除">
+=======
+														value="${datas.orderid}" />
+														<input type="hidden"
+														name="jsp" value="byOrderdate" />
+														<input type="hidden" name="searchid" value="${datas.orderdate}" /><input type="hidden"
+														name="_method" value="delete" /> <input type="submit"
+														class="btn btn-outline-danger btn-sm" value="刪除">
+>>>>>>> 3ed34646a540606683d940d7e6af26838735f2ed:src/main/webapp/WEB-INF/jsp/order/byorderdate.jsp
 
 													<!--********************刪除前用來再次確認******************** -->
 

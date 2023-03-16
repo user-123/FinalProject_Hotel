@@ -9,40 +9,53 @@ import org.springframework.stereotype.Service;
 import idv.hotel.finalproject.service.RoomService;
 import idv.hotel.finalproject.dao.RoomDao;
 import idv.hotel.finalproject.model.RoomBean;
+
 @Service
 public class RoomServiceImpl implements RoomService {
 	@Autowired
-	private RoomDao rDAO;
+	private RoomDao rDao;
 
 	public List<RoomBean> findAll(){
-		List<RoomBean> room =rDAO.findAll();
+		List<RoomBean> room =rDao.findAll();
 		return room;
 	}
 
 	public RoomBean find(Integer Id) {
-		Optional<RoomBean> roomBean = rDAO.findById(Id);
+		Optional<RoomBean> roomBean = rDao.findById(Id);
 		return roomBean.get();
 	}
 
 	@Override
 	public List<RoomBean> findType(String type) {
-		List<RoomBean> roomType = rDAO.findByType(type);
+		List<RoomBean> roomType = rDao.findByType(type);
 		return roomType;
 	}
 
 	@Override
 	public void create(RoomBean roomBean) {
-		rDAO.save(roomBean);
+		rDao.save(roomBean);
 	}
 
 	@Override
 	public void delete(Integer Id) {
-		rDAO.deleteById(Id);
+		rDao.deleteById(Id);
 	}
 
 	@Override
 	public RoomBean ReferenceById(Integer Id) {
-		RoomBean bean =rDAO.getReferenceById(Id);
+		RoomBean bean = rDao.getReferenceById(Id);
+		return bean;
+	}
+
+	@Override
+	public RoomBean findByroomId(Integer roomId) {
+		RoomBean bean = rDao.findByroomId(roomId);
+		return bean;
+	}
+
+	@Override
+	public RoomBean findByname(String name) {
+		RoomBean bean = rDao.findByname(name);
 		return bean;
 	}
 }

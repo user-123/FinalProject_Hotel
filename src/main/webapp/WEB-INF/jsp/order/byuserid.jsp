@@ -62,23 +62,21 @@
 				aria-label="Toggle navigation">
 				<span></span> <span></span> <span></span>
 			</button>
-			<a class="navbar-brand text-brand" href="<c:url value='#'/>"><span
+			<a class="navbar-brand text-brand" href="<c:url value='/admin/backstage' />"><span
 				class="color-b">XXX飯店管理系統</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
 				<ul class="navbar-nav">
 
-					<li class="nav-item"><a class="nav-link active" href="#">會員管理</a></li>
+					<!-- <li class="nav-item"><a class="nav-link" href="#">XXX</a></li> -->
+					<li class="nav-item"><a class="nav-link" href="<c:url value='/admin/backstage/member' />">會員管理</a></li>
 
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
-						data-bs-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false">訂單管理</a>
+					<li class="nav-item dropdown"><a class="nav-link dropdown-toggle active" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">訂單管理</a>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/findall' />">訂單一覽</a></li>
-							<li><a class="dropdown-item"
+							<li><a class="dropdown-item active"
 								href="<c:url value='/admin/orders/byuserid' />">用會員ID查詢</a></li>
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/byorderid' />">用訂單編號查詢</a></li>
@@ -86,9 +84,10 @@
 								href="<c:url value='/admin/orders/byorderdate' />">用下訂日期查詢</a></li>
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/byroomid' />">用房型查詢</a></li>
-						</ul></li>
+						</ul>
+					</li>
 
-					<li class="nav-item"><a class="nav-link " href="#">房型管理</a></li>
+					<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/backstage/room' />">房型管理</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="#">設施管理</a></li>
 
@@ -135,12 +134,12 @@
 							<h1 class="title-single">訂單一覽</h1>
 							<div class="form-comments">
 								<div class="title-box-d">
-									<h5 class="title-d">用訂單編號查詢</h5>
+									<h5 class="title-d">用會員ID查詢</h5>
 								</div>
-								<form:form action="${contextRoot}/admin/orders/databyorderid"
-									modelAttribute="orderid">
+								<form:form action="${contextRoot}/admin/orders/databyuserid"
+									modelAttribute="userid">
 									<div class="input-group">
-										<form:textarea path="orderid" class="form-control" rows=""
+										<form:textarea path="userid" class="form-control" rows=""
 											cols="" />
 									</div>
 									<br />
@@ -148,89 +147,100 @@
 									<button type="submit" class="btn btn-primary">送出</button>
 									</div>
 								</form:form>
-								<c:choose>
-									<c:when test="${datas==null}">
-									</c:when>
-									<c:otherwise>
-										<div class="row">
-											<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow">
-												<div class="col-md-12 mb-3">
-													<div class="form-group">
-														訂單成立時間:
-														<fmt:formatDate pattern="yyyy-MM-dd ,a hh:mm:ss EEEE"
-															value="${datas.orderdate}" />
-													</div>
-												</div>
-												<div class="col-md-12 mb-3">
-													<div class="form-group">訂單編號:${datas.orderid}</div>
-												</div>
-												<div class="col-md-12 mb-3">
-													<div class="form-group">會員:${datas.userid.accountName}</div>
-												</div>
-												<div class="col-md-12 mb-3">
-													<div class="form-group">房號:${datas.roomid.roomId}</div>
-												</div>
-												<div class="col-md-12 mb-3">
-													<div class="form-group">
-														入住日期:
-														<fmt:formatDate pattern="yyyy-MM-dd"
-															value="${datas.checkindate}" />
-													</div>
-												</div>
-												<div class="col-md-12 mb-3">
-													<div class="form-group">
-														退房日期:
-														<fmt:formatDate pattern="yyyy-MM-dd"
-															value="${datas.checkoutdate}" />
-													</div>
-												</div>
-												<div class="col-md-12 mb-3">
-													<div class="form-group">備註:${datas.message}</div>
-												</div>
-												<div class="col-md-12 mb-3">
-													<div class="form-group">付款狀態:${datas.paid}</div>
-												</div>
-												<div class="col-md-12 mb-3" style="text-align: right">
-													<!--********************[編輯按鈕]******************** -->
-													<form action="${contextRoot}/admin/orders/update"
-														method="get">
-														<input type="hidden" name="id" value="${datas.id}" /> <input
-															type="hidden" name="jsp" value="byOrderid" /> <input
-															type="hidden" name="orderdate" value="${datas.orderdate}" />
-														<input type="submit" class="btn btn-outline-info btn-sm"
-															value="編輯">
-													</form>
-													<!--********************[刪除按鈕]******************** -->
-													<!--********************onSubmit為form表單原生的屬性，判斷回傳之布林值決定下一步******************** -->
-													<form action="${contextRoot}/admin/orders/backstagedel"
-														method="post" onSubmit="return popup2();">
-
-														<input type="hidden" name="orderid"
-															value="${datas.orderid}" /> <input type="hidden"
-															name="jsp" value="byOrderid" /> <input type="hidden"
-															name="searchid" value="" /> <input type="hidden"
-															name="_method" value="delete" /> <input type="submit"
-															class="btn btn-outline-danger btn-sm" value="刪除">
-
-														<!--********************刪除前用來再次確認******************** -->
-
-														<script>
-															function popup2() {
-																if (confirm('您確定要刪除嗎') == true) {
-																	//作刪除的動作(送出表單)
-																	return true;
-																} else {
-																	//返還allData.jsp(當沒發生過)
-																	return false;
-																}
-															};
-														</script>
-													</form>
+								<c:forEach var="datas" items="${datas}">
+									<label hidden="hidden">${datas.id}</label>
+									<div class="row">
+										<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow">
+											<div class="col-md-12 mb-3">
+												<div class="form-group">
+													訂單成立時間:
+													<fmt:formatDate pattern="yyyy-MM-dd ,a hh:mm:ss EEEE"
+														value="${datas.orderdate}" />
 												</div>
 											</div>
+											<div class="col-md-12 mb-3">
+												<div class="form-group">訂單編號:${datas.orderid}</div>
+											</div>
+											<div class="col-md-12 mb-3">
+												<div class="form-group">會員:${datas.userid.accountName}</div>
+											</div>
+											<div class="col-md-12 mb-3">
+												<div class="form-group">房號:${datas.roomid.roomId}</div>
+											</div>
+											<div class="col-md-12 mb-3">
+												<div class="form-group">
+													入住日期:
+													<fmt:formatDate pattern="yyyy-MM-dd"
+														value="${datas.checkindate}" />
+												</div>
+											</div>
+											<div class="col-md-12 mb-3">
+												<div class="form-group">
+													退房日期:
+													<fmt:formatDate pattern="yyyy-MM-dd"
+														value="${datas.checkoutdate}" />
+												</div>
+											</div>
+											<div class="col-md-12 mb-3">
+												<div class="form-group">備註:${datas.message}</div>
+											</div>
+											<div class="col-md-12 mb-3">
+												<div class="form-group">付款狀態:${datas.paid}</div>
+											</div>
+											<div class="col-md-12 mb-3" style="text-align: right">
+												<!--********************[編輯按鈕]******************** -->
+												<form action="${contextRoot}/admin/orders/update"
+													method="get">
+<<<<<<< HEAD:src/main/webapp/WEB-INF/jsp/order/byUserid.jsp
+													<input type="hidden" name="id" value="${datas.id}" /> <input
+														type="hidden" name="jsp" value="byUserid" /> <input
+														type="hidden" name="orderdate" value="${datas.orderdate}" />
+=======
+													<input type="hidden" name="id" value="${datas.id}" />
+													<input type="hidden" name="orderdate" value="${datas.orderdate}" />
+>>>>>>> 3ed34646a540606683d940d7e6af26838735f2ed:src/main/webapp/WEB-INF/jsp/order/byuserid.jsp
+													<input type="submit" class="btn btn-outline-info btn-sm"
+														value="編輯">
+												</form>
+												<!--********************[刪除按鈕]******************** -->
+												<!--********************onSubmit為form表單原生的屬性，判斷回傳之布林值決定下一步******************** -->
+												<form action="${contextRoot}/admin/orders/backstagedel"
+													method="post" onSubmit="return popup2();">
+
+													<input type="hidden" name="orderid"
+														value="${datas.orderid}" /> <input type="hidden"
+<<<<<<< HEAD:src/main/webapp/WEB-INF/jsp/order/byUserid.jsp
+														name="jsp" value="byUserid" /> <input type="hidden"
+														name="searchid" value="${datas.userid.accountId}" /> <input
+														type="hidden" name="_method" value="delete" /> <input
+														type="submit" class="btn btn-outline-danger btn-sm"
+														value="刪除">
+=======
+														name="jsp" value="byUserid" />
+														<input type="hidden" name="searchid" value="${datas.userid.accountId}" />
+														<input type="hidden"
+														name="_method" value="delete" /> <input type="submit"
+														class="btn btn-outline-danger btn-sm" value="刪除">
+>>>>>>> 3ed34646a540606683d940d7e6af26838735f2ed:src/main/webapp/WEB-INF/jsp/order/byuserid.jsp
+
+													<!--********************刪除前用來再次確認******************** -->
+
+													<script>
+														function popup2() {
+															if (confirm('您確定要刪除嗎') == true) {
+																//作刪除的動作(送出表單)
+																return true;
+															} else {
+																//返還allData.jsp(當沒發生過)
+																return false;
+															}
+														};
+													</script>
+												</form>
+											</div>
 										</div>
-									</c:otherwise>
-								</c:choose>
+									</div>
+								</c:forEach>
 							</div>
 						</div>
 					</div>

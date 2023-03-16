@@ -60,158 +60,265 @@
 <script src="<c:url value='/javascript/jquery-3.6.0.min.js'/>"></script>
 
 <script>
-	window.onload = function() {
-		let error;
-		let email = document.getElementById("email");
-		let password = document.getElementById("password");
-		let confirm = document.getElementById("confirm");
-		let accountName = document.getElementById("accountName");
-		let required = document.querySelectorAll(".form-control");
-		let colerror = document.querySelectorAll(".error");
-		$("#email")
-				.on(
-						"input",
-						function() {
-							filter = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
-							if (!email.value.match(filter)) {
-								$('.emailerror').html("請輸入正確格式").css({
+window.onload = function() {
+	let error;
+	let email = document.getElementById("email");
+	let password = document.getElementById("password");
+	let confirm = document.getElementById("confirm");
+	let accountName = document.getElementById("accountName");
+	let required = document.querySelectorAll(".form-control");
+	let colerror = document.querySelectorAll(".error");
+	$("#email").on("input",function() {
+			filter = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+			if (!email.value.match(filter)) {
+				$('.emailerror').html("請輸入正確格式").css({
+					"color" : "red",
+					"font-size" : "10%"
+				})
+			}else{
+				if(email!="")
+				$('.emailerror').html("")
+			}
+
+		});
+	   
+	
+	$("#email").on("input",function() {
+		let email = $('#email').val();
+		$.ajax({
+			method : 'get',
+			data : {
+				"email" : email
+			},
+			url : 'checkemailduplicate',
+			success : function(result) {
+				$('#duplicate').html(result).css({
+					"color" : "red",
+					"font-size" : "10%"
+				})
+			}
+
+		})
+	
+		
+	});
+	
+
+	
+	
+	
+	$("#password").on("input",function() {
+		filter =  /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
+		if (!password.value.match(filter)) {
+			$('.passworderror').html("密碼輸入8-16位(至少含一位數字及一位特殊字符)").css({
+				"color" : "red",
+				"font-size" : "10%"
+			})
+			if(confirm.value!=password.value)
+				$('.confirmerror').html("密碼不符,請再次確認").css({
+					"color" : "red",
+					"font-size" : "10%"
+				})
+			
+		}
+		
+		else{
+			if(confirm.value==password.value)
+				$('.confirmerror').html("")
+			if(password!="")
+				$('.passworderror').html("")
+		}
+
+	});
+	
+	
+	$("#confirm").on("input",function() {
+		if(confirm.value!=password.value) {
+			if (password.value!="")
+				$('.confirmerror').html("密碼不符,請再次確認").css({
+					"color" : "red",
+					"font-size" : "10%"
+				})
+		}else{
+			if(confirm!="")
+			$('.confirmerror').html("")
+		}
+
+	});
+	
+
+	$("#accountName").on("input",function() {
+		if (accountName.value.length<2 | accountName.value.length>10) {
+			$('.accountNameerror').html("帳號名稱至少兩個字,最多十個字").css({
+				"color" : "red",
+				"font-size" : "10%"
+			})
+		}else{
+			$('.accountNameerror').html("")
+		}
+
+	});
+
+	
+			$('#checksubmit').on("click",function(event){
+				error="no"
+				
+				for (let i = 0; i < required.length; i++) {
+				   if( required[i].value=="" ){
+					    error="yes"; 
+					   	$(required[i]).closest("div").find(".error").html("必填").css({
+ 							"color" : "red",
+ 							"font-size" : "10%"
+ 						})
+				    }
+				    
+				}
+				for (let i = 0; i < colerror.length; i++) {
+					   if( $(colerror[i]).html()!="" | $('#duplicate').html()!=""){
+						    error="yes"; 
+					    }
+					    
+				}	
+				if(error=="no"){
+					$('#submit').click();
+					$('#registerForm').find('button').prop('disabled', true);
+//						$("#success").html("註冊成功,三秒後跳轉首頁")	
+					for (let i = 0; i < required.length; i++) {
+					    required[i].disabled = true;
+					}
+				}	
+				
+			}	
+			)	
+			
+			
+			$('#submit').on("click", function(event) {
+				$.ajax({
+					method : 'post',
+					data : {
+						"email" : $('#email').val(),
+						"accountName" : $('#accountName').val(),
+						"password" : $('#password').val()
+					},
+					success : function(result) {
+						$('#success').html(result).css({
+							"color" : "green",
+							"font-size" : "10%"
+						})
+						setTimeout(function() {
+		            	window.location.href = '/main';
+		          		}, 3000);
+					}
+
+				})
+			
+				return false;
+				
+				});
+			
+			
+			
+			
+			
+			$("#emailverify").on("click",function() {
+				let email = $('#email').val();
+				$.ajax({
+					method : 'post',
+					data : {
+						"email" : email
+					},
+					url : 'send-email',
+					success : function(result) {
+						$('#emailnotice').html(result).css({
+							"color" : "green",
+							"font-size" : "10%"
+						})
+					}
+
+				})
+			})
+			
+			
+		
+			
+			
+			
+			
+			 $('#checksubmitadmin').on("click",function(event){
+					error="no"
+					event.preventDefault();
+					for (let i = 0; i < required.length; i++) {
+					   if( required[i].value=="" ){
+						    error="yes"; 
+						   	$(required[i]).closest("div").find(".error").html("必填").css({
 									"color" : "red",
 									"font-size" : "10%"
 								})
-							} else {
-								if (email != "")
-									$('.emailerror').html("")
-							}
-
-						});
-
-		$("#email").on("input", function() {
-			let email = $('#email').val();
-			$.ajax({
-				method : 'get',
-				data : {
-					"email" : email
-				},
-				url : 'checkemailduplicate',
-				success : function(result) {
-					$('#duplicate').html(result).css({
-						"color" : "red",
-						"font-size" : "10%"
-					})
-				}
-
-			})
-
-		});
-
-		$("#password").on("input", function() {
-			filter = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
-			if (!password.value.match(filter)) {
-				$('.passworderror').html("密碼輸入8-16位(至少含一位數字及一位特殊字符)").css({
-					"color" : "red",
-					"font-size" : "10%"
-				})
-				if (confirm.value != password.value)
-					$('.confirmerror').html("密碼不符,請再次確認").css({
-						"color" : "red",
-						"font-size" : "10%"
-					})
-
-			}
-
-			else {
-				if (confirm.value == password.value)
-					$('.confirmerror').html("")
-				if (password != "")
-					$('.passworderror').html("")
-			}
-
-		});
-
-		$("#confirm").on("input", function() {
-			if (confirm.value != password.value) {
-				if (password.value != "")
-					$('.confirmerror').html("密碼不符,請再次確認").css({
-						"color" : "red",
-						"font-size" : "10%"
-					})
-			} else {
-				if (confirm != "")
-					$('.confirmerror').html("")
-			}
-
-		});
-
-		$("#accountName").on("input", function() {
-			if (accountName.value.length<2 | accountName.value.length>10) {
-				$('.accountNameerror').html("帳號名稱至少兩個字,最多十個字").css({
-					"color" : "red",
-					"font-size" : "10%"
-				})
-			} else {
-				$('.accountNameerror').html("")
-			}
-
-		});
-
-		$('#checksubmit').on(
-				"click",
-				function(event) {
-					error = "no"
-
-					for (let i = 0; i < required.length; i++) {
-						if (required[i].value == "") {
-							error = "yes";
-							$(required[i]).closest("div").find(".error").html(
-									"必填").css({
-								"color" : "red",
-								"font-size" : "10%"
-							})
-						}
-
+					    }
+					    
 					}
 					for (let i = 0; i < colerror.length; i++) {
-						if ($(colerror[i]).html() != ""
-								| $('#duplicate').html() != "") {
-							error = "yes";
-						}
-
-					}
-					if (error == "no") {
-						$('#submit').click();
-						$('#registerForm').find('button')
-								.prop('disabled', true);
-						$("#success").html("註冊成功,三秒後跳轉首頁")
+						   if( $(colerror[i]).html()!="" | $('#duplicate').html()!=""){
+							    error="yes"; 
+						    }
+						    
+					}	
+					if(error=="no"){
+						$('#submitadmin').click();
+						$('#registerForm').find('button').prop('disabled', true);
 						for (let i = 0; i < required.length; i++) {
-							required[i].disabled = true;
+						    required[i].disabled = true;
 						}
-					}
+					}	
+					
+				}	
+				)	
+				
+				$('#clear').prop('disabled', true)
+		        $("#submitadmin").on("click",function() {
+		        	$('#searchbtn').prop('disabled', true)
+					$.ajax({
+						method : 'post',
+						data : {
+							"email" : $('#email').val(),
+							"accountName" : $('#accountName').val(),
+							"password" : $('#password').val()
+						},
+						url:"insertadmin",
+						success : function(result) {
+							$('#success').html(result).css({
+								"color" : "green",
+								"font-size" : "10%"
+							})
+							$('#clear').prop('disabled', false)
+							$('#searchbtn').prop('disabled', false)
+						}
 
-				})
-
-		$('#submit').on("click", function(event) {
-			$('#registerForm').submit();
-		});
-
-		$("#emailverify").on("click", function() {
-			let email = $('#email').val();
-			$.ajax({
-				method : 'post',
-				data : {
-					"email" : email
-				},
-				url : 'send-email',
-				success : function(result) {
-					$('#emailnotice').html(result).css({
-						"color" : "green",
-						"font-size" : "10%"
 					})
-				}
+					
+					return false;
+				});
+			
+			
+			
+			var clearButton = document.getElementById('clear');
 
-			})
-		})
-
-	}
+			
+			clearButton.addEventListener('click', function() {
+			  var inputs = document.getElementsByTagName('input');
+			  for (var i = 0; i < inputs.length; i++) {
+			    inputs[i].value = '';
+			  }
+			  $('#registerForm').find('button').prop('disabled', false);
+			  $('#success').html("");
+			  $('#clear').prop('disabled', true)
+			  for (let i = 0; i < required.length; i++) {
+						    required[i].disabled = false;
+						}
+			});
+	
+			
+}
 </script>
 </head>
 <body>
@@ -263,10 +370,10 @@
 									<li><a class="dropdown-item"
 										href="<c:url value='/searchinfo' />">查詢資料</a></li>
 									<li><a class="dropdown-item"
-										href="<c:url value='/orders/history' />?文彥的id傳過來的名字=${sessionScope.id}">歷史訂單</a></li>
+										href="<c:url value='/orders/history' />?accountId=${sessionScope.id}">歷史訂單</a></li>
 									<sec:authorize access="hasAuthority('admin')">
 										<li><a class="dropdown-item"
-											href="<c:url value="/admin/room/backstage"/>">後台</a></li>
+											href="<c:url value="/admin/backstage"/>">後台</a></li>
 									</sec:authorize>
 									<li><a class="dropdown-item "
 										href="<c:url value='/logout'/>"> <input type="hidden"

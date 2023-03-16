@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="login_info",uniqueConstraints = @UniqueConstraint(name = "unique_email", columnNames = "email"))
 public class LoginBean implements Serializable {
@@ -27,6 +29,7 @@ public class LoginBean implements Serializable {
 	private String title;
 	@Transient
 	private String confirm;
+	//@JsonManagedReference("login_member")
 	@OneToOne(mappedBy = "accountId")
 	private MemberBean member;
 

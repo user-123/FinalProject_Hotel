@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,19 +56,24 @@
 				aria-label="Toggle navigation">
 				<span></span> <span></span> <span></span>
 			</button>
-			<a class="navbar-brand text-brand" href="<c:url value='#'/>"><span
+			<a class="navbar-brand text-brand" href="<c:url value='/admin/backstage' />"><span
 				class="color-b">XXX飯店管理系統</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
 				<ul class="navbar-nav">
 
-					<li class="nav-item"><a class="nav-link active" href="#">會員管理</a></li>
+					<!-- <li class="nav-item"><a class="nav-link" href="#">XXX</a></li> -->
+					<li class="nav-item"><a class="nav-link" href="<c:url value='/admin/backstage/member' />">會員管理</a></li>
 
+<<<<<<< HEAD
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
 						data-bs-toggle="dropdown" aria-haspopup="true"
 						aria-expanded="false">訂單管理</a>
+=======
+					<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">訂單管理</a>
+>>>>>>> 3ed34646a540606683d940d7e6af26838735f2ed
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/findall' />">訂單一覽</a></li>
@@ -81,9 +85,14 @@
 								href="<c:url value='/admin/orders/byorderdate' />">用下訂日期查詢</a></li>
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/byroomid' />">用房型查詢</a></li>
+<<<<<<< HEAD
 						</ul></li>
+=======
+						</ul>
+					</li>
+>>>>>>> 3ed34646a540606683d940d7e6af26838735f2ed
 
-					<li class="nav-item"><a class="nav-link " href="#">房型管理</a></li>
+					<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/backstage/room' />">房型管理</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="#">設施管理</a></li>
 
@@ -123,13 +132,10 @@
 
 
 	<main id="main">
-		<h1>把後臺內容放這裡!!!</h1>
-		<h1>把後臺內容放這裡!!!</h1>
-		<h1>把後臺內容放這裡!!!</h1>
-		<h1>把後臺內容放這裡!!!</h1>
-		<h1>把後臺內容放這裡!!!</h1>
-		<h1>把後臺內容放這裡!!!</h1>
-		<h1>把後臺內容放這裡!!!</h1>
+		<h1>Control Panel</h1>
+		<h1>To Be Continue</h1>
+		<h1>Control Panel</h1>
+		<h1>To Be Continue</h1>
 	</main>
 	<!-- End #main -->
 

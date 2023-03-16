@@ -4,6 +4,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ public class HomeController {
 	MemberService memberService;
 	ServletContext context;
 
+	@Autowired
 	public HomeController(MemberService memberService, LoginService loginService, ServletContext context) {
 		super();
 		this.loginService = loginService;
@@ -32,7 +34,7 @@ public class HomeController {
 	}
 
 	@GetMapping("/")
-	public String home(HttpServletRequest request, HttpSession session) {
+	public String home(HttpServletRequest request,HttpSession session) {
 //		if(session.getAttribute("email")!=null) {
 //			session.setAttribute("id",loginService.findIdByEmail((String)session.getAttribute("email")) );
 ////			session.setAttribute("lb", loginService.findById((Integer)session.getAttribute("id")));
@@ -40,34 +42,47 @@ public class HomeController {
 //        }
 //		return "home";
 
+
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth != null && auth.isAuthenticated()) {
 			if (!auth.getName().equals("anonymousUser")) {
-				session.setAttribute("email", auth.getName());
-				session.setAttribute("login", true);
-				session.setAttribute("id", loginService.findIdByEmail(auth.getName()));
-				session.setAttribute("lb", loginService.findById((Integer) session.getAttribute("id")));
+				if(loginService.findIdByEmail(auth.getName()) != null) {
+					session.setAttribute("email", auth.getName());
+					session.setAttribute("login", true);
+					session.setAttribute("id", loginService.findIdByEmail(auth.getName()));
+					session.setAttribute("lb", loginService.findById((Integer) session.getAttribute("id")));
+				}else {
+					return "redirect:/logout";
+				}
 			}
 			System.out.println(session.getAttribute("email"));
 		}
 		return "home";
 	}
 
+
+
 	@GetMapping("/public/about")
 	public String about() {
 		return "about";
 	}
-
 	@GetMapping("/public/index")
 	public String index() {
 		return "index";
 	}
-
-//test模板{現在方便看而已，到時候會刪掉(連同backstage.jsp都會一起刪)}
-	@GetMapping("/public/backstage")
+	@GetMapping("/admin/backstage")
 	public String backstage() {
 		return "backstage";
 	}
-//test模板{現在方便看而已，到時候會刪掉(連同backstage.jsp都會一起刪)}
+
+
+
+
+
+
+
+
+
 
 }

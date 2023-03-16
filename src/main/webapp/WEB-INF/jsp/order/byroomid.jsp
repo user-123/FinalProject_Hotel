@@ -62,19 +62,17 @@
 				aria-label="Toggle navigation">
 				<span></span> <span></span> <span></span>
 			</button>
-			<a class="navbar-brand text-brand" href="<c:url value='#'/>"><span
+			<a class="navbar-brand text-brand" href="<c:url value='/admin/backstage' />"><span
 				class="color-b">XXX飯店管理系統</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
 				<ul class="navbar-nav">
 
-					<li class="nav-item"><a class="nav-link active" href="#">會員管理</a></li>
+					<!-- <li class="nav-item"><a class="nav-link" href="#">XXX</a></li> -->
+					<li class="nav-item"><a class="nav-link" href="<c:url value='/admin/backstage/member' />">會員管理</a></li>
 
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
-						data-bs-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false">訂單管理</a>
+					<li class="nav-item dropdown"><a class="nav-link dropdown-toggle active" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">訂單管理</a>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/findall' />">訂單一覽</a></li>
@@ -84,16 +82,17 @@
 								href="<c:url value='/admin/orders/byorderid' />">用訂單編號查詢</a></li>
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/byorderdate' />">用下訂日期查詢</a></li>
-							<li><a class="dropdown-item"
-								href="<c:url value='/admin/messages/byroomid' />">用房型查詢</a></li>
-						</ul></li>
+							<li><a class="dropdown-item active"
+								href="<c:url value='/admin/orders/byroomid' />">用房型查詢</a></li>
+						</ul>
+					</li>
 
-					<li class="nav-item"><a class="nav-link " href="#">房型管理</a></li>
+					<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/backstage/room' />">房型管理</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="#">設施管理</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="#">景點管理</a></li>
-
+					
 					<li class="nav-item"><a class="nav-link"
 						href="<c:url value='/admin/messages/backendall' />">評價管理</a></li>
 
@@ -125,7 +124,6 @@
 		</div>
 	</nav>
 	<!-- End Header/Navbar -->
-
 	<main id="main">
 		<section class="intro-single">
 			<div class="container">
@@ -135,13 +133,14 @@
 							<h1 class="title-single">訂單一覽</h1>
 							<div class="form-comments">
 								<div class="title-box-d">
-									<h5 class="title-d">用下訂日期查詢</h5>
+									<h5 class="title-d">用房型查詢</h5>
 								</div>
-								<form:form action="${contextRoot}/admin/orders/databyorderdate"
-									modelAttribute="orderdate">
-									<form:input path="orderdate" type="date"
-										class="form-control form-control-lg form-control-a"
-										required="true" />
+								<form:form action="${contextRoot}/admin/orders/databyroomid"
+									modelAttribute="roomid">
+									<div class="input-group">
+										<form:textarea path="roomid" class="form-control" rows=""
+											cols="" />
+									</div>
 									<br />
 									<div style="text-align: right">
 									<button type="submit" class="btn btn-primary">送出</button>
@@ -191,9 +190,14 @@
 												<!--********************[編輯按鈕]******************** -->
 												<form action="${contextRoot}/admin/orders/update"
 													method="get">
+<<<<<<< HEAD:src/main/webapp/WEB-INF/jsp/order/byRoomid.jsp
 													<input type="hidden" name="id" value="${datas.id}" /> <input
-														type="hidden" name="jsp" value="byOrderdate" /> <input
+														type="hidden" name="jsp" value="byRoomid" /> <input
 														type="hidden" name="orderdate" value="${datas.orderdate}" />
+=======
+													<input type="hidden" name="id" value="${datas.id}" />
+													<input type="hidden" name="orderdate" value="${datas.orderdate}" />
+>>>>>>> 3ed34646a540606683d940d7e6af26838735f2ed:src/main/webapp/WEB-INF/jsp/order/byroomid.jsp
 													<input type="submit" class="btn btn-outline-info btn-sm"
 														value="編輯">
 												</form>
@@ -201,17 +205,27 @@
 												<!--********************onSubmit為form表單原生的屬性，判斷回傳之布林值決定下一步******************** -->
 												<form action="${contextRoot}/admin/orders/backstagedel"
 													method="post" onSubmit="return popup2();">
+
 													<input type="hidden" name="orderid"
 														value="${datas.orderid}" /> <input type="hidden"
-														name="jsp" value="byOrderdate" /> <input type="hidden"
-														name="searchid" value="${datas.orderdate}" /><input
+<<<<<<< HEAD:src/main/webapp/WEB-INF/jsp/order/byRoomid.jsp
+														name="jsp" value="byRoomid" /> <input type="hidden"
+														name="searchid" value="${datas.roomid.roomId}" /> <input
 														type="hidden" name="_method" value="delete" /> <input
 														type="submit" class="btn btn-outline-danger btn-sm"
 														value="刪除">
+=======
+														name="jsp" value="byRoomid" />
+														<input type="hidden" name="searchid" value="${datas.roomid.roomId}" />
+														<input type="hidden"
+														name="_method" value="delete" /> <input type="submit"
+														class="btn btn-outline-danger btn-sm" value="刪除">
 
-													<!--********************刪除前用來再次確認******************** -->
+													<!--********************刪除前用來做再次確認的範本******************** -->
 
+>>>>>>> 3ed34646a540606683d940d7e6af26838735f2ed:src/main/webapp/WEB-INF/jsp/order/byroomid.jsp
 													<script>
+													<!--********************刪除前用來再次確認******************** -->
 														function popup2() {
 															if (confirm('您確定要刪除嗎') == true) {
 																//作刪除的動作(送出表單)
@@ -227,6 +241,7 @@
 										</div>
 									</div>
 								</c:forEach>
+
 							</div>
 						</div>
 					</div>
@@ -234,8 +249,6 @@
 			</div>
 		</section>
 	</main>
-
-	<!-- ======= Footer ======= -->
 
 	<footer>
 		<div class="container">

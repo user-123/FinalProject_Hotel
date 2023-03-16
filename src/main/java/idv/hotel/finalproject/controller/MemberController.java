@@ -84,8 +84,6 @@ public class MemberController {
 			String photo = memberService.addinfo(mb,session,request,response,uploadedFile);
 //			session.setAttribute("memberBean", mb);
 			session.setAttribute("photo", photo);
-			System.out.println("aaa");
-			System.out.println(photo);
 			redirectAttributes.addFlashAttribute("message", "新增成功");
 		}catch(Exception e) {
 			e.printStackTrace();

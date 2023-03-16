@@ -98,10 +98,10 @@
 									<li><a class="dropdown-item"
 										href="<c:url value='/searchinfo' />">查詢資料</a></li>
 									<li><a class="dropdown-item"
-										href="<c:url value='/orders/history' />?文彥的id傳過來的名字=${sessionScope.id}">歷史訂單</a></li>
+										href="<c:url value='/orders/history' />?accountId=${sessionScope.id}">歷史訂單</a></li>
 									<sec:authorize access="hasAuthority('admin')">
 										<li><a class="dropdown-item"
-											href="<c:url value="/admin/room/backstage"/>">後台</a></li>
+											href="<c:url value="/admin/backstage"/>">後台</a></li>
 									</sec:authorize>
 									<li><a class="dropdown-item "
 										href="<c:url value='/logout'/>"> <input type="hidden"
@@ -165,7 +165,7 @@
 					<h5>服務: ${room.service}</h5>
 					<h5>備註: ${room.remark}</h5>
 					<br> <br> <img width='300px'
-						src="http://localhost:8081/my-house/public/room/show">
+						src="#">
 
 
 					<form action="<c:url value='/orders/add' />" method="get">
