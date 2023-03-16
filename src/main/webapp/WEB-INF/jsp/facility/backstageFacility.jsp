@@ -72,10 +72,10 @@
 
 					<li class="nav-item"><a class="nav-link " href="#">訂單管理</a></li>
 
-					<li class="nav-item"><a class="nav-link active" href="#">房型管理</a></li>
-
 					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/admin/facility/showBacksatge'/>">設施管理</a></li>
+						href="<c:url value="/admin/room/backstage"/>">房型管理</a></li>
+
+					<li class="nav-item"><a class="nav-link active" href="#">設施管理</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="#">景點管理</a></li>
 
@@ -117,7 +117,7 @@
 				<div class="row">
 					<div class="col-md-12 col-lg-8">
 						<div class="title-single-box">
-							<h1 class="title-single">管理房型</h1>
+							<h1 class="title-single">休閒設施管理</h1>
 						</div>
 					</div>
 				</div>
@@ -128,55 +128,27 @@
 		<!-- ======= Property Grid ======= -->
 		<section class="property-grid grid">
 			<div class="container">
-				<div class="row">
-					<div class="col-sm-12">
-						<div class="grid-option">
-							<form action="<c:url value="/admin/room/backstageShowType" />"
-								method="get">
-								<select name="type">
-									<option value="">請選擇房型</option>
-									<option value="雙人房">雙人房</option>
-									<option value="四人房">四人房</option>
-									<option value="六人房">六人房</option>
-								</select> <input type="submit" class="btn btn-outline-info btn-sm"
-									value="搜尋">
-							</form>
-						</div>
-					</div>
-				</div>
 				<input type="button" value="新增" class="btn btn-primary"
 					onclick="location.href='<c:url value='/admin/room/create'/>'">
 
 				<table
 					class="table table-striped table-bordered table-hover text-center">
 					<tr>
-						<th>房號</th>
-						<th>房名</th>
-						<th>房型</th>
-						<th>價錢</th>
-						<th>房型介紹</th>
+						<th>設施名稱</th>
 						<th>簡介</th>
-						<th>設備</th>
-						<th>服務</th>
-						<th>備註</th>
+						<th>服務項目</th>
 						<th>圖片</th>
 						<th>修改</th>
 					</tr>
-					<c:forEach items="${room}" var="msg">
+					<c:forEach items="${facility}" var="msg">
 
 						<tr>
-							<td>${msg.roomId}</td>
 							<td>${msg.name}</td>
-							<td>${msg.type}</td>
-							<td>${msg.price}</td>
-							<td>${msg.roomNameIntroduction}</td>
 							<td>${msg.introduce}</td>
-							<td>${msg.equipment}</td>
 							<td>${msg.service}</td>
-							<td>${msg.remark}</td>
 							<td><div id="slideshow">
 									<div class="slides">
-										<c:forEach items="${msg.roomPhotoBeans}" var="photo">
+										<c:forEach items="${msg.facilityPhotoBeans}" var="photo">
 											<img id="img"
 												src="<c:url value='/roomId/${photo.photoFile}'/>"
 												width="150px" height="100px">

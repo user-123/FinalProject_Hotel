@@ -10,25 +10,27 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity(name = "roomPhoto")
-@Table(name = "roomPhoto")
-public class RoomPhotoBean {
+@Entity(name = "facilityPhoto")
+@Table(name = "facilityPhoto")
+public class FacilityPhotoBean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@Column(columnDefinition = "nvarchar(255)")
 	private String photoFile;
-
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_room_id")
-	private RoomBean roomBean;
+	@JoinColumn(name = "fk_facility_id")
+	private FacilityBean facilityBean;
 
-	public RoomPhotoBean() {
+	public FacilityPhotoBean() {
+		super();
 	}
 
-	public RoomPhotoBean(Integer id, String photoFile) {
+	public FacilityPhotoBean(Integer id, String photoFile, FacilityBean facilityBean) {
+		super();
 		this.id = id;
 		this.photoFile = photoFile;
+		this.facilityBean = facilityBean;
 	}
 
 	public Integer getId() {
@@ -47,17 +49,17 @@ public class RoomPhotoBean {
 		this.photoFile = photoFile;
 	}
 
-	public RoomBean getRoomBean() {
-		return roomBean;
+	public FacilityBean getFacilityBean() {
+		return facilityBean;
 	}
 
-	public void setRoomBean(RoomBean roomBean) {
-		this.roomBean = roomBean;
+	public void setFacilityBean(FacilityBean facilityBean) {
+		this.facilityBean = facilityBean;
 	}
 
 	@Override
 	public String toString() {
-		return "RoomPhotoBean [id=" + id + ", photoFile=" + photoFile + ", roomBean=" + roomBean + "]";
+		return "FacilityPhotoBean [id=" + id + ", photoFile=" + photoFile + ", facilityBean=" + facilityBean + "]";
 	}
 
 }
