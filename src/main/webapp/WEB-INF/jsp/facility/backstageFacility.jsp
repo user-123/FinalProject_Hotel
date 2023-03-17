@@ -129,7 +129,7 @@
 		<section class="property-grid grid">
 			<div class="container">
 				<input type="button" value="新增" class="btn btn-primary"
-					onclick="location.href='<c:url value='/admin/room/create'/>'">
+					onclick="location.href='<c:url value='/admin/facility/create'/>'">
 
 				<table
 					class="table table-striped table-bordered table-hover text-center">
@@ -157,12 +157,13 @@
 								</div></td>
 
 							<td>
-								<form action="<c:url value="/admin/room/edit" />" method="get">
+								<form action="<c:url value="/admin/facility/edit"/>"
+									method="get">
 									<input type="hidden" name="id1" value="${msg.id}" /><input
 										type="submit" class="btn btn-outline-danger btn-sm"
 										value="編輯資料">
 								</form>
-								<form action="<c:url value="/admin/room/delete" />"
+								<form action="<c:url value="/admin/facility/delete" />"
 									method="post">
 									<input type="hidden" name="id" value="${msg.id}" /> <input
 										type="hidden" name="_method" value="delete" /> <input

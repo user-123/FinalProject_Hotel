@@ -71,6 +71,7 @@ img {
 
 <script>
 	window.onload = function() {
+		let Id = document.getElementById("id");
 		$("#name").on("input", function() {
 			let name = document.getElementById("name");
 			if (name.value == "") {
@@ -85,9 +86,10 @@ img {
 			$.ajax({
 				method : 'get',
 				data : {
+					'Id' : Id.value,
 					'name' : name.value
 				},
-				url : 'addCheckNamne',
+				url : 'updataCheckNamne',
 
 				success : function(result) {
 					$('.nameerror').html(result).css({
@@ -128,17 +130,6 @@ img {
 			}
 		})
 
-		$("#room-photos").on("input", function() {
-			let room_photos = document.getElementById("room-photos");
-			if (room_photos.value == "") {
-				$('.room-photoserror').html("必選").css({
-					"color" : "red",
-					"font-size" : "10%"
-				})
-			} else {
-				$('.room-photoserror').html("")
-			}
-		})
 		let input = document.querySelectorAll(".input");
 
 		$('#submit').on("click", function(event) {
@@ -273,13 +264,14 @@ img {
 				<div class="row">
 					<div class="col-md-12 col-lg-8">
 						<div class="title-single-box">
-							<h1 class="title-single">新增設施</h1>
+							<h1 class="title-single">編輯設施</h1>
 							<div class="form-comments">
-								<form:form method="POST"
-									action="${contextRoot}/admin/facility/add"
+								<form:form method="PUT"
+									action="${contextRoot}/admin/facility/update"
 									modelAttribute="facilityBean" enctype="multipart/form-data"
 									id="facility">
 									<div class="row">
+										<form:input type="hidden" path="id" id="id" />
 										<div class="">
 											<div class="form-group">
 												<form:label path="name">設施名稱:</form:label>
@@ -312,10 +304,17 @@ img {
 										<div class="">
 											<div class="form-group">
 												<label for="room-photos">圖片:</label> <input type="file"
-													id="room-photos" class="input" name="files" required="true"
-													accept="image/*" multiple><br> <span
-													class="room-photoserror err"></span>
-												<div id="preview-images"></div>
+													id="room-photos" name="files" accept="image/*" multiple><br>
+												<span class="room-photoserror err"></span>
+												<div id="preview-images">
+													<div id="preview-images">
+														<c:forEach items="${facilityBean.facilityPhotoBeans}"
+															var="photo">
+															<img id="img" name="img"
+																src="<c:url value='/roomId/${photo.photoFile}'/>">
+														</c:forEach>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>

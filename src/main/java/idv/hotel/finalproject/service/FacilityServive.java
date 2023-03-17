@@ -10,4 +10,13 @@ import idv.hotel.finalproject.model.FacilityBean;
 public interface FacilityServive {
 
 	public List<FacilityBean> findAll();
+
+	public FacilityBean find(Integer Id);
+
+	public FacilityBean create(FacilityBean facilityBean);
+
+	public FacilityBean findByname(String name);
+	
+	public void delete(Integer Id);
+
 }
