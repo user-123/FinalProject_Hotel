@@ -118,6 +118,7 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-sm-12">
+								<button class="addBtn btn btn-outline-warning" onclick="addDetail()">➕</button>
 								<div class="grid-option">
 									<form action="<c:url value="/admin/attraction/findByCategory" />"
 										method="get">
@@ -131,7 +132,7 @@
 								</div>
 							</div>
 							<div class="container" id="attractionPage">
-								<div class="row justify-content-between">
+								<div class="row justify-content-between" id="aList">
 
 									<c:forEach items="${attraction}" var="info" varStatus="status">
 										<div class="col-6 col-sm-6" id="div${info.attractionId}">
@@ -155,157 +156,249 @@
 														<input type="submit" id="checkout" class="btn btn-outline-dark btn-sm" value="${XXXXX}檢視">
 													</form>
 													 -->
-													<button class="checkoutBtn btn btn-outline-dark btn-sm" onclick="showDetail(${info.attractionId})">編輯</button>
+													<button class="checkoutBtn btn btn-outline-dark btn-sm" onclick="showDetail(${info.attractionId})">📝</button>
 												</div>
 											</div>
 										</div>
 									</c:forEach>
-									<script>
-
-										function showDetail(id) {
-											$.ajax({
-												method : "get",
-												data : {"id": id},
-												url : "checkoutAttractionDetail"
-											}).done(function(response) {
-												console.log("Success:", response);
-												let attractionDetail = response;
-												let message = `<div>`;
-												message += `
-													<div>
-
-														<input type="hidden" id="aId" value="\${attractionDetail.attractionId}" />
-														<input type="hidden" id="aNum" value="\${attractionDetail.attractionNum}" /><br />
-														名稱：<input type="" id="aName" value="\${attractionDetail.attractionName}" /><br />
-														分類：<input type="" id="aCategory" value="\${attractionDetail.attractionCategory}" /><br />
-														地址：<input type="" id="aAddress" value="\${attractionDetail.attractionAddress}" /><br />
-														距離：<input type="" id="aDistance" value="\${attractionDetail.attractionDistance}" /><br />
-														介紹：<input type="" id="aIntroduction" value="\${attractionDetail.attractionIntroduction}" /><br />
-														照片：<input type="" id="aPhotoPath" value="\${attractionDetail.attractionPhotoPath}" /><br />
-
-													</div>
-												`;
-												/*
-												message += `
-													<hr />
-													<div>
-														<button class="updateBtn btn btn-outline-success btn-sm">修改</button>　<button class="updateBtn btn btn-outline-danger btn-sm">刪除</button>　<button class="updateBtn btn btn-outline-secondary btn-sm" onclick="">關閉</button>
-													</div>
-												`;
-												*/
-												message += `</div>`
-												console.log(message);
-												let modal = $(message).dialog({
-								                    width: 600, modal: true, autoOpen: true, title: `\<input value="\${attractionDetail.attractionName}" />`,
-								                    buttons: [{text: "修改", click: function() {updateDetail(id);$(this).dialog("close");$(this).remove();}}, {text: "刪除", click: function() {deleteDetail(id);$(this).dialog("close");$(this).remove();}}, {text: "關閉", click: function() {$(this).dialog("close");$(this).remove();}}]
-								                });
-												$(".ui-dialog-titlebar").hide();
-												//$(".ui-dialog-titlebar-close").hide();
-												//$(".ui-dialog-buttonpane").hide();
-												//$("#ui-id-2").hide();
-												//效能問題，須棄用
-												$(".ui-dialog-buttonset button:nth-child(1)").addClass("updateBtn btn btn-outline-success btn-sm");
-												$(".ui-dialog-buttonset button:nth-child(2)").addClass("deleteBtn btn btn-outline-danger btn-sm");
-												$(".ui-dialog-buttonset button:nth-child(3)").addClass("closeBtn btn btn-outline-secondary btn-sm");
-
-											})
-										}
-
-
-
-
-
-										function updateDetail(id) {
-											console.log(id);
-											let aNum=$("#aNum").val();
-											let aName=$("#aName").val();
-											let aCategory=$("#aCategory").val();
-											let aAddress=$("#aAddress").val();
-											let aDistance=$("#aDistance").val();
-											let aIntroduction=$("#aIntroduction").val();
-											let aPhotoPath=$("#aPhotoPath").val();
-											console.log(`\${aNum}&\${aName}&\${aCategory}&\${aAddress}&\${aDistance}&\${aIntroduction}&\${aPhotoPath}`);
-											$.ajax({
-												method : "post",
-												data : {
-													"id": id,
-													"num": aNum,
-													"name": aName,
-													"category": aCategory,
-													"address": aAddress,
-													"distance": aDistance,
-													"introduction": aIntroduction,
-													"photoPath": aPhotoPath,
-													},
-												url : "updateAttractionDetail"
-											}).done(function(response) {
-												console.log("Success:", response);
-												if(response) {
-													alert(`更新成功，ID:\${id}`);
-												}else {
-													alert(`更新失敗，ID:\${id}`);
-												}
-												reflashList(id, aName, aAddress);
-												showDetail(id);
-
-											})
-										}
-										function deleteDetail(id) {
-											console.log(id);
-											$.ajax({
-												method : "delete",
-												data : {"id": id},
-												url : "deleteAttractionDetail"
-											}).done(function(response) {
-												console.log("Success:", response);
-												if(response) {
-													document.getElementById(`div\${id}`).remove();
-													//alert(`刪除成功，ID:\${id}`);
-												}else {
-													alert(`刪除失敗，ID:\${id}`);
-												}
-
-											})
-										}
-
-										function reflashList(id, aName, aAddress) {
-											//document.getElementById(`div\${id}`).empty();
-											document.getElementById(`div\${id}`).innerHTML = `
-												<br />
-												<!-- <span id="span\${id}">${status.index+1}.</span> -->
-												<div class="justify-content-center">
-													<img src="<c:url value='/uploadDir/a0.jpg'/>" width='500' class='m-1 border rounded ' />
-												</div>
-												<!--
-												<div class="zoomImage" style="background-image:url(<c:url value='/uploadDir/a0.jpg' />)">${status.index+1}.</div>
-												 -->
-												<div class="row justify-content-start">
-													<div class="col-10 col-sm-10">
-														\${aName}<br />
-														\${aAddress}
-													</div>
-														<div class="col-2 col-sm-2">
-														<!--
-														<form action="<c:url value="/public/XXXX" />" method="get">
-															<input type="hidden" id="${info.attractionId}" name="Id" value="${info.attractionId}" />
-															<input type="submit" id="checkout" class="btn btn-outline-dark btn-sm" value="${XXXXX}檢視">
-														</form>
-														 -->
-														<button class="checkoutBtn btn btn-outline-dark btn-sm" onclick="showDetail(${info.attractionId})">編輯</button>
-													</div>
-												</div>`
-										}
-
-
-
-
-
-									</script>
 
 
 								</div>
 							</div>
 						</div>
+						<script>
+
+							function showDetail(id) {
+								$.ajax({
+									method : "get",
+									data : {"id": id},
+									url : "checkoutAttractionDetail"
+								}).done(function(response) {
+									console.log("Success:", response);
+									let attractionDetail = response;
+									let message = `<div>`;
+									message += `
+										<div>
+
+											<input type="hidden" id="aId" value="\${attractionDetail.attractionId}" />
+											<input type="hidden" id="aNum" value="\${attractionDetail.attractionNum}" /><br />
+											名稱：<input type="" id="aName" value="\${attractionDetail.attractionName}" required="required" /><br />
+											分類：<select id="aCategory">
+												<option value="美食">美食</option>
+												<option value="景點">景點</option>
+											</select><br />
+											地址：<input type="" id="aAddress" value="\${attractionDetail.attractionAddress}" required="required" /><br />
+											距離：<input type="" id="aDistance" value="\${attractionDetail.attractionDistance}" /><br />
+											介紹：<input type="" id="aIntroduction" value="\${attractionDetail.attractionIntroduction}" /><br />
+											照片：<input type="" id="aPhotoPath" value="\${attractionDetail.attractionPhotoPath}" /><br />
+
+										</div>
+									`;
+									/*
+									message += `
+										<hr />
+										<div>
+											<button class="updateBtn btn btn-outline-success btn-sm">修改</button>　<button class="updateBtn btn btn-outline-danger btn-sm">刪除</button>　<button class="updateBtn btn btn-outline-secondary btn-sm" onclick="">關閉</button>
+										</div>
+									`;
+									*/
+									message += `</div>`
+									console.log(message);
+									let modal = $(message).dialog({
+					                    width: 600, modal: true, autoOpen: true, title: `\<input value="\${attractionDetail.attractionName}" />`,
+					                    buttons: [{text: "修改", click: function() {updateDetail(id);$(this).dialog("close");$(this).remove();}}, {text: "刪除", click: function() {deleteDetail(id);$(this).dialog("close");$(this).remove();}}, {text: "關閉", click: function() {$(this).dialog("close");$(this).remove();}}]
+					                });
+									$(".ui-dialog-titlebar").hide();
+									//$(".ui-dialog-titlebar-close").hide();
+									//$(".ui-dialog-buttonpane").hide();
+									//$("#ui-id-2").hide();
+									//效能問題，須棄用
+									$(".ui-dialog-buttonset button:nth-child(1)").addClass("updateBtn btn btn-outline-success btn-sm");
+									$(".ui-dialog-buttonset button:nth-child(2)").addClass("deleteBtn btn btn-outline-danger btn-sm");
+									$(".ui-dialog-buttonset button:nth-child(3)").addClass("closeBtn btn btn-outline-secondary btn-sm");
+									document.getElementById("aCategory").value =`\${attractionDetail.attractionCategory}`;
+								})
+							}
+
+
+
+
+
+							function addDetail() {
+								let message = `<div>`;
+								message += `
+									<div>
+										名稱：<input type="" id="aName" required="required" /><br />
+										分類：<select id="aCategory">
+											<option value="美食">美食</option>
+											<option value="景點">景點</option>
+										</select><br />
+										地址：<input type="" id="aAddress" required="required" /><br />
+										距離：<input type="" id="aDistance" /><br />
+										介紹：<input type="" id="aIntroduction" /><br />
+										照片：<input type="" id="aPhotoPath" /><br />
+									</div>
+								`;
+								message += `</div>`;
+								console.log(message);
+								let modal = $(message).dialog({
+				                    width: 600, modal: true, autoOpen: true, title: ``,
+				                    buttons: [{text: "新增", click: function() {createDetail();$(this).dialog("close");$(this).remove();}}, {text: "取消", click: function() {$(this).dialog("close");$(this).remove();}}]
+				                });
+								$(".ui-dialog-titlebar").hide();
+								//$(".ui-dialog-titlebar-close").hide();
+								//$(".ui-dialog-buttonpane").hide();
+								//$("#ui-id-2").hide();
+								//效能問題，須棄用
+								$(".ui-dialog-buttonset button:nth-child(1)").addClass("updateBtn btn btn-outline-primary btn-sm");
+								$(".ui-dialog-buttonset button:nth-child(2)").addClass("closeBtn btn btn-outline-secondary btn-sm");
+
+
+
+
+
+							}
+
+
+							function createDetail() {
+								let aName=$("#aName").val();
+								let aCategory=$("#aCategory").val();
+								let aAddress=$("#aAddress").val();
+								let aDistance=$("#aDistance").val();
+								let aIntroduction=$("#aIntroduction").val();
+								let aPhotoPath=$("#aPhotoPath").val();
+								$.ajax({
+									method : "post",
+									data : {
+										"name": aName,
+										"category": aCategory,
+										"address": aAddress,
+										"distance": aDistance,
+										"introduction": aIntroduction,
+										"photoPath": aPhotoPath},
+									url : "createAttractionDetail"
+								}).done(function(response) {
+									console.log("Success:", response);
+									if(response !== null) {
+										let aId=`\${response.attractionId}`;
+										let aName=`\${response.attractionName}`;
+										let aAddress=`\${response.attractionAddress}`;
+										alert(`新增成功，ID:\${aId}`);
+										addList(aId, aName, aAddress);
+									}else {
+										alert(`新增失敗`);
+									}
+
+								})
+							}
+
+
+							function updateDetail(id) {
+								console.log(id);
+								let aNum=$("#aNum").val();
+								let aName=$("#aName").val();
+								let aCategory=$("#aCategory").val();
+								let aAddress=$("#aAddress").val();
+								let aDistance=$("#aDistance").val();
+								let aIntroduction=$("#aIntroduction").val();
+								let aPhotoPath=$("#aPhotoPath").val();
+								console.log(`\${aNum}&\${aName}&\${aCategory}&\${aAddress}&\${aDistance}&\${aIntroduction}&\${aPhotoPath}`);
+								$.ajax({
+									method : "put",
+									data : {
+										"id": id,
+										"num": aNum,
+										"name": aName,
+										"category": aCategory,
+										"address": aAddress,
+										"distance": aDistance,
+										"introduction": aIntroduction,
+										"photoPath": aPhotoPath,
+										},
+									url : "updateAttractionDetail"
+								}).done(function(response) {
+									console.log("Success:", response);
+									if(response) {
+										alert(`更新成功，ID:\${id}`);
+									}else {
+										alert(`更新失敗，ID:\${id}`);
+									}
+									reflashList(id, aName, aAddress);
+
+								})
+							}
+							function deleteDetail(id) {
+								console.log(id);
+								$.ajax({
+									method : "delete",
+									data : {"id": id},
+									url : "deleteAttractionDetail"
+								}).done(function(response) {
+									console.log("Success:", response);
+									if(response) {
+										document.getElementById(`div\${id}`).remove();
+										alert(`刪除成功，ID:\${id}`);
+									}else {
+										alert(`刪除失敗，ID:\${id}`);
+									}
+
+								})
+							}
+
+							function reflashList(id, aName, aAddress) {
+								//document.getElementById(`div\${id}`).empty();
+								document.getElementById(`div\${id}`).innerHTML = `
+									<br />
+									<!-- <span id="span\${id}">${status.index+1}.</span> -->
+									<div class="justify-content-center">
+										<img src="<c:url value='/uploadDir/a0.jpg'/>" width='500' class='m-1 border rounded ' />
+									</div>
+									<!--
+									<div class="zoomImage" style="background-image:url(<c:url value='/uploadDir/a0.jpg' />)">${status.index+1}.</div>
+									 -->
+									<div class="row justify-content-start">
+										<div class="col-10 col-sm-10">
+											\${aName}<br />
+											\${aAddress}
+										</div>
+										<div class="col-2 col-sm-2">
+											<!--
+											<form action="<c:url value="/public/XXXX" />" method="get">
+												<input type="hidden" id="${info.attractionId}" name="Id" value="${info.attractionId}" />
+												<input type="submit" id="checkout" class="btn btn-outline-dark btn-sm" value="${XXXXX}檢視">
+											</form>
+											 -->
+											<button class="checkoutBtn btn btn-outline-dark btn-sm" onclick="showDetail(\${id})">編輯</button>
+										</div>
+									</div>`
+							}
+							function addList(aId, aName, aAddress) {
+								console.log(`\${aId}, \${aName}, \${aAddress}`);
+								let list = document.getElementById("aList").innerHTML;
+								console.log(list);
+								document.getElementById(`aList`).innerHTML = `
+									<div class="col-6 col-sm-6" id="div\${aId}">
+										<br />
+										<div class="justify-content-center">
+											<img src="<c:url value='/uploadDir/a0.jpg'/>" width='500' class='m-1 border rounded ' />
+										</div>
+										<div class="row justify-content-start">
+											<div class="col-10 col-sm-10">
+												\${aName}<br />
+												\${aAddress}
+											</div>
+											<div class="col-2 col-sm-2">
+												<button class="checkoutBtn btn btn-outline-dark btn-sm" onclick="showDetail(\${aId})">📝</button>
+											</div>
+										</div>
+									</div>` + list;
+							}
+
+
+
+
+
+						</script>
 					</div>
 				</section>
 

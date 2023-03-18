@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import idv.hotel.finalproject.model.AttractionBean;
@@ -36,15 +37,29 @@ public class AttractionController {
 	//private OrderService oService;
 
 	@GetMapping("public/attraction/list")
-	public String attractionFrontHome(@RequestParam(name = "category", required = false, defaultValue = "") String category, Model model) {
+	public String attractionFrontHome(@RequestParam(name = "category", required = false, defaultValue = "all") String category, Model model) {
 		List<AttractionBean> aBeanList = aService.findDataAll();
+		//System.out.println(category.equals("food"));
+		//System.out.println(category.intern()=="food");
+		if(category.intern()=="food") {
+			aBeanList = aService.findDataByCategory("美食");
+		}else if(category.intern()=="spot") {
+			aBeanList = aService.findDataByCategory("景點");
+		}
 		model.addAttribute("attraction", aBeanList);
 		return "attraction/attractionListPage";
 	}
 
 	@GetMapping("admin/attraction/list")
-	public String attractionBackHome(Model model) {
+	public String attractionBackHome(@RequestParam(name = "category", required = false, defaultValue = "all") String category, Model model) {
 		List<AttractionBean> aBeanList = aService.findDataAll();
+		//System.out.println(category.equals("food"));
+		//System.out.println(category.intern()=="food");
+		if(category.equals("food")) {
+			aBeanList = aService.findDataByCategory("美食");
+		}else if(category.equals("spot")) {
+			aBeanList = aService.findDataByCategory("景點");
+		}
 		model.addAttribute("attraction", aBeanList);
 		return "attraction/attractionListPageBackground";
 	}
@@ -73,13 +88,26 @@ public class AttractionController {
 		return aBean;
 	}
 
-	@PostMapping("admin/attraction/updateAttractionDetail")
+	@PostMapping("admin/attraction/createAttractionDetail")
 	@ResponseBody
-	public boolean attractionBackUpdateById(@RequestParam Integer id, @RequestParam Integer num, @RequestParam String name, @RequestParam String category, @RequestParam String address, @RequestParam float distance, @RequestParam String introduction, @RequestParam String photoPath) {
+	public AttractionBean attractionBackCreateAttraction(@RequestParam(required = true) String name, @RequestParam(required = true) String category, @RequestParam(required = true) String address, @RequestParam(required = false) float distance, @RequestParam(required = false) String introduction, @RequestParam(required = false) String photoPath, @RequestParam(required = false) MultipartFile[] photoFile) {
+		AttractionBean aBean = new AttractionBean();
+		aBean.setAttractionName(name);
+		aBean.setAttractionCategory(category);
+		aBean.setAttractionAddress(address);
+		aBean.setAttractionDistance(distance);
+		aBean.setAttractionIntroduction(introduction);
+		aBean.setAttractionPhotoPath(photoPath);
+		AttractionBean aBeanReturn = aService.saveData(aBean);
+		return aBeanReturn;
+	}
+
+	@PutMapping("admin/attraction/updateAttractionDetail")
+	@ResponseBody
+	public boolean attractionBackUpdateById(@RequestParam(required = true) Integer id, @RequestParam(required = true) String name, @RequestParam(required = true) String category, @RequestParam(required = true) String address, @RequestParam(required = false) float distance, @RequestParam(required = false) String introduction, @RequestParam(required = false) String photoPath) {
 		boolean updateResult=false;
 		AttractionBean aBean = aService.findDataById(id);
 		if(aBean != null) {
-			aBean.setAttractionNum(num);
 			aBean.setAttractionName(name);
 			aBean.setAttractionCategory(category);
 			aBean.setAttractionAddress(address);
@@ -97,13 +125,15 @@ public class AttractionController {
 
 	@DeleteMapping("admin/attraction/deleteAttractionDetail")
 	@ResponseBody
-	public boolean attractionBackDeleteById(@RequestParam Integer id) {
+	public boolean attractionBackDeleteById(@RequestParam(required = true) Integer id) {
 		boolean deleteResult=false;
 		if(aService.deleteDataById(id)) {
 			deleteResult=true;
 		}
 		return deleteResult;
 	}
+
+
 
 
 

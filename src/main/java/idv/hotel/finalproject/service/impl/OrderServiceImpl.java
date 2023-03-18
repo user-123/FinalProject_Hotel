@@ -273,16 +273,13 @@ public class OrderServiceImpl implements OrderService {
 		Calendar checkoutDateCal = Calendar.getInstance();
 		checkinDateCal.setTime(olBean.getCheckindate());
 		checkoutDateCal.setTime(olBean.getCheckoutdate());
-		System.out.println("========01========");
 		Set<OrderDetailBean> odBeanSet = new LinkedHashSet<OrderDetailBean>(0);
 		//OrderListBean olBeanTemp = new OrderListBean();
 		//olBean.setOrderid(olBean.getOrderid());
-		System.out.println("========02========");
 
 
 
 		while(checkinDateCal.before(checkoutDateCal)) {
-			System.out.println("========03========");
 			OrderDetailBean odBean = new OrderDetailBean();
 			odBean.setOrderId(olBean);
 			odBean.setRoomId(Integer.parseInt(olBean.getRoomIdtoString()));
@@ -291,7 +288,6 @@ public class OrderServiceImpl implements OrderService {
 			//odBean.setOrderId((OrderListBean.setOrderid(olBean.getOrderid()));
 			odBean.setLivingDate(checkinDate);
 			System.out.println(odBean);
-			System.out.println("========04========");
 			//odDao.save(odBean);		//改成save list
 			odBeanSet.add(odBean);
 			checkinDateCal.add(Calendar.DATE, 1);
@@ -303,7 +299,6 @@ public class OrderServiceImpl implements OrderService {
 			//order.setCustomerId(customer.getId());
 			//orderRepository.save(order);
 		}
-		System.out.println("========05========");
 		System.out.println(odBeanSet);
 
 		//olDao.save();

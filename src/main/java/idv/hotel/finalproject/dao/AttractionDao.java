@@ -18,6 +18,7 @@ public interface AttractionDao extends JpaRepository<AttractionBean, Integer> {
 	AttractionBean findByAttractionId(Integer attractionId);
 	AttractionBean findByAttractionNum(Integer attractionNum);
 	List<AttractionBean> findByAttractionName(String attractionName);
+	//@Query(value = "from Attraction where attractionCategory = ?1")
 	List<AttractionBean> findByAttractionCategory(String category);
 	List<AttractionBean> findByAttractionAddress(String address);
 	List<AttractionBean> findByAttractionDistance(Float distance);

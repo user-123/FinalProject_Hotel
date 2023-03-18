@@ -140,7 +140,7 @@
 													<input type="submit" id="checkout" class="btn btn-outline-dark btn-sm" value="${XXXXX}檢視">
 												</form>
 												 -->
-												<button class="checkoutBtn btn btn-outline-dark btn-sm" onclick="showDetail(${info.attractionId})">檢視</button>
+												<button class="checkoutBtn btn btn-outline-dark btn-sm" onclick="showDetail(${info.attractionId})">🔍</button>
 											</div>
 										</div>
 									</div>

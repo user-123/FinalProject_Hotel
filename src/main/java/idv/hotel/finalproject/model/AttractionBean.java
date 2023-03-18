@@ -26,7 +26,7 @@ public class AttractionBean {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer attractionId;
 
-	@Column(name="Num", columnDefinition="int", nullable=true, unique=true)
+	@Column(name="Num", columnDefinition="int", nullable=true, unique=false)
 	private Integer attractionNum;
 
 	//@Column(columnDefinition="nvarchar(255) NOT NULL", name="Name")

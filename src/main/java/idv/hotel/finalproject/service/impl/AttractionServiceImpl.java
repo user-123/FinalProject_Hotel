@@ -50,8 +50,8 @@ public class AttractionServiceImpl implements AttractionService {
 
 	@Override
 	public List<AttractionBean> findDataByCategory(String category) {
-		// TODO 自動產生的方法 Stub
-		return null;
+		List<AttractionBean> aBeanList = aDao.findByAttractionCategory(category);
+		return aBeanList;
 	}
 
 	@Override
@@ -104,9 +104,9 @@ public class AttractionServiceImpl implements AttractionService {
 	}
 
 	@Override
-	public AttractionBean saveDataById(Integer id) {
-		// TODO 自動產生的方法 Stub
-		return null;
+	public AttractionBean saveData(AttractionBean aBean) {
+		AttractionBean result = aDao.save(aBean);
+		return result;
 	}
 
 	@Override

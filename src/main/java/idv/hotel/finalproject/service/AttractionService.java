@@ -24,7 +24,7 @@ public interface AttractionService {
 	public List<AttractionBean> findDataByDistanceBetween(Float distance);
 	public List<AttractionBean> findDataByIntroductionLike(String introduction);
 	//儲存資料
-	public AttractionBean saveDataById(Integer id);
+	public AttractionBean saveData(AttractionBean aBean);
 	public List<AttractionBean> saveDataByNum(Integer Num);
 	//更新資料
 	public boolean updateDataById(AttractionBean aBean);
