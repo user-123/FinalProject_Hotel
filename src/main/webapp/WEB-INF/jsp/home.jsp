@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
 <!DOCTYPE html>
@@ -99,7 +102,7 @@
 										href="<c:url value='/orders/history' />?文彥的id傳過來的名字=${sessionScope.id}">歷史訂單</a></li>
 									<sec:authorize access="hasAuthority('admin')">
 										<li><a class="dropdown-item"
-											href="<c:url value="/admin/room/backstage"/>">後台</a></li>
+											href="<c:url value="/admin/backstage"/>">後台</a></li>
 									</sec:authorize>
 									<li><a class="dropdown-item "
 										href="<c:url value='/logout'/>"> <input type="hidden"
@@ -118,7 +121,6 @@
 						</c:choose></li>
 				</ul>
 			</div>
-
 		</div>
 	</nav>
 	<!-- End Header/Navbar -->

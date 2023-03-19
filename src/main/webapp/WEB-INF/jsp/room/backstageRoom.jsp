@@ -68,6 +68,8 @@
 				id="navbarDefault">
 				<ul class="navbar-nav">
 
+					<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/backstage'/>">基本管理</a></li>
+
 					<li class="nav-item"><a class="nav-link " href="#">會員管理</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="#">訂單管理</a></li>

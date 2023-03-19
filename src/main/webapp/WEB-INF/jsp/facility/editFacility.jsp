@@ -47,7 +47,10 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+<script
+	src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
 
 <style>
 /* Chrome, Safari, Edge, Opera */
@@ -63,9 +66,9 @@ input[type=number] {
 
 /* 圖片大小 */
 img {
-	max-width: 100px;
-	max-height: 100px;
+	max-width: 300px; max-height : 150px;
 	object-fit: contain;
+	max-height: 150px;
 }
 </style>
 
@@ -164,6 +167,8 @@ img {
 			for (var i = 0; i < files.length; i++) {
 				var file = files[i];
 				var fileType = file.type;
+				var maxSizeInBytes = 5e+6; // 5MB
+				var fileSizeInBytes = file.size;
 
 				if (fileType.indexOf('image') === -1) {
 					isAllImages = false;
@@ -172,12 +177,11 @@ img {
 			}
 
 			if (!isAllImages) {
-				alert('請選擇圖片格式');
+				Swal.fire('格式錯誤!', '請上傳正確的圖片格式', 'error');
 				this.value = '';
-				$('.room-photoserror').html("必選").css({
-					"color" : "red",
-					"font-size" : "10%"
-				})
+			} else if (fileSizeInBytes > maxSizeInBytes) {
+				Swal.fire('檔案過大!', '請選擇小於5MB的圖片檔案', 'error');
+				this.value = '';
 			} else {
 
 				for (var i = 0; i < files.length; i++) {
@@ -287,7 +291,7 @@ img {
 																	簡介:</form:label>
 												<br>
 												<form:textarea path="introduce" id="introduce" class="input"
-													rows="10" cols="40" required="true" />
+													rows="10" cols="80" maxlength="170" required="true" />
 												<span class="introduceerror err"></span>
 											</div>
 										</div>
@@ -297,7 +301,7 @@ img {
 																	服務:</form:label>
 												<br>
 												<form:textarea path="service" id="service" class="input"
-													rows="10" cols="40" required="true" />
+													rows="10" cols="80" required="true" />
 												<span class="serviceerror err"></span>
 											</div>
 										</div>
