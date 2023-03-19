@@ -7,12 +7,10 @@ import idv.hotel.finalproject.model.MessageBean;
 
 public interface MessageService {
 
-	//**************後台**************
-//	public MessageBean findById(Integer id);
-	
+	//**************後台**************	
 	public void deleteById(Integer id);
 	
-	public Object[] findMessageById(Integer id) ;
+	public MessageBean findById(Integer id) ;
 	//**************前台**************
 	// 會員留言
 	// 控制會員只能使用自己的userid
@@ -20,6 +18,6 @@ public interface MessageService {
 	
 	public BigDecimal AverageStar();
 	//**************前後台**************
-	public List<Object[]> findAll();
+	public List<MessageBean> findAll();
 	
 }

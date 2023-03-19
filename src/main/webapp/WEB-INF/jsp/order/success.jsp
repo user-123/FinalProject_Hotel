@@ -11,7 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>XX飯店</title>
+<title>貝斯特飯店</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -52,7 +52,7 @@
 				aria-label="Toggle navigation">
 				<span></span> <span></span> <span></span>
 			</button>
-			<a class="navbar-brand text-brand" href="<c:url value='/'/>">XXX<span
+			<a class="navbar-brand text-brand" href="<c:url value='/'/>">貝斯特<span
 				class="color-b">大飯店</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
@@ -63,7 +63,7 @@
 						href="<c:url value='/'/>">首頁</a></li>
 
 					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/about'/>">關於XXX</a></li>
+						href="<c:url value='/public/about'/>">關於貝斯特</a></li>
 
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/room/allShow'/>">房型</a></li>
@@ -90,6 +90,10 @@
 										href="<c:url value='/searchinfo' />">查詢資料</a></li>
 									<li><a class="dropdown-item"
 										href="<c:url value='/orders/history' />?accountId=${sessionScope.id}">歷史訂單</a></li>
+									<sec:authorize access="hasAuthority('admin')">
+										<li><a class="dropdown-item"
+											href="<c:url value="/admin/backstage"/>">後台</a></li>
+									</sec:authorize>
 									<li><a class="dropdown-item "
 										href="<c:url value='/logout'/>"> <input type="hidden"
 											name="${_csrf.parameterName}" value="${_csrf.token}" />登出
@@ -189,36 +193,42 @@
 									</form>
 									<!--********************onSubmit為form表單原生的屬性，判斷回傳之布林值決定下一步******************** -->
 									<form action="${contextRoot}/orders/delete" method="post"
-										onSubmit="return popup1();">
-
-<<<<<<< HEAD
-										<input type="hidden" name="orderid" value="${datas.orderid}" />
-										<input type="hidden" name="文彥的id傳過來的名字"
-											value="${datas.userid.accountId}" /> <input type="hidden"
+										onSubmit="return showConfirmation()">
+										<input type="hidden" name="orderid" value="${information.orderid}" />
+										<input type="hidden" name="userId"
+											value="${information.userid.accountId}" /> <input type="hidden"
 											name="_method" value="delete" /> <input type="submit"
 											class="btn btn-outline-danger btn-sm" value="刪除">
-=======
-													<input type="hidden" name="orderid"
-														value="${information.orderid}" /> <input type="hidden"
-														name="userId" value="${information.userid.accountId}" /> <input
-														type="hidden" name="_method" value="delete" /> <input
-														type="submit" class="btn btn-outline-danger btn-sm"
-														value="刪除">
->>>>>>> 3ed34646a540606683d940d7e6af26838735f2ed
 
 										<!--********************刪除前用來再次確認******************** -->
 
 										<script>
-											function popup1() {
-												if (confirm('您確定要刪除嗎') == true) {
-													//作刪除的動作(送出表單)
-													return true;
-												} else {
-													//返還history.jsp(當沒發生過)
-													return false;
-												}
-											};
-										</script>
+										function showConfirmation() {
+											  Swal.fire({
+											    title: '您確定要刪除嗎?',
+											    text: "",
+											    icon: 'warning',
+											    showCancelButton: true,
+											    confirmButtonColor: '#d33',
+											    cancelButtonColor: '#3085d6',
+											    confirmButtonText: '刪除',
+											    cancelButtonText: '取消' 
+											  }).then((result) => {
+											    if (result.isConfirmed) {
+											      Swal.fire(
+											        '刪除成功',
+											        '',
+											        'success'
+											      ).then(() => {
+													// 這個jsp的forms[0]是付款按鈕
+													document.forms[1].submit(); // 提交表单
+													});
+												 }
+											   });
+											   return false; // 防止表单提交
+										 }
+
+                                                             </script>
 									</form>
 								</div>
 							</div>
@@ -272,5 +282,8 @@
 
 	<!-- Template Main JS File -->
 	<script src='<c:url value="/assets/js/main.js"/>'></script>
+	
+	<!-- sweetalert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

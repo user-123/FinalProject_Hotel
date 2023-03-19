@@ -13,7 +13,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>XXX飯店管理系統</title>
+<title>貝斯特飯店管理系統</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -62,8 +62,8 @@
 				aria-label="Toggle navigation">
 				<span></span> <span></span> <span></span>
 			</button>
-			<a class="navbar-brand text-brand" href="<c:url value='#'/>"><span
-				class="color-b">XXX飯店管理系統</span></a>
+			<a class="navbar-brand text-brand" href="<c:url value='#'/>">貝斯特
+			<span class="color-b">飯店管理系統</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
@@ -79,7 +79,7 @@
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/findall' />">訂單一覽</a></li>
 							<li><a class="dropdown-item"
-								href="<c:url value='/admin/orders/byuserid' />">用會員ID查詢</a></li>
+								href="<c:url value='/admin/orders/byuserid' />">用會員名稱查詢</a></li>
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/byorderid' />">用訂單編號查詢</a></li>
 							<li><a class="dropdown-item"
@@ -132,7 +132,7 @@
 				<div class="row">
 					<div class="col-md-12 col-lg-8">
 						<div class="title-single-box">
-							<h1 class="title-single">更新訂單</h1>
+							<h1 class="title-single">修改訂單</h1>
 							<div class="form-comments">
 								<form:form action="${contextRoot}/admin/orders/editallData"
 									modelAttribute="datas" method="put">
@@ -205,6 +205,7 @@
 													<input type="hidden" name="id" value="${datas.id}" /> <input
 														type="hidden" name="jsp" value="allData" />
 													<form:input path="orderdate" type="hidden" />
+													<input type="hidden" name="searchid" value="${searchid}" />
 													<button type="submit" class="btn btn-primary">送出</button>
 												</div>
 											</div>

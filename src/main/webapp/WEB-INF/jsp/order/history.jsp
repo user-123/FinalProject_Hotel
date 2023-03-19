@@ -11,7 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>XX飯店</title>
+<title>貝斯特飯店</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -52,8 +52,8 @@
 				aria-label="Toggle navigation">
 				<span></span> <span></span> <span></span>
 			</button>
-			<a class="navbar-brand text-brand" href="<c:url value='/'/>">XXX<span
-				class="color-b">大飯店</span></a>
+			<a class="navbar-brand text-brand" href="<c:url value='/'/>">貝斯特<span
+				class="color-b">飯店</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
@@ -63,7 +63,7 @@
 						href="<c:url value='/'/>">首頁</a></li>
 
 					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/about'/>">關於XXX</a></li>
+						href="<c:url value='/public/about'/>">關於貝斯特</a></li>
 
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/room/allShow'/>">房型</a></li>
@@ -116,20 +116,6 @@
 	</nav>
 	<!-- End Header/Navbar -->
 	<input type="hidden" value="${orderId}" id="orderId" />
-	<script>
-		const orderIdValue = document.getElementById("orderId");
-
-		window.onload = function() {
-			alert(orderIdValue.value);
-			if ($("#orderId").value == null) {
-				alert("刪除成功");
-				return true;
-			} else {
-				alert("刪除失敗");
-				return false;
-			}
-		};
-	</script>
 	<main id="main">
 		<section class="intro-single">
 			<div class="container">
@@ -141,106 +127,133 @@
 								<div class="title-box-d">
 									<h5 class="title-d">訂單明細</h5>
 								</div>
-								<c:forEach var="datas" items="${datas}">
-									<div class="row">
-										<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow">
-											<div class="col-md-12 mb-3">
-												<div class="form-group">
-													訂單成立時間:
-													<fmt:formatDate pattern="yyyy-MM-dd ,a hh:mm:ss EEEE"
-														value="${datas.orderdate}" />
-												</div>
-											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">訂單編號:${datas.orderid}</div>
-											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">
-													會員:${datas.userid.accountName}</div>
-											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">房名:${datas.roomid.name}</div>
-											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">
-													入住日期:
-													<fmt:formatDate pattern="yyyy-MM-dd"
-														value="${datas.checkindate}" />
-												</div>
-											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">
-													退房日期:
-													<fmt:formatDate pattern="yyyy-MM-dd"
-														value="${datas.checkoutdate}" />
-												</div>
-											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">備註:${datas.message}</div>
-											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">金額:${datas.roomid.price}</div>
-											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">付款狀態:${datas.paid}</div>
-											</div>
-											<div class="col-md-12 mb-3" style="text-align: right">
-												<c:choose>
-													<c:when test="${datas.paid=='未付款'}">
-														<form id="idFormAioCheckOut" method="post"
-															action="<c:url value="/ECPay"/>">
-															<div style="display: none">
-																<div>
-																	<input type="text" name="id" value="${datas.id}">
-																	<label class="col-xs-12">房名:</label> <input type="text"
-																		name="ItemName" value="${datas.roomid.name}"
-																		class="form-control" readonly />
-																</div>
-																<div>
-																	<label class="col-xs-12">房型說明: </label> <input
-																		name="TradeDesc" class=" form-control"
-																		value="${datas.roomid.introduce}" readonly />
-																</div>
-																<div>
-																	<label class="col-xs-12">金額:</label> <input type="text"
-																		name="TotalAmount" value="${datas.roomid.price}"
-																		class="form-control" readonly />
-																</div>
-															</div>
+								<c:choose>
+									<c:when test="${datas.isEmpty()}">
+										<h3>目前尚無訂單</h3>
+									</c:when>
+									<c:otherwise>
+										<c:forEach var="datas" items="${datas}">
+											<div class="row">
+												<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow">
+													<div class="col-md-12 mb-3">
+														<div class="form-group">
+															訂單成立時間:
+															<fmt:formatDate pattern="yyyy-MM-dd ,a hh:mm:ss EEEE"
+																value="${datas.orderdate}" />
+														</div>
+													</div>
+													<div class="col-md-12 mb-3">
+														<div class="form-group">訂單編號:${datas.orderid}</div>
+													</div>
+													<div class="col-md-12 mb-3">
+														<div class="form-group">
+															會員:${datas.userid.accountName}</div>
+													</div>
+													<div class="col-md-12 mb-3">
+														<div class="form-group">房名:${datas.roomid.name}</div>
+													</div>
+													<div class="col-md-12 mb-3">
+														<div class="form-group">
+															入住日期:
+															<fmt:formatDate pattern="yyyy-MM-dd"
+																value="${datas.checkindate}" />
+														</div>
+													</div>
+													<div class="col-md-12 mb-3">
+														<div class="form-group">
+															退房日期:
+															<fmt:formatDate pattern="yyyy-MM-dd"
+																value="${datas.checkoutdate}" />
+														</div>
+													</div>
+													<div class="col-md-12 mb-3">
+														<div class="form-group">備註:${datas.message}</div>
+													</div>
+													<div class="col-md-12 mb-3">
+														<div class="form-group">金額:${datas.roomid.price}</div>
+													</div>
+													<div class="col-md-12 mb-3">
+														<div class="form-group">付款狀態:${datas.paid}</div>
+													</div>
+													<div class="col-md-12 mb-3" style="text-align: right">
+														<c:choose>
+															<c:when test="${datas.paid=='未付款'}">
+																<form id="idFormAioCheckOut" method="post"
+																	action="<c:url value="/ECPay"/>">
+																	<div style="display: none">
+																		<div>
+																			<input type="text" name="id" value="${datas.id}">
+																			<label class="col-xs-12">房名:</label> <input
+																				type="text" name="ItemName"
+																				value="${datas.roomid.name}" class="form-control"
+																				readonly />
+																		</div>
+																		<div>
+																			<label class="col-xs-12">房型說明: </label> <input
+																				name="TradeDesc" class=" form-control"
+																				value="${datas.roomid.introduce}" readonly />
+																		</div>
+																		<div>
+																			<label class="col-xs-12">金額:</label> <input
+																				type="text" name="TotalAmount"
+																				value="${datas.roomid.price}" class="form-control"
+																				readonly />
+																		</div>
+																	</div>
 
-															<button type="submit" class="btn btn-outline-info btn-sm">付款</button>
+																	<button type="submit"
+																		class="btn btn-outline-info btn-sm">付款</button>
+																</form>
+															</c:when>
+														</c:choose>
+														<!--********************onSubmit為form表單原生的屬性，判斷回傳之布林值決定下一步******************** -->
+														<form action="${contextRoot}/orders/delete" method="post"
+															onSubmit="return showConfirmation()">
+
+															<input type="hidden" name="orderid"
+																value="${datas.orderid}" /> <input type="hidden"
+																name="userId" value="${datas.userid.accountId}" /> <input
+																type="hidden" name="_method" value="delete" /> <input
+																type="submit" class="btn btn-outline-danger btn-sm"
+																value="刪除">
+
+															<!--********************刪除前用來再次確認******************** -->
+
+															<script>
+															function showConfirmation() {
+																  Swal.fire({
+																    title: '您確定要刪除嗎?',
+																    text: "",
+																    icon: 'warning',
+																    showCancelButton: true,
+																    confirmButtonColor: '#d33',
+																    cancelButtonColor: '#3085d6',
+																    confirmButtonText: '刪除',
+																    cancelButtonText: '取消' 
+																  }).then((result) => {
+																    if (result.isConfirmed) {
+																      Swal.fire(
+																        '刪除成功',
+																        '',
+																        'success'
+																      ).then(() => {
+																    	// 這個jsp的forms[0]是付款按鈕
+																        document.forms[1].submit(); // 提交表单
+																      });
+																    }
+																  });
+
+																  return false; // 防止表单提交
+																}
+
+                                                             </script>
 														</form>
-													</c:when>
-												</c:choose>
-												<!--********************onSubmit為form表單原生的屬性，判斷回傳之布林值決定下一步******************** -->
-												<form action="${contextRoot}/orders/delete" method="post"
-													onSubmit="return popup2();">
-
-													<input type="hidden" name="orderid"
-														value="${datas.orderid}" /> <input type="hidden"
-														name="userId" value="${datas.userid.accountId}" /> <input
-														type="hidden" name="_method" value="delete" /> <input
-														type="submit" class="btn btn-outline-danger btn-sm"
-														value="刪除">
-
-													<!--********************刪除前用來再次確認******************** -->
-
-													<script>
-														function popup2() {
-															if (confirm('您確定要刪除嗎') == true) {
-																//作刪除的動作(送出表單)
-																return true;
-															} else {
-																//返還history.jsp(當沒發生過)
-																return false;
-															}
-														};
-													</script>
-												</form>
+													</div>
+												</div>
 											</div>
-										</div>
-									</div>
-								</c:forEach>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
 					</div>
@@ -290,5 +303,8 @@
 
 	<!-- Template Main JS File -->
 	<script src='<c:url value="/assets/js/main.js"/>'></script>
+	
+	<!-- sweetalert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

@@ -12,7 +12,7 @@
 <link rel="icon" href="<c:url value='/favicon.ico' />">
 <meta charset="UTF-8" />
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>XX飯店</title>
+<title>貝斯特飯店</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 <link rel="stylesheet"
@@ -87,8 +87,8 @@
 				aria-label="Toggle navigation">
 				<span></span> <span></span> <span></span>
 			</button>
-			<a class="navbar-brand text-brand" href="<c:url value='/'/>">XXX<span
-				class="color-b">大飯店</span></a>
+			<a class="navbar-brand text-brand" href="<c:url value='/'/>">貝斯特<span
+				class="color-b">飯店</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
@@ -99,7 +99,7 @@
 						href="<c:url value='/'/>">首頁</a></li>
 
 					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/about'/>">關於XXX</a></li>
+						href="<c:url value='/public/about'/>">關於貝斯特</a></li>
 
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/room/allShow'/>">房型</a></li>

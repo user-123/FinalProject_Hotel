@@ -22,7 +22,6 @@ public class LoginServiceImpl implements LoginService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	@Autowired
 	public LoginServiceImpl(LoginDao loginDao) {
 		this.loginDao = loginDao;
 	}

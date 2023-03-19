@@ -2,6 +2,7 @@ package idv.hotel.finalproject.service.impl;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,24 +22,20 @@ public class MessageServiceImpl implements MessageService {
 	public MessageServiceImpl() {}
 	
 	//**************後台**************
-//	@Override
-//	public MessageBean findById(Integer id) {
-//		Optional<MessageBean> optional = mDao.findById(id);
-//		
-//		if(optional.isEmpty()) {
-//			return null;
-//		}
-//		
-//		return optional.get();
-//	}
+	@Override
+	public MessageBean findById(Integer id) {
+		Optional<MessageBean> optional = mDao.findById(id);
+		
+		if(optional.isEmpty()) {
+			return null;
+		}
+		
+		return optional.get();
+	}
 	
 	@Override
 	public void deleteById(Integer id) {
 		mDao.deleteById(id);
-	}
-	
-	public Object[] findMessageById(Integer id) {
-		return mDao.findMessageById(id);
 	}
 	//**************前台**************
 	// 會員留言
@@ -54,7 +51,8 @@ public class MessageServiceImpl implements MessageService {
 	}
 	//**************前後台**************
 	@Override
-	public List<Object[]> findAll() {
-		return mDao.findAllText();
-	}	
+	public List<MessageBean> findAll() {
+		return mDao.findAll();
+	}
+
 }

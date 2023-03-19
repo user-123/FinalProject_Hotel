@@ -32,7 +32,7 @@ public class MessageController {
 	// navbar[評價我們]按鈕發請求過來
 	@GetMapping("public/messages/all")
 	public String addMessagePage(Model model) {
-		List<Object[]> mBean = ms.findAll();
+		List<MessageBean> mBean = ms.findAll();
 		BigDecimal averageStar = ms.AverageStar();
 		// 顯示所有住客評價在messages.jsp
 		model.addAttribute("datas", mBean);
@@ -59,12 +59,12 @@ public class MessageController {
 	// **************後台**************
 	// navbar[評價管理]按鈕發請求過來
 	@GetMapping("/admin/messages/backendall")
-	public String manageMessagePage(Model model,
-			@ModelAttribute("messages") MessageBean messages) {
-		List<Object[]> mBean = ms.findAll();
+	public String manageMessagePage(Model model) {
+		List<MessageBean> mBean = ms.findAll();
+		System.out.println(mBean);
 		// 顯示所有住客評價
 		model.addAttribute("datas", mBean);
-		Object emptyModel = new Object();
+		MessageBean emptyModel = new MessageBean();
 		model.addAttribute("messages", emptyModel);
 		return "message/backendmessages";
 	}
@@ -78,13 +78,13 @@ public class MessageController {
 
 	// 會員在backendmessages.jsp按下[送出]，發送此請求
 	@PutMapping("/admin/messages/edit")
-	public String replyMessage(Model model, @RequestParam("id") Integer id,
-			@ModelAttribute("messages") MessageBean messages) {
-		// 取出這筆回覆對應的id
-		Object[] mBean = ms.findMessageById(id);
-		model.addAttribute("messages", mBean);
+	public String replyMessage(Model model, @ModelAttribute("messages") MessageBean messages) {
 		Date current_time = new Date();
 		messages.setReplytime(current_time);
+
+		MessageBean mm = ms.findById(messages.getId());
+		messages.setMessagetime(mm.getMessagetime());
+
 		ms.insert(messages);
 		return "redirect:/admin/messages/backendall";
 	}

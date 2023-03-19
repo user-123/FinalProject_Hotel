@@ -81,7 +81,7 @@ public class RoomContoller {
 				byte[] photoFile = photo.getPhotoFile();
 				System.out.println("測試7");
 				System.out.println(photoFile);
-				ResponseEntity<byte[]> msg = ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(photoFile);
+
 				System.out.println("測試8");
 				System.out.println(ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(photoFile));
 
@@ -138,7 +138,7 @@ public class RoomContoller {
 				byte[] photoFile = photo.getPhotoFile();
 				System.out.println("測試7");
 				System.out.println(photoFile);
-				ResponseEntity<byte[]> msg = ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(photoFile);
+
 				System.out.println("測試8");
 				System.out.println(ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(photoFile));
 

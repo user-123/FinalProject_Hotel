@@ -10,7 +10,7 @@
 <head>
 <link rel="icon" href="<c:url value='/favicon.ico' />">
 <meta charset="UTF-8" />
-<title>註冊</title>
+<title>貝斯特飯店</title>
 <style>
 .container {
   width: 900px;

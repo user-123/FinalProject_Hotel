@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -12,7 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>XX飯店</title>
+<title>貝斯特飯店</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -88,6 +87,17 @@ a:hover, a:active, a:focus {
 .readonlystars {
 	pointer-events: none;
 }
+
+textarea {
+	width: 500px;
+	height: 120px;
+	resize: none;
+}
+
+.reply {
+	vertical-align: middle;
+	padding-left: 200px;
+}
 </style>
 </head>
 <body>
@@ -101,8 +111,8 @@ a:hover, a:active, a:focus {
 				aria-label="Toggle navigation">
 				<span></span> <span></span> <span></span>
 			</button>
-			<a class="navbar-brand text-brand" href="<c:url value='/'/>">XXX<span
-				class="color-b">大飯店</span></a>
+			<a class="navbar-brand text-brand" href="<c:url value='/'/>">貝斯特<span
+				class="color-b">飯店</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
@@ -138,10 +148,10 @@ a:hover, a:active, a:focus {
 									<li><a class="dropdown-item"
 										href="<c:url value='/searchinfo' />">查詢資料</a></li>
 									<li><a class="dropdown-item"
-										href="<c:url value='/orders/history' />?文彥的id傳過來的名字=${sessionScope.id}">歷史訂單</a></li>
+										href="<c:url value='/orders/history' />?accountId=${sessionScope.id}">歷史訂單</a></li>
 									<sec:authorize access="hasAuthority('admin')">
 										<li><a class="dropdown-item"
-											href="<c:url value="/admin/room/backstage"/>">後台</a></li>
+											href="<c:url value="/admin/backstage"/>">後台</a></li>
 									</sec:authorize>
 									<li><a class="dropdown-item "
 										href="<c:url value='/logout'/>"> <input type="hidden"
@@ -204,25 +214,25 @@ a:hover, a:active, a:focus {
 										</div>
 									</div>
 									<div class="input-group">
-										<form:textarea path="usertext" class="form-control" rows=""
-											cols="" />
+										<form:textarea path="usertext" class="form-control"
+											placeholder="請輸入文字..." />
 									</div>
 									<br />
 									<div style="text-align: right">
 										<button type="submit" class="btn btn-primary">送出</button>
 									</div>
 								</form:form>
-								<h3 style="text-align:left;">
-								<fmt:formatNumber pattern="平均星數: #.0" value="${averageStar}" />
+								<h3 style="text-align: left;">
+									<fmt:formatNumber pattern="平均星數: #.0" value="${averageStar}" />
 								</h3>
 								<c:forEach var="datas" items="${datas}">
-									<label hidden="hidden">${datas[0]}</label>
+									<label hidden="hidden">${datas.id}</label>
 									<div class="row">
 										<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow">
 											<div class="rating-stars block" id="another-rating">
 												<input type="hidden" readonly="readonly"
 													class="form-control rating-value"
-													id="another-rating-stars-value" value="${datas[4]}">
+													id="another-rating-stars-value" value="${datas.stars}">
 												<div class="rating-stars-container">
 													<div class="rating-star readonlystars">
 														<i class="fa fa-star"></i>
@@ -244,26 +254,29 @@ a:hover, a:active, a:focus {
 
 
 											<div class="col-md-12 mb-3">
-												<div class="form-group">會員:${datas[6]}</div>
+												<div class="form-group">會員:${datas.userid.accountName}</div>
 											</div>
 											<div class="col-md-12 mb-3">
 												<div style="width: 700px;">
-													<div class="form-group">內容:${datas[5]}</div>
+													<div class="form-group">內容:${datas.usertext}</div>
 												</div>
 											</div>
 											<div class="col-md-12 mb-3">
 												<div class="form-group">
 													<fmt:formatDate pattern="yyyy-MM-dd ,a hh:mm:ss EEEE"
-														value="${datas[2]}" />
+														value="${datas.messagetime}" />
 												</div>
 											</div>
 										</div>
 									</div>
 									<!-- 顯示回覆 -->
-									<c:if test="${not empty datas[1]}">
-										<h3>業主回覆</h3>
-											<p>${datas[1]}</p>
-											<p>${datas[3]}</p>
+									<c:if test="${not empty datas.admintext}">
+										<div class="reply">
+											<h3>業主回覆</h3>
+											<p>${datas.admintext}</p>
+											<fmt:formatDate pattern="yyyy-MM-dd ,a hh:mm:ss EEEE"
+												value="${datas.replytime}" />
+										</div>
 									</c:if>
 								</c:forEach>
 							</div>

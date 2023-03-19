@@ -17,6 +17,8 @@ public interface OrderService {
 	// 會員下訂=>儲存所有細節(orderlist+orderdetail)
 	// 控制會員只能使用自己的userid
 	public boolean insert(OrderListBean olb);
+	
+	//public void update(String message,String paid,Integer id);
 
 	//List：特定型別，不固定長度的陣列。
 	//Array：不特定型別，固定長度的陣列，長度需事先宣告。
@@ -65,21 +67,11 @@ public interface OrderService {
 	// 9.save(後台)
 	public OrderListBean findById(Integer id);
 
-
-
-
-
 	//綠界更改訂單狀態欄位		//method重複待確認
 	public OrderListBean findId(Integer Id);
 
-
-
-
-
 	//0.確認1個月的房間狀態 (如果房間為空回傳true)
 	public List<Boolean> checkRoomState(Integer roomId, Date monthOfDate);
-
-
 
 	//1.檢查訂單 (如果訂單成立回傳true)，調用前3個method
 	public boolean checkOrder(OrderListBean roomId, Date checkinDate, Date checkoutDate);

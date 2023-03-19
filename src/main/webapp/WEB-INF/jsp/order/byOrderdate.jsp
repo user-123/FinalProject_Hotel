@@ -13,7 +13,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>XXX飯店管理系統</title>
+<title>貝斯特飯店管理系統</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -62,17 +62,22 @@
 				aria-label="Toggle navigation">
 				<span></span> <span></span> <span></span>
 			</button>
-			<a class="navbar-brand text-brand" href="<c:url value='/admin/backstage' />"><span
-				class="color-b">XXX飯店管理系統</span></a>
+			<a class="navbar-brand text-brand"
+				href="<c:url value='/admin/backstage' />">貝斯特
+				<span class="color-b">飯店管理系統</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
 				<ul class="navbar-nav">
 
 					<!-- <li class="nav-item"><a class="nav-link" href="#">XXX</a></li> -->
-					<li class="nav-item"><a class="nav-link" href="<c:url value='/admin/backstage/member' />">會員管理</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="<c:url value='/admin/backstage/member' />">會員管理</a></li>
 
-					<li class="nav-item dropdown"><a class="nav-link dropdown-toggle active" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">訂單管理</a>
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle active" id="navbarDropdown"
+						role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">訂單管理</a>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/findall' />">訂單一覽</a></li>
@@ -83,16 +88,11 @@
 							<li><a class="dropdown-item active"
 								href="<c:url value='/admin/orders/byorderdate' />">用下訂日期查詢</a></li>
 							<li><a class="dropdown-item"
-<<<<<<< HEAD:src/main/webapp/WEB-INF/jsp/order/byOrderdate.jsp
-								href="<c:url value='/admin/messages/byroomid' />">用房型查詢</a></li>
-						</ul></li>
-=======
 								href="<c:url value='/admin/orders/byroomid' />">用房型查詢</a></li>
-						</ul>
-					</li>
->>>>>>> 3ed34646a540606683d940d7e6af26838735f2ed:src/main/webapp/WEB-INF/jsp/order/byorderdate.jsp
+						</ul></li>
 
-					<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/backstage/room' />">房型管理</a></li>
+					<li class="nav-item"><a class="nav-link "
+						href="<c:url value='/admin/backstage/room' />">房型管理</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="#">設施管理</a></li>
 
@@ -148,103 +148,116 @@
 										required="true" />
 									<br />
 									<div style="text-align: right">
-									<button type="submit" class="btn btn-primary">送出</button>
+										<button type="submit" class="btn btn-primary">送出</button>
 									</div>
 								</form:form>
-								<c:forEach var="datas" items="${datas}">
-									<label hidden="hidden">${datas.id}</label>
-									<div class="row">
-										<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow">
-											<div class="col-md-12 mb-3">
-												<div class="form-group">
-													訂單成立時間:
-													<fmt:formatDate pattern="yyyy-MM-dd ,a hh:mm:ss EEEE"
-														value="${datas.orderdate}" />
-												</div>
-											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">訂單編號:${datas.orderid}</div>
-											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">會員:${datas.userid.accountName}</div>
-											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">房號:${datas.roomid.roomId}</div>
-											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">
-													入住日期:
-													<fmt:formatDate pattern="yyyy-MM-dd"
-														value="${datas.checkindate}" />
-												</div>
-											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">
-													退房日期:
-													<fmt:formatDate pattern="yyyy-MM-dd"
-														value="${datas.checkoutdate}" />
-												</div>
-											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">備註:${datas.message}</div>
-											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">付款狀態:${datas.paid}</div>
-											</div>
-											<div class="col-md-12 mb-3" style="text-align: right">
-												<!--********************[編輯按鈕]******************** -->
-												<form action="${contextRoot}/admin/orders/update"
-													method="get">
-<<<<<<< HEAD:src/main/webapp/WEB-INF/jsp/order/byOrderdate.jsp
-													<input type="hidden" name="id" value="${datas.id}" /> <input
-														type="hidden" name="jsp" value="byOrderdate" /> <input
-														type="hidden" name="orderdate" value="${datas.orderdate}" />
-=======
-													<input type="hidden" name="id" value="${datas.id}" />
-													<input type="hidden" name="orderdate" value="${datas.orderdate}" />
->>>>>>> 3ed34646a540606683d940d7e6af26838735f2ed:src/main/webapp/WEB-INF/jsp/order/byorderdate.jsp
-													<input type="submit" class="btn btn-outline-info btn-sm"
-														value="編輯">
-												</form>
-												<!--********************[刪除按鈕]******************** -->
-												<!--********************onSubmit為form表單原生的屬性，判斷回傳之布林值決定下一步******************** -->
-												<form action="${contextRoot}/admin/orders/backstagedel"
-													method="post" onSubmit="return popup2();">
-													<input type="hidden" name="orderid"
-<<<<<<< HEAD:src/main/webapp/WEB-INF/jsp/order/byOrderdate.jsp
-														value="${datas.orderid}" /> <input type="hidden"
-														name="jsp" value="byOrderdate" /> <input type="hidden"
-														name="searchid" value="${datas.orderdate}" /><input
-														type="hidden" name="_method" value="delete" /> <input
-														type="submit" class="btn btn-outline-danger btn-sm"
-														value="刪除">
-=======
-														value="${datas.orderid}" />
-														<input type="hidden"
-														name="jsp" value="byOrderdate" />
-														<input type="hidden" name="searchid" value="${datas.orderdate}" /><input type="hidden"
-														name="_method" value="delete" /> <input type="submit"
-														class="btn btn-outline-danger btn-sm" value="刪除">
->>>>>>> 3ed34646a540606683d940d7e6af26838735f2ed:src/main/webapp/WEB-INF/jsp/order/byorderdate.jsp
+								<c:choose>
+									<c:when test="${datas.isEmpty()&&searched==true}">
+										<h3>目前尚無訂單</h3>
+									</c:when>
+									<c:otherwise>
+										<c:forEach var="datas" items="${datas}">
+											<label hidden="hidden">${datas.id}</label>
+											<div class="row">
+												<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow">
+													<div class="col-md-12 mb-3">
+														<div class="form-group">
+															訂單成立時間:
+															<fmt:formatDate pattern="yyyy-MM-dd ,a hh:mm:ss EEEE"
+																value="${datas.orderdate}" />
+														</div>
+													</div>
+													<div class="col-md-12 mb-3">
+														<div class="form-group">訂單編號:${datas.orderid}</div>
+													</div>
+													<div class="col-md-12 mb-3">
+														<div class="form-group">會員:${datas.userid.accountName}</div>
+													</div>
+													<div class="col-md-12 mb-3">
+														<div class="form-group">房號:${datas.roomid.roomId}</div>
+													</div>
+													<div class="col-md-12 mb-3">
+														<div class="form-group">
+															入住日期:
+															<fmt:formatDate pattern="yyyy-MM-dd"
+																value="${datas.checkindate}" />
+														</div>
+													</div>
+													<div class="col-md-12 mb-3">
+														<div class="form-group">
+															退房日期:
+															<fmt:formatDate pattern="yyyy-MM-dd"
+																value="${datas.checkoutdate}" />
+														</div>
+													</div>
+													<div class="col-md-12 mb-3">
+														<div class="form-group">備註:${datas.message}</div>
+													</div>
+													<div class="col-md-12 mb-3">
+														<div class="form-group">付款狀態:${datas.paid}</div>
+													</div>
+													<div class="col-md-12 mb-3" style="text-align: right">
+														<!--********************[編輯按鈕]******************** -->
+														<form action="${contextRoot}/admin/orders/update"
+															method="get">
+															<input type="hidden" name="id" value="${datas.id}" /> <input
+																type="hidden" name="jsp" value="byOrderdate" /> <input
+																type="hidden" name="orderdate"
+																value="${datas.orderdate}" /><input type="hidden"
+																name="searchid" value="${datas.orderdate}" />
+																 <input type="submit"
+																class="btn btn-outline-info btn-sm" value="編輯">
+														</form>
+														<!--********************[刪除按鈕]******************** -->
+														<!--********************onSubmit為form表單原生的屬性，判斷回傳之布林值決定下一步******************** -->
+														<form action="${contextRoot}/admin/orders/backstagedel"
+															method="post" onSubmit="return showConfirmation()">
+															<input type="hidden" name="orderid"
+																value="${datas.orderid}" /> <input type="hidden"
+																name="jsp" value="byOrderdate" /> <input type="hidden"
+																name="searchid" value="${datas.orderdate}" /><input
+																type="hidden" name="_method" value="delete" /> <input
+																type="submit" class="btn btn-outline-danger btn-sm"
+																value="刪除">
 
-													<!--********************刪除前用來再次確認******************** -->
+															<!--********************刪除前用來再次確認******************** -->
 
-													<script>
-														function popup2() {
-															if (confirm('您確定要刪除嗎') == true) {
-																//作刪除的動作(送出表單)
-																return true;
-															} else {
-																//返還allData.jsp(當沒發生過)
-																return false;
-															}
-														};
-													</script>
-												</form>
+															<script>
+															function showConfirmation() {
+																  Swal.fire({
+																    title: '您確定要刪除嗎?',
+																    text: "",
+																    icon: 'warning',
+																    showCancelButton: true,
+																    confirmButtonColor: '#d33',
+																    cancelButtonColor: '#3085d6',
+																    confirmButtonText: '刪除',
+																    cancelButtonText: '取消' 
+																  }).then((result) => {
+																    if (result.isConfirmed) {
+																      Swal.fire(
+																        '刪除成功',
+																        '',
+																        'success'
+																      ).then(() => {
+																    	// 這個jsp的forms[0]是送出按鈕
+																    	// 這個jsp的forms[1]是編輯按鈕
+																        document.forms[2].submit(); // 提交表单
+																      });
+																    }
+																  });
+
+																  return false; // 防止表单提交
+																}
+
+                                                             </script>
+														</form>
+													</div>
+												</div>
 											</div>
-										</div>
-									</div>
-								</c:forEach>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
 					</div>
@@ -296,6 +309,8 @@
 	<!-- Template Main JS File -->
 	<script src='<c:url value="/assets/js/main.js"/>'></script>
 
+	<!-- sweetalert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>

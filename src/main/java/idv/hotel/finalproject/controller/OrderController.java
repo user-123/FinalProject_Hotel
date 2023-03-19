@@ -1,6 +1,5 @@
 package idv.hotel.finalproject.controller;
 
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -38,11 +37,11 @@ public class OrderController {
 	// 從展示系統[訂房]按鈕發請求過來
 	// 此時會員看到的是填寫訂房資訊的表單
 	@GetMapping("/orders/add")
-	public String addMessagePage(Model model, @RequestParam(value="Id", required=false) Integer roomId) {
-		if(roomId == null) {
+	public String addMessagePage(Model model, @RequestParam(value = "Id", required = false) Integer roomId) {
+		if (roomId == null) {
 			return "redirect:/public/room/orderAllShow";
 		}
-		//應該要改寫為使用service回傳值設定Attribute
+		// 應該要改寫為使用service回傳值設定Attribute
 		RoomBean rBean = rService.find(roomId);
 		model.addAttribute("roomName", rBean.getName());
 		model.addAttribute("roomId", rBean.getRoomId());
@@ -60,12 +59,12 @@ public class OrderController {
 	public String addMessagePost(@ModelAttribute("information") OrderListBean data, @RequestParam("rId") Integer roomId,
 			@RequestParam("userId") Integer userId, Model model, RedirectAttributes redirectAttributes) {
 		data.setOrderid(oService.createorderid());
-		//data.setPaid("未付款");
+		// data.setPaid("未付款");
 		RoomBean rid = rService.find(roomId);
 		LoginBean uid = lService.findById(userId);
 		data.setRoomid(rid);
 		data.setUserid(uid);
-		if(oService.insert(data)) {
+		if (oService.insert(data)) {
 			model.addAttribute("information", data);
 			// 將資料放入重定向的屬性中
 			redirectAttributes.addFlashAttribute("information", data);
@@ -92,12 +91,7 @@ public class OrderController {
 	// 3.findHistory
 	// 查詢特定userID的訂單資料，我們幫他固定UserID，限制他只能看自己的
 	@GetMapping("/orders/history")
-<<<<<<< HEAD
-	public String findHistory(@RequestParam("文彥的id傳過來的名字") Integer userId, Model model,
-			 RedirectAttributes redirectAttributes) {
-=======
 	public String findHistory(@RequestParam("accountId") Integer userId, Model model) {
->>>>>>> 3ed34646a540606683d940d7e6af26838735f2ed
 		List<OrderListBean> olB = oService.findHistory(userId);
 		model.addAttribute("datas", olB);
 		// 從重定向屬性中取出資料
@@ -108,24 +102,16 @@ public class OrderController {
 
 	// 8.deleteDataByOrderId
 	// 前台
-	// 會員在history.jsp按下[刪除]，發送此請求
+	// 會員在history.jsp或success.jsp按下[刪除]，發送此請求
 	// 未付款前才可取消，設計若他付款後欲取消，由飯店方取消
 	@DeleteMapping("/orders/delete")
-<<<<<<< HEAD
-	public String deleteMessageF(@RequestParam("文彥的id傳過來的名字") Integer userId,
-			@RequestParam("orderid") String orderid, RedirectAttributes redirectAttributes) {
-		oService.deleteDataByOrderId(orderid);
-		// 將資料放入重定向的屬性中
-		redirectAttributes.addAttribute("文彥的id傳過來的名字", userId);
-		redirectAttributes.addAttribute("orderid", orderid);
-
-=======
 	public String deleteMessageF(@RequestParam("userId") Integer userId, @RequestParam String orderid,
 			RedirectAttributes redirectAttributes) {
 		oService.deleteDataByOrderId(orderid);
 		// 將資料放入重定向的屬性中
 		redirectAttributes.addAttribute("accountId", userId);
->>>>>>> 3ed34646a540606683d940d7e6af26838735f2ed
+		redirectAttributes.addAttribute("orderid", orderid);
+
 		return "redirect:/orders/history";
 	}
 
@@ -157,6 +143,10 @@ public class OrderController {
 
 		List<OrderListBean> datas = oService.findDataByUserIdB(userId);
 		model.addAttribute("datas", datas);
+		// 按下查詢後，才會有searched這個model
+		// 代表設searched為true
+		// 代表按下查詢後，才會做顯示內容的判斷
+		model.addAttribute("searched", true);
 
 		return "order/byUserid";
 	}
@@ -178,7 +168,11 @@ public class OrderController {
 
 		OrderListBean datas = oService.findDataByOrderIdB(orderId);
 		model.addAttribute("datas", datas);
+		// 按下查詢後，才會有searched這個model
+		// 代表設searched為true
+		// 代表按下查詢後，才會做顯示內容的判斷
 
+		model.addAttribute("searched", true);
 		return "order/byOrderid";
 	}
 
@@ -189,6 +183,7 @@ public class OrderController {
 	public String findDataByOrderdate(Model model) {
 		OrderListBean ol = new OrderListBean();
 		model.addAttribute("orderdate", ol);
+
 		return "order/byOrderdate";
 	}
 
@@ -200,7 +195,10 @@ public class OrderController {
 
 		List<OrderListBean> datas = oService.findDataByOrderdate(orderdate);
 		model.addAttribute("datas", datas);
-
+		// 按下查詢後，才會有searched這個model
+		// 代表設searched為true
+		// 代表按下查詢後，才會做顯示內容的判斷
+		model.addAttribute("searched", true);
 		return "order/byOrderdate";
 	}
 
@@ -222,56 +220,58 @@ public class OrderController {
 
 		List<OrderListBean> datas = oService.findDataByRoomId(roomid);
 		model.addAttribute("datas", datas);
-
+		System.out.println("??????????????????????????????????" + datas);
+		// 按下查詢後，才會有searched這個model
+		// 代表設searched為true
+		// 代表按下查詢後，才會做顯示內容的判斷
+		model.addAttribute("searched", true);
 		return "order/byRoomid";
 	}
 
 	// **************************admin按下[編輯]按鈕，發送此請求******************************
-	// 錯誤未排除:1.資料庫有正常更新，但前端需思考一下 2.orderdate毫秒會更改!!(雖然好像沒有很大的關係
-	// 後台
-	// step1導到編輯的jsp
-	@GetMapping("/admin/orders/update")
-	public String editData(@RequestParam Integer id, Model model, @RequestParam("orderdate") String orderdate,
-			@RequestParam("jsp") String jsp, @RequestParam("searchid") String searchid) {
-		model.addAttribute("orderdate", orderdate);
-		OrderListBean datas = oService.findById(id);
-		model.addAttribute("datas", datas);
-		model.addAttribute("jsp", jsp);
-		model.addAttribute("searchid", searchid);
-
-		return "order/editData";
-	}
-
-	// step2在editData.jsp按下修改
-	// 必須保留id送過來!!!因為若沒id他會新增，有id就會update(更新)
-	@PutMapping("/admin/orders/editallData")
-	public String update(@ModelAttribute("datas") OrderListBean datas, RedirectAttributes redirectAttributes,
-			@RequestParam Integer id, @RequestParam("jsp") String jsp, @RequestParam("searchid") String searchid,
-			Model model) {
-		// 將資料放入重定向的屬性中
-		redirectAttributes.addFlashAttribute("jsp", jsp);
-		redirectAttributes.addFlashAttribute("searchid", searchid);
-		// 從重定向屬性中取出資料
-		String orderdate = (String) model.asMap().get("orderdate");
-		model.addAttribute("datas", orderdate);
-		OrderListBean ol = oService.findById(id);
-		model.addAttribute("datas", ol);
-		oService.insert(datas);
-		return "redirect:/admin/orders/updateok";
-	}
-
-	// step3
-	// 卡控回傳值--更新後返還之jsp
-	@GetMapping("/admin/orders/updateok")
-	public String afterUpdate(Model model, RedirectAttributes redirectAttributes) {
-		// 從重定向屬性中取出資料
-		String jsp = (String) model.asMap().get("jsp");
-		String param = (String) model.asMap().get("searchid");
-		String value = showModelAndView(jsp, param, model);
-		// 返還sweetalert:刪除成功
-		return value;
-	}
-
+	//修正中
+		// 錯誤未排除:1.資料庫有正常更新，但前端需思考一下 2.orderdate毫秒會更改!!(雖然好像沒有很大的關係
+		// 後台
+		// step1導到編輯的jsp
+//		@GetMapping("/admin/orders/update")
+//		public String editData(@RequestParam Integer id, Model model, @RequestParam("orderdate") String orderdate,
+//				@RequestParam("jsp") String jsp, @RequestParam("searchid") String searchid) {
+//			model.addAttribute("orderdate", orderdate);
+//			OrderListBean datas = oService.findById(id);
+//			model.addAttribute("datas", datas);
+//			model.addAttribute("jsp", jsp);
+//			model.addAttribute("searchid", searchid);
+//			return "order/editData";
+//		}
+//
+//		// step2在editData.jsp按下修改
+//		// 必須保留id送過來!!!因為若沒id他會新增，有id就會update(更新)
+//		@PutMapping("/admin/orders/editallData")
+//		public String update(@ModelAttribute("datas") OrderListBean datas, RedirectAttributes redirectAttributes,
+//				@RequestParam Integer id, @RequestParam("jsp") String jsp, @RequestParam("searchid") String searchid,
+//				Model model) {
+//			// 將資料放入重定向的屬性中
+//			redirectAttributes.addFlashAttribute("jsp", jsp);
+//			redirectAttributes.addFlashAttribute("searchid", searchid);
+//			// 從重定向屬性中取出資料
+//			String orderdate = (String) model.asMap().get("orderdate");
+//			model.addAttribute("datas", orderdate);
+//
+//			oService.insert(datas);
+//			return "redirect:/admin/orders/updateok";
+//		}
+//
+//		// step3
+//		// 卡控回傳值--更新後返還之jsp
+//		@GetMapping("/admin/orders/updateok")
+//		public String afterUpdate(Model model, RedirectAttributes redirectAttributes) {
+//			// 從重定向屬性中取出資料
+//			String jsp = (String) model.asMap().get("jsp");
+//			String param = (String) model.asMap().get("searchid");
+//			String value = showModelAndView(jsp, param, model);
+//			// 返還sweetalert:刪除成功
+//			return value;
+//		}
 	// **************************admin按下[刪除]按鈕，發送此請求******************************
 	// 8.deleteDataByOrderId
 	// step1
@@ -282,7 +282,7 @@ public class OrderController {
 		redirectAttributes.addFlashAttribute("jsp", jsp);
 		redirectAttributes.addFlashAttribute("searchid", searchid);
 		oService.deleteDataByOrderId(orderid);
-		return "redirect:/admin/orders/all";
+		return "redirect:/admin/orders/afterDelete";
 	}
 
 	// step2
@@ -297,7 +297,7 @@ public class OrderController {
 		return value;
 	}
 
-	private List<OrderListBean> datas = new ArrayList<>();		//D.C.：你這寫法...
+	private List<OrderListBean> datas = new ArrayList<>(); // D.C.：你這寫法...
 
 	public String showModelAndView(@RequestParam("jsp") String jsp, String param, Model model) {
 		String value = "";
@@ -312,11 +312,11 @@ public class OrderController {
 			datas = oService.findDataByUserIdB(param);
 			model.addAttribute("userid", ol);
 			model.addAttribute("datas", datas);
+			System.out.println(datas);
 			value = "order/byUserid";
 			break;
 		case "byOrderid":
 			model.addAttribute("orderid", ol);
-			model.addAttribute("datas", "");
 			value = "order/byOrderid";
 			break;
 		case "byOrderdate":
@@ -334,34 +334,30 @@ public class OrderController {
 		}
 		return value;
 	}
-<<<<<<< HEAD
-=======
 
-
-
-
-
-	//回應房間狀態請求
+	// 回應房間狀態請求
 	@GetMapping("/orders/checkroom")
 	@ResponseBody
-	public List<Boolean> checkRoom(@RequestParam Integer roomId, @RequestParam String dateString) throws ParseException {		//待確認service argument型別
+	public List<Boolean> checkRoom(@RequestParam Integer roomId, @RequestParam String dateString)
+			throws ParseException { // 待確認service argument型別
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = dateFormat.parse(dateString);
 		return oService.checkRoomState(roomId, date);
 	}
 
-	//////////D.C.測試用
-	@GetMapping("/public/orders/calendar")		//測試用public
-	public String calendarPage() {		//待確認service argument型別
+	////////// D.C.測試用
+	@GetMapping("/public/orders/calendar") // 測試用public
+	public String calendarPage() { // 待確認service argument型別
 		return "order/calendar";
 	}
-	@GetMapping("/public/orders/checkroom")		//測試用public
+
+	@GetMapping("/public/orders/checkroom") // 測試用public
 	@ResponseBody
-	public List<Boolean> checkRoomTest(@RequestParam Integer roomId, @RequestParam String dateString) throws ParseException {		//待確認service argument型別
+	public List<Boolean> checkRoomTest(@RequestParam Integer roomId, @RequestParam String dateString)
+			throws ParseException { // 待確認service argument型別
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = dateFormat.parse(dateString);
 		return oService.checkRoomState(roomId, date);
 	}
-	//////////D.C.測試用
->>>>>>> 3ed34646a540606683d940d7e6af26838735f2ed
+	////////// D.C.測試用
 }

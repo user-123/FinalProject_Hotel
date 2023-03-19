@@ -17,7 +17,7 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-@Entity
+@Entity(name = "messages")
 @Table(name = "messages")
 public class MessageBean {
 

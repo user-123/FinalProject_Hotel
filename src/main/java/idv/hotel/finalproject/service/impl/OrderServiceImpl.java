@@ -17,11 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 import idv.hotel.finalproject.dao.LoginDao;
 import idv.hotel.finalproject.dao.OrderDetailDao;
 import idv.hotel.finalproject.dao.OrderListDao;
-import idv.hotel.finalproject.dao.RoomDao;
 import idv.hotel.finalproject.model.LoginBean;
 import idv.hotel.finalproject.model.OrderDetailBean;
 import idv.hotel.finalproject.model.OrderListBean;
-import idv.hotel.finalproject.model.RoomBean;
 import idv.hotel.finalproject.service.OrderService;
 
 @Transactional
@@ -34,8 +32,6 @@ public class OrderServiceImpl implements OrderService {
 	private OrderDetailDao odDao;
 	@Autowired
 	private LoginDao lDao;
-	@Autowired
-	private RoomDao rDao;
 
 	//private Optional<OrderDetailBean> odBean = odDao.findById(0);
 
@@ -50,12 +46,13 @@ public class OrderServiceImpl implements OrderService {
 		Date currentTime = new Date();
 		SimpleDateFormat formatter = new SimpleDateFormat("MMdd");
 		String dateString = formatter.format(currentTime);
-		// 由月日+3位隨機數生成流水號
-		int x = (int) (Math.random() * 900) + 100;
+		// 由月日+4位隨機數生成流水號
+		int x = (int) (Math.random() * 9000) + 1000;
 		String serial = dateString + x;
 		return serial;
 	}
 	// 9.save(後台)
+	@Override
 	public OrderListBean findById(Integer id) {
 		Optional<OrderListBean> optional = olDao.findById(id);
 
@@ -65,7 +62,12 @@ public class OrderServiceImpl implements OrderService {
 
 		return optional.get();
 	}
-
+	
+//	@Override
+//	public void update(String message,String paid,Integer id) {
+//		olDao.update(message,paid,id);
+//	}
+	
 	// 1.save(前台)
 	// 會員下訂=>儲存所有細節(orderlist+orderdetail)
 	// 控制會員只能使用自己的userid
@@ -84,6 +86,7 @@ public class OrderServiceImpl implements OrderService {
 
 		return result;
 	}
+
 	//List：特定型別，不固定長度的陣列。
 	//Array：不特定型別，固定長度的陣列，長度需事先宣告。
 	//ArrayList：不特定型別，不固定長度的陣列。
@@ -132,13 +135,6 @@ public class OrderServiceImpl implements OrderService {
 		return olDao.findDataByOrderIdB(orderid);
 	}
 
-//	// 5.findDataByCheckdate(後台)
-//	// 查詢特定日期的訂單資料
-//	@Override
-//	public List<OrderListBean> findDataByCheckdate(Date cd) {
-//		return olDao.findDataByCheckdate(cd);
-//	}
-
 	// 6.findDataByOrderdate(後台)
 	// 查詢特定下訂日期的訂單資料(訂單成立日期)
 	@Override
@@ -150,8 +146,7 @@ public class OrderServiceImpl implements OrderService {
 	// 查詢特定房型的訂單資料
 	@Override
 	public List<OrderListBean> findDataByRoomId(Integer roomId) {
-		RoomBean rBean = rDao.findByRoomNum(roomId);
-		return olDao.findDataByRoomId(rBean);
+		return olDao.findDataByRoomId(roomId);
 	}
 
 	// 8.deleteDataByOrderId(前後台)
@@ -163,15 +158,6 @@ public class OrderServiceImpl implements OrderService {
 		odDao.deleteDataByOrderId(olBean);
 		olDao.deleteDataByOrderId(orderId);
 	}
-
-
-
-
-
-
-
-
-
 
 	//確認1個月的房間狀態 (如果房間為空回傳true)
 	public List<Boolean> checkRoomState(Integer roomId, Date monthOfDate) {
@@ -249,9 +235,6 @@ public class OrderServiceImpl implements OrderService {
 		}
 		return checkResult;
 	}
-
-
-
 
 	//檢查訂單 (如果訂單成立回傳true)
 	public boolean checkOrder(OrderListBean roomId, Date checkinDate, Date checkoutDate) {
