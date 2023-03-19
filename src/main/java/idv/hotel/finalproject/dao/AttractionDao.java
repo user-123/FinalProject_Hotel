@@ -33,14 +33,8 @@ public interface AttractionDao extends JpaRepository<AttractionBean, Integer> {
 	List<AttractionBean> findByAttractionIntroductionContaining(String attractionIntroduction);
 
 
-	//@Query(value = "from room where type = ?1")
-	//public List<RoomBean> findByType(String type);
 
-	//@Query(value = "from room where roomId = ?1")
-	//public RoomBean findByroomId(Integer roomId);
 
-	//@Query(value = "from room where name = ?1")
-	//public RoomBean findByname(String name);
 
 	/*interface PersonRepository extends Repository<Person, Long> {
 

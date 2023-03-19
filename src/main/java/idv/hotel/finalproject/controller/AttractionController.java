@@ -1,11 +1,14 @@
 package idv.hotel.finalproject.controller;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,6 +49,7 @@ public class AttractionController {
 		}else if(category.intern()=="spot") {
 			aBeanList = aService.findDataByCategory("景點");
 		}
+		//補上photoPath為空的設為預設圖片
 		model.addAttribute("attraction", aBeanList);
 		return "attraction/attractionListPage";
 	}
@@ -53,13 +57,14 @@ public class AttractionController {
 	@GetMapping("admin/attraction/list")
 	public String attractionBackHome(@RequestParam(name = "category", required = false, defaultValue = "all") String category, Model model) {
 		List<AttractionBean> aBeanList = aService.findDataAll();
-		//System.out.println(category.equals("food"));
-		//System.out.println(category.intern()=="food");
+		//System.out.println(category.equals("food"));	//true
+		//System.out.println(category.intern()=="food"); //true
 		if(category.equals("food")) {
 			aBeanList = aService.findDataByCategory("美食");
 		}else if(category.equals("spot")) {
 			aBeanList = aService.findDataByCategory("景點");
 		}
+		//補上photoPath為空的設為預設圖片
 		model.addAttribute("attraction", aBeanList);
 		return "attraction/attractionListPageBackground";
 	}
@@ -90,21 +95,30 @@ public class AttractionController {
 
 	@PostMapping("admin/attraction/createAttractionDetail")
 	@ResponseBody
-	public AttractionBean attractionBackCreateAttraction(@RequestParam(required = true) String name, @RequestParam(required = true) String category, @RequestParam(required = true) String address, @RequestParam(required = false) float distance, @RequestParam(required = false) String introduction, @RequestParam(required = false) String photoPath, @RequestParam(required = false) MultipartFile[] photoFile) {
+	public AttractionBean attractionBackCreateAttraction(@RequestParam(required = true) String name, @RequestParam(required = true) String category, @RequestParam(required = true) String address, @RequestParam(required = false) float distance, @RequestParam(required = false) String introduction, @RequestParam(required = false) String photoPath, @RequestParam(required = false) MultipartFile photoFile, HttpServletRequest hsRequest) throws IOException {
+		System.out.println(photoFile);
 		AttractionBean aBean = new AttractionBean();
 		aBean.setAttractionName(name);
 		aBean.setAttractionCategory(category);
 		aBean.setAttractionAddress(address);
 		aBean.setAttractionDistance(distance);
 		aBean.setAttractionIntroduction(introduction);
-		aBean.setAttractionPhotoPath(photoPath);
+		if(photoFile != null) {
+			aBean.setAttractionPhotoPath(aService.outputPhotoPath(photoFile, hsRequest));
+		}
+		/*
+		String photoPath = aService.outputPhotoPath(photoFile, hsRequest);
+		if(!photoPath.isBlank()) {
+			aBean.setAttractionPhotoPath(photoPath2);
+		}
+		*/
 		AttractionBean aBeanReturn = aService.saveData(aBean);
 		return aBeanReturn;
 	}
 
 	@PutMapping("admin/attraction/updateAttractionDetail")
 	@ResponseBody
-	public boolean attractionBackUpdateById(@RequestParam(required = true) Integer id, @RequestParam(required = true) String name, @RequestParam(required = true) String category, @RequestParam(required = true) String address, @RequestParam(required = false) float distance, @RequestParam(required = false) String introduction, @RequestParam(required = false) String photoPath) {
+	public boolean attractionBackUpdateById(@RequestParam(required = true) Integer id, @RequestParam(required = true) String name, @RequestParam(required = true) String category, @RequestParam(required = true) String address, @RequestParam(required = false) float distance, @RequestParam(required = false) String introduction, @RequestParam(required = false) String photoPath, @RequestParam(required = false) MultipartFile photoFile, HttpServletRequest hsRequest) throws IOException {
 		boolean updateResult=false;
 		AttractionBean aBean = aService.findDataById(id);
 		if(aBean != null) {
@@ -113,8 +127,9 @@ public class AttractionController {
 			aBean.setAttractionAddress(address);
 			aBean.setAttractionDistance(distance);
 			aBean.setAttractionIntroduction(introduction);
-			if(photoPath != null) {
-				aBean.setAttractionPhotoPath(photoPath);
+			if(photoFile != null) {
+				aBean.setAttractionPhotoPath(aService.outputPhotoPath(photoFile, hsRequest));
+				//待補上刪除舊檔案service
 			}
 			if(aService.updateDataById(aBean)) {
 				updateResult=true;

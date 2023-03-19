@@ -1,11 +1,25 @@
 package idv.hotel.finalproject.service.impl;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import idv.hotel.finalproject.service.AttractionService;
 import idv.hotel.finalproject.dao.AttractionDao;
@@ -133,5 +147,53 @@ public class AttractionServiceImpl implements AttractionService {
 		aDao.deleteByAttractionId(id);
 		result=true;
 		return result;
+	}
+	@Override
+	public boolean outputPhotoFile(MultipartFile photoFile, String photoFilename, HttpServletRequest hsRequest) throws IOException {
+		boolean result = false;
+		byte[] photoFileBytes = photoFile.getBytes();
+		//InputStream photoFileInputStream = photoFile.getInputStream();
+		String uploadPath = "/attractionPhoto";
+		String uploadRealPath = hsRequest.getServletContext().getRealPath(uploadPath);
+		//System.out.println(uploadRealPath);
+		File uploadDir = new File(uploadRealPath);
+		if(!uploadDir.isDirectory()) {
+			uploadDir.mkdirs();
+		}
+		Path photoOutputPath = Paths.get(uploadRealPath, photoFilename);
+		//System.out.println(photoOutputPath);
+		if(!photoFileBytes.toString().isEmpty()) {
+			Path outputPathResult = Files.write(photoOutputPath, photoFileBytes);
+			System.out.println(outputPathResult);
+			if(!outputPathResult.toString().isEmpty()) {
+				result = true;
+			}
+		}
+		/*
+		BufferedOutputStream photoBos = new BufferedOutputStream(new FileOutputStream(new File(photoFilename)));
+		photoBos.write(photoFileBytes);
+		photoBos.flush();
+		photoBos.close();
+		*/
+		return result;
+	}
+	@Override
+	public String outputPhotoPath(@RequestParam MultipartFile photoFile, HttpServletRequest hsRequest) throws IOException {
+		String photoFilename = null;
+		if(!photoFile.getOriginalFilename().isEmpty()) {
+			Timestamp ts = new Timestamp(System.currentTimeMillis());
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+			String tsString = sdf.format(ts);
+			String originalFilename = photoFile.getOriginalFilename();
+			String filenameExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
+			//String filenameExtension = photoFile.getOriginalFilename().substring(photoFile.getOriginalFilename().lastIndexOf("."));
+			String fileType = filenameExtension;
+			//System.out.println(fileType);
+			photoFilename = tsString + fileType;
+		}
+		if(!outputPhotoFile(photoFile, photoFilename, hsRequest)) {
+			photoFilename = "";
+		}
+		return photoFilename;
 	}
 }

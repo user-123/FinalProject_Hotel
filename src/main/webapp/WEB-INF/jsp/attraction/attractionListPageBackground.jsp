@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -139,7 +143,7 @@
 										<br />
 											<!-- <span id="span${info.attractionId}">${status.index+1}.</span> -->
 											<div class="justify-content-center">
-												<img src="<c:url value='/uploadDir/a0.jpg'/>" width='500' class='m-1 border rounded ' />
+												<img src="<c:url value='/attractionPhoto/${info.attractionPhotoPath}'/>" width='500' class='m-1 border rounded ' />
 											</div>
 											<!--
 											<div class="zoomImage" style="background-image:url(<c:url value='/uploadDir/a0.jpg' />)">${status.index+1}.</div>
@@ -167,6 +171,25 @@
 							</div>
 						</div>
 						<script>
+						$('#aPhoto').on("change", function() {
+							let filetype = this.files[0]["name"].split(".")
+							let filesize = this.files[0]["size"]
+							let accepttype = ["jpg", "png", "jpeg", "webp", "gif"]
+							if ((!accepttype.includes(filetype[filetype.length - 1]))
+									|| (filesize > 10*1024*1024)) {
+								alert("請上傳jpg、png、gif、webp格式的圖片(檔案大小限制10MB)");
+								this.value = ""
+								//$('#img-preview').attr('src', '<c:url value="/images/default2.jpg"/>')
+							}
+
+							//let output = document.getElementById('img-preview');
+							//output.src = URL.createObjectURL(event.target.files[0]);
+							//console.log(event.target.files);
+							//output.onload = function() {URL.revokeObjectURL(output.src)	}
+
+						})
+
+
 
 							function showDetail(id) {
 								$.ajax({
@@ -190,7 +213,7 @@
 											地址：<input type="" id="aAddress" value="\${attractionDetail.attractionAddress}" required="required" /><br />
 											距離：<input type="" id="aDistance" value="\${attractionDetail.attractionDistance}" /><br />
 											介紹：<input type="" id="aIntroduction" value="\${attractionDetail.attractionIntroduction}" /><br />
-											照片：<input type="" id="aPhotoPath" value="\${attractionDetail.attractionPhotoPath}" /><br />
+											照片：<input type="file" id="aPhoto" value="\${attractionDetail.attractionPhotoPath}" accept="image/*" /><br />
 
 										</div>
 									`;
@@ -221,9 +244,6 @@
 							}
 
 
-
-
-
 							function addDetail() {
 								let message = `<div>`;
 								message += `
@@ -236,7 +256,7 @@
 										地址：<input type="" id="aAddress" required="required" /><br />
 										距離：<input type="" id="aDistance" /><br />
 										介紹：<input type="" id="aIntroduction" /><br />
-										照片：<input type="" id="aPhotoPath" /><br />
+										照片：<input type="file" id="aPhoto" accept="image/*" /><br />
 									</div>
 								`;
 								message += `</div>`;
@@ -253,10 +273,6 @@
 								$(".ui-dialog-buttonset button:nth-child(1)").addClass("updateBtn btn btn-outline-primary btn-sm");
 								$(".ui-dialog-buttonset button:nth-child(2)").addClass("closeBtn btn btn-outline-secondary btn-sm");
 
-
-
-
-
 							}
 
 
@@ -266,17 +282,23 @@
 								let aAddress=$("#aAddress").val();
 								let aDistance=$("#aDistance").val();
 								let aIntroduction=$("#aIntroduction").val();
-								let aPhotoPath=$("#aPhotoPath").val();
+								//let aPhotoPath=$("#aPhotoPath").val();
+
+								let photoInput = $("#aPhoto")[0];
+							    let aPhoto = photoInput.files[0];
+							    let aData = new FormData();
+							    aData.append("name", aName);
+							    aData.append("category", aCategory);
+							    aData.append("address", aAddress);
+							    aData.append("distance", aDistance);
+							    aData.append("introduction", aIntroduction);
+							    aData.append("photoFile", aPhoto);
 								$.ajax({
 									method : "post",
-									data : {
-										"name": aName,
-										"category": aCategory,
-										"address": aAddress,
-										"distance": aDistance,
-										"introduction": aIntroduction,
-										"photoPath": aPhotoPath},
-									url : "createAttractionDetail"
+									data : aData,
+									url : "createAttractionDetail",
+									processData: false,
+								    contentType: false
 								}).done(function(response) {
 									console.log("Success:", response);
 									if(response !== null) {
@@ -295,27 +317,44 @@
 
 							function updateDetail(id) {
 								console.log(id);
-								let aNum=$("#aNum").val();
+								//let aNum=$("#aNum").val();
 								let aName=$("#aName").val();
 								let aCategory=$("#aCategory").val();
 								let aAddress=$("#aAddress").val();
 								let aDistance=$("#aDistance").val();
 								let aIntroduction=$("#aIntroduction").val();
-								let aPhotoPath=$("#aPhotoPath").val();
-								console.log(`\${aNum}&\${aName}&\${aCategory}&\${aAddress}&\${aDistance}&\${aIntroduction}&\${aPhotoPath}`);
+								//let aPhotoPath=$("#aPhotoPath").val();
+
+								let photoInput = $("#aPhoto")[0];
+							    let aPhoto = photoInput.files[0];
+							    let aData = new FormData();
+							    aData.append("id", id);
+							    aData.append("num", aNum);
+							    aData.append("name", aName);
+							    aData.append("category", aCategory);
+							    aData.append("address", aAddress);
+							    aData.append("distance", aDistance);
+							    aData.append("introduction", aIntroduction);
+							    aData.append("photoFile", aPhoto);
+
+
+							    /*有問題待測試
+							    var aPhoto2;
+								let imageInput = document.getElementById("aPhoto");
+								let photoFile = imageInput.files[0];
+								let photoReader = new FileReader();
+								photoReader.readAsDataURL(photoFile);
+								photoReader.onload = ()=>{aPhoto2 = photoReader.result;}
+								console.log(`\${aPhoto2}`);
+								*/
+
+								console.log(`\${aNum}&\${aName}&\${aCategory}&\${aAddress}&\${aDistance}&\${aIntroduction}&\${aPhoto}`);
 								$.ajax({
 									method : "put",
-									data : {
-										"id": id,
-										"num": aNum,
-										"name": aName,
-										"category": aCategory,
-										"address": aAddress,
-										"distance": aDistance,
-										"introduction": aIntroduction,
-										"photoPath": aPhotoPath,
-										},
-									url : "updateAttractionDetail"
+									data : aData,
+									url : "updateAttractionDetail",
+									processData: false,
+								    contentType: false
 								}).done(function(response) {
 									console.log("Success:", response);
 									if(response) {
@@ -344,6 +383,7 @@
 
 								})
 							}
+
 
 							function reflashList(id, aName, aAddress) {
 								//document.getElementById(`div\${id}`).empty();

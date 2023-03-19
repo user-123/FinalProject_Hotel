@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <!DOCTYPE html>
@@ -123,7 +126,7 @@
 									<br />
 										${status.index+1}.
 										<div class="justify-content-center">
-											<img src="<c:url value='/uploadDir/a0.jpg'/>" width='500' class='m-1 border rounded ' />
+											<img src="<c:url value='/attractionPhoto/${info.attractionPhotoPath}'/>" width='500' class='m-1 border rounded ' />
 										</div>
 										<!--
 										<div class="zoomImage" style="background-image:url(<c:url value='/uploadDir/a0.jpg' />)">${status.index+1}.</div>

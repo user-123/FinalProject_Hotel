@@ -1,8 +1,12 @@
 package idv.hotel.finalproject.service;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import idv.hotel.finalproject.model.AttractionBean;
 
@@ -30,6 +34,9 @@ public interface AttractionService {
 	public boolean updateDataById(AttractionBean aBean);
 	//刪除資料
 	public boolean deleteDataById(Integer id);
+	//照片處理
+	public boolean outputPhotoFile(MultipartFile photoFile, String photoFilename, HttpServletRequest hsRequest) throws IOException;
+	public String outputPhotoPath(MultipartFile photoFile, HttpServletRequest hsRequest) throws IOException;
 	//商業邏輯
 
 
