@@ -94,10 +94,21 @@ window.onload = function() {
 					"color" : "red",
 					"font-size" : "10%"
 				})
+			
+				if ($('.emailerror').text() == "" && $('#duplicate').html() == "") {
+						    $('#emailverify').prop("disabled", false);
+						}
+				else{
+					$('#emailverify').prop("disabled", true);
+				}
 			}
 
 		})
-	
+		
+		
+		
+		
+		
 		
 	});
 	
@@ -177,14 +188,66 @@ window.onload = function() {
 					    }
 					    
 				}	
-				if(error=="no"){
-					$('#submit').click();
-					$('#registerForm').find('button').prop('disabled', true);
-//						$("#success").html("註冊成功,三秒後跳轉首頁")	
-					for (let i = 0; i < required.length; i++) {
-					    required[i].disabled = true;
+				
+				
+				
+				
+				
+				
+				
+				
+				$.ajax({
+					method : 'get',
+					data : {
+						"email" : $('#email').val()
+					},
+					url : 'checkEmail',
+					success : function(result) {
+						$('#emailnotice').html(result).css({
+							"color" : "green",
+							"font-size" : "10%"
+						})
+						
+						
+						
+						if($('#emailnotice').html()=="您尚未進行驗證")
+							error="yes"
+						if(error=="no"){
+							$('#submit').click();
+							$('#registerForm').find('button').prop('disabled', true);
+							for (let i = 0; i < required.length; i++) {
+								required[i].disabled = true;
+							}
+						}	
+						
+						
 					}
-				}	
+
+				})
+				
+				
+				
+				
+				
+				
+// 				if(error=="no"){
+// 					$('#submit').click();
+// 					$('#registerForm').find('button').prop('disabled', true);
+// //						$("#success").html("註冊成功,三秒後跳轉首頁")	
+// 					for (let i = 0; i < required.length; i++) {
+// 					    required[i].disabled = true;
+// 					}
+// 				}	
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				
 			}	
 			)	
@@ -213,31 +276,6 @@ window.onload = function() {
 				return false;
 				
 				});
-			
-			
-			
-			
-			
-			$("#emailverify").on("click",function() {
-				let email = $('#email').val();
-				$.ajax({
-					method : 'post',
-					data : {
-						"email" : email
-					},
-					url : 'send-email',
-					success : function(result) {
-						$('#emailnotice').html(result).css({
-							"color" : "green",
-							"font-size" : "10%"
-						})
-					}
-
-				})
-			})
-			
-			
-		
 			
 			
 			
@@ -272,7 +310,7 @@ window.onload = function() {
 				}	
 				)	
 				
-				$('#clear').prop('disabled', true)
+// 				$('#clear').prop('disabled', true)
 		        $("#submitadmin").on("click",function() {
 		        	$('#searchbtn').prop('disabled', true)
 					$.ajax({
@@ -299,22 +337,65 @@ window.onload = function() {
 			
 			
 			
-			var clearButton = document.getElementById('clear');
+// 			var clearButton = document.getElementById('clear');
 
 			
-			clearButton.addEventListener('click', function() {
-			  var inputs = document.getElementsByTagName('input');
-			  for (var i = 0; i < inputs.length; i++) {
-			    inputs[i].value = '';
-			  }
-			  $('#registerForm').find('button').prop('disabled', false);
-			  $('#success').html("");
-			  $('#clear').prop('disabled', true)
-			  for (let i = 0; i < required.length; i++) {
-						    required[i].disabled = false;
-						}
-			});
+// 			clearButton.addEventListener('click', function() {
+// 			  var inputs = document.getElementsByTagName('input');
+// 			  for (var i = 0; i < inputs.length; i++) {
+// 			    inputs[i].value = '';
+// 			  }
+// 			  $('#registerForm').find('button').prop('disabled', false);
+// 			  $('#success').html("");
+// 			  $('#clear').prop('disabled', true)
+// 			  for (let i = 0; i < required.length; i++) {
+// 						    required[i].disabled = false;
+// 						}
+// 			});
 	
+			
+			
+			//驗證信開始
+			$('#emailverify').prop("disabled",true);
+			$("#emailverify").on("click",function() {
+				let email = $('#email').val();
+				$.ajax({
+					method : 'post',
+					data : {
+						"email" : email
+					},
+					url : 'send-email',
+					success : function(result) {
+						$('#emailnotice').html(result).css({
+							"color" : "green",
+							"font-size" : "10%"
+						})
+					}
+
+				})
+				
+				
+			})
+			
+			
+			//驗證信結束
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 }
 </script>
@@ -383,6 +464,7 @@ window.onload = function() {
 									<li><a class="dropdown-item"
 										href="<c:url value='/public/register' />">註冊</a></li>
 								</ul>
+								
 							</c:otherwise>
 						</c:choose>
 					</li>

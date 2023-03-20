@@ -59,8 +59,12 @@ public class MemberServiceImpl implements MemberService {
 		String fileemail = loginDao.findById((Integer)session.getAttribute("id")).get().getEmail();
 		String filenamesql;
 		Part part = request.getPart("uploadedFile");
-		if(uploadedFile.isEmpty())	
-			filenamesql="";
+		if(uploadedFile.isEmpty()) {	
+			if(loginDao.findById((Integer)session.getAttribute("id")).get().getMember()==null)
+				filenamesql="";
+			else 
+				filenamesql=loginDao.findById((Integer)session.getAttribute("id")).get().getMember().getPhotoPath();
+		}
 		else 
 			filenamesql=fileemail+part.getSubmittedFileName();
 		mb.setPhotoPath(filenamesql);
@@ -94,7 +98,7 @@ public class MemberServiceImpl implements MemberService {
 //	        			"/main/images/default2.jpg");	
 //			}
 		}
-	        return photo;     
+	    return photo;     
 		
 	}	
 	

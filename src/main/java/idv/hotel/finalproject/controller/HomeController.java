@@ -9,8 +9,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import idv.hotel.finalproject.model.LoginBean;
 import idv.hotel.finalproject.service.LoginService;
 import idv.hotel.finalproject.service.MemberService;
 
@@ -26,6 +28,8 @@ public class HomeController {
 		this.memberService = memberService;
 		this.context = context;
 	}
+	
+
 	
 	@PostMapping("/")
 	public String home1() {

@@ -22,7 +22,7 @@ public class LoginDetailsServiceImpl implements UserDetailsService {
 	
 	@Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        LoginBean lb = loginDao.findByEmail(email);
+		LoginBean lb = loginDao.findByEmail(email);
         if (lb == null) {
             throw new UsernameNotFoundException("User not found with email: " + email);
         }
