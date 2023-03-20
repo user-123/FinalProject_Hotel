@@ -14,6 +14,11 @@ bin/
 
 # user upload file
 src/*/webapp/uploadDir/*.*
+src/*/webapp/attractionPhoto/*.*
+!src/*/webapp/attractionPhoto/default*.*
+src/*/webapp/roomId/*.*
+src/*/webapp/uploadProduct
+
 
 
 

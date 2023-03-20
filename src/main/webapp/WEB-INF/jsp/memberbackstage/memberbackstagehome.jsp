@@ -11,6 +11,9 @@
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+<%-- <script src="<c:url value='/javascript/jquery-ui.min.js'/>" ></script>  --%>
+
 <script src="<c:url value='/javascript/jquery-3.6.0.min.js'/>" ></script>
 <script src="<c:url value='/javascript/jquery-ui.min.js'/>" ></script>
 <script>

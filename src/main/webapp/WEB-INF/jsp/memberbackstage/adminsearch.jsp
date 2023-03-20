@@ -106,7 +106,7 @@
     $('table').on('click', '.deletebtn',function(){
     	var $button = $(this);
     	var deleteId = $(this).closest("tr").find("td:eq(1)").text();
-    	var confirmed = confirm("確認刪除此行數據嗎？");
+    	var confirmed = confirm("確認刪除此使用者資料嗎？");
     	 if (confirmed) {
     	$.ajax({
             method : 'delete',

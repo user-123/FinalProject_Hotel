@@ -42,12 +42,13 @@ public class SecurityConfig {
 				}).deleteCookies("JSESSIONID")
 
 				.and().rememberMe().rememberMeParameter("remember-me").userDetailsService(userDetailsService)
-				.tokenValiditySeconds(60 * 60 * 24);
+				.tokenValiditySeconds(60*60*24*7);
+
 //		http.csrf().ignoringAntMatchers("/");
 
 		http.authorizeHttpRequests()
 				// 不需要被認證的頁面：/loginpage
-				.antMatchers("/public/**", "/", "/javascript/**", "/loginpage", "/assets/**").permitAll()
+				.antMatchers("/public/**", "/", "/javascript/**", "/loginpage", "/assets/**","/uploadProduct/**","/uploadDir/**","/images/**").permitAll()
 				.antMatchers("/admin/**").hasAuthority("admin").anyRequest().authenticated();
 
 		// 權限判斷

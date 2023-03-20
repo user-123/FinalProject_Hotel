@@ -196,23 +196,23 @@
 				
 				
 				
-				$("#emailverify").on("click",function() {
-					let email = $('#email').val();
-					$.ajax({
-						method : 'post',
-						data : {
-							"email" : email
-						},
-						url : 'send-email',
-						success : function(result) {
-							$('#emailnotice').html(result).css({
-								"color" : "green",
-								"font-size" : "10%"
-							})
-						}
+// 				$("#emailverify").on("click",function() {
+// 					let email = $('#email').val();
+// 					$.ajax({
+// 						method : 'post',
+// 						data : {
+// 							"email" : email
+// 						},
+// 						url : 'send-email',
+// 						success : function(result) {
+// 							$('#emailnotice').html(result).css({
+// 								"color" : "green",
+// 								"font-size" : "10%"
+// 							})
+// 						}
 
-					})
-				})
+// 					})
+// 				})
 				
 				
 			
@@ -331,9 +331,9 @@
       
       
       
-      
-		  <button type="button" id="emailverify">驗證信</button>
-      	  <span id="emailnotice"></span>
+     
+<!-- 		  <button type="button" id="emailverify">驗證信</button> -->
+<!--       	  <span id="emailnotice"></span> -->
       </div>
       
       

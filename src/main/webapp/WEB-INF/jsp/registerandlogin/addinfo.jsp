@@ -137,21 +137,30 @@
 		$('#uploadedFile').on(
 				"change",
 				function() {
-					let filetype = this.files[0]['name'].split(".")
-					let filesize = this.files[0]['size']
-					let accepttype = [ "jpg", "png", "jpeg", "webp", "gif" ]
-					if ((!accepttype.includes(filetype[filetype.length - 1]))
-							|| (filesize > 8 * 1024)) {
-						alert("請上傳圖片形式的檔案(檔案大小限制8kb)");
-						this.value = ""
-						$('#img-preview').attr('src',
-								'<c:url value="/images/default2.jpg"/>')
-
-					}
-
 					let output = document.getElementById('img-preview');
-					output.src = URL.createObjectURL(event.target.files[0]);
-					console.log(event.target.files);
+				    let file = this.files[0];
+				    if (!file) {
+				    	if("<c:out value='${mb.photoPath}'/>" == "")
+				    		output.src = `http://localhost:8080/main/images/default2.jpg`;
+				    	else
+				       		output.src = `http://localhost:8080/main/uploadDir/${mb.photoPath}`;
+				    }else{
+						let filetype = this.files[0]['name'].split(".")
+						let filesize = this.files[0]['size']
+						let accepttype = [ "jpg", "png", "jpeg", "webp", "gif" ]
+						if ((!accepttype.includes(filetype[filetype.length - 1]))
+								|| (filesize > 1024 * 1024)) {
+							alert("請上傳圖片形式的檔案(檔案大小限制1mb)");
+							this.value = ""
+							$('#img-preview').attr('src',
+									'<c:url value="/images/default2.jpg"/>')
+	
+						}
+	
+						
+						output.src = URL.createObjectURL(event.target.files[0]);
+						console.log(event.target.files);
+				    }
 					output.onload = function() {
 						URL.revokeObjectURL(output.src)
 					}
