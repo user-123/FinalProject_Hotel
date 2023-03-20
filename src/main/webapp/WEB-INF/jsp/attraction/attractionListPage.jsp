@@ -126,24 +126,24 @@
 									<br />
 										${status.index+1}.
 										<div class="justify-content-center">
-											<img src="<c:url value='/attractionPhoto/${info.attractionPhotoPath}'/>" width='500' class='m-1 border rounded ' />
+											<img src="<c:url value='/attractionPhoto/${info.attractionPhotoPath}'/>" width="512" class="m-1 border rounded" />
 										</div>
 										<!--
 										<div class="zoomImage" style="background-image:url(<c:url value='/uploadDir/a0.jpg' />)">${status.index+1}.</div>
 										 -->
 										<div class="row justify-content-start">
-											<div class="col-10 col-sm-10">
+											<div class="col-9 col-sm-9">
 												${info.attractionName}<br />
 												${info.attractionAddress}
 											</div>
-												<div class="col-2 col-sm-2">
+											<div class="col-3 col-sm-3">
 												<!--
 												<form action="<c:url value="/public/XXXX" />" method="get">
 													<input type="hidden" id="${info.attractionId}" name="Id" value="${info.attractionId}" />
 													<input type="submit" id="checkout" class="btn btn-outline-dark btn-sm" value="${XXXXX}檢視">
 												</form>
 												 -->
-												<button class="checkoutBtn btn btn-outline-dark btn-sm" onclick="showDetail(${info.attractionId})">🔍</button>
+												<button class="checkoutBtn btn btn-outline-dark" onclick="showDetail(${info.attractionId})">🔍</button>
 											</div>
 										</div>
 									</div>
@@ -171,11 +171,14 @@
 												地址：\${attractionDetail.attractionAddress}<br />
 												距離：\${attractionDetail.attractionDistance}<br />
 												介紹：\${attractionDetail.attractionIntroduction}<br />
-												照片：\${attractionDetail.attractionPhotoPath}<br />`;
+												照片：
+												<div class="justify-content-center">
+													<img src="<c:url value='/attractionPhoto/\${attractionDetail.attractionPhotoPath}'/>" width="768" class="m-1 border rounded" />
+												</div><br />`;
 											message += `</div>`;
 											console.log(message);
 											let modal = $(message).dialog({
-							                    width: 600, modal: true, autoOpen: true,
+							                    width: 896, modal: true, autoOpen: true,
 							                    buttons: [{text: "關閉", click: function() {$(this).remove();}}]
 							                });
 											$(".ui-dialog-titlebar").hide();

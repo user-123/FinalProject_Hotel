@@ -31,7 +31,7 @@ public interface AttractionService {
 	public AttractionBean saveData(AttractionBean aBean);
 	public List<AttractionBean> saveDataByNum(Integer Num);
 	//更新資料
-	public boolean updateDataById(AttractionBean aBean);
+	public AttractionBean updateDataById(AttractionBean aBean);
 	//刪除資料
 	public boolean deleteDataById(Integer id);
 	//照片處理

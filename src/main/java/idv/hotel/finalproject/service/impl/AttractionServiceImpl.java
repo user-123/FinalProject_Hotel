@@ -131,13 +131,13 @@ public class AttractionServiceImpl implements AttractionService {
 
 	@Override
 	@Transactional
-	public boolean updateDataById(AttractionBean aBean) {
-		boolean result=false;
+	public AttractionBean updateDataById(AttractionBean aBean) {
+		//boolean result=false;
 		AttractionBean aBeanReturn = aDao.save(aBean);
-		if(aBeanReturn != null) {
-			result=true;
-		}
-		return result;
+		//if(aBeanReturn != null) {
+		//	result=true;
+		//}
+		return aBeanReturn;
 	}
 
 	@Override

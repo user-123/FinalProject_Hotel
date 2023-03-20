@@ -139,11 +139,11 @@
 								<div class="row justify-content-between" id="aList">
 
 									<c:forEach items="${attraction}" var="info" varStatus="status">
-										<div class="col-6 col-sm-6" id="div${info.attractionId}">
+										<div class="col-6 col-sm-6 w-50" id="div${info.attractionId}">
 										<br />
 											<!-- <span id="span${info.attractionId}">${status.index+1}.</span> -->
-											<div class="justify-content-center">
-												<img src="<c:url value='/attractionPhoto/${info.attractionPhotoPath}'/>" width='500' class='m-1 border rounded ' />
+											<div class="justify-content-center w-100">
+												<img src="<c:url value='/attractionPhoto/${info.attractionPhotoPath}'/>" height="320" class="object-fit-contain border rounded" />
 											</div>
 											<!--
 											<div class="zoomImage" style="background-image:url(<c:url value='/uploadDir/a0.jpg' />)">${status.index+1}.</div>
@@ -305,8 +305,9 @@
 										let aId=`\${response.attractionId}`;
 										let aName=`\${response.attractionName}`;
 										let aAddress=`\${response.attractionAddress}`;
+										let aPhotoPath =`\${response.attractionPhotoPath}`
 										alert(`新增成功，ID:\${aId}`);
-										addList(aId, aName, aAddress);
+										addList(aId, aName, aAddress, aPhotoPath);
 									}else {
 										alert(`新增失敗`);
 									}
@@ -349,6 +350,7 @@
 								*/
 
 								console.log(`\${aNum}&\${aName}&\${aCategory}&\${aAddress}&\${aDistance}&\${aIntroduction}&\${aPhoto}`);
+								let aPhotoPath = "default.jpg";
 								$.ajax({
 									method : "put",
 									data : aData,
@@ -357,12 +359,13 @@
 								    contentType: false
 								}).done(function(response) {
 									console.log("Success:", response);
-									if(response) {
+									if(response!==null) {
 										alert(`更新成功，ID:\${id}`);
+										aPhotoPath=`\${response.attractionPhotoPath}`
 									}else {
 										alert(`更新失敗，ID:\${id}`);
 									}
-									reflashList(id, aName, aAddress);
+									reflashList(id, aName, aAddress, aPhotoPath);
 
 								})
 							}
@@ -385,13 +388,13 @@
 							}
 
 
-							function reflashList(id, aName, aAddress) {
+							function reflashList(id, aName, aAddress, aPhotoPath) {
 								//document.getElementById(`div\${id}`).empty();
 								document.getElementById(`div\${id}`).innerHTML = `
 									<br />
 									<!-- <span id="span\${id}">${status.index+1}.</span> -->
 									<div class="justify-content-center">
-										<img src="<c:url value='/uploadDir/a0.jpg'/>" width='500' class='m-1 border rounded ' />
+										<img src="<c:url value='/attractionPhoto/' />\${aPhotoPath}" width="512" height="384" class="m-1 border rounded" />
 									</div>
 									<!--
 									<div class="zoomImage" style="background-image:url(<c:url value='/uploadDir/a0.jpg' />)">${status.index+1}.</div>
@@ -408,11 +411,11 @@
 												<input type="submit" id="checkout" class="btn btn-outline-dark btn-sm" value="${XXXXX}檢視">
 											</form>
 											 -->
-											<button class="checkoutBtn btn btn-outline-dark btn-sm" onclick="showDetail(\${id})">編輯</button>
+											<button class="checkoutBtn btn btn-outline-dark btn-sm" onclick="showDetail(\${id})">📝</button>
 										</div>
 									</div>`
 							}
-							function addList(aId, aName, aAddress) {
+							function addList(aId, aName, aAddress, aPhotoPath) {
 								console.log(`\${aId}, \${aName}, \${aAddress}`);
 								let list = document.getElementById("aList").innerHTML;
 								console.log(list);
@@ -420,7 +423,7 @@
 									<div class="col-6 col-sm-6" id="div\${aId}">
 										<br />
 										<div class="justify-content-center">
-											<img src="<c:url value='/uploadDir/a0.jpg'/>" width='500' class='m-1 border rounded ' />
+											<img src="<c:url value='/attractionPhoto/' />\${aPhotoPath}" width="512" height="384" class="m-1 border rounded" />
 										</div>
 										<div class="row justify-content-start">
 											<div class="col-10 col-sm-10">

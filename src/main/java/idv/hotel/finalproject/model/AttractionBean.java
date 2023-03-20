@@ -46,7 +46,7 @@ public class AttractionBean {
 	private String attractionIntroduction;
 
 	@Column(name="PhotoPath", columnDefinition="nvarchar(MAX)", nullable=true)
-	private String attractionPhotoPath;
+	private String attractionPhotoPath = "default.jpg";
 
 	//@JsonManagedReference
 	//@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)

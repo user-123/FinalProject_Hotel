@@ -118,8 +118,9 @@ public class AttractionController {
 
 	@PutMapping("admin/attraction/updateAttractionDetail")
 	@ResponseBody
-	public boolean attractionBackUpdateById(@RequestParam(required = true) Integer id, @RequestParam(required = true) String name, @RequestParam(required = true) String category, @RequestParam(required = true) String address, @RequestParam(required = false) float distance, @RequestParam(required = false) String introduction, @RequestParam(required = false) String photoPath, @RequestParam(required = false) MultipartFile photoFile, HttpServletRequest hsRequest) throws IOException {
-		boolean updateResult=false;
+	public AttractionBean attractionBackUpdateById(@RequestParam(required = true) Integer id, @RequestParam(required = true) String name, @RequestParam(required = true) String category, @RequestParam(required = true) String address, @RequestParam(required = false) float distance, @RequestParam(required = false) String introduction, @RequestParam(required = false) String photoPath, @RequestParam(required = false) MultipartFile photoFile, HttpServletRequest hsRequest) throws IOException {
+		//boolean updateResult=false;
+		AttractionBean aBeanReturn = new AttractionBean();
 		AttractionBean aBean = aService.findDataById(id);
 		if(aBean != null) {
 			aBean.setAttractionName(name);
@@ -131,11 +132,12 @@ public class AttractionController {
 				aBean.setAttractionPhotoPath(aService.outputPhotoPath(photoFile, hsRequest));
 				//待補上刪除舊檔案service
 			}
-			if(aService.updateDataById(aBean)) {
-				updateResult=true;
-			}
+			//if(aService.updateDataById(aBean)) {
+			//	updateResult=true;
+			//}
+			aBeanReturn = aService.updateDataById(aBean);
 		}
-		return updateResult;
+		return aBeanReturn;
 	}
 
 	@DeleteMapping("admin/attraction/deleteAttractionDetail")
