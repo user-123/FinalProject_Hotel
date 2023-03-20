@@ -33,10 +33,6 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private LoginDao lDao;
 
-	//private Optional<OrderDetailBean> odBean = odDao.findById(0);
-
-	//private OrderDetailBean odBean;
-
 	public OrderServiceImpl() {}
 
 	//獲取現在時間，return返回字串格式MMdd
@@ -62,12 +58,7 @@ public class OrderServiceImpl implements OrderService {
 
 		return optional.get();
 	}
-	
-//	@Override
-//	public void update(String message,String paid,Integer id) {
-//		olDao.update(message,paid,id);
-//	}
-	
+
 	// 1.save(前台)
 	// 會員下訂=>儲存所有細節(orderlist+orderdetail)
 	// 控制會員只能使用自己的userid
@@ -85,6 +76,10 @@ public class OrderServiceImpl implements OrderService {
 		System.out.println("檢查訂單外面");
 
 		return result;
+	}
+	
+	public void insertB(OrderListBean olb) {
+		olDao.save(olb);
 	}
 
 	//List：特定型別，不固定長度的陣列。

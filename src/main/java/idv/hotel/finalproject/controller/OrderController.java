@@ -2,8 +2,8 @@ package idv.hotel.finalproject.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -229,49 +229,49 @@ public class OrderController {
 	}
 
 	// **************************admin按下[編輯]按鈕，發送此請求******************************
-	//修正中
 		// 錯誤未排除:1.資料庫有正常更新，但前端需思考一下 2.orderdate毫秒會更改!!(雖然好像沒有很大的關係
 		// 後台
 		// step1導到編輯的jsp
-//		@GetMapping("/admin/orders/update")
-//		public String editData(@RequestParam Integer id, Model model, @RequestParam("orderdate") String orderdate,
-//				@RequestParam("jsp") String jsp, @RequestParam("searchid") String searchid) {
-//			model.addAttribute("orderdate", orderdate);
-//			OrderListBean datas = oService.findById(id);
-//			model.addAttribute("datas", datas);
-//			model.addAttribute("jsp", jsp);
-//			model.addAttribute("searchid", searchid);
-//			return "order/editData";
-//		}
-//
-//		// step2在editData.jsp按下修改
-//		// 必須保留id送過來!!!因為若沒id他會新增，有id就會update(更新)
-//		@PutMapping("/admin/orders/editallData")
-//		public String update(@ModelAttribute("datas") OrderListBean datas, RedirectAttributes redirectAttributes,
-//				@RequestParam Integer id, @RequestParam("jsp") String jsp, @RequestParam("searchid") String searchid,
-//				Model model) {
-//			// 將資料放入重定向的屬性中
-//			redirectAttributes.addFlashAttribute("jsp", jsp);
-//			redirectAttributes.addFlashAttribute("searchid", searchid);
-//			// 從重定向屬性中取出資料
-//			String orderdate = (String) model.asMap().get("orderdate");
-//			model.addAttribute("datas", orderdate);
-//
-//			oService.insert(datas);
-//			return "redirect:/admin/orders/updateok";
-//		}
-//
-//		// step3
-//		// 卡控回傳值--更新後返還之jsp
-//		@GetMapping("/admin/orders/updateok")
-//		public String afterUpdate(Model model, RedirectAttributes redirectAttributes) {
-//			// 從重定向屬性中取出資料
-//			String jsp = (String) model.asMap().get("jsp");
-//			String param = (String) model.asMap().get("searchid");
-//			String value = showModelAndView(jsp, param, model);
-//			// 返還sweetalert:刪除成功
-//			return value;
-//		}
+		@GetMapping("/admin/orders/update")
+		public String editData(@RequestParam Integer id, Model model, 
+				@RequestParam("jsp") String jsp, @RequestParam("searchid") String searchid) {
+			OrderListBean datas = oService.findById(id);
+			model.addAttribute("datas", datas);
+			model.addAttribute("jsp", jsp);
+			model.addAttribute("searchid", searchid);
+			return "order/editData";
+		}
+
+		// step2在editData.jsp按下修改
+		// 必須保留id送過來!!!因為若沒id他會新增，有id就會update(更新)
+		@PutMapping("/admin/orders/editallData")
+		public String update(@ModelAttribute("datas") OrderListBean datas, RedirectAttributes redirectAttributes,
+				 @RequestParam("jsp") String jsp, @RequestParam("searchid") String searchid,
+				Model model) {
+			// 將資料放入重定向的屬性中
+			redirectAttributes.addFlashAttribute("jsp", jsp);
+			redirectAttributes.addFlashAttribute("searchid", searchid);
+			// 從重定向屬性中取出資料
+			OrderListBean datas123 = oService.findById(datas.getId());
+			
+			datas123.setMessage(datas.getMessage());
+			datas123.setPaid(datas.getPaid());
+			oService.insertB(datas123);
+			return "redirect:/admin/orders/updateok";
+		}
+
+		// step3
+		// 卡控回傳值--更新後返還之jsp
+		@GetMapping("/admin/orders/updateok")
+		public String afterUpdate(Model model, RedirectAttributes redirectAttributes) {
+			// 從重定向屬性中取出資料
+			String jsp = (String) model.asMap().get("jsp");
+			String param = (String) model.asMap().get("searchid");
+			String value = showModelAndView(jsp, param, model);
+			// 返還sweetalert:刪除成功
+			return value;
+		}
+
 	// **************************admin按下[刪除]按鈕，發送此請求******************************
 	// 8.deleteDataByOrderId
 	// step1

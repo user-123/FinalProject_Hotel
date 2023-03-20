@@ -18,7 +18,7 @@ public interface OrderService {
 	// 控制會員只能使用自己的userid
 	public boolean insert(OrderListBean olb);
 	
-	//public void update(String message,String paid,Integer id);
+	public void insertB(OrderListBean olb);
 
 	//List：特定型別，不固定長度的陣列。
 	//Array：不特定型別，固定長度的陣列，長度需事先宣告。

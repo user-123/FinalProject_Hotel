@@ -10,7 +10,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>貝斯特飯店</title>
+<title>貝殼窩飯店</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -60,7 +60,7 @@
 				aria-label="Toggle navigation">
 				<span></span> <span></span> <span></span>
 			</button>
-			<a class="navbar-brand text-brand" href="<c:url value='#'/>">貝斯特<span
+			<a class="navbar-brand text-brand" href="<c:url value='#'/>">貝殼窩<span
 				class="color-b">飯店</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
@@ -70,7 +70,7 @@
 					<li class="nav-item"><a class="nav-link active" href="#">首頁</a></li>
 
 					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/about'/>">關於貝斯特</a></li>
+						href="<c:url value='/public/about'/>">關於貝殼窩</a></li>
 
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/room/allShow'/>">房型</a></li>

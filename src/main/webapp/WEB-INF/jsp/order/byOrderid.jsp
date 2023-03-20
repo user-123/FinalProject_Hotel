@@ -13,7 +13,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>貝斯特飯店管理系統</title>
+<title>貝殼窩飯店管理系統</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -63,7 +63,7 @@
 				<span></span> <span></span> <span></span>
 			</button>
 			<a class="navbar-brand text-brand"
-				href="<c:url value='/admin/backstage' />">貝斯特
+				href="<c:url value='/admin/backstage' />">貝殼窩
 				<span class="color-b">飯店管理系統</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
@@ -202,8 +202,7 @@
 														method="get">
 														<input type="hidden" name="id" value="${datas.id}" /> <input
 															type="hidden" name="jsp" value="byOrderid" />
-															<input type="hidden" name="searchid" value="" />  <input
-															type="hidden" name="orderdate" value="${datas.orderdate}" />
+															<input type="hidden" name="searchid" value="" />  
 														<input type="submit" class="btn btn-outline-info btn-sm"
 															value="編輯">
 													</form>

@@ -15,10 +15,6 @@ public interface OrderListDao extends JpaRepository<OrderListBean, Integer> {
 	// 儲存所有細節(orderlist+orderdetail)
 	// JpaRepositry有，我們不須自己做
 	
-	// 後臺單純更新
-//	@Query(value = "update [dbo].[Order_List] set message=?1, paid=?2 where id=?3", nativeQuery=true)
-//	public void update(String message,String paid,Integer id);
-	
 	// 2.findAll(後台)
 	// 查詢所有訂單及所有關聯訂單細節(訂單一覽表)
 	@Query(value = "select * from [dbo].[Order_List] order by orderdate desc", nativeQuery=true)
@@ -33,13 +29,6 @@ public interface OrderListDao extends JpaRepository<OrderListBean, Integer> {
 	// 查詢特定userid的訂單資料
 	@Query(value = "select ol from OrderListBean ol where ol.userid =?1 order by ol.orderdate desc")
 	public List<OrderListBean> findDataByUserIdB(LoginBean userid);
-
-	// 4.findDataByOrderId(前台)
-	// 查詢特定orderid的訂單資料
-	// 讓會員可以利用訂單編號查詢自己的訂單紀錄
-	// 先做findDataByUser再篩選出orderid，避免user查到不屬於他的訂單資訊
-//	@Query(value = "SELECT* from OrderListBean where orderid=?1 order by orderdate desc",nativeQuery=true)
-//	public OrderListBean findDataByOrderIdF(String orderid);
 
 	// 4.findDataByOrderId(後台)
 	// 查詢特定orderid的訂單資料

@@ -10,7 +10,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>貝斯特飯店管理系統</title>
+<title>貝殼窩飯店管理系統</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -266,7 +266,7 @@ input[type=number] {
 				aria-label="Toggle navigation">
 				<span></span> <span></span> <span></span>
 			</button>
-			<a class="navbar-brand text-brand" href="<c:url value='/admin/backstage' />">貝斯特
+			<a class="navbar-brand text-brand" href="<c:url value='/admin/backstage' />">貝殼窩
 			<span class="color-b">飯店管理系統</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"

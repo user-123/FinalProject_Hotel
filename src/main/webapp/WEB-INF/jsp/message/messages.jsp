@@ -111,7 +111,7 @@ textarea {
 				aria-label="Toggle navigation">
 				<span></span> <span></span> <span></span>
 			</button>
-			<a class="navbar-brand text-brand" href="<c:url value='/'/>">貝斯特<span
+			<a class="navbar-brand text-brand" href="<c:url value='/'/>">貝殼窩<span
 				class="color-b">飯店</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
