@@ -113,8 +113,7 @@
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">會員</a>
-						<c:choose>
+						aria-haspopup="true" aria-expanded="false">會員</a> <c:choose>
 							<c:when test="${sessionScope.login==true}">
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 									<li><a class="dropdown-item"
@@ -122,10 +121,10 @@
 									<li><a class="dropdown-item"
 										href="<c:url value='/searchinfo' />">查詢資料</a></li>
 									<li><a class="dropdown-item"
-										href="<c:url value='/orders/history' />?文彥的id傳過來的名字=${sessionScope.id}">歷史訂單</a></li>
+										href="<c:url value='/orders/history' />?accountId=${sessionScope.id}">歷史訂單</a></li>
 									<sec:authorize access="hasAuthority('admin')">
 										<li><a class="dropdown-item"
-											href="<c:url value="/admin/room/backstage"/>">後台</a></li>
+											href="<c:url value="/admin/backstage"/>">後台</a></li>
 									</sec:authorize>
 									<li><a class="dropdown-item "
 										href="<c:url value='/logout'/>"> <input type="hidden"
@@ -141,8 +140,7 @@
 										href="<c:url value='/public/register' />">註冊</a></li>
 								</ul>
 							</c:otherwise>
-						</c:choose>
-					</li>
+						</c:choose></li>
 				</ul>
 			</div>
 		</div>

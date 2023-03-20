@@ -7,6 +7,7 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
 <link rel="icon" href="<c:url value='/favicon.ico' />">
 <meta charset="UTF-8" />
@@ -14,7 +15,7 @@
 <title>XX飯店</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
 <style>
 .container {
 	width: 900px;
@@ -63,13 +64,12 @@
 
 <!-- Template Main CSS File -->
 <link href="<c:url value='/assets/css/style.css'/>" rel="stylesheet">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
+
+
+
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <%-- 上面是CDN，下面是文硯地端資源 --%>
 <%-- <script src="<c:url value='/javascript/jquery-3.6.0.min.js'/>"></script> --%>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
 <script src="<c:url value='/javascript/jquery-3.6.0.min.js'/>"></script>
 
 <script>
@@ -260,6 +260,7 @@
 	}
 </script>
 </head>
+
 <body>
 	<!-- ======= Header/Navbar ======= -->
 	<nav
@@ -297,8 +298,7 @@
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">會員</a>
-						<c:choose>
+						aria-haspopup="true" aria-expanded="false">會員</a> <c:choose>
 							<c:when test="${sessionScope.login==true}">
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 									<li><a class="dropdown-item"
@@ -306,10 +306,10 @@
 									<li><a class="dropdown-item"
 										href="<c:url value='/searchinfo' />">查詢資料</a></li>
 									<li><a class="dropdown-item"
-										href="<c:url value='/orders/history' />?文彥的id傳過來的名字=${sessionScope.id}">歷史訂單</a></li>
+										href="<c:url value='/orders/history' />?accountId=${sessionScope.id}">歷史訂單</a></li>
 									<sec:authorize access="hasAuthority('admin')">
 										<li><a class="dropdown-item"
-											href="<c:url value="/admin/room/backstage"/>">後台</a></li>
+											href="<c:url value="/admin/backstage"/>">後台</a></li>
 									</sec:authorize>
 									<li><a class="dropdown-item "
 										href="<c:url value='/logout'/>"> <input type="hidden"
@@ -325,8 +325,7 @@
 										href="<c:url value='/public/register' />">註冊</a></li>
 								</ul>
 							</c:otherwise>
-						</c:choose>
-					</li>
+						</c:choose></li>
 				</ul>
 			</div>
 
@@ -549,4 +548,5 @@
 	<!-- Template Main JS File -->
 	<script src='<c:url value="/assets/js/main.js"/>'></script>
 </body>
+
 </html>

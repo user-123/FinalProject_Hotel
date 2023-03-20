@@ -28,6 +28,7 @@ public class MemberBean implements Serializable {
 	private java.util.Date birthDate;
 	private String gender;
 	private String photoPath;
+	//@JsonBackReference("login_member")
 	@OneToOne(cascade =CascadeType.PERSIST)
 	@JoinColumn(name="accountId", foreignKey=@ForeignKey(name = "fk_mem_log"))
 	private LoginBean accountId;
@@ -98,8 +99,7 @@ public class MemberBean implements Serializable {
 
 	@Override
 	public String toString() {
-		return "MemberBean [memberId=" + memberId + ", userName=" + userName + ", address=" + address  + ", phone=" + phone + ", birthDate=" + birthDate + ", gender=" + gender + ", photoPath="
-				+ photoPath + "]";
+		return "MemberBean [memberId=" + memberId + ", userName=" + userName + ", address=" + address  + ", phone=" + phone + ", birthDate=" + birthDate + ", gender=" + gender + ", photoPath=" + photoPath + "]";
 	}
 
 

@@ -1,8 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -84,7 +86,7 @@
 									<li><a class="dropdown-item"
 										href="<c:url value='/searchinfo' />">查詢資料</a></li>
 									<li><a class="dropdown-item"
-										href="<c:url value='/orders/history' />?文彥的id傳過來的名字=${sessionScope.id}">歷史訂單</a></li>
+										href="<c:url value='/orders/history' />?accountId=${sessionScope.id}">歷史訂單</a></li>
 									<li><a class="dropdown-item "
 										href="<c:url value='/logout'/>"> <input type="hidden"
 											name="${_csrf.parameterName}" value="${_csrf.token}" />登出
@@ -134,8 +136,7 @@
 											會員:${information.userid.accountName}</div>
 									</div>
 									<div class="col-md-6 mb-3">
-										<div class="form-group">房號:${information.roomid.roomId}
-										</div>
+										<div class="form-group">房名:${information.roomid.name}</div>
 									</div>
 									<div class="col-md-6 mb-3">
 										<div class="form-group">
@@ -154,10 +155,61 @@
 									<div class="col-md-12 mb-3">
 										<div class="form-group">備註:${information.message}</div>
 									</div>
+									<div class="col-md-12 mb-3">
+										<div class="form-group">金額:${information.roomid.price}</div>
+									</div>
+									<div class="col-md-12 mb-3">
+										<div class="form-group">付款狀態:${information.paid}</div>
+									</div>
+									<form id="idFormAioCheckOut" method="post"
+										action="<c:url value="/ECPay"/>">
+										<div style="display: none">
+											<div>
+												<input type="text" name="id" value="${information.id}">
+
+												<label class="col-xs-12">房名:</label> <input type="text"
+													name="ItemName" value="${information.roomid.name}"
+													class="form-control" readonly />
+											</div>
+											<div>
+												<label class="col-xs-12">房型說明: </label> <input
+													name="TradeDesc" class=" form-control"
+													value="${information.roomid.introduce}" readonly />
+											</div>
+											<div>
+												<label class="col-xs-12">金額:</label> <input type="text"
+													name="TotalAmount" value="${information.roomid.price}"
+													class="form-control" readonly />
+											</div>
+										</div>
+										<button type="submit" class="btn btn-outline-info btn-sm">付款</button>
+									</form>
+									<!--********************onSubmit為form表單原生的屬性，判斷回傳之布林值決定下一步******************** -->
+												<form action="${contextRoot}/orders/delete" method="post"
+													onSubmit="return popup2();">
+
+													<input type="hidden" name="orderid"
+														value="${information.orderid}" /> <input type="hidden"
+														name="userId" value="${information.userid.accountId}" /> <input
+														type="hidden" name="_method" value="delete" /> <input
+														type="submit" class="btn btn-outline-danger btn-sm"
+														value="刪除">
+
+													<!--********************刪除前用來做再次確認的範本******************** -->
+
+													<script>
+														function popup2() {
+															if (confirm('您確定要刪除嗎') == true) {
+																//作刪除的動作(送出表單)
+																return true;
+															} else {
+																//返還history.jsp(當沒發生過)
+																return false;
+															}
+														};
+													</script>
+												</form>
 								</div>
-
-
-
 							</div>
 						</div>
 					</div>

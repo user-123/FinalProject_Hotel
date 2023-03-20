@@ -155,4 +155,8 @@ public class RoomBean {
 				+ "]";
 	}
 
+	public String getRoomIdToString() {
+		return roomId.toString();
+	}
+
 }

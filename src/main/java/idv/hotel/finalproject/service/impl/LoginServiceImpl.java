@@ -17,11 +17,11 @@ import idv.hotel.finalproject.service.LoginService;
 @Transactional
 @Service
 public class LoginServiceImpl implements LoginService {
-	
+
 	LoginDao loginDao;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
 	@Autowired
 	public LoginServiceImpl(LoginDao loginDao) {
 		this.loginDao = loginDao;
@@ -36,7 +36,7 @@ public class LoginServiceImpl implements LoginService {
 			return "";
 		}
 	}
-	
+
 	@Override
 	public void register(LoginBean lb) {
 		lb.setSignupDate(new Timestamp(System.currentTimeMillis()));
@@ -50,25 +50,25 @@ public class LoginServiceImpl implements LoginService {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-	}	
+	}
 
-	
-	
-	
+
+
+
 	@Override
 	public void login(String email,String password) {
 		loginDao.findByEmailAndPassword(email,password).getEmail();
-	}	
+	}
 
-	
-	
+
+
 	@Override
 	public LoginBean loginFail(String email,String password) {
 		return loginDao.findByEmailAndPassword(email,password);
-		
+
 	}
 
-	
+
 	@Override
 	public Integer findIdByEmail(String email) {
 		return loginDao.findIdByEmail(email);
@@ -77,16 +77,16 @@ public class LoginServiceImpl implements LoginService {
 	public LoginBean findById(Integer id) {
 		return loginDao.findById(id).get();
 	}
-	
-	
-	
+
+
+
 	public ArrayList<ArrayList<String>> showAdmin(HttpServletRequest request,String search){
 		ArrayList<ArrayList<String>> show = new ArrayList<>();
 		List<LoginBean> mblb;
-		if(search.equals("")) 
+		if(search.equals(""))
 			mblb = loginDao.findAll();
-		else 
-			mblb = loginDao.findByAccountName(search);
+		else
+			mblb = loginDao.findByAccountNameLike(search);
 		for (LoginBean lb : mblb) {
 			ArrayList<String> bean = new ArrayList<>();
 			bean.add(lb.getAccountId().toString());
@@ -112,21 +112,21 @@ public class LoginServiceImpl implements LoginService {
 				}
 				else {
 					bean.add(request.getContextPath()+"/uploadDir/"+lb.getMember().getPhotoPath());
-				}	
+				}
 			}
-			
+
 			show.add(bean);
 		}
 		return show;
 	}
-	
+
 	@Override
 	public void deleteLb(Integer deleteId) {
 		loginDao.deleteById(deleteId);
 	};
-	
-	
-	
-	
-	
+
+
+
+
+
 }

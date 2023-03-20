@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -8,10 +7,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
-<script src="<c:url value='/javascript/jquery-3.6.0.min.js'/>"></script>
-<script src="<c:url value='/javascript/jquery-ui.min.js'/>"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
+<script src="<c:url value='/javascript/jquery-3.6.0.min.js' />"></script>
+<script src="<c:url value='/javascript/jquery-ui.min.js' />"></script>
 
 <meta charset="BIG5">
 <style>
@@ -35,7 +33,7 @@
 			aria-label="Search" aria-describedby="search-addon" id="searchbtn"
 			name="searchbtn" />
 		<button type="button" class="btn btn-outline-primary"
-			id="searchsubmit">查詢帳號</button>  
+			id="searchsubmit">查詢帳號</button>
 	</div>
 	<table class="table table-bordered table-striped table-hover" id="showtable">
 		<tr>
@@ -59,16 +57,16 @@
       </div>
       </form>
 	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
 	<script>
     $('#searchsubmit').on("click", function(event) {
       $.ajax({
@@ -103,8 +101,8 @@
         }
       })
     });
-    
-    
+
+
     $('table').on('click', '.deletebtn',function(){
     	var $button = $(this);
     	var deleteId = $(this).closest("tr").find("td:eq(1)").text();
@@ -124,22 +122,22 @@
     		return false;
     	}
     })
- 
-    
-    
-    
+
+
+
+
     var dialog = $('#edit-dialog').dialog({
-            autoOpen: false, 
-            modal: true, 
+            autoOpen: false,
+            modal: true,
     	});
-    		
-    
-    
+
+
+
     	$('#edit-dialog').on('click', '.cancelbtn', function() {
 		    dialog.dialog('close');
 		});
-    	
-    
+
+
 	    $('table').on('click', '.editbtn', function() {
 	    	var row = $(this).closest('tr');
 	    	var username = "姓名:"+row.find('td:eq(4)').text();
@@ -164,17 +162,17 @@
 	             $('#edit-dialog #userphoto').html("");
 	        }
 	        dialog.dialog('open');
-	        
+
 	    });
-    
-    
-    	
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
 </script>
 
 

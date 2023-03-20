@@ -1,3 +1,28 @@
+########## Create by D.C. ##########
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+ 
+# Eclipse
+.metadata/
+bin/
+
+##### switch to ignore itself #####
+.gitignore
+
+# user upload file
+src/*/webapp/uploadDir/*.*
+
+
+
+
+
+
+
+
+
 ########## Create by GitHub Java Project Automatically ##########
 
 # Compiled class file
@@ -63,6 +88,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-
-/bin/
