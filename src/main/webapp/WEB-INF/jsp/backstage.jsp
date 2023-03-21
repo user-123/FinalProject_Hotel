@@ -1,5 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,6 +47,118 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+<script
+	src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
+<style>
+/* 圖片大小 */
+img {
+	max-width: 300px;
+	max-height: 150px;
+	object-fit: contain;
+}
+</style>
+
+<script>
+	window.onload = function() {
+		$("#about").on("input", function() {
+			let type = document.getElementById("about");
+			if (type.value == "") {
+				$('.abouterror').html("必填").css({
+					"color" : "red",
+					"font-size" : "10%"
+				})
+			} else {
+				$('.abouterror').html("")
+			}
+		})
+		$('#aboutPhotoOne').on('change', function(event) {
+			var previewImages = $('#preview-images1');
+			previewImages.empty();
+
+			var files = this.files;
+			var isAllImages = true;
+
+			for (var i = 0; i < files.length; i++) {
+				var file = files[i];
+				var fileType = file.type;
+				var maxSizeInBytes = 5e+6; // 5MB
+				var fileSizeInBytes = file.size;
+
+				if (fileType.indexOf('image') === -1) {
+					isAllImages = false;
+					break;
+				}
+			}
+
+			if (!isAllImages) {
+				Swal.fire('格式錯誤!', '請上傳正確的圖片格式', 'error');
+				this.value = '';
+			} else if (fileSizeInBytes > maxSizeInBytes) {
+				Swal.fire('檔案過大!', '請選擇小於5MB的圖片檔案', 'error');
+				this.value = '';
+
+			} else {
+
+				for (var i = 0; i < files.length; i++) {
+					var file = files[i];
+					var reader = new FileReader();
+
+					reader.onload = function(event) {
+						console.log(event.target.result)
+						var img = $('<img>').attr('src', event.target.result);
+						previewImages.append(img);
+					}
+
+					reader.readAsDataURL(file);
+				}
+			}
+		});
+		$('#aboutPhotoTwo').on('change', function(event) {
+			var previewImages = $('#preview-images2');
+			previewImages.empty();
+
+			var files = this.files;
+			var isAllImages = true;
+
+			for (var i = 0; i < files.length; i++) {
+				var file = files[i];
+				var fileType = file.type;
+				var maxSizeInBytes = 5e+6; // 5MB
+				var fileSizeInBytes = file.size;
+
+				if (fileType.indexOf('image') === -1) {
+					isAllImages = false;
+					break;
+				}
+			}
+
+			if (!isAllImages) {
+				Swal.fire('格式錯誤!', '請上傳正確的圖片格式', 'error');
+				this.value = '';
+			} else if (fileSizeInBytes > maxSizeInBytes) {
+				Swal.fire('檔案過大!', '請選擇小於5MB的圖片檔案', 'error');
+				this.value = '';
+			} else {
+
+				for (var i = 0; i < files.length; i++) {
+					var file = files[i];
+					var reader = new FileReader();
+
+					reader.onload = function(event) {
+						console.log(event.target.result)
+						var img = $('<img>').attr('src', event.target.result);
+						previewImages.append(img);
+					}
+
+					reader.readAsDataURL(file);
+				}
+			}
+		});
+	}
+</script>
 </head>
 
 <body>
@@ -63,8 +179,11 @@
 				id="navbarDefault">
 				<ul class="navbar-nav">
 
-					<!-- <li class="nav-item"><a class="nav-link" href="#">XXX</a></li> -->
-					<li class="nav-item"><a class="nav-link" href="<c:url value='/admin/backstage/member' />">會員管理</a></li>
+
+					<li class="nav-item"><a class="nav-link active" href="#">基本管理</a></li>
+
+					<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/backstage/member' />">會員管理</a></li>
+
 
 					<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">訂單管理</a>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -81,9 +200,13 @@
 						</ul>
 					</li>
 
-					<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/backstage/room' />">房型管理</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="#">設施管理</a></li>
+					<li class="nav-item"><a class="nav-link "
+						href="<c:url value="/admin/room/backstage"/>">房型管理</a></li>
+
+
+					<li class="nav-item"><a class="nav-link "
+						href="<c:url value='/admin/facility/showBacksatge'/>">設施管理</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="#">景點管理</a></li>
 
@@ -117,13 +240,87 @@
 	</nav>
 	<!-- End Header/Navbar -->
 
-
 	<main id="main">
-		<h1>Control Panel</h1>
-		<h1>To Be Continue</h1>
-		<h1>Control Panel</h1>
-		<h1>To Be Continue</h1>
+		<section class="intro-single">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 col-lg-8">
+						<div class="title-single-box">
+							<h1 class="title-single">基本管理</h1>
+							<div class="form-comments">
+								<form:form method="PUT" action="${contextRoot}/admin/edit"
+									modelAttribute="homeBean" enctype="multipart/form-data"
+									id="facility">
+									<div class="row">
+										<form:input type="hidden" path="id" id="id" />
+
+										<div class="">
+											<div class="form-group">
+												<form:label path="about">
+																	關於:</form:label>
+												<br>
+												<form:textarea path="about" id="about" class="input"
+													rows="10" cols="80" maxlength="250" required="true" />
+												<span class="abouterror err"></span>
+											</div>
+										</div>
+										<div class="">
+											<div class="form-group">
+												<label for="aboutPhotoOne">關於圖片(上):</label> <input
+													type="file" id="aboutPhotoOne" name="aboutPhotoOne"
+													accept="image/*"><br> <span
+													class="aboutPhoto1-photoserror err"></span> <br>
+
+												<div id="preview-images1">
+													<img id="img" name="img"
+														src="<c:url value='/roomId/${homeBean.aboutPhoto1}'/>">
+												</div>
+											</div>
+										</div>
+										<br> <br> <br> <br> <br> <br> <br>
+										<br> <br> <br> <br>
+										<div class="">
+											<div class="form-group">
+												<label for="aboutPhotoTwo">關於圖片(下):</label> <input
+													type="file" id="aboutPhotoTwo" name="aboutPhotoTwo"
+													accept="image/*"><br> <span
+													class="aboutPhoto2-photoserror err"></span> <br>
+
+												<div id="preview-images2">
+													<img id="img" name="img"
+														src="<c:url value='/roomId/${homeBean.aboutPhoto2}'/>">
+												</div>
+											</div>
+										</div>
+										<!-- 										<br> <br> <br> -->
+										<!-- 										<div class=""> -->
+										<!-- 											<div class="form-group"> -->
+										<!-- 												<label for="photos">首頁圖片:</label> <input type="file" -->
+										<!-- 													id="photos" name="home" accept="image/*" multiple><br> -->
+										<!-- 												<span class="home-photoserror err"></span> -->
+										<!-- 												<div id="preview-images"> -->
+										<!-- 													<div id="preview-images"> -->
+										<%-- 														<c:forEach items="" var="photo"> --%>
+										<!-- 															<img id="img" name="img" src="'/>"> -->
+										<%-- 														</c:forEach> --%>
+										<!-- 													</div> -->
+										<!-- 												</div> -->
+										<!-- 											</div> -->
+										<!-- 										</div> -->
+									</div>
+									<div style="text-align: right">
+										<input type="submit" value="Submit" id="submit" />
+									</div>
+								</form:form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
 	</main>
+
 	<!-- End #main -->
 
 

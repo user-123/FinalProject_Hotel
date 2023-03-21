@@ -98,9 +98,9 @@
 						</ul>
 					</li>
 
-					<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/backstage/room' />">房型管理</a></li>
+					<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/room/backstage' />">房型管理</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="#">設施管理</a></li>
+					<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/facility/showBacksatge'/>">設施管理</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="#">景點管理</a></li>
 

@@ -128,7 +128,7 @@ public class OrderController {
 	public String findDataByUserId(Model model) {
 		OrderListBean ol = new OrderListBean();
 		model.addAttribute("userid", ol);
-		return "order/byUserid";
+		return "order/byuserid";
 	}
 
 	// 此時admin看到的是按下查詢後返還的資料
@@ -140,7 +140,7 @@ public class OrderController {
 		List<OrderListBean> datas = oService.findDataByUserIdB(userId);
 		model.addAttribute("datas", datas);
 
-		return "order/byUserid";
+		return "order/byuserid";
 	}
 
 	// **************************後台訂單管理下拉選單--用訂單編號查詢******************************
@@ -149,7 +149,7 @@ public class OrderController {
 	public String findDataByOrderId(Model model) {
 		OrderListBean ol = new OrderListBean();
 		model.addAttribute("orderid", ol);
-		return "order/byOrderid";
+		return "order/byorderid";
 	}
 
 	// 此時admin看到的是按下查詢後返還的資料
@@ -161,7 +161,7 @@ public class OrderController {
 		OrderListBean datas = oService.findDataByOrderIdB(orderId);
 		model.addAttribute("datas", datas);
 
-		return "order/byOrderid";
+		return "order/byorderid";
 	}
 
 	// **************************後台訂單管理下拉選單--用某日查詢******************************
@@ -181,7 +181,7 @@ public class OrderController {
 	public String findDataByOrderdate(Model model) {
 		OrderListBean ol = new OrderListBean();
 		model.addAttribute("orderdate", ol);
-		return "order/byOrderdate";
+		return "order/byorderdate";
 	}
 
 	// 此時admin看到的是按下查詢後返還的資料
@@ -193,7 +193,7 @@ public class OrderController {
 		List<OrderListBean> datas = oService.findDataByOrderdate(orderdate);
 		model.addAttribute("datas", datas);
 
-		return "order/byOrderdate";
+		return "order/byorderdate";
 	}
 
 	// **************************後台訂單管理下拉選單--用房型查詢******************************
@@ -203,7 +203,7 @@ public class OrderController {
 	public String findDataByRoomId(Model model) {
 		OrderListBean ol = new OrderListBean();
 		model.addAttribute("roomid", ol);
-		return "order/byRoomid";
+		return "order/byroomid";
 	}
 
 	// 此時admin看到的是按下查詢後返還的資料
@@ -215,7 +215,7 @@ public class OrderController {
 		List<OrderListBean> datas = oService.findDataByRoomId(roomid);
 		model.addAttribute("datas", datas);
 
-		return "order/byRoomid";
+		return "order/byroomid";
 	}
 
 	// **************************admin按下[編輯]按鈕，發送此請求******************************
@@ -298,12 +298,12 @@ public class OrderController {
 			datas = oService.findDataByUserIdB(param);
 			model.addAttribute("userid", ol);
 			model.addAttribute("datas", datas);
-			value = "order/byUserid";
+			value = "order/byuserid";
 			break;
 		case "byOrderid":
 			model.addAttribute("orderid", ol);
 			model.addAttribute("datas", "");
-			value = "order/byOrderid";
+			value = "order/byorderid";
 			break;
 		case "byOrderdate":
 			datas = oService.findDataByOrderdate(param);

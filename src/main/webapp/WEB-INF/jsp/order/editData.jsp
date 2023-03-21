@@ -69,7 +69,7 @@
 				id="navbarDefault">
 				<ul class="navbar-nav">
 
-					<li class="nav-item"><a class="nav-link active" href="#">會員管理</a></li>
+					<li class="nav-item"><a class="nav-link active" href="<c:url value='/admin/backstage/member' />">會員管理</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
@@ -88,9 +88,9 @@
 								href="<c:url value='/admin/orders/byroomid' />">用房型查詢</a></li>
 						</ul></li>
 
-					<li class="nav-item"><a class="nav-link " href="#">房型管理</a></li>
+					<li class="nav-item"><a class="nav-link " href="<c:url value="/admin/room/backstage"/>">房型管理</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="#">設施管理</a></li>
+					<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/facility/showBacksatge'/>">設施管理</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="#">景點管理</a></li>
 

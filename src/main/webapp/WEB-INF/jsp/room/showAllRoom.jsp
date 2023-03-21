@@ -1,7 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
-
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
+<c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,6 +47,31 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+<style>
+.image-container {
+	position: relative;
+	width: 600px; /* Change to your image width */
+	height: 300px; /* Change to your image height */
+	overflow: hidden;
+}
+
+.image-container:hover img {
+	transform: scale(1.2); /* Change to your desired scale amount */
+}
+
+.image-container img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 10s ease;
+	/* Change to your desired transition duration */
+}
+</style>
+
+
 </head>
 
 <body>
@@ -77,15 +104,14 @@
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/room/orderAllShow'/>">訂房</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="#">休閒設施</a></li>
+					<li class="nav-item"><a class="nav-link " href="<c:url value='/public/facility/show'/>">休閒設施</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="#">周邊景點</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">會員</a>
-						<c:choose>
+						aria-haspopup="true" aria-expanded="false">會員</a> <c:choose>
 							<c:when test="${sessionScope.login==true}">
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 									<li><a class="dropdown-item"
@@ -112,8 +138,7 @@
 										href="<c:url value='/public/register' />">註冊</a></li>
 								</ul>
 							</c:otherwise>
-						</c:choose>
-					</li>
+						</c:choose></li>
 
 				</ul>
 			</div>
@@ -168,12 +193,14 @@
 						</div>
 					</div>
 					<c:forEach items="${room}" var="msg">
-						<form action="<c:url value="/public/room/show" />"
-							method="get">
-							<input type="hidden" name="Id" value="${msg.id}" /> <input
-								type="submit" class="btn btn-outline-info btn-sm"
-								value="${msg.roomId}">
-						</form>
+						<div class="image-container">
+
+							<a href="<c:url value="/public/room/show" />?Id=${msg.id}"
+								class="col-12 col-md-6"><img
+								src="<c:url value='/roomId/${msg.roomPhotoBeans[0].photoFile}'/>"
+								width="100%" height="100%"></a>
+
+						</div>
 					</c:forEach>
 					<!-- 					   				---圖片---				                     -->
 					<!-- 					<div class="col-md-4"> -->

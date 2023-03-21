@@ -1,6 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,6 +46,29 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+<style>
+.about-img-box {
+	position: relative;
+	width: 1300px; /* Change to your image width */
+	height: 650px; /* Change to your image height */
+	overflow: hidden;
+}
+
+.about-img-box:hover img {
+	transform: scale(1.2); /* Change to your desired scale amount */
+}
+
+.about-img-box img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 20s ease;
+	/* Change to your desired transition duration */
+}
+</style>
 </head>
 
 <body>
@@ -76,15 +101,14 @@
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/room/orderAllShow'/>">訂房</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="#">休閒設施</a></li>
+					<li class="nav-item"><a class="nav-link " href="<c:url value='/public/facility/show'/>">休閒設施</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="#">周邊景點</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">會員</a>
-						<c:choose>
+						aria-haspopup="true" aria-expanded="false">會員</a> <c:choose>
 							<c:when test="${sessionScope.login==true}">
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 									<li><a class="dropdown-item"
@@ -111,8 +135,7 @@
 										href="<c:url value='/public/register' />">註冊</a></li>
 								</ul>
 							</c:otherwise>
-						</c:choose>
-					</li>
+						</c:choose></li>
 
 				</ul>
 			</div>
@@ -154,14 +177,14 @@
 				<div class="row">
 					<div class="col-sm-12 position-relative">
 						<div class="about-img-box">
-							<img src="<c:url value='/assets/img/slide-about-1.jpg'/>" alt=""
+							<img src="<c:url value='/roomId/${homeBean.aboutPhoto1}'/>"
 								class="img-fluid">
 						</div>
 					</div>
 					<div class="col-md-12 section-t8 position-relative">
 						<div class="row">
 							<div class="col-md-6 col-lg-5">
-								<img src="<c:url value='/assets/img/about-2.jpg'/>" alt=""
+								<img src="<c:url value='/roomId/${homeBean.aboutPhoto2}'/>"
 									class="img-fluid">
 							</div>
 							<div class="col-md-6 col-lg-5 section-md-t3">
@@ -170,11 +193,7 @@
 										<span class="color-d">XXX</span>
 									</h3>
 								</div>
-								<p class="color-text-a">在時尚、繁華、科技的台北市，和璞飯店秉持著『細心洞察客人需求的專業服務，恰到好處的巧思與用心，創造隨處可見的完善軟硬體設計』為理念，企圖成為引領旅店潮流之箇中翹楚。
-
-									和璞飯店的專業團隊，將獨特的手感設計融入於空間的深刻規劃，營造出精品時尚的美學概念，打造出可以熱情、可以簡鍊、可以溫柔、可以深情，不受拘束的居住空間，萬種風情的客房讓人處處有驚喜，體貼地滿足每ㄧ位到訪旅客的需求。
-
-									走進飯店，服務人員親切的與客人互動，熱情的招呼，溫馨的服務，誠摯的歡迎您的到來，正如『和璞』二字所傳達的內涵意義『親愛、協調、適中，真實的有如未經琢磨的珍貴璞玉』</p>
+								<p class="color-text-a">${homeBean.about}</p>
 							</div>
 						</div>
 					</div>

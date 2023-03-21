@@ -6,9 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import idv.hotel.finalproject.service.RoomService;
 import idv.hotel.finalproject.dao.RoomDao;
 import idv.hotel.finalproject.model.RoomBean;
+import idv.hotel.finalproject.service.RoomService;
 
 @Service
 public class RoomServiceImpl implements RoomService {
@@ -32,8 +32,9 @@ public class RoomServiceImpl implements RoomService {
 	}
 
 	@Override
-	public void create(RoomBean roomBean) {
-		rDao.save(roomBean);
+	public RoomBean create(RoomBean roomBean) {
+		return rDao.save(roomBean);
+
 	}
 
 	@Override

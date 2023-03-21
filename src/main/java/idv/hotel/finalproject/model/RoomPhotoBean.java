@@ -1,15 +1,14 @@
 package idv.hotel.finalproject.model;
 
-import java.util.Arrays;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "roomPhoto")
 @Table(name = "roomPhoto")
@@ -17,13 +16,17 @@ public class RoomPhotoBean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Lob
-	@JsonIgnore // 不要進行序列化
-	private byte[] photoFile;
+	@Column(columnDefinition = "nvarchar(255)")
+	private String photoFile;
 
-	public RoomPhotoBean() {}
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "fk_room_id")
+	private RoomBean roomBean;
 
-	public RoomPhotoBean(Integer id, byte[] photoFile) {
+	public RoomPhotoBean() {
+	}
+
+	public RoomPhotoBean(Integer id, String photoFile) {
 		this.id = id;
 		this.photoFile = photoFile;
 	}
@@ -36,17 +39,25 @@ public class RoomPhotoBean {
 		this.id = id;
 	}
 
-	public byte[] getPhotoFile() {
+	public String getPhotoFile() {
 		return photoFile;
 	}
 
-	public void setPhotoFile(byte[] photoFile) {
+	public void setPhotoFile(String photoFile) {
 		this.photoFile = photoFile;
+	}
+
+	public RoomBean getRoomBean() {
+		return roomBean;
+	}
+
+	public void setRoomBean(RoomBean roomBean) {
+		this.roomBean = roomBean;
 	}
 
 	@Override
 	public String toString() {
-		return "RoomPhotoBean [id=" + id + ", photoFile=" + Arrays.toString(photoFile) + "]";
+		return "RoomPhotoBean [id=" + id + ", photoFile=" + photoFile + ", roomBean=" + roomBean + "]";
 	}
 
 }

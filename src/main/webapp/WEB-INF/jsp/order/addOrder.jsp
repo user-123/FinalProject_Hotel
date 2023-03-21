@@ -258,9 +258,8 @@
 				if(document.getElementById("checkinDate").value !== "" && document.getElementById("checkoutDate").value !== "") {
 					checkinDate = Date.parse(document.getElementById("checkinDate").value);
 					checkoutDate = Date.parse(document.getElementById("checkoutDate").value);
-					if(checkinDate > checkoutDate || checkinDate < nowDate) {
-						console.log("鬧夠了沒婊子，不要亂輸入");
-						document.getElementById("feedbackMsg").innerHTML += `<br />鬧夠了沒婊子，不要亂輸入`;
+					if(checkinDate > checkoutDate || checkinDate > nowDate) {
+						document.getElementById("feedbackMsg").innerHTML += `<br />退房日期不得早於訂房日期且訂房日期在今天(含)以前`;
 						//other method
 					}else {
 						console.log("輸入正確，接受送出");
@@ -308,7 +307,7 @@
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/room/orderAllShow'/>">訂房</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="#">休閒設施</a></li>
+					<li class="nav-item"><a class="nav-link " href="<c:url value='/public/facility/show'/>">休閒設施</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="#">周邊景點</a></li>
 

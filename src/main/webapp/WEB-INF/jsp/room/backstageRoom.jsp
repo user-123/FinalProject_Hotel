@@ -43,6 +43,7 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
 </head>
 
 <body>
@@ -65,8 +66,9 @@
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
 				<ul class="navbar-nav">
+					<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/backstage'/>">基本管理</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/backstage/member' />">會員管理</a></li>
+					<li class="nav-item"><a class="nav-link " href="#">會員管理</a></li>
 
 					<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">訂單管理</a>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -83,9 +85,10 @@
 						</ul>
 					</li>
 
-					<li class="nav-item"><a class="nav-link active" href="<c:url value='/admin/backstage/room' />">房型管理</a></li>
+					<li class="nav-item"><a class="nav-link active" href="<c:url value='/admin/room/backstage' />">房型管理</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="#">設施管理</a></li>
+					<li class="nav-item"><a class="nav-link "
+						href="<c:url value='/admin/facility/showBacksatge'/>">設施管理</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="#">景點管理</a></li>
 
@@ -141,7 +144,7 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="grid-option">
-							<form action="<c:url value="/admin/backstage/roomShowType" />"
+							<form action="<c:url value="/admin/room/backstageShowType" />"
 								method="get">
 								<select name="type">
 									<option value="">請選擇房型</option>
@@ -169,6 +172,7 @@
 						<th>設備</th>
 						<th>服務</th>
 						<th>備註</th>
+						<th>圖片</th>
 						<th>修改</th>
 					</tr>
 					<c:forEach items="${room}" var="msg">
@@ -183,6 +187,15 @@
 							<td>${msg.equipment}</td>
 							<td>${msg.service}</td>
 							<td>${msg.remark}</td>
+							<td><div id="slideshow">
+									<div class="slides">
+										<c:forEach items="${msg.roomPhotoBeans}" var="photo">
+											<img id="img"
+												src="<c:url value='/roomId/${photo.photoFile}'/>"
+												width="150px" height="100px">
+										</c:forEach>
+									</div>
+								</div></td>
 
 							<td>
 								<form action="<c:url value="/admin/room/edit" />" method="get">
