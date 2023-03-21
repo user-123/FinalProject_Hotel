@@ -10,13 +10,13 @@ import idv.hotel.finalproject.model.HomeBean;
 import idv.hotel.finalproject.service.HomeService;
 @Service
 public class HomeServiceImp implements HomeService {
-	
+
 	@Autowired
 	private HomeDao hDao;
 
 	@Override
 	public HomeBean find(Integer Id) {
-		Optional<HomeBean>  homeBean = hDao.findById(Id);
+		Optional<HomeBean> homeBean = hDao.findById(Id);
 		return homeBean.get();
 	}
 

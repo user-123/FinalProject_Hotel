@@ -65,7 +65,7 @@
 			</button>
 			<a class="navbar-brand text-brand" href="<c:url value='#'/>">貝殼窩<span
 				class="color-b">飯店</span></a>
-			
+
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
 				<ul class="navbar-nav">
@@ -74,24 +74,24 @@
 
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/about'/>">關於貝殼窩</a></li>
-						
-						
+
+
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">房型&訂房</a> 	
+						aria-haspopup="true" aria-expanded="false">房型&訂房</a>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 							<li class="nav-item"><a class="nav-link "
 								href="<c:url value='/public/room/allShow'/>">房型</a></li>
 
 							<li class="nav-item"><a class="nav-link "
 								href="<c:url value='/public/room/orderAllShow'/>">訂房</a></li>
-						</ul>	
+						</ul>
 					</li>
-						
-						
 
-					
+
+
+
 
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/facility/show'/>">休閒設施</a></li>

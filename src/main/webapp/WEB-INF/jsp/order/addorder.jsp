@@ -258,7 +258,7 @@
 				if(document.getElementById("checkinDate").value !== "" && document.getElementById("checkoutDate").value !== "") {
 					checkinDate = Date.parse(document.getElementById("checkinDate").value);
 					checkoutDate = Date.parse(document.getElementById("checkoutDate").value);
-					if(checkinDate > checkoutDate || checkinDate > nowDate) {
+					if(checkinDate > checkoutDate || checkinDate < nowDate) {
 						document.getElementById("feedbackMsg").innerHTML += `<br />退房日期不得早於訂房日期且訂房日期在今天(含)以前`;
 						//other method
 					}else {
