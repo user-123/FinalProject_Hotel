@@ -20,19 +20,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import idv.hotel.finalproject.model.LoginBean;
+import idv.hotel.finalproject.model.MessageBean;
 import idv.hotel.finalproject.service.LoginService;
 import idv.hotel.finalproject.service.MemberService;
+import idv.hotel.finalproject.service.MessageService;
 import idv.hotel.finalproject.validate.LoginValidator;
 
 @Controller
 public class BackstageRegisterController {
 	LoginService loginService;
 	MemberService memberService;
+	MessageService messageService;
 	ServletContext context;
 
-	public BackstageRegisterController(LoginService loginService,MemberService memberService, ServletContext context) {
+	public BackstageRegisterController(MessageService messageService,LoginService loginService,MemberService memberService, ServletContext context) {
 		super();
 		this.loginService = loginService;
+		this.messageService = messageService;
 		this.memberService = memberService;
 		this.context = context;
 	}
@@ -117,6 +121,19 @@ public class BackstageRegisterController {
 			Integer deletembId=loginService.findById(Integer.valueOf(deleteId)).getMember().getMemberId();
 			memberService.deleteMb(deletembId);
 		}
+		
+		List<MessageBean> meblist = messageService.findByLoginId(Integer.valueOf(deleteId));
+		if(meblist.size()!=0) {
+			for(int i=0;i<meblist.size();i++) {
+				meblist.get(i).setUserid(null);
+				messageService.insert(meblist.get(i));
+			}
+		}
+		
+		
+		
+		
+		
 		loginService.deleteLb(Integer.valueOf(deleteId));
 		return "";
 	}

@@ -41,6 +41,14 @@ public class OrderProductDetailsServiceImpl implements OrderProductDetailsServic
 		}
 		
 	}
+
+
+
+	@Override
+	public void deleteOrderProductDetailsBean(Integer id) {
+		orderProductDetailsDao.deleteOrderProductDetailsBean(id);
+		
+	}
 	
 
 	

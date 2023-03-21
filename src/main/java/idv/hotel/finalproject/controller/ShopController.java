@@ -30,21 +30,32 @@ import idv.hotel.finalproject.model.CategoryBean;
 import idv.hotel.finalproject.model.OrderProductBean;
 import idv.hotel.finalproject.model.ProductBean;
 import idv.hotel.finalproject.service.CategoryService;
+import idv.hotel.finalproject.service.OrderProductDetailsService;
 import idv.hotel.finalproject.service.OrderProductService;
 import idv.hotel.finalproject.service.ProductService;
+import idv.hotel.finalproject.service.ShoppingCarService;
 
 @Controller
 public class ShopController {
+	
 	private CategoryService categoryService;
+	
 	private ProductService productService;
+	
 	private OrderProductService orderProductService;
 	
+	private OrderProductDetailsService orderProductDetailsService;
 	
-	public ShopController(CategoryService categoryService, ProductService productService,OrderProductService orderProductService) {
+	private ShoppingCarService shoppingCarService;
+	
+	public ShopController(OrderProductDetailsService orderProductDetailsService,ShoppingCarService shoppingCarService,CategoryService categoryService, ProductService productService,OrderProductService orderProductService) {
 		super();
 		this.categoryService = categoryService;
 		this.productService = productService;
 		this.orderProductService = orderProductService;
+		this.orderProductDetailsService = orderProductDetailsService;
+		this.shoppingCarService = shoppingCarService;
+		
 	}
 
 
@@ -161,7 +172,9 @@ public class ShopController {
 	@DeleteMapping("/admin/deleteproduct")
 	@ResponseBody
 	public Page<ProductBean> delete(@RequestParam(name="c") Integer categoryId,@RequestParam(name="p") Integer pageNumber,@RequestParam(name="dId") Integer deleteId) {
-			productService.deletePb(deleteId);
+		shoppingCarService.deleteShoppingCarBean(deleteId);
+		orderProductDetailsService.deleteOrderProductDetailsBean(deleteId);
+		productService.deletePb(deleteId);
 		return categoryService.findByPage(categoryId,pageNumber);
 	}
 	

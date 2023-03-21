@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import idv.hotel.finalproject.model.LoginBean;
+import idv.hotel.finalproject.model.MemberBean;
 import idv.hotel.finalproject.model.MessageBean;
 
 public interface MessageDao extends JpaRepository<MessageBean, Integer> {
@@ -23,4 +25,9 @@ public interface MessageDao extends JpaRepository<MessageBean, Integer> {
 
 	@Query(value = " SELECT *" + "  FROM [HotelDB].[dbo].[messages] order by id desc", nativeQuery = true)
 	public List<MessageBean> findAll();
+	
+	@Query(value=" SELECT *" + "  FROM [HotelDB].[dbo].[messages] where FK_Logininfo_Id = ?1", nativeQuery = true)
+	public List<MessageBean> findByLoginId(Integer id);
+	
+	
 }

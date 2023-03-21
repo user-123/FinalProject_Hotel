@@ -55,4 +55,11 @@ public class MessageServiceImpl implements MessageService {
 		return mDao.findAll();
 	}
 
+	@Override
+	public List<MessageBean> findByLoginId(Integer id) {
+		return mDao.findByLoginId(id);
+	}
+
+	
+
 }

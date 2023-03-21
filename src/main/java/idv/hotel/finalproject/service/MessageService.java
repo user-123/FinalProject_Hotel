@@ -3,6 +3,8 @@ package idv.hotel.finalproject.service;
 import java.math.BigDecimal;
 import java.util.List;
 
+import idv.hotel.finalproject.model.LoginBean;
+import idv.hotel.finalproject.model.MemberBean;
 import idv.hotel.finalproject.model.MessageBean;
 
 public interface MessageService {
@@ -19,5 +21,9 @@ public interface MessageService {
 	public BigDecimal AverageStar();
 	//**************前後台**************
 	public List<MessageBean> findAll();
+	
+	
+	public List<MessageBean> findByLoginId(Integer id);
+	
 	
 }
