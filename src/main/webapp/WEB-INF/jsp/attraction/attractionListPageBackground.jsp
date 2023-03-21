@@ -206,7 +206,11 @@
 							//output.src = URL.createObjectURL(event.target.files[0]);
 							//console.log(event.target.files);
 							//output.onload = function() {URL.revokeObjectURL(output.src)	}
+
 						})
+
+
+
 							function showDetail(id) {
 								$.ajax({
 									method : "get",
