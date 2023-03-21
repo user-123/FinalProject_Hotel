@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import idv.hotel.finalproject.model.OrderProductBean;
 import idv.hotel.finalproject.model.OrderProductDetailsBean;
-import idv.hotel.finalproject.payment.integration.AllInOne;
+import ecpay.payment.integration.AllInOne;
 import idv.hotel.finalproject.service.LoginService;
 import idv.hotel.finalproject.service.OrderProductDetailsService;
 import idv.hotel.finalproject.service.OrderProductService;

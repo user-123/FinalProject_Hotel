@@ -13,8 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import idv.hotel.finalproject.payment.integration.AllInOne;
-import idv.hotel.finalproject.payment.integration.domain.AioCheckOutALL;
+import ecpay.payment.integration.AllInOne;
+import ecpay.payment.integration.domain.AioCheckOutALL;
 import idv.hotel.finalproject.service.LoginService;
 
 //本控制器用以在接到用戶端(瀏覽器)送出的結帳請求時，利用綠界API產生一個只具有<form>元素的頁面來回應給用戶端，
