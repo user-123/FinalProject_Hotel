@@ -68,7 +68,6 @@ public class RoomContoller {
 
 	@GetMapping("/public/room/orderShow")
 	public String findOrder(@RequestParam Integer Id, Model model) {
-
 		RoomBean room = rService.find(Id);
 		model.addAttribute("room", room);
 		return "room/orderShowRoom";
@@ -94,7 +93,6 @@ public class RoomContoller {
 
 	@GetMapping("/public/room/show")
 	public String find(@RequestParam Integer Id, Model model) {
-
 		RoomBean room = rService.find(Id);
 		model.addAttribute("room", room);
 		return "room/showRoom";

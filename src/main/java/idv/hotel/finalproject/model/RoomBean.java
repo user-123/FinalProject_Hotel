@@ -146,13 +146,13 @@ public class RoomBean {
 		this.roomPhotoBeans = roomPhotoBeans;
 	}
 
-	@Override
-	public String toString() {
-		return "RoomBean [Id=" + Id + ", roomId=" + roomId + ", name=" + name + ", type=" + type + ", price=" + price
-				+ ", roomNameIntroduction=" + roomNameIntroduction + ", introduce=" + introduce + ", equipment="
-				+ equipment + ", service=" + service + ", remark=" + remark + ", roomPhotoBeans=" + roomPhotoBeans
-				+ "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "RoomBean [Id=" + Id + ", roomId=" + roomId + ", name=" + name + ", type=" + type + ", price=" + price
+//				+ ", roomNameIntroduction=" + roomNameIntroduction + ", introduce=" + introduce + ", equipment="
+//				+ equipment + ", service=" + service + ", remark=" + remark + ", roomPhotoBeans=" + roomPhotoBeans
+//				+ "]";
+//	}
 
 	public String getRoomIdToString() {
 		return roomId.toString();

@@ -11,7 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>XX飯店</title>
+<title>貝殼窩飯店</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -52,28 +52,45 @@
 				aria-label="Toggle navigation">
 				<span></span> <span></span> <span></span>
 			</button>
-			<a class="navbar-brand text-brand" href="<c:url value='/'/>">XXX<span
-				class="color-b">大飯店</span></a>
-
+			<a class="navbar-brand text-brand" href="<c:url value='#'/>">貝殼窩<span
+				class="color-b">飯店</span></a>
+			
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
 				<ul class="navbar-nav">
 
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/'/>">首頁</a></li>
+					<li class="nav-item"><a class="nav-link active" href="${contextRoot}">首頁</a></li>
 
 					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/about'/>">關於XXX</a></li>
+						href="<c:url value='/public/about'/>">關於貝殼窩</a></li>
+						
+						
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
+						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">房型&訂房</a> 	
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<li class="nav-item"><a class="nav-link "
+								href="<c:url value='/public/room/allShow'/>">房型</a></li>
+
+							<li class="nav-item"><a class="nav-link "
+								href="<c:url value='/public/room/orderAllShow'/>">訂房</a></li>
+						</ul>	
+					</li>
+						
+						
+
+					
 
 					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/room/allShow'/>">房型</a></li>
-
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/room/orderAllShow'/>">訂房</a></li>
-
-					<li class="nav-item"><a class="nav-link " href="<c:url value='/public/facility/show'/>">休閒設施</a></li>
+						href="<c:url value='/public/facility/show'/>">休閒設施</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="#">周邊景點</a></li>
+
+					<li class="nav-item"><a class="nav-link " href="<c:url value='/public/shop' />">商城</a></li>
+
+					<li class="nav-item"><a class="nav-link "
+						href="<c:url value='/public/messages/all'/>">評價&回饋</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
@@ -87,6 +104,10 @@
 										href="<c:url value='/searchinfo' />">查詢資料</a></li>
 									<li><a class="dropdown-item"
 										href="<c:url value='/orders/history' />?accountId=${sessionScope.id}">歷史訂單</a></li>
+									<sec:authorize access="hasAuthority('admin')">
+										<li><a class="dropdown-item"
+											href="<c:url value="/admin/backstage"/>">後台</a></li>
+									</sec:authorize>
 									<li><a class="dropdown-item "
 										href="<c:url value='/logout'/>"> <input type="hidden"
 											name="${_csrf.parameterName}" value="${_csrf.token}" />登出
@@ -104,7 +125,6 @@
 						</c:choose></li>
 				</ul>
 			</div>
-
 		</div>
 	</nav>
 	<!-- End Header/Navbar -->
@@ -185,30 +205,44 @@
 										<button type="submit" class="btn btn-outline-info btn-sm">付款</button>
 									</form>
 									<!--********************onSubmit為form表單原生的屬性，判斷回傳之布林值決定下一步******************** -->
-												<form action="${contextRoot}/orders/delete" method="post"
-													onSubmit="return popup2();">
+									<form action="${contextRoot}/orders/delete" method="post"
+										onSubmit="return showConfirmation()">
+										<input type="hidden" name="orderid" value="${information.orderid}" />
+										<input type="hidden" name="userId"
+											value="${information.userid.accountId}" /> <input type="hidden"
+											name="_method" value="delete" /> <input type="submit"
+											class="btn btn-outline-danger btn-sm" value="刪除">
 
-													<input type="hidden" name="orderid"
-														value="${information.orderid}" /> <input type="hidden"
-														name="userId" value="${information.userid.accountId}" /> <input
-														type="hidden" name="_method" value="delete" /> <input
-														type="submit" class="btn btn-outline-danger btn-sm"
-														value="刪除">
+										<!--********************刪除前用來再次確認******************** -->
 
-													<!--********************刪除前用來做再次確認的範本******************** -->
+										<script>
+										function showConfirmation() {
+											  Swal.fire({
+											    title: '您確定要刪除嗎?',
+											    text: "",
+											    icon: 'warning',
+											    showCancelButton: true,
+											    confirmButtonColor: '#d33',
+											    cancelButtonColor: '#3085d6',
+											    confirmButtonText: '刪除',
+											    cancelButtonText: '取消' 
+											  }).then((result) => {
+											    if (result.isConfirmed) {
+											      Swal.fire(
+											        '刪除成功',
+											        '',
+											        'success'
+											      ).then(() => {
+													// 這個jsp的forms[0]是付款按鈕
+													document.forms[1].submit(); // 提交表单
+													});
+												 }
+											   });
+											   return false; // 防止表单提交
+										 }
 
-													<script>
-														function popup2() {
-															if (confirm('您確定要刪除嗎') == true) {
-																//作刪除的動作(送出表單)
-																return true;
-															} else {
-																//返還history.jsp(當沒發生過)
-																return false;
-															}
-														};
-													</script>
-												</form>
+                                                             </script>
+									</form>
 								</div>
 							</div>
 						</div>
@@ -261,5 +295,8 @@
 
 	<!-- Template Main JS File -->
 	<script src='<c:url value="/assets/js/main.js"/>'></script>
+	
+	<!-- sweetalert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

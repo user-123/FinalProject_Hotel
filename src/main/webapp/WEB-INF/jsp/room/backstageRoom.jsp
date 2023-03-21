@@ -1,5 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form"   uri="http://www.springframework.org/tags/form"  %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +13,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>XXX飯店管理系統</title>
+<title>貝殼窩飯店管理系統</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -60,38 +66,51 @@
 				aria-label="Toggle navigation">
 				<span></span> <span></span> <span></span>
 			</button>
-			<a class="navbar-brand text-brand" href="<c:url value='/admin/backstage' />"><span
-				class="color-b">XXX飯店管理系統</span></a>
+			<a class="navbar-brand text-brand"
+				href="<c:url value='/admin/backstage' />">貝殼窩
+				<span class="color-b">飯店管理系統</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
 				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/backstage'/>">基本管理</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="#">會員管理</a></li>
 
-					<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">訂單管理</a>
+
+					<li class="nav-item"><a class="nav-link active" href="${contextRoot}/admin/backstage">基本管理</a></li>
+
+					<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/backstage/member' />">會員管理</a></li>
+
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+						data-bs-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">訂單管理</a>
+
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/findall' />">訂單一覽</a></li>
 							<li><a class="dropdown-item"
-								href="<c:url value='/admin/orders/byuserid' />">用會員ID查詢</a></li>
+								href="<c:url value='/admin/orders/byuserid' />">用會員名稱查詢</a></li>
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/byorderid' />">用訂單編號查詢</a></li>
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/byorderdate' />">用下訂日期查詢</a></li>
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/byroomid' />">用房型查詢</a></li>
-						</ul>
-					</li>
+						</ul></li>
 
-					<li class="nav-item"><a class="nav-link active" href="<c:url value='/admin/room/backstage' />">房型管理</a></li>
+
+
+					<li class="nav-item"><a class="nav-link "
+						href="<c:url value="/admin/room/backstage"/>">房型管理</a></li>
+
 
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/admin/facility/showBacksatge'/>">設施管理</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="#">景點管理</a></li>
 
+					<li class="nav-item"><a class="nav-link"
+						href="<c:url value='/admin/messages/backendall' />">評價管理</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"

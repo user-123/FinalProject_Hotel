@@ -12,7 +12,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="login_info",uniqueConstraints = @UniqueConstraint(name = "unique_email", columnNames = "email"))

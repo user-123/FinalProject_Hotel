@@ -56,7 +56,7 @@ public class PaymentContoller {
 			OrderListBean bean = oService.findId(Id);
 			System.out.println(bean);
 			bean.setPaid("已付款");
-			oService.insert(bean);
+			oService.insertB(bean);
 		} else {
 			model.addAttribute("gree", "付款失敗");
 		}

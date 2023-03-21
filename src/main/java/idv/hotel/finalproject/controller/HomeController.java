@@ -32,12 +32,13 @@ import idv.hotel.finalproject.service.MemberService;
 public class HomeController {
 	@Autowired
 	HomeService hService;
-
+	@Autowired
 	LoginService loginService;
+	@Autowired
 	MemberService memberService;
+	@Autowired
 	ServletContext context;
 
-	@Autowired
 	public HomeController(MemberService memberService, LoginService loginService, ServletContext context) {
 		super();
 		this.loginService = loginService;
@@ -149,11 +150,7 @@ public class HomeController {
 		return "about";
 	}
 
-	@GetMapping("/public/index")
-	public String index() {
-		return "index";
-	}
-	
+
 	
 	@GetMapping("/admin/backstage")
 	public String backstage(Model model) {

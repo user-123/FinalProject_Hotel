@@ -47,7 +47,7 @@ public class SecurityConfig {
 //		http.csrf().ignoringAntMatchers("/");
 
 		http.authorizeHttpRequests()
-				.antMatchers("/public/**", "/", "/javascript/**", "/loginpage", "/assets/**","/uploadProduct/**","/uploadDir/**","/images/**","/roomId/**").permitAll()
+				.antMatchers("/public/**", "/", "/javascript/**", "/loginpage", "/assets/**","/uploadProduct/**","/uploadDir/**","/images/**","/roomId/**","/fonts/**").permitAll()
 				.antMatchers("/admin/**").hasAuthority("admin").anyRequest().authenticated();
 
 		// 權限判斷

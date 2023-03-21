@@ -6,9 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class PageController {
 	
-	//@GetMapping("/")
-	//public String home() {
-	//	return "home";
-	//}
+	@GetMapping("/public/test")
+	public String test111() {
+		return "test/navbar";
+	}
+	@GetMapping("/public/test2")
+	public String test11111() {
+		return "test/navbar2";
+	}
 	
 }
