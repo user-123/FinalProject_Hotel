@@ -170,8 +170,8 @@
 									<div class="col-6 col-sm-6">
 									<br />
 										${status.index+1}.
-										<div class="justify-content-center">
-											<img src="<c:url value='/attractionPhoto/${info.attractionPhotoPath}'/>" width="512" class="m-1 border rounded" />
+										<div class="justify-content-center" style="overflow: hidden;width: 512px;height: 384px;">
+											<img src="<c:url value='/attractionPhoto/${info.attractionPhotoPath}'/>" style="width: 100%;height: 100%;" class="m-1 border rounded" />
 										</div>
 										<!--
 										<div class="zoomImage" style="background-image:url(<c:url value='/uploadDir/a0.jpg' />)">${status.index+1}.</div>

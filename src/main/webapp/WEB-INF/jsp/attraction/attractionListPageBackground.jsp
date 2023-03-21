@@ -163,8 +163,8 @@
 										<div class="col-6 col-sm-6 w-50" id="div${info.attractionId}">
 										<br />
 											<!-- <span id="span${info.attractionId}">${status.index+1}.</span> -->
-											<div class="justify-content-center w-100">
-												<img src="<c:url value='/attractionPhoto/${info.attractionPhotoPath}'/>" height="320" class="object-fit-contain border rounded" />
+											<div class="justify-content-center w-100" style="overflow: hidden;width: 512px;height: 384px;">
+												<img src="<c:url value='/attractionPhoto/${info.attractionPhotoPath}'/>" style="width: 100%;height: 100%;" class="object-fit-contain border rounded" />
 											</div>
 											<!--
 											<div class="zoomImage" style="background-image:url(<c:url value='/uploadDir/a0.jpg' />)">${status.index+1}.</div>
@@ -394,8 +394,8 @@
 								document.getElementById(`div\${id}`).innerHTML = `
 									<br />
 									<!-- <span id="span\${id}">${status.index+1}.</span> -->
-									<div class="justify-content-center">
-										<img src="<c:url value='/attractionPhoto/' />\${aPhotoPath}" width="512" height="384" class="m-1 border rounded" />
+									<div class="justify-content-center w-100" style="overflow: hidden;width: 512px;height: 384px;">
+										<img src="<c:url value='/attractionPhoto/' />\${aPhotoPath}" style="width: 100%;height: 100%;" class="object-fit-contain border rounded" />
 									</div>
 									<!--
 									<div class="zoomImage" style="background-image:url(<c:url value='/uploadDir/a0.jpg' />)">${status.index+1}.</div>
@@ -423,8 +423,8 @@
 								document.getElementById(`aList`).innerHTML = `
 									<div class="col-6 col-sm-6" id="div\${aId}">
 										<br />
-										<div class="justify-content-center">
-											<img src="<c:url value='/attractionPhoto/' />\${aPhotoPath}" width="512" height="384" class="m-1 border rounded" />
+										<div class="justify-content-center w-100" style="overflow: hidden;width: 512px;height: 384px;">
+											<img src="<c:url value='/attractionPhoto/' />\${aPhotoPath}" style="width: 100%;height: 100%;" class="object-fit-contain border rounded" />
 										</div>
 										<div class="row justify-content-start">
 											<div class="col-10 col-sm-10">
