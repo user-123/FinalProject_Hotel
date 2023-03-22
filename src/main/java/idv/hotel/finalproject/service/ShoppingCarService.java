@@ -15,4 +15,6 @@ public interface ShoppingCarService {
 	void deleteCart(Integer cartId);
 
 	void deleteShoppingCarBean(Integer id);
+	
+	void deleteShoppingCarLoginBean(Integer id);
 }

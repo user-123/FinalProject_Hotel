@@ -16,4 +16,10 @@ public interface ShoppingCarDao extends JpaRepository<ShoppingCarBean, Integer> 
 	@Modifying
 	@Query(value="DELETE FROM ShoppingCar WHERE fk_product = ?1",nativeQuery=true)
 	public void deleteShoppingCarBean(Integer id);
+	
+	@Modifying
+	@Query(value="DELETE FROM ShoppingCar WHERE shoppingCarAccountId = ?1",nativeQuery=true)
+	public void deleteShoppingCarLoginBean(Integer id);
+	
+	
 }

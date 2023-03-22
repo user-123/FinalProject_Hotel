@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import idv.hotel.finalproject.model.LoginBean;
 import idv.hotel.finalproject.model.OrderDetailBean;
 import idv.hotel.finalproject.model.OrderListBean;
 
@@ -81,4 +82,8 @@ public interface OrderService {
 
 	//2.成立訂單，完成寫入DB，回傳true
 	public Set<OrderDetailBean> orderCreate(OrderListBean olBean);
+	
+	
+	
+	public void setLoginBeanFkNull(LoginBean lb);
 }

@@ -182,7 +182,7 @@ public class ShopController {
 	
 	@GetMapping("/myHistoryOrder")
 	public String myHistoryOrder(Model model) {
-		List<OrderProductBean> orderList = orderProductService.hitoryOrder();
+		List<OrderProductBean> orderList = orderProductService.historyOrder();
 		ArrayList<String> orderDateList = new ArrayList<>();
 		for(int i=0;i<orderList.size();i++) {
 			orderDateList.add(orderList.get(i).getBuyTime().toString());

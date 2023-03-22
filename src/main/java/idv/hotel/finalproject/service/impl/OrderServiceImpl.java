@@ -20,6 +20,7 @@ import idv.hotel.finalproject.dao.OrderListDao;
 import idv.hotel.finalproject.model.LoginBean;
 import idv.hotel.finalproject.model.OrderDetailBean;
 import idv.hotel.finalproject.model.OrderListBean;
+import idv.hotel.finalproject.model.OrderProductBean;
 import idv.hotel.finalproject.service.OrderService;
 
 @Transactional
@@ -294,6 +295,16 @@ public class OrderServiceImpl implements OrderService {
 		Optional<OrderListBean> orderListBean = olDao.findById(Id);
 
 		return orderListBean.get();
+	}
+
+	@Override
+	public void setLoginBeanFkNull(LoginBean lb) {
+		List<OrderListBean> olList = olDao.findByLoginBean(lb);
+		if(olList.size()!=0) {
+			for(int i=0;i<olList.size();i++) {
+				olList.get(i).setUserid(null);
+			}
+		}
 	}
 
 }

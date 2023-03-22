@@ -43,12 +43,23 @@ public class OrderProductServiceImpl implements OrderProductService{
 
 
 	@Override
-	public List<OrderProductBean> hitoryOrder() {
+	public List<OrderProductBean> historyOrder() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
 		Integer id = Integer.valueOf(loginDao.findIdByEmail(auth.getName()).toString());
 		LoginBean lb = loginDao.findById(id).get();
 		return orderProductDao.findByLoginBean(lb);
+	}
+	
+	
+	@Override
+	public void setLoginBeanFkNull(LoginBean lb) {
+		List<OrderProductBean> opbList = orderProductDao.findByLoginBean(lb);
+		if(opbList.size()!=0) {
+			for(int i=0;i<opbList.size();i++) {
+				opbList.get(i).setLoginOrder(null);
+			}
+		}
 	}
 	
 

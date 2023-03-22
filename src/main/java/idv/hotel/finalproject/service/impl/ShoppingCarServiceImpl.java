@@ -69,6 +69,15 @@ public class ShoppingCarServiceImpl implements ShoppingCarService{
 		
 	}
 
+
+
+
+	@Override
+	public void deleteShoppingCarLoginBean(Integer id) {
+		shoppingCarDao.deleteShoppingCarLoginBean(id);
+		
+	}
+
 	
 	
 	

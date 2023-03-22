@@ -24,6 +24,9 @@ import idv.hotel.finalproject.model.MessageBean;
 import idv.hotel.finalproject.service.LoginService;
 import idv.hotel.finalproject.service.MemberService;
 import idv.hotel.finalproject.service.MessageService;
+import idv.hotel.finalproject.service.OrderProductService;
+import idv.hotel.finalproject.service.OrderService;
+import idv.hotel.finalproject.service.ShoppingCarService;
 import idv.hotel.finalproject.validate.LoginValidator;
 
 @Controller
@@ -31,13 +34,19 @@ public class BackstageRegisterController {
 	LoginService loginService;
 	MemberService memberService;
 	MessageService messageService;
+	ShoppingCarService shoppingCarService;
+	OrderProductService orderProductService;
+	OrderService orderService;
 	ServletContext context;
 
-	public BackstageRegisterController(MessageService messageService,LoginService loginService,MemberService memberService, ServletContext context) {
+	public BackstageRegisterController(OrderService orderService,OrderProductService orderProductService,ShoppingCarService shoppingCarService,MessageService messageService,LoginService loginService,MemberService memberService, ServletContext context) {
 		super();
 		this.loginService = loginService;
 		this.messageService = messageService;
 		this.memberService = memberService;
+		this.shoppingCarService = shoppingCarService;
+		this.orderProductService = orderProductService;
+		this.orderService = orderService;
 		this.context = context;
 	}
 
@@ -130,9 +139,12 @@ public class BackstageRegisterController {
 			}
 		}
 		
+		shoppingCarService.deleteShoppingCarLoginBean(Integer.valueOf(deleteId));
 		
 		
-		
+		LoginBean lb = loginService.findById(Integer.valueOf(deleteId));
+		orderProductService.setLoginBeanFkNull(lb);
+		orderService.setLoginBeanFkNull(lb);
 		
 		loginService.deleteLb(Integer.valueOf(deleteId));
 		return "";

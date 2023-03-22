@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import idv.hotel.finalproject.model.LoginBean;
 import idv.hotel.finalproject.model.OrderListBean;
+import idv.hotel.finalproject.model.OrderProductBean;
 
 public interface OrderListDao extends JpaRepository<OrderListBean, Integer> {
 
@@ -53,4 +54,16 @@ public interface OrderListDao extends JpaRepository<OrderListBean, Integer> {
 	@Modifying
 	@Query(value = "delete from [dbo].[Order_List] where orderid =?1", nativeQuery=true)
 	public void deleteDataByOrderId(String orderId);
+	
+	
+	
+	
+	@Query(value="from OrderListBean where userid = ?1")
+	public List<OrderListBean> findByLoginBean(LoginBean lb);
+	
+	
+	
+	
+	
+	
 }
