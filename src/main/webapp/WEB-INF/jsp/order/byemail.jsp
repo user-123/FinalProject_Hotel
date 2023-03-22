@@ -81,11 +81,11 @@
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/findall' />">訂單一覽</a></li>
-							<li><a class="dropdown-item"
-								href="<c:url value='/admin/orders/byuserid' />">用會員ID查詢</a></li>
+							<li><a class="dropdown-item active"
+								href="<c:url value='/admin/orders/byemail' />">用Email查詢</a></li>
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/byorderid' />">用訂單編號查詢</a></li>
-							<li><a class="dropdown-item active"
+							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/byorderdate' />">用下訂日期查詢</a></li>
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/byroomid' />">用房型查詢</a></li>
@@ -139,27 +139,30 @@
 							<h1 class="title-single">訂單一覽</h1>
 							<div class="form-comments">
 								<div class="title-box-d">
-									<h5 class="title-d">用下訂日期查詢</h5>
+									<h5 class="title-d">用Email查詢</h5>
 								</div>
-								<form:form action="${contextRoot}/admin/orders/databyorderdate"
-									modelAttribute="orderdate">
-									<form:input path="orderdate" type="date"
-										class="form-control form-control-lg form-control-a"
-										required="true" />
+
+								<form:form action="${contextRoot}/admin/orders/databyemail"
+									modelAttribute="email">
+									<div class="input-group">
+										<form:input class="form-control" path="email"/>
+									</div>
 									<br />
 									<div style="text-align: right">
-										<button type="submit" class="btn btn-primary">送出</button>
+										<button type="submit" class="btn btn-primary"
+										>送出</button>
 									</div>
 								</form:form>
 								<c:choose>
 									<c:when test="${datas.isEmpty()&&searched==true}">
-										<h3>目前尚無訂單</h3>
+									<h3>目前尚無訂單</h3>
 									</c:when>
 									<c:otherwise>
+									
 										<c:forEach var="datas" items="${datas}">
 											<label hidden="hidden">${datas.id}</label>
 											<div class="row">
-												<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow">
+												<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow" style="background-color:	#ECF5FF">
 													<div class="col-md-12 mb-3">
 														<div class="form-group">
 															訂單成立時間:
@@ -201,21 +204,22 @@
 														<form action="${contextRoot}/admin/orders/update"
 															method="get">
 															<input type="hidden" name="id" value="${datas.id}" /> <input
-																type="hidden" name="jsp" value="byOrderdate" /> <input
-																type="hidden" name="orderdate"
-																value="${datas.orderdate}" /><input type="hidden"
-																name="searchid" value="${datas.orderdate}" />
-																 <input type="submit"
+																type="hidden" name="jsp" value="byEmail" /> <input
+																type="hidden" name="email"
+																value="${datas.userid.email}" /> <input type="hidden"
+																name="searchid" value="${datas.userid.email}" />
+																<input type="submit"
 																class="btn btn-outline-info btn-sm" value="編輯">
 														</form>
 														<!--********************[刪除按鈕]******************** -->
 														<!--********************onSubmit為form表單原生的屬性，判斷回傳之布林值決定下一步******************** -->
 														<form action="${contextRoot}/admin/orders/backstagedel"
 															method="post" onSubmit="return showConfirmation()">
+
 															<input type="hidden" name="orderid"
 																value="${datas.orderid}" /> <input type="hidden"
-																name="jsp" value="byOrderdate" /> <input type="hidden"
-																name="searchid" value="${datas.orderdate}" /><input
+																name="jsp" value="byEmail" /> <input type="hidden"
+																name="searchid" value="${datas.userid.email}" /> <input
 																type="hidden" name="_method" value="delete" /> <input
 																type="submit" class="btn btn-outline-danger btn-sm"
 																value="刪除">
@@ -308,8 +312,8 @@
 
 	<!-- Template Main JS File -->
 	<script src='<c:url value="/assets/js/main.js"/>'></script>
-
-	<!-- sweetalert2 -->
+	
+		<!-- sweetalert2 -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 

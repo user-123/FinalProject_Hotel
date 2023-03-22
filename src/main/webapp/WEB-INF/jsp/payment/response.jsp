@@ -67,11 +67,19 @@
 				id="navbarDefault">
 				<ul class="navbar-nav">
 
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/'/>">首頁</a></li>
-
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/about'/>">關於貝殼窩</a></li>
+					<li class="nav-item"><a class="nav-link active" 
+					href="<c:url value='/'/>">首頁</a></li>
+						
+						<li class="nav-item dropdown"><a role="button"
+						class="nav-link dropdown-toggle" id="navbarDropdown" 
+						data-bs-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">關於貝殼窩</a>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<li><a class="dropdown-item"
+								href="<c:url value='/public/about' />">我們的理念</a></li>
+							<li><a class="dropdown-item"
+								href="<c:url value='/public/messages/all' />">評價&回饋</a></li>
+						</ul></li>
 
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/room/allShow'/>">房型</a></li>
@@ -114,7 +122,6 @@
 								</ul>
 							</c:otherwise>
 						</c:choose></li>
-
 				</ul>
 			</div>
 

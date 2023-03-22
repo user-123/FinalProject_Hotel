@@ -73,6 +73,7 @@ public class MessageController {
 	@DeleteMapping("/admin/messages/delete")
 	public String deleteMessage(@RequestParam Integer id) {
 		ms.deleteById(id);
+		System.out.println("----------------------------------------------id22222"+id);
 		return "redirect:/admin/messages/backendall";
 	}
 

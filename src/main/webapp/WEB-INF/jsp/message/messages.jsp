@@ -118,11 +118,19 @@ textarea {
 				id="navbarDefault">
 				<ul class="navbar-nav">
 
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/'/>">首頁</a></li>
-
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/about'/>">關於XXX</a></li>
+					<li class="nav-item"><a class="nav-link active" 
+					href="<c:url value='/'/>">首頁</a></li>
+						
+						<li class="nav-item dropdown"><a role="button"
+						class="nav-link dropdown-toggle" id="navbarDropdown" 
+						data-bs-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">關於貝殼窩</a>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<li><a class="dropdown-item"
+								href="<c:url value='/public/about' />">我們的理念</a></li>
+							<li><a class="dropdown-item"
+								href="<c:url value='/public/messages/all' />">評價&回饋</a></li>
+						</ul></li>
 
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/room/allShow'/>">房型</a></li>
@@ -133,9 +141,6 @@ textarea {
 					<li class="nav-item"><a class="nav-link " href="#">休閒設施</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="#">周邊景點</a></li>
-
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/messages/all'/>">評價&回饋</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
@@ -228,7 +233,7 @@ textarea {
 								<c:forEach var="datas" items="${datas}">
 									<label hidden="hidden">${datas.id}</label>
 									<div class="row">
-										<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow">
+										<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow" style="background-color:	#ECF5FF">
 											<div class="rating-stars block" id="another-rating">
 												<input type="hidden" readonly="readonly"
 													class="form-control rating-value"
@@ -254,15 +259,15 @@ textarea {
 
 
 											<div class="col-md-12 mb-3">
-												<div class="form-group">會員:${datas.userid.accountName}</div>
+												<div class="form-group" style="font-weight:bold">會員:${datas.userid.accountName}</div>
 											</div>
 											<div class="col-md-12 mb-3">
 												<div style="width: 700px;">
-													<div class="form-group">內容:${datas.usertext}</div>
+													<div class="form-group" style="font-weight:bold">內容:${datas.usertext}</div>
 												</div>
 											</div>
 											<div class="col-md-12 mb-3">
-												<div class="form-group">
+												<div class="form-group" style="font-weight:bold">
 													<fmt:formatDate pattern="yyyy-MM-dd ,a hh:mm:ss EEEE"
 														value="${datas.messagetime}" />
 												</div>

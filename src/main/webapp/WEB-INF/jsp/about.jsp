@@ -67,10 +67,19 @@
 				id="navbarDefault">
 				<ul class="navbar-nav">
 
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/'/>">首頁</a></li>
-
-					<li class="nav-item"><a class="nav-link active" href="#">關於貝殼窩</a></li>
+					<li class="nav-item"><a class="nav-link active" 
+					href="<c:url value='/'/>">首頁</a></li>
+						
+						<li class="nav-item dropdown"><a role="button"
+						class="nav-link dropdown-toggle" id="navbarDropdown" 
+						data-bs-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">關於貝殼窩</a>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<li><a class="dropdown-item"
+								href="<c:url value='/public/about' />">我們的理念</a></li>
+							<li><a class="dropdown-item"
+								href="<c:url value='/public/messages/all' />">評價&回饋</a></li>
+						</ul></li>
 
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/room/allShow'/>">房型</a></li>
@@ -81,10 +90,6 @@
 					<li class="nav-item"><a class="nav-link " href="#">休閒設施</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="#">周邊景點</a></li>
-
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/messages/all'/>">評價&回饋</a></li>
-
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
@@ -117,7 +122,6 @@
 								</ul>
 							</c:otherwise>
 						</c:choose></li>
-
 				</ul>
 			</div>
 
@@ -134,7 +138,7 @@
 				<div class="row">
 					<div class="col-md-12 col-lg-8">
 						<div class="title-single-box">
-							<h5 class="title-single">關於XXX</h5>
+							<h5 class="title-single">關於貝殼窩</h5>
 						</div>
 					</div>
 					<div class="col-md-12 col-lg-4">
@@ -143,7 +147,7 @@
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item"><a href="<c:url value='/'/>">首頁</a></li>
 								<li class="breadcrumb-item active" aria-current="page">
-									關於XXX</li>
+									我們的理念</li>
 							</ol>
 						</nav>
 					</div>
@@ -171,7 +175,7 @@
 							<div class="col-md-6 col-lg-5 section-md-t3">
 								<div class="title-box-d">
 									<h3 class="title-d">
-										<span class="color-d">XXX</span>
+										<span>我們的理念</span>
 									</h3>
 								</div>
 								<p class="color-text-a">在時尚、繁華、科技的台北市，和璞飯店秉持著『細心洞察客人需求的專業服務，恰到好處的巧思與用心，創造隨處可見的完善軟硬體設計』為理念，企圖成為引領旅店潮流之箇中翹楚。

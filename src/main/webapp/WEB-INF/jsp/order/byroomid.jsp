@@ -81,13 +81,13 @@
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/findall' />">訂單一覽</a></li>
-							<li><a class="dropdown-item active"
-								href="<c:url value='/admin/orders/byuserid' />">用會員名稱查詢</a></li>
+							<li><a class="dropdown-item"
+								href="<c:url value='/admin/orders/byemail' />">用Email查詢</a></li>
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/byorderid' />">用訂單編號查詢</a></li>
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/byorderdate' />">用下訂日期查詢</a></li>
-							<li><a class="dropdown-item"
+							<li><a class="dropdown-item active"
 								href="<c:url value='/admin/orders/byroomid' />">用房型查詢</a></li>
 						</ul></li>
 
@@ -129,7 +129,6 @@
 		</div>
 	</nav>
 	<!-- End Header/Navbar -->
-
 	<main id="main">
 		<section class="intro-single">
 			<div class="container">
@@ -139,31 +138,28 @@
 							<h1 class="title-single">訂單一覽</h1>
 							<div class="form-comments">
 								<div class="title-box-d">
-									<h5 class="title-d">用會員名稱查詢</h5>
+									<h5 class="title-d">用房型查詢</h5>
 								</div>
-
-								<form:form action="${contextRoot}/admin/orders/databyuserid"
-									modelAttribute="userid">
+								<form:form action="${contextRoot}/admin/orders/databyroomid"
+									modelAttribute="roomid">
 									<div class="input-group">
-										<form:input path="userid" class="form-control" rows=""
+										<form:input path="roomid" class="form-control" rows=""
 											cols="" />
 									</div>
 									<br />
 									<div style="text-align: right">
-										<button type="submit" class="btn btn-primary"
-										>送出</button>
+										<button type="submit" class="btn btn-primary">送出</button>
 									</div>
 								</form:form>
 								<c:choose>
 									<c:when test="${datas.isEmpty()&&searched==true}">
-									<h3>目前尚無訂單</h3>
+										<h3>目前尚無訂單</h3>
 									</c:when>
 									<c:otherwise>
-									
 										<c:forEach var="datas" items="${datas}">
 											<label hidden="hidden">${datas.id}</label>
 											<div class="row">
-												<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow">
+												<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow" style="background-color:	#ECF5FF">
 													<div class="col-md-12 mb-3">
 														<div class="form-group">
 															訂單成立時間:
@@ -205,10 +201,9 @@
 														<form action="${contextRoot}/admin/orders/update"
 															method="get">
 															<input type="hidden" name="id" value="${datas.id}" /> <input
-																type="hidden" name="jsp" value="byUserid" /> <input
-																type="hidden" name="userid"
-																value="${datas.userid.accountName}" /> <input type="hidden"
-																name="searchid" value="${datas.userid.accountName}" />
+																type="hidden" name="jsp" value="byRoomid" /> 
+																 <input type="hidden"
+																name="searchid" value="${datas.roomid.roomId}" /> 
 																<input type="submit"
 																class="btn btn-outline-info btn-sm" value="編輯">
 														</form>
@@ -219,14 +214,12 @@
 
 															<input type="hidden" name="orderid"
 																value="${datas.orderid}" /> <input type="hidden"
-																name="jsp" value="byUserid" /> <input type="hidden"
-																name="searchid" value="${datas.userid.accountName}" /> <input
+																name="jsp" value="byRoomid" /> <input type="hidden"
+																name="searchid" value="${datas.roomid.roomId}" /> <input
 																type="hidden" name="_method" value="delete" /> <input
 																type="submit" class="btn btn-outline-danger btn-sm"
 																value="刪除">
-
 															<!--********************刪除前用來再次確認******************** -->
-
 															<script>
 															function showConfirmation() {
 																  Swal.fire({
@@ -270,8 +263,6 @@
 			</div>
 		</section>
 	</main>
-
-	<!-- ======= Footer ======= -->
 
 	<footer>
 		<div class="container">

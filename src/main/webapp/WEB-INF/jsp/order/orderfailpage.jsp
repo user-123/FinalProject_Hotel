@@ -53,17 +53,25 @@
 				<span></span> <span></span> <span></span>
 			</button>
 			<a class="navbar-brand text-brand" href="<c:url value='/'/>">貝殼窩<span
-				class="color-b">大飯店</span></a>
+				class="color-b">飯店</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
 				<ul class="navbar-nav">
 
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/'/>">首頁</a></li>
-
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/about'/>">關於貝殼窩</a></li>
+					<li class="nav-item"><a class="nav-link active" 
+					href="<c:url value='/'/>">首頁</a></li>
+						
+						<li class="nav-item dropdown"><a role="button"
+						class="nav-link dropdown-toggle" id="navbarDropdown" 
+						data-bs-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">關於貝殼窩</a>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<li><a class="dropdown-item"
+								href="<c:url value='/public/about' />">我們的理念</a></li>
+							<li><a class="dropdown-item"
+								href="<c:url value='/public/messages/all' />">評價&回饋</a></li>
+						</ul></li>
 
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/room/allShow'/>">房型</a></li>
@@ -87,6 +95,10 @@
 										href="<c:url value='/searchinfo' />">查詢資料</a></li>
 									<li><a class="dropdown-item"
 										href="<c:url value='/orders/history' />?accountId=${sessionScope.id}">歷史訂單</a></li>
+									<sec:authorize access="hasAuthority('admin')">
+										<li><a class="dropdown-item"
+											href="<c:url value="/admin/backstage"/>">後台</a></li>
+									</sec:authorize>
 									<li><a class="dropdown-item "
 										href="<c:url value='/logout'/>"> <input type="hidden"
 											name="${_csrf.parameterName}" value="${_csrf.token}" />登出
@@ -114,7 +126,11 @@
 				<div class="row">
 					<div class="col-md-12 col-lg-8">
 						<div class="title-single-box">
+							<h1 class="title-single" style="color:#FFFFFF">預訂失敗，請再重新操作</h1>
 							<h1 class="title-single">預訂失敗，請再重新操作</h1>
+							<h1 class="title-single" style="color:#FFFFFF">預訂失敗，請再重新操作</h1>
+							<h1 class="title-single" style="color:#FFFFFF">預訂失敗，請再重新操作</h1>
+							<h1 class="title-single" style="color:#FFFFFF">預訂失敗，請再重新操作</h1>					
 
 						</div>
 					</div>

@@ -53,17 +53,25 @@
 				<span></span> <span></span> <span></span>
 			</button>
 			<a class="navbar-brand text-brand" href="<c:url value='/'/>">貝殼窩<span
-				class="color-b">大飯店</span></a>
+				class="color-b">飯店</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
 				<ul class="navbar-nav">
 
-					<li class="nav-item"><a class="nav-link "
+					<li class="nav-item"><a class="nav-link active"
 						href="<c:url value='/'/>">首頁</a></li>
 
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/about'/>">關於貝殼窩</a></li>
+					<li class="nav-item dropdown"><a role="button"
+						class="nav-link dropdown-toggle" id="navbarDropdown"
+						data-bs-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">關於貝殼窩</a>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<li><a class="dropdown-item"
+								href="<c:url value='/public/about' />">我們的理念</a></li>
+							<li><a class="dropdown-item"
+								href="<c:url value='/public/messages/all' />">評價&回饋</a></li>
+						</ul></li>
 
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/room/allShow'/>">房型</a></li>
@@ -75,9 +83,6 @@
 
 					<li class="nav-item"><a class="nav-link " href="#">周邊景點</a></li>
 
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/messages/all'/>">評價&回饋</a></li>
-						
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
@@ -128,81 +133,87 @@
 									<h3 class="title-d">訂單明細</h3>
 								</div>
 								<div class="row">
-									<div class="col-md-12 mb-3">
-										<div class="form-group">
-											訂單成立時間:
-											<fmt:formatDate pattern="yyyy-MM-dd ,a hh:mm:ss EEEE"
-												value="${information.orderdate}" />
-										</div>
-									</div>
-									<div class="col-md-12 mb-3">
-										<div class="form-group">訂單編號:${information.orderid}</div>
-									</div>
-									<div class="col-md-6 mb-3">
-										<div class="form-group">
-											會員:${information.userid.accountName}</div>
-									</div>
-									<div class="col-md-6 mb-3">
-										<div class="form-group">房名:${information.roomid.name}</div>
-									</div>
-									<div class="col-md-6 mb-3">
-										<div class="form-group">
-											入住日期:
-											<fmt:formatDate pattern="yyyy-MM-dd"
-												value="${information.checkindate}" />
-										</div>
-									</div>
-									<div class="col-md-6 mb-3">
-										<div class="form-group">
-											退房日期:
-											<fmt:formatDate pattern="yyyy-MM-dd"
-												value="${information.checkoutdate}" />
-										</div>
-									</div>
-									<div class="col-md-12 mb-3">
-										<div class="form-group">備註:${information.message}</div>
-									</div>
-									<div class="col-md-12 mb-3">
-										<div class="form-group">金額:${information.roomid.price}</div>
-									</div>
-									<div class="col-md-12 mb-3">
-										<div class="form-group">付款狀態:${information.paid}</div>
-									</div>
-									<form id="idFormAioCheckOut" method="post"
-										action="<c:url value="/ECPay"/>">
-										<div style="display: none">
-											<div>
-												<input type="text" name="id" value="${information.id}">
-
-												<label class="col-xs-12">房名:</label> <input type="text"
-													name="ItemName" value="${information.roomid.name}"
-													class="form-control" readonly />
-											</div>
-											<div>
-												<label class="col-xs-12">房型說明: </label> <input
-													name="TradeDesc" class=" form-control"
-													value="${information.roomid.introduce}" readonly />
-											</div>
-											<div>
-												<label class="col-xs-12">金額:</label> <input type="text"
-													name="TotalAmount" value="${information.roomid.price}"
-													class="form-control" readonly />
+									<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow"
+										style="background-color: #ECF5FF">
+										<div class="col-md-12 mb-3">
+											<div class="form-group">
+												訂單成立時間:
+												<fmt:formatDate pattern="yyyy-MM-dd ,a hh:mm:ss EEEE"
+													value="${information.orderdate}" />
 											</div>
 										</div>
-										<button type="submit" class="btn btn-outline-info btn-sm">付款</button>
-									</form>
-									<!--********************onSubmit為form表單原生的屬性，判斷回傳之布林值決定下一步******************** -->
-									<form action="${contextRoot}/orders/delete" method="post"
-										onSubmit="return showConfirmation()">
-										<input type="hidden" name="orderid" value="${information.orderid}" />
-										<input type="hidden" name="userId"
-											value="${information.userid.accountId}" /> <input type="hidden"
-											name="_method" value="delete" /> <input type="submit"
-											class="btn btn-outline-danger btn-sm" value="刪除">
+										<div class="col-md-12 mb-3">
+											<div class="form-group">訂單編號:${information.orderid}</div>
+										</div>
+										<div class="col-md-6 mb-3">
+											<div class="form-group">
+												會員:${information.userid.accountName}</div>
+										</div>
+										<div class="col-md-6 mb-3">
+											<div class="form-group">房名:${information.roomid.name}</div>
+										</div>
+										<div class="col-md-6 mb-3">
+											<div class="form-group">
+												入住日期:
+												<fmt:formatDate pattern="yyyy-MM-dd"
+													value="${information.checkindate}" />
+											</div>
+										</div>
+										<div class="col-md-6 mb-3">
+											<div class="form-group">
+												退房日期:
+												<fmt:formatDate pattern="yyyy-MM-dd"
+													value="${information.checkoutdate}" />
+											</div>
+										</div>
+										<div class="col-md-12 mb-3">
+											<div class="form-group">備註:${information.message}</div>
+										</div>
+										<div class="col-md-12 mb-3">
+											<div class="form-group">金額:${information.roomid.price}</div>
+										</div>
+										<div class="col-md-12 mb-3">
+											<div class="form-group">付款狀態:${information.paid}</div>
+										</div>
+										<form id="idFormAioCheckOut" method="post"
+											action="<c:url value="/ECPay"/>">
+											<div style="display: none">
+												<div>
+													<input type="text" name="id" value="${information.id}">
 
-										<!--********************刪除前用來再次確認******************** -->
+													<label class="col-xs-12">房名:</label> <input type="text"
+														name="ItemName" value="${information.roomid.name}"
+														class="form-control" readonly />
+												</div>
+												<div>
+													<label class="col-xs-12">房型說明: </label> <input
+														name="TradeDesc" class=" form-control"
+														value="${information.roomid.introduce}" readonly />
+												</div>
+												<div>
+													<label class="col-xs-12">金額:</label> <input type="text"
+														name="TotalAmount" value="${information.roomid.price}"
+														class="form-control" readonly />
+												</div>
+											</div>
+											<div class="col-md-12 mb-3" style="text-align: right">
+												<button type="submit" class="btn btn-outline-info btn-sm">付款</button>
+											</div>
+										</form>
+										<!--********************onSubmit為form表單原生的屬性，判斷回傳之布林值決定下一步******************** -->
+										<div class="col-md-12 mb-3" style="text-align: right">
+											<form action="${contextRoot}/orders/delete" method="post"
+												onSubmit="return showConfirmation()">
+												<input type="hidden" name="orderid"
+													value="${information.orderid}" /> <input type="hidden"
+													name="userId" value="${information.userid.accountId}" /> <input
+													type="hidden" name="_method" value="delete" /> <input
+													type="submit" class="btn btn-outline-danger btn-sm" 
+													value="刪除" style="text-align: right">
 
-										<script>
+												<!--********************刪除前用來再次確認******************** -->
+
+												<script>
 										function showConfirmation() {
 											  Swal.fire({
 											    title: '您確定要刪除嗎?',
@@ -229,7 +240,9 @@
 										 }
 
                                                              </script>
-									</form>
+											</form>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -282,7 +295,7 @@
 
 	<!-- Template Main JS File -->
 	<script src='<c:url value="/assets/js/main.js"/>'></script>
-	
+
 	<!-- sweetalert2 -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>

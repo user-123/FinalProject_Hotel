@@ -71,7 +71,7 @@ public class MemberServiceImpl implements MemberService {
 		memberDao.save(mb);
 		String photo="";
 		if(part == null  || part.getSize() == 0 ) {
-			photo = String.format("<div><img src='%s' width='80' class='m-1 border rounded' /></div>",
+			photo = String.format("<div><img src='%s' width='375' class='m-1 border rounded' /></div>",
         			"/main/images/default2.jpg");	
 			
 		}
@@ -87,7 +87,7 @@ public class MemberServiceImpl implements MemberService {
 			
         	//Files.copy(part.getInputStream(), outputPath,StandardCopyOption.REPLACE_EXISTING); 	        	
         	Files.write(outputPath, uploadedFile.getBytes());	        	
-        	photo = String.format("<div><img src='%s/%s' width='80' class='m-1 border rounded' /></div>", 
+        	photo = String.format("<div><img src='%s/%s' width='375' class='m-1 border rounded' /></div>", 
 	        		 request.getContextPath()+uploadDir, filenamesql);
 //			}catch(IOException ex) {
 //				photo = String.format("<div><img src='%s' width='80' class='m-1 border rounded' /></div>",
@@ -103,10 +103,10 @@ public class MemberServiceImpl implements MemberService {
 		MemberBean mb = memberDao.findByAccountId(loginDao.findById((Integer)session.getAttribute("id")).get());
 		String photo;
 		if(mb.getPhotoPath().equals("")) 
-			photo = String.format("<div><img src='%s' width='80' class='m-1 border rounded' /></div>",
+			photo = String.format("<div><img src='%s' width='375' class='m-1 border rounded' /></div>",
         			"/main/images/default2.jpg");	
 		else {
-		photo = String.format("<div><img src='%s/%s' width='80' class='m-1 border rounded' /></div>", 
+		photo = String.format("<div><img src='%s/%s' width='375' class='m-1 border rounded' /></div>", 
        		 request.getContextPath()+"/uploadDir", mb.getPhotoPath());
 		}
 		return photo;

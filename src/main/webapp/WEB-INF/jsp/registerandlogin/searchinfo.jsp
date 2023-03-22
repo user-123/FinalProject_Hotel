@@ -74,11 +74,19 @@
 				id="navbarDefault">
 				<ul class="navbar-nav">
 
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/'/>">首頁</a></li>
-
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/about'/>">關於貝殼窩</a></li>
+					<li class="nav-item"><a class="nav-link active" 
+					href="<c:url value='/'/>">首頁</a></li>
+						
+						<li class="nav-item dropdown"><a role="button"
+						class="nav-link dropdown-toggle" id="navbarDropdown" 
+						data-bs-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">關於貝殼窩</a>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<li><a class="dropdown-item"
+								href="<c:url value='/public/about' />">我們的理念</a></li>
+							<li><a class="dropdown-item"
+								href="<c:url value='/public/messages/all' />">評價&回饋</a></li>
+						</ul></li>
 
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/room/allShow'/>">房型</a></li>
@@ -89,10 +97,6 @@
 					<li class="nav-item"><a class="nav-link " href="#">休閒設施</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="#">周邊景點</a></li>
-
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/messages/all'/>">評價&回饋</a></li>
-
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
@@ -133,8 +137,17 @@
 	<!-- End Header/Navbar -->
 	<c:choose>
 		<c:when test="${requestScope.noinfo==true}">
-   	您尚未填寫基本資料
-   </c:when>
+			<h1 style="color: #FFFFFF">會員後臺</h1>
+			<h1 style="color: #FFFFFF">會員後臺</h1>
+			<h1 style="margin-left:50px">您尚未填寫基本資料</h1>
+			<h1 style="color:#FFFFFF">會員後臺</h1>
+			<h1 style="color: #FFFFFF">會員後臺</h1>
+			<h1 style="color: #FFFFFF">會員後臺</h1>
+			<h1 style="color: #FFFFFF">會員後臺</h1>
+			<h1 style="color: #FFFFFF">會員後臺</h1>
+			<h1 style="color: #FFFFFF">會員後臺</h1>
+			<h1 style="color:#FFFFFF">會員後臺</h1>
+		</c:when>
 		<c:otherwise>
 			<main id="main">
 				<section class="intro-single">
@@ -143,27 +156,28 @@
 							<div class="col-md-12 col-lg-8">
 								<div class="title-single-box">
 									<h1 class="title-single">基本資料查詢</h1>
-									<div class="form-comments">
+									<div class="form-comments" style="display: flex">
 										<div class="row">
+
 											<div class="col-md-12 mb-3">
-												<div class="form-group">姓名: ${mb.userName}</div>
+												<div class="form-group h3">姓名: ${mb.userName}</div>
 											</div>
 											<div class="col-md-12 mb-3">
-												<div class="form-group">手機: ${mb.phone}</div>
+												<div class="form-group h3">手機: ${mb.phone}</div>
 											</div>
 											<div class="col-md-12 mb-3">
-												<div class="form-group">性別: ${mb.gender}</div>
+												<div class="form-group h3">性別: ${mb.gender}</div>
 											</div>
 											<div class="col-md-12 mb-3">
-												<div class="form-group">地址: ${mb.address}</div>
+												<div class="form-group h3">地址: ${mb.address}</div>
 											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">生日: ${mb.birthDate}</div>
+											<div class="col-md-12 mb-3" style="width: 300px">
+												<div class="form-group h3">生日: ${mb.birthDate}</div>
 											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group">照片: ${sessionScope.photo}
-													${requestScope.message}</div>
-											</div>
+										</div>
+										<div class="col-md-12 mb-3" style="margin-left: 300px">
+											<div class="form-group">${sessionScope.photo}
+												${requestScope.message}</div>
 										</div>
 									</div>
 								</div>

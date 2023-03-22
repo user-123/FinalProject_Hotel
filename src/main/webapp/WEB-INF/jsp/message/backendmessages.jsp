@@ -94,6 +94,11 @@ textarea {
 	resize: none;
 }
 
+.showreply {
+	vertical-align: middle;
+	padding-left: 200px;
+}
+
 .reply {
 	text-align: top;
 	display: none;
@@ -140,7 +145,7 @@ textarea {
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/findall' />">訂單一覽</a></li>
 							<li><a class="dropdown-item"
-								href="<c:url value='/admin/orders/byuserid' />">用會員名稱查詢</a></li>
+								href="<c:url value='/admin/orders/byemail' />">用Email查詢</a></li>
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/byorderid' />">用訂單編號查詢</a></li>
 							<li><a class="dropdown-item"
@@ -197,7 +202,8 @@ textarea {
 								<c:forEach var="datas" items="${datas}">
 									<label hidden="hidden">${datas.id}</label>
 									<div class="row">
-										<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow">
+										<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow"
+											style="background-color: #ECF5FF">
 											<!-- 顯示留言 -->
 											<div class="rating-stars block" id="another-rating">
 												<input type="hidden" readonly="readonly"
@@ -249,7 +255,8 @@ textarea {
 
 													<!--********************刪除前用來再次確認******************** -->
 													<script>
-																function showConfirmation() {
+														/*		
+														function showConfirmation() {																	
 																	  Swal.fire({
 																	    title: '您確定要刪除嗎?',
 																	    text: "",
@@ -266,47 +273,47 @@ textarea {
 																	        '',
 																	        'success'
 																	      ).then(() => {
+																	    	alert(${datas.id});
 																    	// 這個jsp的forms[0]是回覆按鈕
 																    	// 這個jsp的forms[1]是送出按鈕
 																        document.forms[2].submit(); // 提交表单
 																      });
 																    }
-																  });
-
-																  return false; // 防止表单提交
+																  });																
+																  return false; // 防止表单提交  
 																}
-
+																*/
                                                              </script>
-												</form>
+												</form>												
 											</div>
-										</div>
-										<!-- 顯示回覆 -->
-										<c:if test="${not empty datas.admintext}">
-											<div class="reply">
-												<h3>業主回覆</h3>
-												<p>${datas.admintext}</p>
-												<fmt:formatDate pattern="yyyy-MM-dd ,a hh:mm:ss EEEE"
-													value="${datas.replytime}" />
-											</div>
-										</c:if>
-										<div class="reply col-md-15 mb-3" id="${datas.id}">
-											<form:form action="${contextRoot}/admin/messages/edit"
-												method="put" modelAttribute="messages">
-												<form:input type="hidden" path="id" value="${datas.id}" />
-												<form:input type="hidden" path="stars"
-													value="${datas.stars}" />
-												<form:input type="hidden" path="usertext"
-													value="${datas.usertext}" />
-												<form:input type="hidden" path="userid"
-													value="${datas.userid.accountId}" />
-													<div>
-													請輸入回覆內容：
-													</div>
-													<form:textarea path="admintext"></form:textarea>
-												<button type="submit" class="btn btn-primary">送出</button>
-											</form:form>
 										</div>
 									</div>
+									<!-- 顯示回覆 -->
+									<c:if test="${not empty datas.admintext}">
+										<div class="showreply">
+											<h3>業主回覆</h3>
+											<p>${datas.admintext}</p>
+											<fmt:formatDate pattern="yyyy-MM-dd ,a hh:mm:ss EEEE"
+												value="${datas.replytime}" />
+										</div>
+									</c:if>
+									<div class="reply col-md-15 mb-3" id="${datas.id}">
+										<form:form action="${contextRoot}/admin/messages/edit"
+											method="put" modelAttribute="messages">
+											<form:input type="hidden" path="id" value="${datas.id}" />
+											<form:input type="hidden" path="stars" value="${datas.stars}" />
+											<form:input type="hidden" path="usertext"
+												value="${datas.usertext}" />
+											<form:input type="hidden" path="userid"
+												value="${datas.userid.accountId}" />
+											<div>請輸入回覆內容：</div>
+											<form:textarea path="admintext"></form:textarea>
+											<div style="text-align: right">
+												<button type="submit" class="btn btn-primary">送出</button>
+											</div>
+										</form:form>
+									</div>
+
 								</c:forEach>
 							</div>
 						</div>

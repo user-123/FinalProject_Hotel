@@ -100,26 +100,17 @@ public class OrderServiceImpl implements OrderService {
 		return olDao.findDataByUserIdF(userid);
 	}
 
-	// 3.findDataByUserId(後台)
+	// 3.findDataByEmail(後台)
 	// 查詢特定userid的訂單資料
 	@Override
-	public List<OrderListBean> findDataByUserIdB(String userid) {
+	public List<OrderListBean> findDataByEmail(String email) {
 		//D.C.：你欠揍哦，前後台找法不一樣哦，dao不是直接複製貼上齁，或改個type，不過這不能完全怪你，有一小半是硯硯的鍋，他會員系統給的argument亂七八糟，我已經嘴過了，但是這就是用原生語句查的缺點
 		//邏輯上，如果都是用entity操作，那hql語句會完全一樣，但你用原生語句就要看你現在是在拿什麼資料查，下面我直接照你的code改寫，if(等我有時間&&腦袋撞到) {再幫你全部重寫吧}
 		//我直接改成用hql查，你想寫原生的話就是先查"accountName"得到"accountId"再丟進這裡查
 		//啊嘿，我錯了，說明寫在controller我沒看清楚，只是你type本來也好像是錯的，還是我眼花了@@
-		LoginBean lBean = lDao.findByAccountName(userid);
+		LoginBean lBean = lDao.findByEmail(email);
 		return olDao.findDataByUserIdB(lBean);
 	}
-
-	// 4.findDataByOrderId(前台)
-	// 查詢特定orderid的訂單資料
-	// 讓會員可以利用訂單編號查詢自己的訂單紀錄
-	// 先做findDataByUser再篩選出orderid，避免user查到不屬於他的訂單資訊
-//	@Override
-//	public OrderListBean findDataByOrderIdF(String orderid) {
-//		return olDao.findDataByOrderIdF(orderid);
-//	}
 
 	// 4.findDataByOrderId(後台)
 	// 查詢特定orderid的訂單資料
