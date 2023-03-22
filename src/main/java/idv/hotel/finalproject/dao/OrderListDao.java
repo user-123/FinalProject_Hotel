@@ -26,7 +26,6 @@ public interface OrderListDao extends JpaRepository<OrderListBean, Integer> {
 	public List<OrderListBean> findDataByUserIdF(Integer userid);
 
 	// 3.findDataByUserId(後台)
-	// 查詢特定userid的訂單資料
 	@Query(value = "select ol from OrderListBean ol where ol.userid =?1 order by ol.orderdate desc")
 	public List<OrderListBean> findDataByUserIdB(LoginBean userid);
 

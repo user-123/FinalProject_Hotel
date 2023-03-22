@@ -95,6 +95,7 @@
 
 					<li class="nav-item"><a class="nav-link active" href="${contextRoot}">首頁</a></li>
 
+
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/about'/>">關於貝殼窩</a></li>
 						
@@ -154,6 +155,7 @@
 									<li><a class="dropdown-item"
 										href="<c:url value='/public/register' />">註冊</a></li>
 								</ul>
+
 							</sec:authorize></li>
 				</ul>
 			</div>
@@ -170,7 +172,7 @@
 				<div class="row">
 					<div class="col-md-12 col-lg-8">
 						<div class="title-single-box">
-							<h5 class="title-single">關於XXX</h5>
+							<h5 class="title-single">關於貝殼窩</h5>
 						</div>
 					</div>
 					<div class="col-md-12 col-lg-4">
@@ -179,7 +181,7 @@
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item"><a href="<c:url value='/'/>">首頁</a></li>
 								<li class="breadcrumb-item active" aria-current="page">
-									關於XXX</li>
+									我們的理念</li>
 							</ol>
 						</nav>
 					</div>
@@ -207,7 +209,7 @@
 							<div class="col-md-6 col-lg-5 section-md-t3">
 								<div class="title-box-d">
 									<h3 class="title-d">
-										<span class="color-d">XXX</span>
+										<span>我們的理念</span>
 									</h3>
 								</div>
 								<p class="color-text-a">${homeBean.about}</p>

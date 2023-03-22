@@ -23,8 +23,4 @@ public interface LoginDao extends JpaRepository<LoginBean, Integer> {
 	@Query(value="SELECT lb.accountId FROM login_info lb WHERE lb.email = ?1",nativeQuery=true)
 	public Integer findIdByEmail(String email);
 
-
-	//D.C.加for rebecca查詢用
-	@Query(value="from LoginBean where accountName = ?1")
-	public LoginBean findByAccountName(String accountName);
 }

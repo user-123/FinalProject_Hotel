@@ -283,16 +283,15 @@ class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
 								name="${_csrf.parameterName}" value="${_csrf.token}" />登出
 						</a></li>
 					</ul>
-				</c:when>
-				<c:otherwise>
+				</sec:authorize><sec:authorize access="hasAuthority('ROLE_ANONYMOUS')">
+				
 					<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 						<li><a class="dropdown-item"
 							href="<c:url value='/public/loginpage' />">登入</a></li>
 						<li><a class="dropdown-item"
 							href="<c:url value='/public/register' />">註冊</a></li>
 					</ul>
-				</c:otherwise>
-			</c:choose></li>
+				</sec:authorize></li>
 			</ul>
 		</div>
 	</div>

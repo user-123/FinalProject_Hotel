@@ -124,31 +124,34 @@ public class OrderController {
 		return "order/alldata";
 	}
 
-	// **************************後台訂單管理下拉選單--用會員ID查詢******************************
-	// 3.findDataByUserId
-	// 此時admin看到的是填寫會員ID的空格
-	// 需注意的是這裡要輸入的是LoginBean的accountId，也就是OrderListBean的userid
-	@GetMapping("/admin/orders/byuserid")
-	public String findDataByUserId(Model model) {
-		OrderListBean ol = new OrderListBean();
-		model.addAttribute("userid", ol);
-		return "order/byuserid";
+
+	// **************************後台訂單管理下拉選單--用Email查詢******************************
+	// 3.findDataByEmail
+	// 此時admin看到的是填寫email的空格
+	@GetMapping("/admin/orders/byemail")
+	public String findDataByEmail(Model model) {
+		LoginBean lb = new LoginBean();
+		model.addAttribute("email", lb);
+		return "order/byemail";
 	}
 
 	// 此時admin看到的是按下查詢後返還的資料
-	@PostMapping("/admin/orders/databyuserid")
-	public String showDataByUserId(@ModelAttribute("userid") String userId, Model model) {
-		OrderListBean ol = new OrderListBean();
-		model.addAttribute("userid", ol);
-
-		List<OrderListBean> datas = oService.findDataByUserIdB(userId);
+	@PostMapping("/admin/orders/databyemail")
+	public String showDataByEmail(@ModelAttribute("email") String email, Model model) {
+		LoginBean lb = new LoginBean();
+		model.addAttribute("email", lb);
+		
+		System.out.println("-----------------------------------userid" + email);
+		List<OrderListBean> datas = oService.findDataByEmail(email);		
 		model.addAttribute("datas", datas);
+		System.out.println("-----------------------------------datas" + datas);
+		
 		// 按下查詢後，才會有searched這個model
 		// 代表設searched為true
 		// 代表按下查詢後，才會做顯示內容的判斷
 		model.addAttribute("searched", true);
 
-		return "order/byuserid";
+		return "order/byemail";
 	}
 
 	// **************************後台訂單管理下拉選單--用訂單編號查詢******************************
@@ -175,7 +178,6 @@ public class OrderController {
 
 		model.addAttribute("searched", true);
 		return "order/byorderid";
-
 	}
 
 	// **************************後台訂單管理下拉選單--用下訂日期查詢******************************
@@ -185,10 +187,7 @@ public class OrderController {
 	public String findDataByOrderdate(Model model) {
 		OrderListBean ol = new OrderListBean();
 		model.addAttribute("orderdate", ol);
-
-
 		return "order/byorderdate";
-
 	}
 
 	// 此時admin看到的是按下查詢後返還的資料
@@ -205,7 +204,6 @@ public class OrderController {
 		// 代表按下查詢後，才會做顯示內容的判斷
 		model.addAttribute("searched", true);
 		return "order/byorderdate";
-
 	}
 
 	// **************************後台訂單管理下拉選單--用房型查詢******************************
@@ -233,57 +231,51 @@ public class OrderController {
 		// 代表按下查詢後，才會做顯示內容的判斷
 		model.addAttribute("searched", true);
 		return "order/byroomid";
-
 	}
 
 	// **************************admin按下[編輯]按鈕，發送此請求******************************
-		// 錯誤未排除:1.資料庫有正常更新，但前端需思考一下 2.orderdate毫秒會更改!!(雖然好像沒有很大的關係
-		// 後台
-		// step1導到編輯的jsp
-		@GetMapping("/admin/orders/update")
-		public String editData(@RequestParam Integer id, Model model, 
-				@RequestParam("jsp") String jsp, @RequestParam("searchid") String searchid) {
-			System.out.println("1");
-			OrderListBean datas = oService.findById(1);
-			System.out.println("2");
-			model.addAttribute("datas", datas);
-			System.out.println("3");
-			model.addAttribute("jsp", jsp);
-			System.out.println("4");
-			model.addAttribute("searchid", searchid);
-			System.out.println("5");
-			return "order/editdata";
-		}
+	// 錯誤未排除:1.資料庫有正常更新，但前端需思考一下 2.orderdate毫秒會更改!!(雖然好像沒有很大的關係
+	// 後台
+	// step1導到編輯的jsp
+	@GetMapping("/admin/orders/update")
+	public String editData(@RequestParam Integer id, Model model, @RequestParam("jsp") String jsp,
+			@RequestParam("searchid") String searchid) {
+		OrderListBean datas = oService.findById(id);
+		model.addAttribute("datas", datas);
+		model.addAttribute("jsp", jsp);
+		model.addAttribute("searchid", searchid);
+		return "order/editdata";
+	}
 
-		// step2在editData.jsp按下修改
-		// 必須保留id送過來!!!因為若沒id他會新增，有id就會update(更新)
-		@PutMapping("/admin/orders/editallData")
-		public String update(@ModelAttribute("datas") OrderListBean datas, RedirectAttributes redirectAttributes,
-				 @RequestParam("jsp") String jsp, @RequestParam("searchid") String searchid,
-				Model model) {
-			// 將資料放入重定向的屬性中
-			redirectAttributes.addFlashAttribute("jsp", jsp);
-			redirectAttributes.addFlashAttribute("searchid", searchid);
-			// 從重定向屬性中取出資料
-			OrderListBean datas123 = oService.findById(datas.getId());
-			
-			datas123.setMessage(datas.getMessage());
-			datas123.setPaid(datas.getPaid());
-			oService.insertB(datas123);
-			return "redirect:/admin/orders/updateok";
-		}
 
-		// step3
-		// 卡控回傳值--更新後返還之jsp
-		@GetMapping("/admin/orders/updateok")
-		public String afterUpdate(Model model, RedirectAttributes redirectAttributes) {
-			// 從重定向屬性中取出資料
-			String jsp = (String) model.asMap().get("jsp");
-			String param = (String) model.asMap().get("searchid");
-			String value = showModelAndView(jsp, param, model);
-			// 返還sweetalert:刪除成功
-			return value;
-		}
+	// step2在editData.jsp按下修改
+	// 必須保留id送過來!!!因為若沒id他會新增，有id就會update(更新)
+	@PutMapping("/admin/orders/editallData")
+	public String update(@ModelAttribute("datas") OrderListBean datas, RedirectAttributes redirectAttributes,
+			@RequestParam("jsp") String jsp, @RequestParam("searchid") String searchid, Model model) {
+		// 將資料放入重定向的屬性中
+		redirectAttributes.addFlashAttribute("jsp", jsp);
+		redirectAttributes.addFlashAttribute("searchid", searchid);
+		// 從重定向屬性中取出資料
+		OrderListBean datas123 = oService.findById(datas.getId());
+
+		datas123.setMessage(datas.getMessage());
+		datas123.setPaid(datas.getPaid());
+		oService.insertB(datas123);
+		return "redirect:/admin/orders/updateok";
+	}
+
+	// step3
+	// 卡控回傳值--更新後返還之jsp
+	@GetMapping("/admin/orders/updateok")
+	public String afterUpdate(Model model, RedirectAttributes redirectAttributes) {
+		// 從重定向屬性中取出資料
+		String jsp = (String) model.asMap().get("jsp");
+		String param = (String) model.asMap().get("searchid");
+		String value = showModelAndView(jsp, param, model);
+		// 返還sweetalert:刪除成功
+		return value;
+	}
 
 	// **************************admin按下[刪除]按鈕，發送此請求******************************
 	// 8.deleteDataByOrderId
@@ -321,9 +313,9 @@ public class OrderController {
 			model.addAttribute("datas", datas);
 			value = "order/alldata";
 			break;
-		case "byUserid":
-			datas = oService.findDataByUserIdB(param);
-			model.addAttribute("userid", ol);
+		case "byEmail":
+			datas = oService.findDataByEmail(param);
+			model.addAttribute("email", ol);
 			model.addAttribute("datas", datas);
 
 			System.out.println(datas);
@@ -332,7 +324,6 @@ public class OrderController {
 		case "byOrderid":
 			model.addAttribute("orderid", ol);
 			value = "order/byorderid";
-
 			break;
 		case "byOrderdate":
 			datas = oService.findDataByOrderdate(param);

@@ -262,15 +262,13 @@
 
 					
 
+
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/facility/show'/>">休閒設施</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="${contextRoot}/public/attraction/list">周邊景點</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="<c:url value='/public/shop' />">商城</a></li>
-
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/messages/all'/>">評價&回饋</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"

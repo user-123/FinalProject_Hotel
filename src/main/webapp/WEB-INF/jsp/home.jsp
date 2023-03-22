@@ -63,17 +63,19 @@
 				aria-label="Toggle navigation">
 				<span></span> <span></span> <span></span>
 			</button>
-			<a class="navbar-brand text-brand" href="<c:url value='#'/>">貝殼窩<span
+			<a class="navbar-brand text-brand" href="<c:url value='/'/>">貝殼窩<span
 				class="color-b">飯店</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
 				<ul class="navbar-nav">
 
+
 					<li class="nav-item"><a class="nav-link active" href="${contextRoot}">首頁</a></li>
 
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/about'/>">關於貝殼窩</a></li>
+
 
 
 					<li class="nav-item dropdown"><a
@@ -99,9 +101,6 @@
 					<li class="nav-item"><a class="nav-link " href="${contextRoot}/public/attraction/list">周邊景點</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="<c:url value='/public/shop' />">商城</a></li>
-
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/messages/all'/>">評價&回饋</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"

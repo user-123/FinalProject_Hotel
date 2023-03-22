@@ -96,6 +96,7 @@
 				id="navbarDefault">
 				<ul class="navbar-nav">
 
+
 					<li class="nav-item"><a class="nav-link active" href="${contextRoot}">首頁</a></li>
 
 					<li class="nav-item"><a class="nav-link "
@@ -126,9 +127,6 @@
 
 					<li class="nav-item"><a class="nav-link " href="<c:url value='/public/shop' />">商城</a></li>
 
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/messages/all'/>">評價&回饋</a></li>
-
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
@@ -157,6 +155,7 @@
 									<li><a class="dropdown-item"
 										href="<c:url value='/public/register' />">註冊</a></li>
 								</ul>
+
 							</sec:authorize></li>
 				</ul>
 			</div>

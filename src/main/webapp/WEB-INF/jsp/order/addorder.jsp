@@ -298,6 +298,7 @@
 
 
 
+
 					<li class="nav-item"><a class="nav-link active" href="${contextRoot}/admin/backstage">基本管理</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/backstage/member' />">會員管理</a></li>
@@ -326,19 +327,24 @@
 						href="<c:url value="/admin/room/backstage"/>">房型管理</a></li>
 
 
+
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/admin/facility/showBacksatge'/>">設施管理</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="${contextRoot}/admin/attraction/list">景點管理</a></li>
 
+
 					<li class="nav-item"><a class="nav-link"
 						href="<c:url value='/admin/messages/backendall' />">評價管理</a></li>
+
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+
 						aria-haspopup="true" aria-expanded="false">會員</a>
 							<sec:authorize access="hasAnyAuthority('admin','user')">
+
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 									<li><a class="dropdown-item" href="<c:url value='/'/>">前台</a></li>
 									<li><a class="dropdown-item "
@@ -353,6 +359,7 @@
 									<li><a class="dropdown-item"
 										href="<c:url value='/public/register' />">註冊</a></li>
 								</ul>
+
 							</sec:authorize></li>
 				</ul>
 			</div>
@@ -413,10 +420,6 @@
 										<div id="feedbackMsg"></div>
 									</div>
 								</div>
-
-
-
-
 
 								<form:form class="form-a" action="${contextRoot}/orders/post"
 									modelAttribute="information">

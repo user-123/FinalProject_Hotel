@@ -32,15 +32,9 @@ public interface OrderService {
 	// 前台:查詢特定userID的訂單資料，我們幫他固定UserID，限制他只能看自己的
 	public List<OrderListBean> findHistory(Integer userid);
 
-	// 3.findDataByUserId(後台)
+	// 3.findDataByEmail(後台)
 	// 查詢特定userid的訂單資料
-	public List<OrderListBean> findDataByUserIdB(String userid);
-
-	// 4.findDataByOrderId(前台)
-	// 查詢特定orderid的訂單資料
-	// 讓會員可以利用訂單編號查詢自己的訂單紀錄
-	// 先做findDataByUser再篩選出orderid，避免user查到不屬於他的訂單資訊
-//	public OrderListBean findDataByOrderIdF(String orderid) ;
+	public List<OrderListBean> findDataByEmail(String email);
 
 	// 4.findDataByOrderId(後台)
 	// 查詢特定orderid的訂單資料

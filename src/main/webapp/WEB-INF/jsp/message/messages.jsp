@@ -6,6 +6,7 @@
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -118,6 +119,7 @@ textarea {
 				id="navbarDefault">
 				<ul class="navbar-nav">
 
+
 					<li class="nav-item"><a class="nav-link active" href="${contextRoot}">首頁</a></li>
 
 					<li class="nav-item"><a class="nav-link "
@@ -141,15 +143,13 @@ textarea {
 
 					
 
+
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/facility/show'/>">休閒設施</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="${contextRoot}/public/attraction/list">周邊景點</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="<c:url value='/public/shop' />">商城</a></li>
-
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/messages/all'/>">評價&回饋</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
@@ -239,7 +239,7 @@ textarea {
 								<c:forEach var="datas" items="${datas}">
 									<label hidden="hidden">${datas.id}</label>
 									<div class="row">
-										<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow">
+										<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow" style="background-color:	#ECF5FF">
 											<div class="rating-stars block" id="another-rating">
 												<input type="hidden" readonly="readonly"
 													class="form-control rating-value"
@@ -265,15 +265,15 @@ textarea {
 
 
 											<div class="col-md-12 mb-3">
-												<div class="form-group">會員:${datas.userid.accountName}</div>
+												<div class="form-group" style="font-weight:bold">會員:${datas.userid.accountName}</div>
 											</div>
 											<div class="col-md-12 mb-3">
 												<div style="width: 700px;">
-													<div class="form-group">內容:${datas.usertext}</div>
+													<div class="form-group" style="font-weight:bold">內容:${datas.usertext}</div>
 												</div>
 											</div>
 											<div class="col-md-12 mb-3">
-												<div class="form-group">
+												<div class="form-group" style="font-weight:bold">
 													<fmt:formatDate pattern="yyyy-MM-dd ,a hh:mm:ss EEEE"
 														value="${datas.messagetime}" />
 												</div>

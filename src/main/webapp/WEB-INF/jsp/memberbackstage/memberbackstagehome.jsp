@@ -99,7 +99,7 @@
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/findall' />">訂單一覽</a></li>
 							<li><a class="dropdown-item"
-								href="<c:url value='/admin/orders/byuserid' />">用會員名稱查詢</a></li>
+								href="<c:url value='/admin/orders/byemail' />">用Email查詢</a></li>
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/byorderid' />">用訂單編號查詢</a></li>
 							<li><a class="dropdown-item"
@@ -151,7 +151,10 @@
 
 	<main id="main">
 		<div class="container w-75 mt-5">
-			<h1>會員後臺</h1>
+			<div>
+				<h1 style="color:#FFFFFF">會員後臺</h1>
+				<h1>會員後臺</h1>
+			</div>
 			<div id="tabs" style="height: 600px">
 				<ul class="d-flex justify-content-center nav nav-tabs">
 					<li class="nav-item"><a class="nav-link" href="#search">

@@ -113,9 +113,6 @@
 						</ul>	
 					</li>
 						
-						
-
-					
 
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/facility/show'/>">休閒設施</a></li>
@@ -123,9 +120,6 @@
 					<li class="nav-item"><a class="nav-link " href="${contextRoot}/public/attraction/list">周邊景點</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="<c:url value='/public/shop' />">商城</a></li>
-
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/messages/all'/>">評價&回饋</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
@@ -158,6 +152,7 @@
 							</sec:authorize></li>
 				</ul>
 			</div>
+
 		</div>
 	</nav>
 	<!-- End Header/Navbar -->
@@ -201,7 +196,7 @@
 									</div>
 								</form:form>
 								<c:if test="${not empty param.error}">
-									<p class="error-message">登入失敗,請重新確認</p>
+									<p class="error-message" style="color:#FF0000;font-weight: bold;">登入失敗,請重新確認</p>
 								</c:if>
 
 							</div>

@@ -85,7 +85,7 @@
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/findall' />">訂單一覽</a></li>
 							<li><a class="dropdown-item"
-								href="<c:url value='/admin/orders/byuserid' />">用會員名稱查詢</a></li>
+								href="<c:url value='/admin/orders/byemail' />">用Email查詢</a></li>
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/byorderid' />">用訂單編號查詢</a></li>
 							<li><a class="dropdown-item"
@@ -134,7 +134,6 @@
 		</div>
 	</nav>
 	<!-- End Header/Navbar -->
-
 	<main id="main">
 		<section class="intro-single">
 			<div class="container">
@@ -144,13 +143,14 @@
 							<h1 class="title-single">訂單一覽</h1>
 							<div class="form-comments">
 								<div class="title-box-d">
-									<h5 class="title-d">用下訂日期查詢</h5>
+									<h5 class="title-d">用房型查詢</h5>
 								</div>
-								<form:form action="${contextRoot}/admin/orders/databyorderdate"
-									modelAttribute="orderdate">
-									<form:input path="orderdate" type="date"
-										class="form-control form-control-lg form-control-a"
-										required="true" />
+								<form:form action="${contextRoot}/admin/orders/databyroomid"
+									modelAttribute="roomid">
+									<div class="input-group">
+										<form:input path="roomid" class="form-control" rows=""
+											cols="" />
+									</div>
 									<br />
 									<div style="text-align: right">
 										<button type="submit" class="btn btn-primary">送出</button>
@@ -164,7 +164,7 @@
 										<c:forEach var="datas" items="${datas}">
 											<label hidden="hidden">${datas.id}</label>
 											<div class="row">
-												<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow">
+												<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow" style="background-color:	#ECF5FF">
 													<div class="col-md-12 mb-3">
 														<div class="form-group">
 															訂單成立時間:
@@ -206,27 +206,25 @@
 														<form action="${contextRoot}/admin/orders/update"
 															method="get">
 															<input type="hidden" name="id" value="${datas.id}" /> <input
-																type="hidden" name="jsp" value="byOrderdate" /> <input
-																type="hidden" name="orderdate"
-																value="${datas.orderdate}" /><input type="hidden"
-																name="searchid" value="${datas.orderdate}" />
-																 <input type="submit"
+																type="hidden" name="jsp" value="byRoomid" /> 
+																 <input type="hidden"
+																name="searchid" value="${datas.roomid.roomId}" /> 
+																<input type="submit"
 																class="btn btn-outline-info btn-sm" value="編輯">
 														</form>
 														<!--********************[刪除按鈕]******************** -->
 														<!--********************onSubmit為form表單原生的屬性，判斷回傳之布林值決定下一步******************** -->
 														<form action="${contextRoot}/admin/orders/backstagedel"
 															method="post" onSubmit="return showConfirmation()">
+
 															<input type="hidden" name="orderid"
 																value="${datas.orderid}" /> <input type="hidden"
-																name="jsp" value="byOrderdate" /> <input type="hidden"
-																name="searchid" value="${datas.orderdate}" /><input
+																name="jsp" value="byRoomid" /> <input type="hidden"
+																name="searchid" value="${datas.roomid.roomId}" /> <input
 																type="hidden" name="_method" value="delete" /> <input
 																type="submit" class="btn btn-outline-danger btn-sm"
 																value="刪除">
-
 															<!--********************刪除前用來再次確認******************** -->
-
 															<script>
 															function showConfirmation() {
 																  Swal.fire({
@@ -271,8 +269,6 @@
 		</section>
 	</main>
 
-	<!-- ======= Footer ======= -->
-
 	<footer>
 		<div class="container">
 			<div class="row">
@@ -313,8 +309,8 @@
 
 	<!-- Template Main JS File -->
 	<script src='<c:url value="/assets/js/main.js"/>'></script>
-
-	<!-- sweetalert2 -->
+	
+		<!-- sweetalert2 -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 

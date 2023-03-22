@@ -58,7 +58,6 @@
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
 				<ul class="navbar-nav">
-
 					<li class="nav-item"><a class="nav-link active" href="${contextRoot}">首頁</a></li>
 
 					<li class="nav-item"><a class="nav-link "
@@ -77,10 +76,6 @@
 								href="<c:url value='/public/room/orderAllShow'/>">訂房</a></li>
 						</ul>	
 					</li>
-						
-						
-
-					
 
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/facility/show'/>">休閒設施</a></li>
@@ -88,9 +83,6 @@
 					<li class="nav-item"><a class="nav-link " href="${contextRoot}/public/attraction/list">周邊景點</a></li>
 
 					<li class="nav-item"><a class="nav-link " href="<c:url value='/public/shop' />">商城</a></li>
-
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/messages/all'/>">評價&回饋</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
@@ -144,8 +136,8 @@
 									</c:when>
 									<c:otherwise>
 										<c:forEach var="datas" items="${datas}">
-											<div class="row">
-												<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow">
+											<div class="row" >
+												<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow" style="background-color:	#ECF5FF">
 													<div class="col-md-12 mb-3">
 														<div class="form-group">
 															訂單成立時間:

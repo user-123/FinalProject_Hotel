@@ -52,12 +52,12 @@
 				aria-label="Toggle navigation">
 				<span></span> <span></span> <span></span>
 			</button>
-			<a class="navbar-brand text-brand" href="<c:url value='#'/>">貝殼窩<span
+			<a class="navbar-brand text-brand" href="<c:url value='/'/>">貝殼窩<span
 				class="color-b">飯店</span></a>
-			
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
 				<ul class="navbar-nav">
+
 
 					<li class="nav-item"><a class="nav-link active" href="${contextRoot}">首頁</a></li>
 
@@ -77,11 +77,6 @@
 								href="<c:url value='/public/room/orderAllShow'/>">訂房</a></li>
 						</ul>	
 					</li>
-						
-						
-
-					
-
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/facility/show'/>">休閒設施</a></li>
 
@@ -132,7 +127,11 @@
 				<div class="row">
 					<div class="col-md-12 col-lg-8">
 						<div class="title-single-box">
+							<h1 class="title-single" style="color:#FFFFFF">預訂失敗，請再重新操作</h1>
 							<h1 class="title-single">預訂失敗，請再重新操作</h1>
+							<h1 class="title-single" style="color:#FFFFFF">預訂失敗，請再重新操作</h1>
+							<h1 class="title-single" style="color:#FFFFFF">預訂失敗，請再重新操作</h1>
+							<h1 class="title-single" style="color:#FFFFFF">預訂失敗，請再重新操作</h1>					
 
 						</div>
 					</div>

@@ -88,10 +88,6 @@
 								href="<c:url value='/public/room/orderAllShow'/>">訂房</a></li>
 						</ul>	
 					</li>
-						
-						
-
-					
 
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/facility/show'/>">休閒設施</a></li>
@@ -131,6 +127,7 @@
 									<li><a class="dropdown-item"
 										href="<c:url value='/public/register' />">註冊</a></li>
 								</ul>
+
 							</sec:authorize></li>
 				</ul>
 			</div>

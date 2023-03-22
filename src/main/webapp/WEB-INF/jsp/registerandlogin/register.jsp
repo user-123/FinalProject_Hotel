@@ -439,9 +439,7 @@ window.onload = function() {
 						</ul>	
 					</li>
 						
-						
 
-					
 
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/facility/show'/>">休閒設施</a></li>
@@ -484,6 +482,7 @@ window.onload = function() {
 							</sec:authorize></li>
 				</ul>
 			</div>
+
 		</div>
 	</nav>
 	<!-- End Header/Navbar -->
