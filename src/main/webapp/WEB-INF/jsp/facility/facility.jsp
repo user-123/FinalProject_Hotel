@@ -265,8 +265,8 @@ class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
 		<li class="nav-item dropdown"><a
 			class="nav-link dropdown-toggle" href="<c:url value='#'/>"
 			id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-			aria-haspopup="true" aria-expanded="false">會員</a> <c:choose>
-				<c:when test="${sessionScope.login==true}">
+			aria-haspopup="true" aria-expanded="false">會員</a>
+				<sec:authorize access="hasAnyAuthority('admin','user')">
 					<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 						<li><a class="dropdown-item"
 							href="<c:url value='/addinfo' />">填寫及修改基本資料</a></li>

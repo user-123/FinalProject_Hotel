@@ -115,8 +115,8 @@
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">會員</a> <c:choose>
-							<c:when test="${sessionScope.login==true}">
+						aria-haspopup="true" aria-expanded="false">會員</a>
+							<sec:authorize access="hasAnyAuthority('admin','user')">
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 									<li><a class="dropdown-item" href="<c:url value='/'/>">前台</a></li>
 									<li><a class="dropdown-item "
@@ -124,16 +124,14 @@
 											name="${_csrf.parameterName}" value="${_csrf.token}" />登出
 									</a></li>
 								</ul>
-							</c:when>
-							<c:otherwise>
+							</sec:authorize><sec:authorize access="hasAuthority('ROLE_ANONYMOUS')">
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 									<li><a class="dropdown-item"
 										href="<c:url value='/public/loginpage' />">登入</a></li>
 									<li><a class="dropdown-item"
 										href="<c:url value='/public/register' />">註冊</a></li>
 								</ul>
-							</c:otherwise>
-						</c:choose></li>
+							</sec:authorize></li>
 				</ul>
 			</div>
 
