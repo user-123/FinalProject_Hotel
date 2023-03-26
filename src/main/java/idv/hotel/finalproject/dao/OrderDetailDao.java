@@ -21,4 +21,10 @@ public interface OrderDetailDao extends JpaRepository<OrderDetailBean, Integer> 
 	//@Query(value="delete from Order_Detail where FK_OrderList_Id=?1",nativeQuery=true)
 	@Query(value="delete from OrderDetailBean od WHERE od.orderId = :orderListId")
 	public void deleteDataByOrderId(@Param("orderListId") OrderListBean olBean);
+
+	@Query(value="select count(od) from OrderDetailBean od where od.livingDate = :currentDate")
+	public Integer countBylivingDate (Date currentDate);	//思考需不需要將傳入class改為OrderDetailBean
+
+	@Query(value="select count(od) from OrderDetailBean od where od.livingDate between :startDate and :endDate")
+	public Integer countBylivingDate (Date startDate, Date endDate);	//思考需不需要將傳入class改為OrderDetailBean
 }

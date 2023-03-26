@@ -30,6 +30,7 @@
 		<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 		<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" ></script>
 		<link href="https://code.jquery.com/ui/1.13.2/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+		<script src="https://unpkg.com/scrollreveal@4"></script>
 		<!-- D.C. Never End, Ya~Ya~Ya~ -->
 	</head>
 	<body>
@@ -158,7 +159,7 @@
 								<div class="row justify-content-between" id="aList">
 
 									<c:forEach items="${attraction}" var="info" varStatus="status">
-										<div class="col-6 col-sm-6 w-50" id="div${info.attractionId}">
+										<div class="col-6 col-sm-6 w-50 information" id="div${info.attractionId}">
 										<br />
 											<!-- <span id="span${info.attractionId}">${status.index+1}.</span> -->
 											<div class="justify-content-center w-100" style="overflow: hidden;width: 512px;height: 384px;">
@@ -172,7 +173,7 @@
 													${info.attractionName}<br />
 													${info.attractionAddress}
 												</div>
-													<div class="col-2 col-sm-2">
+												<div class="col-2 col-sm-2">
 													<!--
 													<form action="<c:url value="/public/XXXX" />" method="get">
 														<input type="hidden" id="${info.attractionId}" name="Id" value="${info.attractionId}" />
@@ -435,6 +436,9 @@
 										</div>
 									</div>` + list;
 							}
+
+							ScrollReveal({duration: 1500});
+							ScrollReveal().reveal(".information");
 						</script>
 					</div>
 				</section>

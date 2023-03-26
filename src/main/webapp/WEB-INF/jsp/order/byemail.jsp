@@ -84,13 +84,8 @@
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/findall' />">訂單一覽</a></li>
-<<<<<<< HEAD:src/main/webapp/WEB-INF/jsp/order/byUserid.jsp
-							<li><a class="dropdown-item"
-								href="<c:url value='/admin/orders/byuserid' />">用會員名稱查詢</a></li>
-=======
 							<li><a class="dropdown-item active"
 								href="<c:url value='/admin/orders/byemail' />">用Email查詢</a></li>
->>>>>>> origin/rebecca:src/main/webapp/WEB-INF/jsp/order/byemail.jsp
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/byorderid' />">用訂單編號查詢</a></li>
 							<li><a class="dropdown-item"
@@ -168,7 +163,7 @@
 									<h3>目前尚無訂單</h3>
 									</c:when>
 									<c:otherwise>
-									
+
 										<c:forEach var="datas" items="${datas}">
 											<label hidden="hidden">${datas.id}</label>
 											<div class="row">
@@ -246,7 +241,7 @@
 																    confirmButtonColor: '#d33',
 																    cancelButtonColor: '#3085d6',
 																    confirmButtonText: '刪除',
-																    cancelButtonText: '取消' 
+																    cancelButtonText: '取消'
 																  }).then((result) => {
 																    if (result.isConfirmed) {
 																      Swal.fire(
@@ -322,7 +317,7 @@
 
 	<!-- Template Main JS File -->
 	<script src='<c:url value="/assets/js/main.js"/>'></script>
-	
+
 		<!-- sweetalert2 -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
