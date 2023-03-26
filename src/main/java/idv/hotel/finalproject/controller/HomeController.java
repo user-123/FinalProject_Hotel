@@ -56,7 +56,6 @@ public class HomeController {
 		return "home";
 	}
 
-
 	@PutMapping("/admin/edit")
 	public String edit(@ModelAttribute HomeBean homeBean, @RequestParam MultipartFile aboutPhotoOne,
 			@RequestParam MultipartFile aboutPhotoTwo, HttpServletRequest request) throws IOException {
@@ -113,9 +112,8 @@ public class HomeController {
 		return "redirect:/admin/backstage";
 	}
 
-
 	@GetMapping("/")
-	public String home(HttpServletRequest request,HttpSession session) {
+	public String home(HttpServletRequest request, HttpSession session) {
 //		if(session.getAttribute("email")!=null) {
 //			session.setAttribute("id",loginService.findIdByEmail((String)session.getAttribute("email")) );
 ////			session.setAttribute("lb", loginService.findById((Integer)session.getAttribute("id")));
@@ -123,17 +121,15 @@ public class HomeController {
 //        }
 //		return "home";
 
-
-
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth != null && auth.isAuthenticated()) {
 			if (!auth.getName().equals("anonymousUser")) {
-				if(loginService.findIdByEmail(auth.getName()) != null) {
+				if (loginService.findIdByEmail(auth.getName()) != null) {
 					session.setAttribute("email", auth.getName());
 					session.setAttribute("login", true);
 					session.setAttribute("id", loginService.findIdByEmail(auth.getName()));
 					session.setAttribute("lb", loginService.findById((Integer) session.getAttribute("id")));
-				}else {
+				} else {
 					return "redirect:/logout";
 				}
 			}
@@ -142,7 +138,6 @@ public class HomeController {
 		return "home";
 	}
 
-	
 	@GetMapping("/public/about")
 	public String about(Model model) {
 		HomeBean homeBean = hService.find(1);
@@ -150,24 +145,11 @@ public class HomeController {
 		return "about";
 	}
 
-
-	
 	@GetMapping("/admin/backstage")
 	public String backstage(Model model) {
 		HomeBean homeBean = hService.find(1);
 		model.addAttribute("homeBean", homeBean);
 		return "backstage";
 	}
-	
-	
-	
-
-
-
-
-
-
-
-
 
 }

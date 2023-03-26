@@ -2,42 +2,50 @@
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="form"   uri="http://www.springframework.org/tags/form"  %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
 <script src="<c:url value='/javascript/jquery-3.6.0.min.js' />"></script>
 <script src="<c:url value='/javascript/jquery-ui.min.js' />"></script>
-
+<link href="<c:url value='/assets/css/style2.css'/>" rel="stylesheet">
 <meta charset="BIG5">
 <style>
 #edit-form {
-  position: fixed;
-  z-index: 9999;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 400px;
-  height: 400px;
-  border: 1px solid #000;
-  background-color: #fff;
-  padding: 20px;
+	position: fixed;
+	z-index: 9999;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 400px;
+	height: 400px;
+	border: 1px solid #000;
+	background-color: #fff;
+	padding: 20px;
+}
+
+.input-group {
+	margin: 30px
 }
 </style>
 </head>
 <body>
 	<div class="input-group">
-		<input type="text" class="rounded" placeholder="Search"
+		<input type="text" class="rounded" placeholder="name"
 			aria-label="Search" aria-describedby="search-addon" id="searchbtn"
 			name="searchbtn" />
-		<button type="button" class="btn btn-outline-primary"
-			id="searchsubmit">查詢帳號</button>
+		<button type="button" class="btn btn-outline-danger btn-sm"
+			id="searchsubmit">查詢</button>
 	</div>
-	<table class="table table-bordered table-striped table-hover" id="showtable">
+	<table
+		class="table table-dark table-light table-bordered table-striped table-hover"
+		id="showtable">
 		<tr>
 			<td>編號</td>
 			<td>帳號</td>
@@ -48,16 +56,16 @@
 	</table>
 	<div id="edit-dialog">
 		<form id="edit-form">
-	      <div class="form-row">
-      		<div id="username"></div>
-      		<div id="useraddress"></div>
-      		<div id="usergender"></div>
-      		<div id="userphone"></div>
-      		<div id="userbirthday"></div>
-      		<div id="userphoto"></div>
-	    <button type="button" class="btn btn-danger cancelbtn">關閉</button>
-      </div>
-      </form>
+			<div class="form-row">
+				<div id="username"></div>
+				<div id="useraddress"></div>
+				<div id="usergender"></div>
+				<div id="userphone"></div>
+				<div id="userbirthday"></div>
+				<div id="userphoto"></div>
+				<button type="button" class="btn btn-danger cancelbtn">關閉</button>
+			</div>
+		</form>
 	</div>
 
 
@@ -94,10 +102,11 @@
                     <td style="display:none;">\${value[6]}</td>
                     <td style="display:none;">\${value[7]}</td>
                     <td><div><img src=\${value[8]} width='80' class='m-1 border rounded' /></div></td>
-                    <td><button type="button" class="btn btn-danger deletebtn"
-            			>刪除帳號</button>
-            			<button type="button" class="btn btn-primary editbtn"
-                		>會員資料</button></td>
+                    <td><button type="button" class="btn btn-outline-primary editbtn"
+                		>詳細資料</button>
+                    <button type="button" class="btn btn-outline-danger deletebtn"
+            			>刪除</button>
+            			</td>
                 			</tr>`);
             });
         }

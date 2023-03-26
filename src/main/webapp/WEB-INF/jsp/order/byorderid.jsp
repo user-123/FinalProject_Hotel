@@ -13,7 +13,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>貝殼窩飯店管理系統</title>
+<title>貝殼窩-管理系統</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -41,7 +41,7 @@
 	rel="stylesheet">
 
 <!-- Template Main CSS File -->
-<link href="<c:url value='/assets/css/style.css'/>" rel="stylesheet">
+<link href="<c:url value='/assets/css/style2.css'/>" rel="stylesheet">
 
 <!-- =======================================================
   * Template Name: EstateAgency - v4.10.0
@@ -63,8 +63,8 @@
 				<span></span> <span></span> <span></span>
 			</button>
 			<a class="navbar-brand text-brand"
-				href="<c:url value='/admin/backstage' />">貝殼窩
-				<span class="color-b">飯店管理系統</span></a>
+				href="<c:url value='/admin/background' />">貝殼窩 <span
+				class="color-b">管理系統</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
@@ -72,11 +72,13 @@
 
 
 
-					<li class="nav-item"><a class="nav-link active" href="${contextRoot}/admin/backstage">基本管理</a></li>
+					<li class="nav-item"><a class="nav-link "
+						href="${contextRoot}/admin/backstage">基本管理</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/backstage/member' />">會員管理</a></li>
+					<li class="nav-item"><a class="nav-link "
+						href="<c:url value='/admin/backstage/member' />">會員管理</a></li>
 
-					<li class="nav-item dropdown"><a
+					<li class="nav-item dropdown active"><a
 						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
 						data-bs-toggle="dropdown" aria-haspopup="true"
 						aria-expanded="false">訂單管理</a>
@@ -103,7 +105,8 @@
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/admin/facility/showBacksatge'/>">設施管理</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="${contextRoot}/admin/attraction/list">景點管理</a></li>
+					<li class="nav-item"><a class="nav-link "
+						href="${contextRoot}/admin/attraction/list">周邊管理</a></li>
 
 					<li class="nav-item"><a class="nav-link"
 						href="<c:url value='/admin/messages/backendall' />">評價管理</a></li>
@@ -111,23 +114,24 @@
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">會員</a>
-							<sec:authorize access="hasAnyAuthority('admin','user')">
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<li><a class="dropdown-item" href="<c:url value='/'/>">前台</a></li>
-									<li><a class="dropdown-item "
-										href="<c:url value='/logout'/>"> <input type="hidden"
-											name="${_csrf.parameterName}" value="${_csrf.token}" />登出
-									</a></li>
-								</ul>
-							</sec:authorize><sec:authorize access="hasAuthority('ROLE_ANONYMOUS')">
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<li><a class="dropdown-item"
-										href="<c:url value='/public/loginpage' />">登入</a></li>
-									<li><a class="dropdown-item"
-										href="<c:url value='/public/register' />">註冊</a></li>
-								</ul>
-							</sec:authorize></li>
+						aria-haspopup="true" aria-expanded="false">會員</a> <sec:authorize
+							access="hasAnyAuthority('admin','user')">
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li><a class="dropdown-item" href="<c:url value='/'/>">前台</a></li>
+								<li><a class="dropdown-item "
+									href="<c:url value='/logout'/>"> <input type="hidden"
+										name="${_csrf.parameterName}" value="${_csrf.token}" />登出
+								</a></li>
+							</ul>
+						</sec:authorize>
+						<sec:authorize access="hasAuthority('ROLE_ANONYMOUS')">
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li><a class="dropdown-item"
+									href="<c:url value='/public/loginpage' />">登入</a></li>
+								<li><a class="dropdown-item"
+									href="<c:url value='/public/register' />">註冊</a></li>
+							</ul>
+						</sec:authorize></li>
 				</ul>
 			</div>
 
@@ -144,16 +148,17 @@
 							<h1 class="title-single">訂單一覽</h1>
 							<div class="form-comments">
 								<div class="title-box-d">
-									<h5 class="title-d">用訂單編號查詢</h5>
+									<h5 class="title-d">訂單編號查詢</h5>
 								</div>
 								<form:form action="${contextRoot}/admin/orders/databyorderid"
 									modelAttribute="orderid">
 									<div class="input-group">
-										<form:input id="inputText" path="orderid" class="form-control"/>
+										<form:input id="inputText" path="orderid" class="form-control" />
 									</div>
 									<br />
 									<div style="text-align: right">
-										<button type="submit" class="btn btn-primary" id="submitButton">送出</button>
+										<button type="submit" class="btn btn-primary"
+											id="submitButton">查詢</button>
 									</div>
 								</form:form>
 								<c:choose>
@@ -164,7 +169,8 @@
 									</c:when>
 									<c:otherwise>
 										<div class="row">
-											<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow" style="background-color:	#ECF5FF">
+											<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow"
+												style="background-color: #ECF5FF">
 												<div class="col-md-12 mb-3">
 													<div class="form-group">
 														訂單成立時間:
@@ -206,9 +212,9 @@
 													<form action="${contextRoot}/admin/orders/update"
 														method="get">
 														<input type="hidden" name="id" value="${datas.id}" /> <input
-															type="hidden" name="jsp" value="byOrderid" />
-															<input type="hidden" name="searchid" value="" />  
-														<input type="submit" class="btn btn-outline-info btn-sm"
+															type="hidden" name="jsp" value="byOrderid" /> <input
+															type="hidden" name="searchid" value="" /> <input
+															type="submit" class="btn btn-outline-info btn-sm"
 															value="編輯">
 													</form>
 													<!--********************[刪除按鈕]******************** -->
@@ -268,32 +274,6 @@
 		</section>
 	</main>
 
-	<!-- ======= Footer ======= -->
-
-	<footer>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="copyright-footer">
-						<p class="copyright color-text-a">
-							&copy; Copyright <span class="color-a">EstateAgency</span> All
-							Rights Reserved.
-						</p>
-					</div>
-					<div class="credits">
-						<!--
-            All the links in the footer should remain intact.
-            You can delete the links only if you purchased the pro version.
-            Licensing information: https://bootstrapmade.com/license/
-            Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=EstateAgency
-          -->
-						Designed by <a href="<c:url value='https://bootstrapmade.com/'/>">BootstrapMade</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
-	<!-- End  Footer -->
 
 	<div id="preloader"></div>
 	<a href="<c:url value='#'/>"
