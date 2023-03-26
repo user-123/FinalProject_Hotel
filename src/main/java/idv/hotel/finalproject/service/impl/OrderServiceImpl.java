@@ -17,10 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 import idv.hotel.finalproject.dao.LoginDao;
 import idv.hotel.finalproject.dao.OrderDetailDao;
 import idv.hotel.finalproject.dao.OrderListDao;
+import idv.hotel.finalproject.dao.RoomDao;
 import idv.hotel.finalproject.model.LoginBean;
 import idv.hotel.finalproject.model.OrderDetailBean;
 import idv.hotel.finalproject.model.OrderListBean;
-import idv.hotel.finalproject.model.OrderProductBean;
+import idv.hotel.finalproject.model.RoomBean;
 import idv.hotel.finalproject.service.OrderService;
 
 @Transactional
@@ -33,6 +34,8 @@ public class OrderServiceImpl implements OrderService {
 	private OrderDetailDao odDao;
 	@Autowired
 	private LoginDao lDao;
+	@Autowired
+	private RoomDao rDao;
 
 	public OrderServiceImpl() {}
 
@@ -118,8 +121,8 @@ public class OrderServiceImpl implements OrderService {
 	// 讓會員可以利用訂單編號查詢自己的訂單紀錄
 	// 先做findDataByUser再篩選出orderid，避免user查到不屬於他的訂單資訊
 	@Override
-	public OrderListBean findDataByOrderIdB(String orderid) {
-		return olDao.findDataByOrderIdB(orderid);
+	public OrderListBean findDataByOrderId(String orderid) {
+		return olDao.findDataByOrderId(orderid);
 	}
 
 	// 6.findDataByOrderdate(後台)
@@ -133,7 +136,8 @@ public class OrderServiceImpl implements OrderService {
 	// 查詢特定房型的訂單資料
 	@Override
 	public List<OrderListBean> findDataByRoomId(Integer roomId) {
-		return olDao.findDataByRoomId(roomId);
+		RoomBean rBean = rDao.findByroomId(roomId);
+		return olDao.findDataByRoomId(rBean);
 	}
 
 	// 8.deleteDataByOrderId(前後台)
@@ -141,7 +145,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	@Transactional
 	public void deleteDataByOrderId(String orderId) {
-		OrderListBean olBean = olDao.findDataByOrderIdB(orderId);
+		OrderListBean olBean = olDao.findDataByOrderId(orderId);
 		odDao.deleteDataByOrderId(olBean);
 		olDao.deleteDataByOrderId(orderId);
 	}

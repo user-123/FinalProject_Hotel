@@ -2,9 +2,10 @@
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="form"   uri="http://www.springframework.org/tags/form"  %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +14,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>貝殼窩飯店管理系統</title>
+<title>貝殼窩-管理系統</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -41,7 +42,7 @@
 	rel="stylesheet">
 
 <!-- Template Main CSS File -->
-<link href="<c:url value='/assets/css/style.css'/>" rel="stylesheet">
+<link href="<c:url value='/assets/css/style2.css'/>" rel="stylesheet">
 
 <!-- =======================================================
   * Template Name: EstateAgency - v4.10.0
@@ -55,6 +56,14 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
 <style>
+.form-comments {
+	margin-top: 100px
+}
+
+.box-1 {
+	margin-top: 50px
+}
+
 /* 圖片大小 */
 img {
 	max-width: 300px;
@@ -159,6 +168,29 @@ img {
 				}
 			}
 		});
+
+		$("#facility").submit(function(e) {
+			e.preventDefault();
+			var formData = new FormData(this);
+			$.ajax({
+				url : "${contextRoot}/admin/edit",
+				type : "post",
+				data : formData,
+				enctype : 'multipart/form-data',
+				processData : false,
+				contentType : false,
+				cache : false,
+				beforeSend : function(xhr) {
+					//headers: {"X-HTTP-Method-Override": "PUT"} 是加上一個自定義的HTTP Header，名稱為X-HTTP-Method-Override，值為PUT。這是一種比較常見的技巧，通常用在當前端瀏覽器不支援某些HTTP方法（如PUT、DELETE等）時，可以利用這種方法模擬這些方法的請求。在這種情況下，我們可以在AJAX請求中加上這個Header，然後在後端伺服器端判斷這個Header，來模擬PUT或DELETE請求。
+					//PUT請求送不出去!! 所以添加X-HTTP-Method-Override頭部，用於指定PUT請求
+					xhr.setRequestHeader('X-HTTP-Method-Override', 'PUT');
+				},
+				success : function(response) {
+					// 成功時的處理
+					Swal.fire('更新成功', '', 'success');
+				}
+			});
+		});
 	}
 </script>
 </head>
@@ -175,8 +207,8 @@ img {
 				<span></span> <span></span> <span></span>
 			</button>
 			<a class="navbar-brand text-brand"
-				href="<c:url value='/admin/backstage' />">貝殼窩
-				<span class="color-b">飯店管理系統</span></a>
+				href="<c:url value='/admin/background' />">貝殼窩<span
+				class="color-b">管理系統</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
@@ -184,9 +216,11 @@ img {
 
 
 
-					<li class="nav-item"><a class="nav-link active" href="${contextRoot}/admin/backstage">基本管理</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						href="${contextRoot}/admin/backstage">基本管理</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/backstage/member' />">會員管理</a></li>
+					<li class="nav-item"><a class="nav-link "
+						href="<c:url value='/admin/backstage/member' />">會員管理</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
@@ -215,7 +249,8 @@ img {
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/admin/facility/showBacksatge'/>">設施管理</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="${contextRoot}/admin/attraction/list">景點管理</a></li>
+					<li class="nav-item"><a class="nav-link "
+						href="${contextRoot}/admin/attraction/list">周邊管理</a></li>
 
 					<li class="nav-item"><a class="nav-link"
 						href="<c:url value='/admin/messages/backendall' />">評價管理</a></li>
@@ -223,23 +258,23 @@ img {
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">會員</a>
-							<sec:authorize access="hasAnyAuthority('admin','user')">
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<li><a class="dropdown-item" href="<c:url value='/'/>">前台</a></li>
-									<li><a class="dropdown-item "
-										href="<c:url value='/logout'/>"> <input type="hidden"
-											name="${_csrf.parameterName}" value="${_csrf.token}" />登出
-									</a></li>
-								</ul>
-							</sec:authorize><sec:authorize access="hasAuthority('ROLE_ANONYMOUS')">
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<li><a class="dropdown-item"
-										href="<c:url value='/public/loginpage' />">登入</a></li>
-									<li><a class="dropdown-item"
-										href="<c:url value='/public/register' />">註冊</a></li>
-								</ul>
-							</sec:authorize></li>
+						aria-haspopup="true" aria-expanded="false">會員</a> <sec:authorize
+							access="hasAnyAuthority('admin','user')">
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li><a class="dropdown-item" href="<c:url value='/'/>">前台</a></li>
+								<li><a class="dropdown-item "
+									href="<c:url value='/logout'/>"> <input type="hidden"
+										name="${_csrf.parameterName}" value="${_csrf.token}" />登出
+								</a></li>
+							</ul>
+						</sec:authorize> <sec:authorize access="hasAuthority('ROLE_ANONYMOUS')">
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li><a class="dropdown-item"
+									href="<c:url value='/public/loginpage' />">登入</a></li>
+								<li><a class="dropdown-item"
+									href="<c:url value='/public/register' />">註冊</a></li>
+							</ul>
+						</sec:authorize></li>
 				</ul>
 			</div>
 
@@ -261,19 +296,20 @@ img {
 									<div class="row">
 										<form:input type="hidden" path="id" id="id" />
 
-										<div class="">
+										<div>
 											<div class="form-group">
 												<form:label path="about">
-																	關於:</form:label>
+													<h5>貝殼窩的理念:</h5>
+												</form:label>
 												<br>
 												<form:textarea path="about" id="about" class="input"
 													rows="10" cols="80" maxlength="250" required="true" />
 												<span class="abouterror err"></span>
 											</div>
 										</div>
-										<div class="">
+										<div class="box-1">
 											<div class="form-group">
-												<label for="aboutPhotoOne">關於圖片(上):</label> <input
+												<label for="aboutPhotoOne"><h5>圖片(上):</h5></label> <input
 													type="file" id="aboutPhotoOne" name="aboutPhotoOne"
 													accept="image/*"><br> <span
 													class="aboutPhoto1-photoserror err"></span> <br>
@@ -284,11 +320,9 @@ img {
 												</div>
 											</div>
 										</div>
-										<br> <br> <br> <br> <br> <br> <br>
-										<br> <br> <br> <br>
-										<div class="">
+										<div class="box-1">
 											<div class="form-group">
-												<label for="aboutPhotoTwo">關於圖片(下):</label> <input
+												<label for="aboutPhotoTwo"><h5>圖片(下):</h5></label> <input
 													type="file" id="aboutPhotoTwo" name="aboutPhotoTwo"
 													accept="image/*"><br> <span
 													class="aboutPhoto2-photoserror err"></span> <br>
@@ -316,7 +350,8 @@ img {
 										<!-- 										</div> -->
 									</div>
 									<div style="text-align: right">
-										<input type="submit" value="Submit" id="submit" />
+										<input type="submit" value="儲存" id="submit"
+											class="btn btn-danger" />
 									</div>
 								</form:form>
 							</div>

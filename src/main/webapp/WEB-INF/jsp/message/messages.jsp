@@ -2,9 +2,10 @@
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="form"   uri="http://www.springframework.org/tags/form"  %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
@@ -12,7 +13,7 @@
 <head>
 <meta charset="UTF-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>貝斯特飯店</title>
+<title>貝斯特BackHome</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -42,14 +43,14 @@
 <!-- Template Main CSS File -->
 <link href="<c:url value='/assets/css/style.css'/>" rel="stylesheet">
 <!-- Bootstrap core CSS -->
-<link
-	href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css"
-	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.6/css/star-rating.min.css">
 <!-- FontAwesome core CSS -->
 <link
 	href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/htmleaf-demo.css">
+
 <style>
 a {
 	color: #f1c40f;
@@ -103,7 +104,7 @@ textarea {
 </head>
 <body>
 	<!-- ======= Header/Navbar ======= -->
-		<nav
+	<nav
 		class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
 		<div class="container">
 			<button class="navbar-toggler collapsed" type="button"
@@ -112,74 +113,68 @@ textarea {
 				aria-label="Toggle navigation">
 				<span></span> <span></span> <span></span>
 			</button>
-			<a class="navbar-brand text-brand" href="<c:url value='#'/>">貝殼窩<span
-				class="color-b">飯店</span></a>
-			
+			<a class="navbar-brand text-brand" href="<c:url value='/'/>">貝殼窩<span
+				class="color-b">BackHome</span></a>
+
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
 				<ul class="navbar-nav">
 
 
-					<li class="nav-item"><a class="nav-link active" href="${contextRoot}">首頁</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						href="${contextRoot}">首頁</a></li>
 
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/about'/>">關於貝殼窩</a></li>
-						
-						
 					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
-						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">房型&訂房</a> 	
+						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+						data-bs-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">關於貝殼窩</a>
+
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-							<li class="nav-item"><a class="nav-link "
-								href="<c:url value='/public/room/allShow'/>">房型</a></li>
-
-							<li class="nav-item"><a class="nav-link "
-								href="<c:url value='/public/room/orderAllShow'/>">訂房</a></li>
-						</ul>	
-					</li>
-						
-						
-
-					
-
-
+							<li><a class="dropdown-item"
+								href="<c:url value='/public/about' />">我們的理念</a></li>
+							<li><a class="dropdown-item"
+								href="<c:url value='/public/messages/all' />">評價&回饋</a></li>
+						</ul></li>
+					<li class="nav-item"><a class="nav-link "
+						href="<c:url value='/public/room/orderAllShow'/>">房型&訂房</a></li>
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/facility/show'/>">休閒設施</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="${contextRoot}/public/attraction/list">周邊景點</a></li>
+					<li class="nav-item"><a class="nav-link "
+						href="${contextRoot}/public/attraction/list">周邊美食&景點</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="<c:url value='/public/shop' />">商城</a></li>
+					<li class="nav-item"><a class="nav-link "
+						href="<c:url value='/public/shop' />">商城</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">會員</a>
-							<sec:authorize access="hasAnyAuthority('admin','user')">
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						aria-haspopup="true" aria-expanded="false">會員</a> <sec:authorize
+							access="hasAnyAuthority('admin','user')">
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li><a class="dropdown-item"
+									href="<c:url value='/addinfo' />">填寫及修改基本資料</a></li>
+								<li><a class="dropdown-item"
+									href="<c:url value='/searchinfo' />">查詢資料</a></li>
+								<li><a class="dropdown-item"
+									href="<c:url value='/orders/history' />?accountId=${sessionScope.id}">歷史訂單</a></li>
+								<sec:authorize access="hasAuthority('admin')">
 									<li><a class="dropdown-item"
-										href="<c:url value='/addinfo' />">填寫及修改基本資料</a></li>
-									<li><a class="dropdown-item"
-										href="<c:url value='/searchinfo' />">查詢資料</a></li>
-									<li><a class="dropdown-item"
-										href="<c:url value='/orders/history' />?accountId=${sessionScope.id}">歷史訂單</a></li>
-									<sec:authorize access="hasAuthority('admin')">
-										<li><a class="dropdown-item"
-											href="<c:url value="/admin/backstage"/>">後台</a></li>
-									</sec:authorize>
-									<li><a class="dropdown-item "
-										href="<c:url value='/logout'/>"> <input type="hidden"
-											name="${_csrf.parameterName}" value="${_csrf.token}" />登出
-									</a></li>
-								</ul>
-							</sec:authorize><sec:authorize access="hasAuthority('ROLE_ANONYMOUS')">
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<li><a class="dropdown-item"
-										href="<c:url value='/public/loginpage' />">登入</a></li>
-									<li><a class="dropdown-item"
-										href="<c:url value='/public/register' />">註冊</a></li>
-								</ul>
-							</sec:authorize></li>
+										href="<c:url value="/admin/background"/>">後台</a></li>
+								</sec:authorize>
+								<li><a class="dropdown-item "
+									href="<c:url value='/logout'/>"> <input type="hidden"
+										name="${_csrf.parameterName}" value="${_csrf.token}" />登出
+								</a></li>
+							</ul>
+						</sec:authorize> <sec:authorize access="hasAuthority('ROLE_ANONYMOUS')">
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li><a class="dropdown-item"
+									href="<c:url value='/public/loginpage' />">登入</a></li>
+								<li><a class="dropdown-item"
+									href="<c:url value='/public/register' />">註冊</a></li>
+							</ul>
+						</sec:authorize></li>
 				</ul>
 			</div>
 		</div>
@@ -192,6 +187,7 @@ textarea {
 					<div class="col-md-12 col-lg-8">
 						<div class="title-single-box">
 							<h1 class="title-single">評價&回饋</h1>
+							
 							<div class="title-box-d">
 								<h5 class="title-d">撰寫評論</h5>
 							</div>
@@ -239,7 +235,8 @@ textarea {
 								<c:forEach var="datas" items="${datas}">
 									<label hidden="hidden">${datas.id}</label>
 									<div class="row">
-										<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow" style="background-color:	#ECF5FF">
+										<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow"
+											style="background-color: #ECF5FF">
 											<div class="rating-stars block" id="another-rating">
 												<input type="hidden" readonly="readonly"
 													class="form-control rating-value"
@@ -265,15 +262,15 @@ textarea {
 
 
 											<div class="col-md-12 mb-3">
-												<div class="form-group" style="font-weight:bold">會員:${datas.userid.accountName}</div>
+												<div class="form-group" style="font-weight: bold">會員:${datas.userid.accountName}</div>
 											</div>
 											<div class="col-md-12 mb-3">
 												<div style="width: 700px;">
-													<div class="form-group" style="font-weight:bold">內容:${datas.usertext}</div>
+													<div class="form-group" style="font-weight: bold">內容:${datas.usertext}</div>
 												</div>
 											</div>
 											<div class="col-md-12 mb-3">
-												<div class="form-group" style="font-weight:bold">
+												<div class="form-group" style="font-weight: bold">
 													<fmt:formatDate pattern="yyyy-MM-dd ,a hh:mm:ss EEEE"
 														value="${datas.messagetime}" />
 												</div>

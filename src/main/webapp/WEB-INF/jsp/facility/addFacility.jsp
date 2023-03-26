@@ -2,9 +2,10 @@
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="form"   uri="http://www.springframework.org/tags/form"  %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +14,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>XXX飯店管理系統</title>
+<title>貝殼窩-管理系統</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -41,7 +42,7 @@
 	rel="stylesheet">
 
 <!-- Template Main CSS File -->
-<link href="<c:url value='/assets/css/style.css'/>" rel="stylesheet">
+<link href="<c:url value='/assets/css/style2.css'/>" rel="stylesheet">
 <!-- =======================================================
   * Template Name: EstateAgency - v4.10.0
   * Template URL: https://bootstrapmade.com/real-estate-agency-bootstrap-template/
@@ -71,6 +72,10 @@ img {
 	max-width: 300px;
 	max-height: 150px;
 	object-fit: contain;
+}
+
+.form-comments {
+	margin-top: 100px
 }
 </style>
 
@@ -218,7 +223,7 @@ img {
 
 
 	<!-- ======= Header/Navbar ======= -->
-		<nav
+	<nav
 		class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
 		<div class="container">
 			<button class="navbar-toggler collapsed" type="button"
@@ -228,8 +233,8 @@ img {
 				<span></span> <span></span> <span></span>
 			</button>
 			<a class="navbar-brand text-brand"
-				href="<c:url value='/admin/backstage' />">貝殼窩
-				<span class="color-b">飯店管理系統</span></a>
+				href="<c:url value='/admin/background' />">貝殼窩<span
+				class="color-b">管理系統</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
@@ -237,9 +242,11 @@ img {
 
 
 
-					<li class="nav-item"><a class="nav-link active" href="${contextRoot}/admin/backstage">基本管理</a></li>
+					<li class="nav-item"><a class="nav-link "
+						href="${contextRoot}/admin/backstage">基本管理</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/backstage/member' />">會員管理</a></li>
+					<li class="nav-item"><a class="nav-link "
+						href="<c:url value='/admin/backstage/member' />">會員管理</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
@@ -265,10 +272,11 @@ img {
 						href="<c:url value="/admin/room/backstage"/>">房型管理</a></li>
 
 
-					<li class="nav-item"><a class="nav-link "
+					<li class="nav-item"><a class="nav-link active"
 						href="<c:url value='/admin/facility/showBacksatge'/>">設施管理</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="${contextRoot}/admin/attraction/list">景點管理</a></li>
+					<li class="nav-item"><a class="nav-link "
+						href="${contextRoot}/admin/attraction/list">周邊管理</a></li>
 
 					<li class="nav-item"><a class="nav-link"
 						href="<c:url value='/admin/messages/backendall' />">評價管理</a></li>
@@ -276,23 +284,23 @@ img {
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">會員</a>
-							<sec:authorize access="hasAnyAuthority('admin','user')">
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<li><a class="dropdown-item" href="<c:url value='/'/>">前台</a></li>
-									<li><a class="dropdown-item "
-										href="<c:url value='/logout'/>"> <input type="hidden"
-											name="${_csrf.parameterName}" value="${_csrf.token}" />登出
-									</a></li>
-								</ul>
-							</sec:authorize><sec:authorize access="hasAuthority('ROLE_ANONYMOUS')">
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<li><a class="dropdown-item"
-										href="<c:url value='/public/loginpage' />">登入</a></li>
-									<li><a class="dropdown-item"
-										href="<c:url value='/public/register' />">註冊</a></li>
-								</ul>
-							</sec:authorize></li>
+						aria-haspopup="true" aria-expanded="false">會員</a> <sec:authorize
+							access="hasAnyAuthority('admin','user')">
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li><a class="dropdown-item" href="<c:url value='/'/>">前台</a></li>
+								<li><a class="dropdown-item "
+									href="<c:url value='/logout'/>"> <input type="hidden"
+										name="${_csrf.parameterName}" value="${_csrf.token}" />登出
+								</a></li>
+							</ul>
+						</sec:authorize> <sec:authorize access="hasAuthority('ROLE_ANONYMOUS')">
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li><a class="dropdown-item"
+									href="<c:url value='/public/loginpage' />">登入</a></li>
+								<li><a class="dropdown-item"
+									href="<c:url value='/public/register' />">註冊</a></li>
+							</ul>
+						</sec:authorize></li>
 				</ul>
 			</div>
 
@@ -314,7 +322,9 @@ img {
 									<div class="row">
 										<div class="">
 											<div class="form-group">
-												<form:label path="name">設施名稱:</form:label>
+												<form:label path="name">
+													<h5>設施名稱:</h5>
+												</form:label>
 												<br>
 												<form:input path="name" id="name" class="input"
 													required="true" />
@@ -324,7 +334,8 @@ img {
 										<div class="">
 											<div class="form-group">
 												<form:label path="introduce">
-																	簡介:</form:label>
+													<h5>簡介:</h5>
+												</form:label>
 												<br>
 												<form:textarea path="introduce" id="introduce" class="input"
 													rows="10" cols="80" maxlength="170" required="true" />
@@ -334,7 +345,8 @@ img {
 										<div class="">
 											<div class="form-group">
 												<form:label path="service">
-																	服務:</form:label>
+													<h5>服務:</h5>
+												</form:label>
 												<br>
 												<form:textarea path="service" id="service" class="input"
 													rows="10" cols="80" required="true" />
@@ -343,28 +355,24 @@ img {
 										</div>
 										<div class="">
 											<div class="form-group">
-												<label for="room-photos">圖片:</label> <input type="file"
-													id="room-photos" class="input" name="files" required="true"
-													accept="image/*" multiple><br> <span
-													class="room-photoserror err"></span>
+												<label for="room-photos"><h5>圖片:</h5></label> <input
+													type="file" id="room-photos" class="input" name="files"
+													required="true" accept="image/*" multiple><br>
+												<span class="room-photoserror err"></span>
 												<div id="preview-images"></div>
 											</div>
 										</div>
 									</div>
 									<div style="text-align: right">
-										<input style="display: none" type="submit" value="Submit"
+										<a class="btn btn-primary"
+											href="${contextRoot}
+															/admin/facility/showBacksatge">取消</a><input
+											style="display: none" type="submit" value="Submit"
 											id="submit" /> <input style="display: none" type="button"
 											value="submittest" id="submittest" /> <input type="button"
-											value="確認" id="submitShow" />
+											value="儲存" id="submitShow" class="btn btn-danger" />
 									</div>
 								</form:form>
-								<div class="col-md-6 mb-3">
-									<div class="form-group">
-										<a class="btn btn-danger"
-											href="${contextRoot}
-															/admin/facility/showBacksatge">上一頁</a>
-									</div>
-								</div>
 							</div>
 						</div>
 					</div>

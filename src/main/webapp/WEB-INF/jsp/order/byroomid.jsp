@@ -13,7 +13,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>貝殼窩飯店管理系統</title>
+<title>貝殼窩-管理系統</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -41,7 +41,7 @@
 	rel="stylesheet">
 
 <!-- Template Main CSS File -->
-<link href="<c:url value='/assets/css/style.css'/>" rel="stylesheet">
+<link href="<c:url value='/assets/css/style2.css'/>" rel="stylesheet">
 
 <!-- =======================================================
   * Template Name: EstateAgency - v4.10.0
@@ -49,6 +49,19 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
+<style>
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+	-moz-appearance: textfield;
+}
+</style>
 </head>
 
 <body>
@@ -63,8 +76,8 @@
 				<span></span> <span></span> <span></span>
 			</button>
 			<a class="navbar-brand text-brand"
-				href="<c:url value='/admin/backstage' />">貝殼窩
-				<span class="color-b">飯店管理系統</span></a>
+				href="<c:url value='/admin/background' />">貝殼窩<span
+				class="color-b">管理系統</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
@@ -72,11 +85,13 @@
 
 
 
-					<li class="nav-item"><a class="nav-link active" href="${contextRoot}/admin/backstage">基本管理</a></li>
+					<li class="nav-item"><a class="nav-link "
+						href="${contextRoot}/admin/backstage">基本管理</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/backstage/member' />">會員管理</a></li>
+					<li class="nav-item"><a class="nav-link "
+						href="<c:url value='/admin/backstage/member' />">會員管理</a></li>
 
-					<li class="nav-item dropdown"><a
+					<li class="nav-item dropdown active"><a
 						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
 						data-bs-toggle="dropdown" aria-haspopup="true"
 						aria-expanded="false">訂單管理</a>
@@ -90,7 +105,7 @@
 								href="<c:url value='/admin/orders/byorderid' />">用訂單編號查詢</a></li>
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/byorderdate' />">用下訂日期查詢</a></li>
-							<li><a class="dropdown-item"
+							<li><a class="dropdown-item active"
 								href="<c:url value='/admin/orders/byroomid' />">用房型查詢</a></li>
 						</ul></li>
 
@@ -103,7 +118,8 @@
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/admin/facility/showBacksatge'/>">設施管理</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="${contextRoot}/admin/attraction/list">景點管理</a></li>
+					<li class="nav-item"><a class="nav-link "
+						href="${contextRoot}/admin/attraction/list">周邊管理</a></li>
 
 					<li class="nav-item"><a class="nav-link"
 						href="<c:url value='/admin/messages/backendall' />">評價管理</a></li>
@@ -111,23 +127,23 @@
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">會員</a>
-							<sec:authorize access="hasAnyAuthority('admin','user')">
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<li><a class="dropdown-item" href="<c:url value='/'/>">前台</a></li>
-									<li><a class="dropdown-item "
-										href="<c:url value='/logout'/>"> <input type="hidden"
-											name="${_csrf.parameterName}" value="${_csrf.token}" />登出
-									</a></li>
-								</ul>
-							</sec:authorize><sec:authorize access="hasAuthority('ROLE_ANONYMOUS')">
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<li><a class="dropdown-item"
-										href="<c:url value='/public/loginpage' />">登入</a></li>
-									<li><a class="dropdown-item"
-										href="<c:url value='/public/register' />">註冊</a></li>
-								</ul>
-							</sec:authorize></li>
+						aria-haspopup="true" aria-expanded="false">會員</a> <sec:authorize
+							access="hasAnyAuthority('admin','user')">
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li><a class="dropdown-item" href="<c:url value='/'/>">前台</a></li>
+								<li><a class="dropdown-item "
+									href="<c:url value='/logout'/>"> <input type="hidden"
+										name="${_csrf.parameterName}" value="${_csrf.token}" />登出
+								</a></li>
+							</ul>
+						</sec:authorize> <sec:authorize access="hasAuthority('ROLE_ANONYMOUS')">
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li><a class="dropdown-item"
+									href="<c:url value='/public/loginpage' />">登入</a></li>
+								<li><a class="dropdown-item"
+									href="<c:url value='/public/register' />">註冊</a></li>
+							</ul>
+						</sec:authorize></li>
 				</ul>
 			</div>
 
@@ -143,17 +159,17 @@
 							<h1 class="title-single">訂單一覽</h1>
 							<div class="form-comments">
 								<div class="title-box-d">
-									<h5 class="title-d">用房型查詢</h5>
+									<h5 class="title-d">房型查詢</h5>
 								</div>
 								<form:form action="${contextRoot}/admin/orders/databyroomid"
-									modelAttribute="roomid">
+									modelAttribute="roomId">
 									<div class="input-group">
-										<form:input path="roomid" class="form-control" rows=""
-											cols="" />
+										<form:input type="number" path="roomId" class="form-control"
+											rows="" cols="" />
 									</div>
 									<br />
 									<div style="text-align: right">
-										<button type="submit" class="btn btn-primary">送出</button>
+										<button type="submit" class="btn btn-primary">查詢</button>
 									</div>
 								</form:form>
 								<c:choose>
@@ -164,7 +180,8 @@
 										<c:forEach var="datas" items="${datas}">
 											<label hidden="hidden">${datas.id}</label>
 											<div class="row">
-												<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow" style="background-color:	#ECF5FF">
+												<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow"
+													style="background-color: #ECF5FF">
 													<div class="col-md-12 mb-3">
 														<div class="form-group">
 															訂單成立時間:
@@ -206,10 +223,9 @@
 														<form action="${contextRoot}/admin/orders/update"
 															method="get">
 															<input type="hidden" name="id" value="${datas.id}" /> <input
-																type="hidden" name="jsp" value="byRoomid" /> 
-																 <input type="hidden"
-																name="searchid" value="${datas.roomid.roomId}" /> 
-																<input type="submit"
+																type="hidden" name="jsp" value="byRoomid" /> <input
+																type="hidden" name="searchid"
+																value="${datas.roomid.roomId}" /> <input type="submit"
 																class="btn btn-outline-info btn-sm" value="編輯">
 														</form>
 														<!--********************[刪除按鈕]******************** -->
@@ -235,7 +251,7 @@
 																    confirmButtonColor: '#d33',
 																    cancelButtonColor: '#3085d6',
 																    confirmButtonText: '刪除',
-																    cancelButtonText: '取消' 
+																    cancelButtonText: '取消'
 																  }).then((result) => {
 																    if (result.isConfirmed) {
 																      Swal.fire(
@@ -268,7 +284,7 @@
 			</div>
 		</section>
 	</main>
-
+	<h1 style="color: #FFFFFF">這是空白文字</h1>
 	<footer>
 		<div class="container">
 			<div class="row">
@@ -309,8 +325,8 @@
 
 	<!-- Template Main JS File -->
 	<script src='<c:url value="/assets/js/main.js"/>'></script>
-	
-		<!-- sweetalert2 -->
+
+	<!-- sweetalert2 -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 

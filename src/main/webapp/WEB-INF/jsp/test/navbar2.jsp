@@ -14,7 +14,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>貝殼窩飯店</title>
+<title>貝殼窩-管理系統</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -42,7 +42,7 @@
 	rel="stylesheet">
 
 <!-- Template Main CSS File -->
-<link href="<c:url value='/assets/css/style.css'/>" rel="stylesheet">
+<link href="<c:url value='/assets/css/style2.css'/>" rel="stylesheet">
 
 <!-- =======================================================
   * Template Name: EstateAgency - v4.10.0
@@ -55,7 +55,7 @@
 <body>
 
 	<!-- ======= Header/Navbar ======= -->
-<nav
+	<nav
 		class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
 		<div class="container">
 			<button class="navbar-toggler collapsed" type="button"
@@ -65,8 +65,8 @@
 				<span></span> <span></span> <span></span>
 			</button>
 			<a class="navbar-brand text-brand"
-				href="<c:url value='/admin/backstage' />">貝殼窩
-				<span class="color-b">飯店管理系統</span></a>
+				href="<c:url value='/admin/background' />">貝殼窩<span
+				class="color-b">管理系統</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
@@ -74,9 +74,11 @@
 
 
 
-					<li class="nav-item"><a class="nav-link active" href="${contextRoot}/admin/backstage">基本管理</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						href="${contextRoot}/admin/backstage">基本管理</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/backstage/member' />">會員管理</a></li>
+					<li class="nav-item"><a class="nav-link "
+						href="<c:url value='/admin/backstage/member' />">會員管理</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
@@ -87,7 +89,7 @@
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/findall' />">訂單一覽</a></li>
 							<li><a class="dropdown-item"
-								href="<c:url value='/admin/orders/byuserid' />">用會員名稱查詢</a></li>
+								href="<c:url value='/admin/orders/byemail' />">用Email查詢</a></li>
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/byorderid' />">用訂單編號查詢</a></li>
 							<li><a class="dropdown-item"
@@ -105,7 +107,8 @@
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/admin/facility/showBacksatge'/>">設施管理</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="${contextRoot}/admin/attraction/list">景點管理</a></li>
+					<li class="nav-item"><a class="nav-link "
+						href="${contextRoot}/admin/attraction/list">周邊管理</a></li>
 
 					<li class="nav-item"><a class="nav-link"
 						href="<c:url value='/admin/messages/backendall' />">評價管理</a></li>
@@ -113,23 +116,23 @@
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">會員</a>
-							<sec:authorize access="hasAnyAuthority('admin','user')">
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<li><a class="dropdown-item" href="<c:url value='/'/>">前台</a></li>
-									<li><a class="dropdown-item "
-										href="<c:url value='/logout'/>"> <input type="hidden"
-											name="${_csrf.parameterName}" value="${_csrf.token}" />登出
-									</a></li>
-								</ul>
-							</sec:authorize><sec:authorize access="hasAuthority('ROLE_ANONYMOUS')">
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<li><a class="dropdown-item"
-										href="<c:url value='/public/loginpage' />">登入</a></li>
-									<li><a class="dropdown-item"
-										href="<c:url value='/public/register' />">註冊</a></li>
-								</ul>
-							</sec:authorize></li>
+						aria-haspopup="true" aria-expanded="false">會員</a> <sec:authorize
+							access="hasAnyAuthority('admin','user')">
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li><a class="dropdown-item" href="<c:url value='/'/>">前台</a></li>
+								<li><a class="dropdown-item "
+									href="<c:url value='/logout'/>"> <input type="hidden"
+										name="${_csrf.parameterName}" value="${_csrf.token}" />登出
+								</a></li>
+							</ul>
+						</sec:authorize> <sec:authorize access="hasAuthority('ROLE_ANONYMOUS')">
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li><a class="dropdown-item"
+									href="<c:url value='/public/loginpage' />">登入</a></li>
+								<li><a class="dropdown-item"
+									href="<c:url value='/public/register' />">註冊</a></li>
+							</ul>
+						</sec:authorize></li>
 				</ul>
 			</div>
 

@@ -12,7 +12,7 @@
 		<meta charset="utf-8">
 		<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-		<title>貝殼窩飯店管理系統</title>
+		<title>貝殼窩-管理系統</title>
 		<meta content="" name="description">
 		<meta content="" name="keywords">
 
@@ -30,7 +30,7 @@
 		<link href="<c:url value='/assets/vendor/swiper/swiper-bundle.min.css'/>" rel="stylesheet">
 
 		<!-- Template Main CSS File -->
-		<link href="<c:url value='/assets/css/style.css'/>" rel="stylesheet">
+		<link href="<c:url value='/assets/css/style2.css'/>" rel="stylesheet">
 
 		<!-- Custom By D.C., need to replace with non-CDN -->
 		<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
@@ -51,7 +51,7 @@
 				<button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDefault" aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
 					<span></span> <span></span> <span></span>
 				</button>
-				<a class="navbar-brand text-brand" href="<c:url value='/admin/backstage' />">貝殼窩<span class="color-b">管理系統</span></a>
+				<a class="navbar-brand text-brand" href="<c:url value='/admin/background' />">貝殼窩<span class="color-b">管理系統</span></a>
 
 				<div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
 					<ul class="navbar-nav">
@@ -66,7 +66,7 @@
 
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 								<li><a class="dropdown-item" href="<c:url value='/admin/orders/findall' />">訂單一覽</a></li>
-								<li><a class="dropdown-item" href="<c:url value='/admin/orders/byuserid' />">用會員名稱查詢</a></li>
+								<li><a class="dropdown-item" href="<c:url value='/admin/orders/byemail' />">用Email查詢</a></li>
 								<li><a class="dropdown-item" href="<c:url value='/admin/orders/byorderid' />">用訂單編號查詢</a></li>
 								<li><a class="dropdown-item" href="<c:url value='/admin/orders/byorderdate' />">用下訂日期查詢</a></li>
 								<li><a class="dropdown-item" href="<c:url value='/admin/orders/byroomid' />">用房型查詢</a></li>
@@ -78,7 +78,7 @@
 
 						<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/facility/showBacksatge'/>">設施管理</a></li>
 
-						<li class="nav-item"><a class="nav-link " href="${contextRoot}/admin/attraction/list">景點管理</a></li>
+						<li class="nav-item"><a class="nav-link " href="${contextRoot}/admin/attraction/list">周邊管理</a></li>
 
 						<li class="nav-item"><a class="nav-link" href="<c:url value='/admin/messages/backendall' />">評價管理</a></li>
 
