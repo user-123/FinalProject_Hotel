@@ -64,10 +64,11 @@ public class OrderController {
 		LoginBean uid = lService.findById(userId);
 		data.setRoomid(rid);
 		data.setUserid(uid);
-		if (oService.insert(data)) {
+		boolean result=oService.insert(data);
+		if (result) {
 			model.addAttribute("information", data);
 			// 將資料放入重定向的屬性中
-			redirectAttributes.addFlashAttribute("information", data);
+			redirectAttributes.addFlashAttribute("lastorder", data.getOrderid());
 			// 訂單成立成功的頁面
 			return "redirect:/orders/show";
 		}
@@ -75,10 +76,10 @@ public class OrderController {
 	}
 
 	@GetMapping("/orders/show")
-	public String showMessagePage(@ModelAttribute("information") OrderListBean data, Model model) {
+	public String showMessagePage(Model model) {
 		// 從重定向屬性中取出資料
-		OrderListBean information = (OrderListBean) model.asMap().get("information");
-		// 將資料放入模型中，以供顯示
+		String lastorder = (String) model.asMap().get("lastorder");
+		OrderListBean information=oService.findDataByOrderId(lastorder);
 		model.addAttribute("information", information);
 		return "order/success";
 	}
@@ -124,7 +125,36 @@ public class OrderController {
 		return "order/alldata";
 	}
 
-
+	// **************************後台訂單管理下拉選單--用房型查詢******************************
+	// 輸入id
+	// 7.findDataByRoomId
+	@GetMapping("/admin/orders/byroomid")
+	public String findDataByRoomId(Model model) {
+		RoomBean ol = new RoomBean();
+		model.addAttribute("roomId", ol);
+		return "order/byroomid";
+	}
+	
+	// 此時admin看到的是按下查詢後返還的資料
+	@PostMapping("/admin/orders/databyroomid")
+	public String showDataByRoomId(@ModelAttribute("roomId") String roomid, Model model) {
+		RoomBean ol = new RoomBean();
+		model.addAttribute("roomId", ol);
+		Integer num=0;
+		try{
+		num=Integer.parseInt(roomid);
+		}catch(NumberFormatException e){
+			return "order/byroomid";
+		}
+		
+		List<OrderListBean> datas = oService.findDataByRoomId(num);
+		model.addAttribute("datas", datas);
+		// 按下查詢後，才會有searched這個model
+		// 代表設searched為true
+		// 代表按下查詢後，才會做顯示內容的判斷
+		model.addAttribute("searched", true);
+		return "order/byroomid";
+	}
 	// **************************後台訂單管理下拉選單--用Email查詢******************************
 	// 3.findDataByEmail
 	// 此時admin看到的是填寫email的空格
@@ -140,11 +170,8 @@ public class OrderController {
 	public String showDataByEmail(@ModelAttribute("email") String email, Model model) {
 		LoginBean lb = new LoginBean();
 		model.addAttribute("email", lb);
-		
-		System.out.println("-----------------------------------userid" + email);
 		List<OrderListBean> datas = oService.findDataByEmail(email);		
 		model.addAttribute("datas", datas);
-		System.out.println("-----------------------------------datas" + datas);
 		
 		// 按下查詢後，才會有searched這個model
 		// 代表設searched為true
@@ -169,7 +196,7 @@ public class OrderController {
 		OrderListBean ol = new OrderListBean();
 		model.addAttribute("orderid", ol);
 
-		OrderListBean datas = oService.findDataByOrderIdB(orderId);
+		OrderListBean datas = oService.findDataByOrderId(orderId);
 		model.addAttribute("datas", datas);
 		// 按下查詢後，才會有searched這個model
 		// 代表設searched為true
@@ -206,32 +233,6 @@ public class OrderController {
 		return "order/byorderdate";
 	}
 
-	// **************************後台訂單管理下拉選單--用房型查詢******************************
-	// 輸入id
-	// 7.findDataByRoomId
-	@GetMapping("/admin/orders/byroomid")
-	public String findDataByRoomId(Model model) {
-		OrderListBean ol = new OrderListBean();
-		model.addAttribute("roomid", ol);
-		return "order/byroomid";
-	}
-
-	// 此時admin看到的是按下查詢後返還的資料
-	@PostMapping("/admin/orders/databyroomid")
-	public String showDataByRoomId(@ModelAttribute("roomid") Integer roomid, Model model) {
-		OrderListBean ol = new OrderListBean();
-		model.addAttribute("roomid", ol);
-
-		List<OrderListBean> datas = oService.findDataByRoomId(roomid);
-		model.addAttribute("datas", datas);
-
-		System.out.println("??????????????????????????????????" + datas);
-		// 按下查詢後，才會有searched這個model
-		// 代表設searched為true
-		// 代表按下查詢後，才會做顯示內容的判斷
-		model.addAttribute("searched", true);
-		return "order/byroomid";
-	}
 
 	// **************************admin按下[編輯]按鈕，發送此請求******************************
 	// 錯誤未排除:1.資料庫有正常更新，但前端需思考一下 2.orderdate毫秒會更改!!(雖然好像沒有很大的關係

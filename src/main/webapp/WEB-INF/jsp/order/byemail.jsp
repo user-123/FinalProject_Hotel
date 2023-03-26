@@ -89,7 +89,6 @@
 
 							<li><a class="dropdown-item active"
 								href="<c:url value='/admin/orders/byemail' />">用Email查詢</a></li>
-
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/byorderid' />">用訂單編號查詢</a></li>
 							<li><a class="dropdown-item"
@@ -151,7 +150,6 @@
 								<div class="title-box-d">
 									<h5 class="title-d">Email查詢</h5>
 								</div>
-
 								<form:form action="${contextRoot}/admin/orders/databyemail"
 									modelAttribute="email">
 									<div class="input-group">
@@ -245,7 +243,7 @@
 																    confirmButtonColor: '#d33',
 																    cancelButtonColor: '#3085d6',
 																    confirmButtonText: '刪除',
-																    cancelButtonText: '取消' 
+																    cancelButtonText: '取消'
 																  }).then((result) => {
 																    if (result.isConfirmed) {
 																      Swal.fire(
@@ -278,6 +276,7 @@
 			</div>
 		</section>
 	</main>
+										<h1 style="color: #FFFFFF">這是空白文字</h1>
 
 
 	<div id="preloader"></div>

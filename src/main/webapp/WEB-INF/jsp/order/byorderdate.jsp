@@ -163,6 +163,7 @@
 								<c:choose>
 									<c:when test="${datas.isEmpty()&&searched==true}">
 										<h3>目前尚無訂單</h3>
+										<h1 style="color: #FFFFFF">這是空白文字</h1>
 									</c:when>
 									<c:otherwise>
 										<c:forEach var="datas" items="${datas}">
@@ -275,6 +276,7 @@
 			</div>
 		</section>
 	</main>
+										<h1 style="color: #FFFFFF">這是空白文字</h1>
 
 
 	<div id="preloader"></div>

@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" isELIgnored="false"%>
+ pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
-<%@ taglib uri="http://www.springframework.org/security/tags"
-	prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
@@ -21,25 +20,25 @@
 <!-- Favicons -->
 <link href="<c:url value='/assets/img/favicon.png'/>" rel="icon">
 <link href="<c:url value='/assets/img/apple-touch-icon.png'/>"
-	rel="apple-touch-icon">
+ rel="apple-touch-icon">
 
 <!-- Google Fonts -->
 <link
-	href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"
-	rel="stylesheet">
+ href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"
+ rel="stylesheet">
 
 <!-- Vendor CSS Files -->
 <link href="<c:url value='/assets/vendor/animate.css/animate.min.css'/>"
-	rel="stylesheet">
+ rel="stylesheet">
 <link
-	href="<c:url value='/assets/vendor/bootstrap/css/bootstrap.min.css'/>"
-	rel="stylesheet">
+ href="<c:url value='/assets/vendor/bootstrap/css/bootstrap.min.css'/>"
+ rel="stylesheet">
 <link
-	href="<c:url value='/assets/vendor/bootstrap-icons/bootstrap-icons.css'/>"
-	rel="stylesheet">
+ href="<c:url value='/assets/vendor/bootstrap-icons/bootstrap-icons.css'/>"
+ rel="stylesheet">
 <link
-	href="<c:url value='/assets/vendor/swiper/swiper-bundle.min.css'/>"
-	rel="stylesheet">
+ href="<c:url value='/assets/vendor/swiper/swiper-bundle.min.css'/>"
+ rel="stylesheet">
 
 <!-- Template Main CSS File -->
 <link href="<c:url value='/assets/css/style2.css'/>" rel="stylesheet">
@@ -75,9 +74,9 @@
 				href="<c:url value='/admin/background' />">貝殼窩 <span
 				class="color-b">管理系統</span></a>
 
-			<div class="navbar-collapse collapse justify-content-center"
-				id="navbarDefault">
-				<ul class="navbar-nav">
+   <div class="navbar-collapse collapse justify-content-center"
+    id="navbarDefault">
+    <ul class="navbar-nav">
 
 
 
@@ -87,10 +86,7 @@
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/admin/backstage/member' />">會員管理</a></li>
 
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
-						data-bs-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false">訂單管理</a>
+					<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">訂單管理</a>
 
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 							<li><a class="dropdown-item"
@@ -143,11 +139,11 @@
 				</ul>
 			</div>
 
-		</div>
-	</nav>
-	<!-- End Header/Navbar -->
+  </div>
+ </nav>
+ <!-- End Header/Navbar -->
 
-	<main id="main">
+ <main id="main">
 
 		<!-- ======= Intro Single ======= -->
 		<section class="intro-single">
@@ -234,21 +230,21 @@
 
 
 
-	<div id="preloader"></div>
-	<a href="#"
-		class="back-to-top d-flex align-items-center justify-content-center"><i
-		class="bi bi-arrow-up-short"></i></a>
+ <div id="preloader"></div>
+ <a href="#"
+  class="back-to-top d-flex align-items-center justify-content-center"><i
+  class="bi bi-arrow-up-short"></i></a>
 
-	<!-- Vendor JS Files -->
-	<script
-		src="<c:url value='/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' />"></script>
-	<script
-		src="<c:url value='/assets/vendor/swiper/swiper-bundle.min.js' />"></script>
-	<script
-		src="<c:url value='/assets/vendor/php-email-form/validate.js' />"></script>
+ <!-- Vendor JS Files -->
+ <script
+  src="<c:url value='/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' />"></script>
+ <script
+  src="<c:url value='/assets/vendor/swiper/swiper-bundle.min.js' />"></script>
+ <script
+  src="<c:url value='/assets/vendor/php-email-form/validate.js' />"></script>
 
-	<!-- Template Main JS File -->
-	<script src="<c:url value='/assets/js/main.js' />"></script>
+ <!-- Template Main JS File -->
+ <script src="<c:url value='/assets/js/main.js' />"></script>
 
 
 </body>

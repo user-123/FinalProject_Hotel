@@ -162,10 +162,10 @@
 									</div>
 								</form:form>
 								<c:choose>
-									<c:when test="${datas==null}">
-									</c:when>
 									<c:when test="${datas==null&&searched==true}">
 										<h3>目前尚無訂單</h3>
+									</c:when>
+									<c:when test="${datas==null}">							
 									</c:when>
 									<c:otherwise>
 										<div class="row">
@@ -273,6 +273,7 @@
 			</div>
 		</section>
 	</main>
+								<h1 style="color: #FFFFFF">這是空白文字</h1>
 
 
 	<div id="preloader"></div>

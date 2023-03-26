@@ -153,13 +153,14 @@
 								<c:choose>
 									<c:when test="${datas.isEmpty()}">
 										<h3>目前尚無訂單</h3>
+										<h1 style="color: #FFFFFF">這是空白文字</h1>
+										<h1 style="color: #FFFFFF">這是空白文字</h1>
 									</c:when>
 									<c:otherwise>
 										<c:forEach var="datas" items="${datas}">
 											<input type="hidden" name="id" value="${datas.id}" />
-											<div class="row">
-												<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow"
-													style="background-color: #ECF5FF">
+											<div class="row" >
+												<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow" style="background-color:#ECF5FF">
 													<div class="col-md-12 mb-3">
 														<div class="form-group">
 															訂單成立時間:
@@ -230,7 +231,7 @@
 																    confirmButtonColor: '#d33',
 																    cancelButtonColor: '#3085d6',
 																    confirmButtonText: '刪除',
-																    cancelButtonText: '取消' 
+																    cancelButtonText: '取消'
 																  }).then((result) => {
 																    if (result.isConfirmed) {
 																      Swal.fire(
