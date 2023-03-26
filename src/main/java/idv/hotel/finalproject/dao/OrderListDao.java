@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import idv.hotel.finalproject.model.LoginBean;
 import idv.hotel.finalproject.model.OrderListBean;
-import idv.hotel.finalproject.model.OrderProductBean;
+import idv.hotel.finalproject.model.RoomBean;
 
 public interface OrderListDao extends JpaRepository<OrderListBean, Integer> {
 
@@ -45,7 +45,7 @@ public interface OrderListDao extends JpaRepository<OrderListBean, Integer> {
 	// 7.findDataByRoomId(後台)
 	// 查詢特定房型的訂單資料
 	@Query(value = "select * from [dbo].[Order_List] where [FK_Room_Id] =?1 order by orderdate desc", nativeQuery=true)
-	public List<OrderListBean> findDataByRoomId(Integer roomId);
+	public List<OrderListBean> findDataByRoomId(RoomBean roomId);
 
 	// 8.deleteDataByOrderId(前後台)
 	// 前台：尚未付款前可刪除訂單

@@ -43,10 +43,6 @@ public interface OrderService {
 	// 先做findDataByUser再篩選出orderid，避免user查到不屬於他的訂單資訊
 	public OrderListBean findDataByOrderId(String orderid) ;
 
-	// 5.findDataByCheckdate(後台)
-	// 查詢特定日期的訂單資料
-//	public List<OrderListBean> findDataByCheckdate(Timestamp cd);
-
 	// 6.findDataByOrderdate(後台)
 	// 查詢特定日期的訂單資料(訂單成立日期)
 	public List<OrderListBean> findDataByOrderdate(String order);

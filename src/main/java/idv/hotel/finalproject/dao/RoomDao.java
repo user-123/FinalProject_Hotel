@@ -17,5 +17,4 @@ public interface RoomDao extends JpaRepository<RoomBean, Integer> {
 
 	@Query(value = "from room where name = ?1")
 	public RoomBean findByname(String name);
-
 }

@@ -151,7 +151,6 @@
 								<div class="title-box-d">
 									<h5 class="title-d">用Email查詢</h5>
 								</div>
-
 								<form:form action="${contextRoot}/admin/orders/databyemail"
 									modelAttribute="email">
 									<div class="input-group">
@@ -165,8 +164,6 @@
 								<c:choose>
 									<c:when test="${datas.isEmpty()&&searched==true}">
 										<h3>目前尚無訂單</h3>
-										<h1 style="color: #FFFFFF">這是空白文字</h1>
-										<h1 style="color: #FFFFFF">這是空白文字</h1>
 									</c:when>
 									<c:otherwise>
 
@@ -280,6 +277,7 @@
 			</div>
 		</section>
 	</main>
+										<h1 style="color: #FFFFFF">這是空白文字</h1>
 
 	<!-- ======= Footer ======= -->
 

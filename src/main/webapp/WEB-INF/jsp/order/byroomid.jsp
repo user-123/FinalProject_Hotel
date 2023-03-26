@@ -49,6 +49,7 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
 </head>
 
 <body>
@@ -63,8 +64,8 @@
 				<span></span> <span></span> <span></span>
 			</button>
 			<a class="navbar-brand text-brand"
-				href="<c:url value='/admin/backstage' />">貝殼窩
-				<span class="color-b">飯店管理系統</span></a>
+				href="<c:url value='/admin/backstage' />">貝殼窩 <span
+				class="color-b">飯店管理系統</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
@@ -72,9 +73,11 @@
 
 
 
-					<li class="nav-item"><a class="nav-link active" href="${contextRoot}/admin/backstage">基本管理</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						href="${contextRoot}/admin/backstage">基本管理</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/backstage/member' />">會員管理</a></li>
+					<li class="nav-item"><a class="nav-link "
+						href="<c:url value='/admin/backstage/member' />">會員管理</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
@@ -103,7 +106,8 @@
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/admin/facility/showBacksatge'/>">設施管理</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="${contextRoot}/admin/attraction/list">景點管理</a></li>
+					<li class="nav-item"><a class="nav-link "
+						href="${contextRoot}/admin/attraction/list">景點管理</a></li>
 
 					<li class="nav-item"><a class="nav-link"
 						href="<c:url value='/admin/messages/backendall' />">評價管理</a></li>
@@ -111,23 +115,24 @@
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">會員</a>
-							<sec:authorize access="hasAnyAuthority('admin','user')">
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<li><a class="dropdown-item" href="<c:url value='/'/>">前台</a></li>
-									<li><a class="dropdown-item "
-										href="<c:url value='/logout'/>"> <input type="hidden"
-											name="${_csrf.parameterName}" value="${_csrf.token}" />登出
-									</a></li>
-								</ul>
-							</sec:authorize><sec:authorize access="hasAuthority('ROLE_ANONYMOUS')">
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<li><a class="dropdown-item"
-										href="<c:url value='/public/loginpage' />">登入</a></li>
-									<li><a class="dropdown-item"
-										href="<c:url value='/public/register' />">註冊</a></li>
-								</ul>
-							</sec:authorize></li>
+						aria-haspopup="true" aria-expanded="false">會員</a> <sec:authorize
+							access="hasAnyAuthority('admin','user')">
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li><a class="dropdown-item" href="<c:url value='/'/>">前台</a></li>
+								<li><a class="dropdown-item "
+									href="<c:url value='/logout'/>"> <input type="hidden"
+										name="${_csrf.parameterName}" value="${_csrf.token}" />登出
+								</a></li>
+							</ul>
+						</sec:authorize>
+						<sec:authorize access="hasAuthority('ROLE_ANONYMOUS')">
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li><a class="dropdown-item"
+									href="<c:url value='/public/loginpage' />">登入</a></li>
+								<li><a class="dropdown-item"
+									href="<c:url value='/public/register' />">註冊</a></li>
+							</ul>
+						</sec:authorize></li>
 				</ul>
 			</div>
 
@@ -146,10 +151,9 @@
 									<h5 class="title-d">用房型查詢</h5>
 								</div>
 								<form:form action="${contextRoot}/admin/orders/databyroomid"
-									modelAttribute="roomid">
+									modelAttribute="roomId">
 									<div class="input-group">
-										<form:input path="roomid" class="form-control" rows=""
-											cols="" />
+										<form:input path="roomId" class="form-control" />
 									</div>
 									<br />
 									<div style="text-align: right">
@@ -159,14 +163,13 @@
 								<c:choose>
 									<c:when test="${datas.isEmpty()&&searched==true}">
 										<h3>目前尚無訂單</h3>
-										<h1 style="color: #FFFFFF">這是空白文字</h1>
-										<h1 style="color: #FFFFFF">這是空白文字</h1>
 									</c:when>
 									<c:otherwise>
 										<c:forEach var="datas" items="${datas}">
 											<label hidden="hidden">${datas.id}</label>
 											<div class="row">
-												<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow" style="background-color:	#ECF5FF">
+												<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow"
+													style="background-color: #ECF5FF">
 													<div class="col-md-12 mb-3">
 														<div class="form-group">
 															訂單成立時間:
@@ -208,10 +211,9 @@
 														<form action="${contextRoot}/admin/orders/update"
 															method="get">
 															<input type="hidden" name="id" value="${datas.id}" /> <input
-																type="hidden" name="jsp" value="byRoomid" /> 
-																 <input type="hidden"
-																name="searchid" value="${datas.roomid.roomId}" /> 
-																<input type="submit"
+																type="hidden" name="jsp" value="byRoomid" /> <input
+																type="hidden" name="searchid"
+																value="${datas.roomid.roomId}" /> <input type="submit"
 																class="btn btn-outline-info btn-sm" value="編輯">
 														</form>
 														<!--********************[刪除按鈕]******************** -->
@@ -270,7 +272,7 @@
 			</div>
 		</section>
 	</main>
-
+	<h1 style="color: #FFFFFF">這是空白文字</h1>
 	<footer>
 		<div class="container">
 			<div class="row">
@@ -311,8 +313,8 @@
 
 	<!-- Template Main JS File -->
 	<script src='<c:url value="/assets/js/main.js"/>'></script>
-	
-		<!-- sweetalert2 -->
+
+	<!-- sweetalert2 -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
