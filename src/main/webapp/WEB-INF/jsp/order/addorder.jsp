@@ -9,7 +9,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta content="width=device-width, initial-scale=1.0" name="viewport">
-		<title>貝殼窩飯店</title>
+		<title>貝殼窩BackHome</title>
 		<meta content="" name="description">
 		<meta content="" name="keywords">
 
@@ -38,12 +38,9 @@
 
 		<!-- Template Main CSS File -->
 		<link href="<c:url value='/assets/css/style.css'/>" rel="stylesheet">
-
-
-
-
-
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+		<!-- Bootstrap core CSS -->
+		<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.6/css/star-rating.min.css">
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 		<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js" integrity="sha512-LUKzDoJKOLqnxGWWIBM4lzRBlxcva2ZTztO8bTcWPmDSpkErWx0bSP4pdsjNH8kiHAUPaT06UXcb+vOEZH+HpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -66,9 +63,8 @@
 			}
 			/*#tbcal {border-collapse: collapse;width: 100%;text-align: center;}*/
 			thead {text-align: center;}
+
 			#tbcalbody tr, #tbcalbody td {
-				border: 2px solid white;
-				//height: 80px;
 				text-align: right;
 			}
 			#tbcalbody td:hover {
@@ -86,6 +82,21 @@
 			#tbcalbody td {
 				padding: 0;
 			}
+			tr:first-child th:first-child {
+            border-top-left-radius: 17px;
+        }
+
+        tr:first-child th:last-child {
+            border-top-right-radius: 17px;
+        }
+
+        tr:last-child td:first-child {
+            border-bottom-left-radius: 17px;
+        }
+
+        tr:last-child td:last-child {
+            border-bottom-right-radius: 17px;
+        }
 		</style>
 
 		<script type="text/javascript">
@@ -209,34 +220,6 @@
 
 
 			}
-
-			//==========已棄用，可刪除==========
-			function checkRoomState(roomId, dateString) {
-				console.log(dateString);
-				$.ajax({
-					method : "get",
-					data : {
-						"roomId": roomId,
-						"dateString": dateString
-					},
-					url : "checkroom",
-					/*success : function(response) {
-						console.log(response);
-						//roomStateArray = JSON.parse(response);	//不需要轉換
-						roomStateArray = response;
-					    console.log(roomStateArray);
-					}*/
-				}).done(function(response) {
-				  console.log("Success:", response);
-				  roomStateArray = response;
-				})
-			}
-			//==========已棄用，可刪除==========
-
-
-
-
-
 			//將選擇日期填入表單
 			function formatDate(day) {
 				console.log(`你選了\${year}/\${month}/\${day}`);
@@ -271,11 +254,6 @@
 
 
 		</script>
-
-
-
-
-
 	</head>
 <body>
 	<!-- ======= Header/Navbar ======= -->
@@ -288,82 +266,70 @@
 				aria-label="Toggle navigation">
 				<span></span> <span></span> <span></span>
 			</button>
-			<a class="navbar-brand text-brand"
-				href="<c:url value='/admin/backstage' />">貝殼窩
-				<span class="color-b">飯店管理系統</span></a>
+			<a class="navbar-brand text-brand" href="<c:url value='/'/>">貝殼窩<span
+				class="color-b">BackHome</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
 				<ul class="navbar-nav">
 
 
-
-
-					<li class="nav-item"><a class="nav-link active" href="${contextRoot}/admin/backstage">基本管理</a></li>
-
-					<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/backstage/member' />">會員管理</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						href="${contextRoot}">首頁</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
 						data-bs-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false">訂單管理</a>
+						aria-expanded="false">關於貝殼窩</a>
 
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 							<li><a class="dropdown-item"
-								href="<c:url value='/admin/orders/findall' />">訂單一覽</a></li>
+								href="<c:url value='/public/about' />">我們的理念</a></li>
 							<li><a class="dropdown-item"
-								href="<c:url value='/admin/orders/byuserid' />">用會員名稱查詢</a></li>
-							<li><a class="dropdown-item"
-								href="<c:url value='/admin/orders/byorderid' />">用訂單編號查詢</a></li>
-							<li><a class="dropdown-item"
-								href="<c:url value='/admin/orders/byorderdate' />">用下訂日期查詢</a></li>
-							<li><a class="dropdown-item"
-								href="<c:url value='/admin/orders/byroomid' />">用房型查詢</a></li>
+								href="<c:url value='/public/messages/all' />">評價&回饋</a></li>
 						</ul></li>
-
-
+					<li class="nav-item"><a class="nav-link "
+						href="<c:url value='/public/room/orderAllShow'/>">房型&訂房</a></li>
+					<li class="nav-item"><a class="nav-link "
+						href="<c:url value='/public/facility/show'/>">休閒設施</a></li>
 
 					<li class="nav-item"><a class="nav-link "
-						href="<c:url value="/admin/room/backstage"/>">房型管理</a></li>
-
-
+						href="${contextRoot}/public/attraction/list">周邊美食&景點</a></li>
 
 					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/admin/facility/showBacksatge'/>">設施管理</a></li>
-
-					<li class="nav-item"><a class="nav-link " href="${contextRoot}/admin/attraction/list">景點管理</a></li>
-
-
-					<li class="nav-item"><a class="nav-link"
-						href="<c:url value='/admin/messages/backendall' />">評價管理</a></li>
-
+						href="<c:url value='/public/shop' />">商城</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-
-						aria-haspopup="true" aria-expanded="false">會員</a>
-							<sec:authorize access="hasAnyAuthority('admin','user')">
-
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<li><a class="dropdown-item" href="<c:url value='/'/>">前台</a></li>
-									<li><a class="dropdown-item "
-										href="<c:url value='/logout'/>"> <input type="hidden"
-											name="${_csrf.parameterName}" value="${_csrf.token}" />登出
-									</a></li>
-								</ul>
-							</sec:authorize><sec:authorize access="hasAuthority('ROLE_ANONYMOUS')">
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						aria-haspopup="true" aria-expanded="false">會員</a> <sec:authorize
+							access="hasAnyAuthority('admin','user')">
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li><a class="dropdown-item"
+									href="<c:url value='/addinfo' />">填寫及修改基本資料</a></li>
+								<li><a class="dropdown-item"
+									href="<c:url value='/searchinfo' />">查詢資料</a></li>
+								<li><a class="dropdown-item"
+									href="<c:url value='/orders/history' />?accountId=${sessionScope.id}">歷史訂單</a></li>
+								<sec:authorize access="hasAuthority('admin')">
 									<li><a class="dropdown-item"
-										href="<c:url value='/public/loginpage' />">登入</a></li>
-									<li><a class="dropdown-item"
-										href="<c:url value='/public/register' />">註冊</a></li>
-								</ul>
-
-							</sec:authorize></li>
+										href="<c:url value="/admin/backstage"/>">後台</a></li>
+								</sec:authorize>
+								<li><a class="dropdown-item "
+									href="<c:url value='/logout'/>"> <input type="hidden"
+										name="${_csrf.parameterName}" value="${_csrf.token}" />登出
+								</a></li>
+							</ul>
+						</sec:authorize> <sec:authorize access="hasAuthority('ROLE_ANONYMOUS')">
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li><a class="dropdown-item"
+									href="<c:url value='/public/loginpage' />">登入</a></li>
+								<li><a class="dropdown-item"
+									href="<c:url value='/public/register' />">註冊</a></li>
+							</ul>
+						</sec:authorize></li>
 				</ul>
 			</div>
-
 		</div>
 	</nav>
 	<!-- End Header/Navbar -->
@@ -379,10 +345,6 @@
 								<div class="title-box-d">
 									<h5 class="title-d">即刻下訂</h5>
 								</div>
-
-
-
-
 
 								<div id="div">
 									<!--定義年月選單-->

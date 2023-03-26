@@ -2,9 +2,10 @@
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="form"   uri="http://www.springframework.org/tags/form"  %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html>
@@ -13,9 +14,11 @@
 <link rel="icon" href="<c:url value='/favicon.ico' />">
 <meta charset="UTF-8" />
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>貝殼窩飯店</title>
+<title>貝殼窩BackHome</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
 <!-- Favicons -->
 
 <link href="<c:url value='/assets/img/favicon.png' />" rel="icon">
@@ -47,10 +50,6 @@
 
 <link href="<c:url value='/assets/css/style.css' />" rel="stylesheet">
 
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
-<!-- <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script> -->
-<%-- 上面是CDN，下面是文硯地端資源 --%>
 <script src="<c:url value='/javascript/jquery-3.6.0.min.js'/>"></script>
 
 
@@ -58,7 +57,7 @@
 </head>
 <body>
 	<!-- ======= Header/Navbar ======= -->
-		<nav
+	<nav
 		class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
 		<div class="container">
 			<button class="navbar-toggler collapsed" type="button"
@@ -67,101 +66,89 @@
 				aria-label="Toggle navigation">
 				<span></span> <span></span> <span></span>
 			</button>
-			<a class="navbar-brand text-brand" href="<c:url value='#'/>">貝殼窩<span
-				class="color-b">飯店</span></a>
-			
+			<a class="navbar-brand text-brand" href="<c:url value='/'/>">貝殼窩<span
+				class="color-b">BackHome</span></a>
+
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
 				<ul class="navbar-nav">
 
 
-					<li class="nav-item"><a class="nav-link active" href="${contextRoot}">首頁</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						href="${contextRoot}">首頁</a></li>
 
-					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/about'/>">關於貝殼窩</a></li>
-						
-						
 					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
-						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">房型&訂房</a> 	
+						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+						data-bs-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">關於貝殼窩</a>
+
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-							<li class="nav-item"><a class="nav-link "
-								href="<c:url value='/public/room/allShow'/>">房型</a></li>
-
-							<li class="nav-item"><a class="nav-link "
-								href="<c:url value='/public/room/orderAllShow'/>">訂房</a></li>
-						</ul>	
-					</li>
-						
-						
-
-					
-
+							<li><a class="dropdown-item"
+								href="<c:url value='/public/about' />">我們的理念</a></li>
+							<li><a class="dropdown-item"
+								href="<c:url value='/public/messages/all' />">評價&回饋</a></li>
+						</ul></li>
+					<li class="nav-item"><a class="nav-link "
+						href="<c:url value='/public/room/orderAllShow'/>">房型&訂房</a></li>
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/facility/show'/>">休閒設施</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="${contextRoot}/public/attraction/list">周邊景點</a></li>
-
-					<li class="nav-item"><a class="nav-link " href="<c:url value='/public/shop' />">商城</a></li>
 					<li class="nav-item"><a class="nav-link "
-						href="<c:url value='/public/messages/all'/>">評價&回饋</a></li>
+						href="${contextRoot}/public/attraction/list">周邊美食&景點</a></li>
+
+					<li class="nav-item"><a class="nav-link "
+						href="<c:url value='/public/shop' />">商城</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">會員</a>
-							<sec:authorize access="hasAnyAuthority('admin','user')">
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						aria-haspopup="true" aria-expanded="false">會員</a> <sec:authorize
+							access="hasAnyAuthority('admin','user')">
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li><a class="dropdown-item"
+									href="<c:url value='/addinfo' />">填寫及修改基本資料</a></li>
+								<li><a class="dropdown-item"
+									href="<c:url value='/searchinfo' />">查詢資料</a></li>
+								<li><a class="dropdown-item"
+									href="<c:url value='/orders/history' />?accountId=${sessionScope.id}">歷史訂單</a></li>
+								<sec:authorize access="hasAuthority('admin')">
 									<li><a class="dropdown-item"
-										href="<c:url value='/addinfo' />">填寫及修改基本資料</a></li>
-									<li><a class="dropdown-item"
-										href="<c:url value='/searchinfo' />">查詢資料</a></li>
-									<li><a class="dropdown-item"
-										href="<c:url value='/orders/history' />?accountId=${sessionScope.id}">歷史訂單</a></li>
-									<sec:authorize access="hasAuthority('admin')">
-										<li><a class="dropdown-item"
-											href="<c:url value="/admin/backstage"/>">後台</a></li>
-									</sec:authorize>
-									<li><a class="dropdown-item "
-										href="<c:url value='/logout'/>"> <input type="hidden"
-											name="${_csrf.parameterName}" value="${_csrf.token}" />登出
-									</a></li>
-								</ul>
-							</sec:authorize><sec:authorize access="hasAuthority('ROLE_ANONYMOUS')">
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<li><a class="dropdown-item"
-										href="<c:url value='/public/loginpage' />">登入</a></li>
-									<li><a class="dropdown-item"
-										href="<c:url value='/public/register' />">註冊</a></li>
-								</ul>
-							</sec:authorize></li>
+										href="<c:url value="/admin/backstage"/>">後台</a></li>
+								</sec:authorize>
+								<li><a class="dropdown-item "
+									href="<c:url value='/logout'/>"> <input type="hidden"
+										name="${_csrf.parameterName}" value="${_csrf.token}" />登出
+								</a></li>
+							</ul>
+						</sec:authorize> <sec:authorize access="hasAuthority('ROLE_ANONYMOUS')">
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li><a class="dropdown-item"
+									href="<c:url value='/public/loginpage' />">登入</a></li>
+								<li><a class="dropdown-item"
+									href="<c:url value='/public/register' />">註冊</a></li>
+							</ul>
+						</sec:authorize></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
 	<!-- End Header/Navbar -->
-	<c:choose>
-		<c:when test="${requestScope.noinfo==true}">
-			<h1 style="color: #FFFFFF">會員後臺</h1>
-			<h1 style="color: #FFFFFF">會員後臺</h1>
-			<h1 style="margin-left:50px">您尚未填寫基本資料</h1>
-			<h1 style="color:#FFFFFF">會員後臺</h1>
-			<h1 style="color: #FFFFFF">會員後臺</h1>
-			<h1 style="color: #FFFFFF">會員後臺</h1>
-			<h1 style="color: #FFFFFF">會員後臺</h1>
-			<h1 style="color: #FFFFFF">會員後臺</h1>
-			<h1 style="color: #FFFFFF">會員後臺</h1>
-			<h1 style="color:#FFFFFF">會員後臺</h1>
-		</c:when>
-		<c:otherwise>
-			<main id="main">
-				<section class="intro-single">
-					<div class="container">
-						<div class="row">
-							<div class="col-md-12 col-lg-8">
-								<div class="title-single-box">
-									<h1 class="title-single">基本資料查詢</h1>
+	<main id="main">
+		<section class="intro-single">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 col-lg-8">
+						<div class="title-single-box">
+							<h1 class="title-single">基本資料查詢</h1>
+							<c:choose>
+								<c:when test="${requestScope.noinfo==true}">
+									<h1 style="color: #FFFFFF">這是空白文字</h1>
+									<h1 style="color: #FFFFFF">這是空白文字</h1>
+									<h3 style="margin-left: 50px">您尚未填寫基本資料</h3>
+									<h1 style="color: #FFFFFF">這是空白文字</h1>
+								</c:when>
+								<c:otherwise>
+
 									<div class="form-comments" style="display: flex">
 										<div class="row">
 
@@ -186,15 +173,14 @@
 												${requestScope.message}</div>
 										</div>
 									</div>
-								</div>
-							</div>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
-				</section>
-			</main>
-
-		</c:otherwise>
-	</c:choose>
+				</div>
+			</div>
+		</section>
+	</main>
 	<!-- ======= Footer ======= -->
 
 	<footer>

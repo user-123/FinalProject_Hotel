@@ -161,6 +161,8 @@
 									</c:when>
 									<c:when test="${datas==null&&searched==true}">
 										<h3>目前尚無訂單</h3>
+										<h1 style="color: #FFFFFF">這是空白文字</h1>
+										<h1 style="color: #FFFFFF">這是空白文字</h1>
 									</c:when>
 									<c:otherwise>
 										<div class="row">

@@ -64,10 +64,11 @@ public class OrderController {
 		LoginBean uid = lService.findById(userId);
 		data.setRoomid(rid);
 		data.setUserid(uid);
-		if (oService.insert(data)) {
+		boolean result=oService.insert(data);
+		if (result) {
 			model.addAttribute("information", data);
 			// 將資料放入重定向的屬性中
-			redirectAttributes.addFlashAttribute("information", data);
+			redirectAttributes.addFlashAttribute("lastorder", data.getOrderid());
 			// 訂單成立成功的頁面
 			return "redirect:/orders/show";
 		}
@@ -75,10 +76,10 @@ public class OrderController {
 	}
 
 	@GetMapping("/orders/show")
-	public String showMessagePage(@ModelAttribute("information") OrderListBean data, Model model) {
+	public String showMessagePage(Model model) {
 		// 從重定向屬性中取出資料
-		OrderListBean information = (OrderListBean) model.asMap().get("information");
-		// 將資料放入模型中，以供顯示
+		String lastorder = (String) model.asMap().get("lastorder");
+		OrderListBean information=oService.findDataByOrderId(lastorder);
 		model.addAttribute("information", information);
 		return "order/success";
 	}
@@ -169,7 +170,7 @@ public class OrderController {
 		OrderListBean ol = new OrderListBean();
 		model.addAttribute("orderid", ol);
 
-		OrderListBean datas = oService.findDataByOrderIdB(orderId);
+		OrderListBean datas = oService.findDataByOrderId(orderId);
 		model.addAttribute("datas", datas);
 		// 按下查詢後，才會有searched這個model
 		// 代表設searched為true

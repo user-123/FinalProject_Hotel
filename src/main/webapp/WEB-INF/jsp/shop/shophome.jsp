@@ -2,93 +2,249 @@
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="form"   uri="http://www.springframework.org/tags/form"  %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
-<script src="<c:url value='/javascript/jquery-3.6.0.min.js'/>" ></script>
+<script src="<c:url value='/javascript/jquery-3.6.0.min.js'/>"></script>
 <script src="<c:url value='/javascript/jquery-ui.min.js'/>"></script>
+<meta charset="utf-8">
+<title>貝殼窩飯店管理系統</title>
+<meta content="" name="description">
+<meta content="" name="keywords">
+<!-- Favicons -->
+<link href="<c:url value='/assets/img/favicon.png'/>" rel="icon">
+<link href="<c:url value='/assets/img/apple-touch-icon.png'/>"
+	rel="apple-touch-icon">
 
+<!-- Google Fonts -->
+<link
+	href='https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700'
+	rel="stylesheet">
 
-<meta charset="BIG5">
-<title>Insert title here</title>
+<!-- Vendor CSS Files -->
+<link href="<c:url value='/assets/vendor/animate.css/animate.min.css'/>"
+	rel="stylesheet">
+<link
+	href="<c:url value='/assets/vendor/bootstrap/css/bootstrap.min.css'/>"
+	rel="stylesheet">
+<link
+	href="<c:url value='/assets/vendor/bootstrap-icons/bootstrap-icons.css'/>"
+	rel="stylesheet" type="text/css">
+<link
+	href="<c:url value='/assets/vendor/swiper/swiper-bundle.min.css'/>"
+	rel="stylesheet">
+
+<!-- Template Main CSS File -->
+<link href="<c:url value='/assets/css/style.css'/>" rel="stylesheet">
+<!-- Bootstrap core CSS -->
+
+<!-- FontAwesome core CSS -->
+<link
+	href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/htmleaf-demo.css">
 <style>
 .ui-dialog-titlebar-close {
-  display: none;
-}
-.pageBtn, .currentBtn{
-  margin-right: 5px;
-  padding: 5px 10px;
-  font-size:20px 
-}
-#edit-form,#addCart {
-  position: fixed;
-  z-index: 9999;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 800px;
-  height: 550px;
-  border: 1px solid #000;
-  background-color: #fff;
-  padding: 20px;
+	display: none;
 }
 
+.pageBtn {
+	display: inline-block;
+	margin: 0 5px;
+	padding: 5px 10px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	text-decoration: none;
+	color: #333;
+}
+
+.currentBtn {
+	display: inline-block;
+	margin: 0 5px;
+	padding: 5px 10px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	background-color: #41cff2;
+	color: #333;
+}
+
+#edit-form, #addCart {
+	position: fixed;
+	z-index: 9999;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 800px;
+	height: 550px;
+	border: 1px solid #000;
+	background-color: #fff;
+	padding: 20px;
+}
 
 .cartbtnnav img {
-    margin-left: 500px;
- }
+	margin-left: 500px;
+}
+
 </style>
 </head>
 <body>
+	<!-- ======= Header/Navbar ======= -->
+	<nav
+		class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
+		<div class="container">
+			<button class="navbar-toggler collapsed" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarDefault"
+				aria-controls="navbarDefault" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span></span> <span></span> <span></span>
+			</button>
+			<a class="navbar-brand text-brand" href="<c:url value='/'/>">貝殼窩<span
+				class="color-b">BackHome</span></a>
+
+			<div class="navbar-collapse collapse justify-content-center"
+				id="navbarDefault">
+				<ul class="navbar-nav">
 
 
-<div class="container w-75 mt-5">
-	<div class="input-group">
-		<input type="text" class="rounded" placeholder="搜索關鍵字"
-			aria-label="Search" aria-describedby="search-addon" id="searchbtn"
-			name="searchbtn" />
-		<button type="button" class="btn btn-outline-primary"
-			id="searchsubmit">搜尋</button>  
-		<sec:authorize access="hasAuthority('user')">	
-			<a href="${contextRoot}/myCart" class="button cartbtnnav"><img src="${contextRoot}/images/car.png" style="max-width: 50px; max-height: 50px;"></a>	
-			<a href="${contextRoot}/myHistoryOrder" class="button"><img src="${contextRoot}/images/historyorder.jpg" style="max-width: 50px; max-height: 50px;"></a>		
-		</sec:authorize>	
+					<li class="nav-item"><a class="nav-link" href="${contextRoot}">首頁</a></li>
+
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+						data-bs-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">關於貝殼窩</a>
+
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<li><a class="dropdown-item"
+								href="<c:url value='/public/about' />">我們的理念</a></li>
+							<li><a class="dropdown-item"
+								href="<c:url value='/public/messages/all' />">評價&回饋</a></li>
+						</ul></li>
+					<li class="nav-item"><a class="nav-link "
+						href="<c:url value='/public/room/orderAllShow'/>">房型&訂房</a></li>
+					<li class="nav-item"><a class="nav-link "
+						href="<c:url value='/public/facility/show'/>">休閒設施</a></li>
+
+					<li class="nav-item"><a class="nav-link "
+						href="${contextRoot}/public/attraction/list">周邊美食&景點</a></li>
+
+					<li class="nav-item"><a class="nav-link active"
+						href="<c:url value='/public/shop' />">商城</a></li>
+
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
+						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">會員</a> <sec:authorize
+							access="hasAnyAuthority('admin','user')">
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li><a class="dropdown-item"
+									href="<c:url value='/addinfo' />">填寫及修改基本資料</a></li>
+								<li><a class="dropdown-item"
+									href="<c:url value='/searchinfo' />">查詢資料</a></li>
+								<li><a class="dropdown-item"
+									href="<c:url value='/orders/history' />?accountId=${sessionScope.id}">歷史訂單</a></li>
+								<sec:authorize access="hasAuthority('admin')">
+									<li><a class="dropdown-item"
+										href="<c:url value="/admin/backstage"/>">後台</a></li>
+								</sec:authorize>
+								<li><a class="dropdown-item "
+									href="<c:url value='/logout'/>"> <input type="hidden"
+										name="${_csrf.parameterName}" value="${_csrf.token}" />登出
+								</a></li>
+							</ul>
+						</sec:authorize> <sec:authorize access="hasAuthority('ROLE_ANONYMOUS')">
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li><a class="dropdown-item"
+									href="<c:url value='/public/loginpage' />">登入</a></li>
+								<li><a class="dropdown-item"
+									href="<c:url value='/public/register' />">註冊</a></li>
+							</ul>
+						</sec:authorize></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- End Header/Navbar -->
+	<section class="intro-single">
+	<div class="container">
+	<sec:authorize access="hasAuthority('user')||isAnonymous()">
+		<div class="container">
+			<div class="title-single-box">
+				<h1 class="title-single">商城</h1>
+			</div>
+		</div>
+		</sec:authorize>
+		<sec:authorize access="hasAuthority('admin')">
+			<div class="container"> 
+				<div class="title-single-box">
+					<h1 class="title-single">商城管理</h1>
+				</div>
+			</div>
+		</sec:authorize>
+
+		<div class="container w-70 mt-5">
+			<div class="input-group" style="display: flex">
+				<div>
+					<input type="text" class="rounded" placeholder="搜索關鍵字"
+						aria-label="Search" aria-describedby="search-addon" id="searchbtn"
+						name="searchbtn" />
+				</div>
+		
+			<div style="margin-left: 10px">
+				<button type="button" class="btn btn-info"
+					 id="searchsubmit">搜尋</button>
+			</div>
+		</div>
 	</div>
-	<sec:authorize access="hasAuthority('admin')">
-	<div>
-		<a href="<c:url value='/admin/additem'/>"><button>新增產品</button></a>  
-	</div>
-	</sec:authorize>
 
-<!--   點擊選項卡的上層清單 -->
-<%-- ${categoryPages[0].content[0].price} --%>
-<ul class="d-flex justify-content-center nav nav-tabs">
-  <c:forEach items="${categoryList}" var="category" varStatus="status">
-    <li class="nav-item">
-      <a class="nav-link" href="${contextRoot}/public/shop/show?c=${categoryList[status.index].categoryId}&p=1" >
-        <button class="btn btn-link categorybtn">${category.categoryName}</button>
-      </a>
-        <div style=display:none>${category.categoryId}</div>
-    </li>
-  </c:forEach>
-</ul>
-<!--   點擊選項卡的上層清單結束 -->
+		<sec:authorize access="hasAuthority('user')">
+		<div style="margin-left: 780px">
+			<a href="${contextRoot}/myCart" class="button cartbtnnav"><img
+				src="${contextRoot}/images/car.png"
+				style="max-width: 50px; max-height: 50px;"></a>
+			<a href="${contextRoot}/myHistoryOrder" class="button cartbtnnav"><img
+				src="${contextRoot}/images/historyorder.jpg"
+				style="max-width: 50px; max-height: 50px;"></a>
+				</div>
+		</sec:authorize>
 
-<div id=show>
-</div>
+		<sec:authorize access="hasAuthority('admin')">
+			<div style="margin-left: 1000px">
+				<a href="<c:url value='/admin/additem'/>">
+					<button class="btn btn-info">新增產品</button>
+				</a>
+			</div>
+		</sec:authorize>
+
+		<!--   點擊選項卡的上層清單 -->
+		<%-- ${categoryPages[0].content[0].price} --%>
+	  	<ul class="d-flex justify-content-center nav nav-tabs">
+			<c:forEach items="${categoryList}" var="category" varStatus="status">
+				<li class="nav-item"><a 
+					href="${contextRoot}/public/shop/show?c=${categoryList[status.index].categoryId}&p=1">
+						<button class="btn btn-info categorybtn" style="margin-right:10px">${category.categoryName}</button>
+				</a>
+					<div style="display: none">${category.categoryId}</div></li>
+			</c:forEach>
+		</ul> 
+		<!--   點擊選項卡的上層清單結束 -->
+
+		<div id=show></div>
 
 
-<!-- 跳出表單開始 -->
-<div id="edit-dialog">
-		<form:form id="edit-form" method="post" modelAttribute="ProductBean" enctype="multipart/form-data">
-	      
-	      <div class="form-group col-md-6">
+		<!-- 跳出表單開始 -->
+
+		<div id="edit-dialog">
+			<form:form id="edit-form" method="post" modelAttribute="ProductBean"
+				enctype="multipart/form-data">
+
+				<div class="form-group col-md-6">
 					<div class="form-group">
 						<label for="productName">商品名稱</label>
 						<form:input id="productName" class="form-control" type="text"
@@ -96,31 +252,33 @@
 						<span id="productNameerror" class="error"></span>
 					</div>
 				</div>
-			
-			<div class="form-row">
+
+				<div class="form-row">
 					<div class="form-group col-md-6">
 						<div class="form-group">
 							<label for="price">價格</label>
-							<form:input id="price" class="form-control"
-								type="text" name="price"
-								path="price" />
-						<span id="priceerror" class="error"></span>							<span class="accountNameerror error"></span>
+							<form:input id="price" class="form-control" type="text"
+								name="price" path="price" />
+							<span id="priceerror" class="error"></span> <span
+								class="accountNameerror error"></span>
 						</div>
 					</div>
 				</div>
 				<div class="form-row">
-				
-				
-				
-		  <div class="mb-3">
+
+
+
+					<div class="mb-3">
 						<div class="row">
 							<div class="col-sm-9">
 								<label for="uploadedFile" class="form-label">上傳照片</label> <input
 									class="form-control" type="file" name="uploadedFile"
-									id="uploadedFile" accept="image/*" />		<!-- 要多張照片用multiple="multiple" -->
+									id="uploadedFile" accept="image/*" />
+								<!-- 要多張照片用multiple="multiple" -->
 							</div>
-							<div class="col-sm-3" >
-								<div class="form-control" style="height: 180px;width: 155px;" id="photo">
+							<div class="col-sm-3">
+								<div class="form-control" style="height: 180px; width: 155px;"
+									id="photo">
 									<img src="<c:url value='/images/nopicture.jfif'/>"
 										name="img-preview" id="img-preview" class="h-100 w-100" />
 								</div>
@@ -128,20 +286,28 @@
 						</div>
 					</div>
 
-			
-			
-			<div class="mb-3">
-			  <div class="row">
-			    <div class="col-sm-3">
-			      <label for="status">存貨</label>
-			      <div class="input-group">
-			        <button class="btn btn-outline-secondary" type="button" id="minus10"><i class="fa fa-minus"></i>-10<i class="fa fa-minus"></i></button>
-			        	<form:input class="quantity-input form-control" type="number" min="1" max="99" value="1" path="status" name="status" onkeydown="return false" id="status" />
-			        <button class="btn btn-outline-secondary" type="button" id="plus10"><i class="fa fa-plus"></i>+10<i class="fa fa-plus"></i></button>
-			      </div>
-			    </div>
-			  </div>
-			</div>
+
+
+					<div class="mb-3">
+						<div class="row">
+							<div class="col-sm-3">
+								<label for="status">存貨</label>
+								<div class="input-group">
+									<button class="btn btn-outline-secondary" type="button"
+										id="minus10">
+										<i class="fa fa-minus"></i>-10<i class="fa fa-minus"></i>
+									</button>
+									<form:input class="quantity-input form-control" type="number"
+										min="1" max="99" value="1" path="status" name="status"
+										onkeydown="return false" id="status" />
+									<button class="btn btn-outline-secondary" type="button"
+										id="plus10">
+										<i class="fa fa-plus"></i>+10<i class="fa fa-plus"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
 
 
 
@@ -150,56 +316,55 @@
 
 
 
-			<label for="category">商品分類</label>	
-			<form:select name="category" path="category">
-			    <c:forEach items="${categoryList}" var="category">
-			        <form:option value="${category.categoryId}" label="${category.categoryName}" />
-			    </c:forEach>
-			</form:select>
-			<button type="submit" id="additemsubmit" class="btn btn-primary">送出修改</button>
-	    <button type="button" class="btn btn-danger cancelbtn">關閉</button>
+					<label for="category">商品分類</label>
+					<form:select name="category" path="category">
+						<c:forEach items="${categoryList}" var="category">
+							<form:option value="${category.categoryId}"
+								label="${category.categoryName}" />
+						</c:forEach>
+					</form:select>
+					<button type="submit" id="additemsubmit" class="btn btn-primary">送出修改</button>
+					<button type="button" class="btn btn-danger cancelbtn">關閉</button>
+				</div>
+			</form:form>
+
 		</div>
-	</form:form>
-    
-</div>
-<!-- 跳出表單結束 -->
+		<!-- 跳出表單結束 -->
 
 
-<!-- 跳出加入購物車開始 -->
-<div id="addCart">
-	<div id="productNameCart"></div>
-	<div id="priceCart"></div>
-	<div id="photoCart"></div>
-	
-	
-	
-	
-<!--      <span><label for="status">請選擇欲購買數量</label></span> -->
-<!--      <div class="input-group quant"> -->
-<!--        	<input class="quantity-input form-control" type="number" min="1" max="99" value="1" name="status" onkeydown="return false" /> -->
-<!--      </div> -->
-	   
-
-	
-	
-	<button type="button" class="btn btn-danger add">新增</button>
-	<button type="button" class="btn btn-primary addcancel">取消</button>
-	<div id="addsuccess"></div>
-</div>
+		<!-- 跳出加入購物車開始 -->
+		<div id="addCart">
+			<div id="productNameCart"></div>
+			<div id="priceCart"></div>
+			<div id="photoCart"></div>
 
 
-<!-- 跳出加入購物車結束 -->
+
+
+			<!--      <span><label for="status">請選擇欲購買數量</label></span> -->
+			<!--      <div class="input-group quant"> -->
+			<!--        	<input class="quantity-input form-control" type="number" min="1" max="99" value="1" name="status" onkeydown="return false" /> -->
+			<!--      </div> -->
+
+
+
+
+			<button type="button" class="btn btn-danger add">新增</button>
+			<button type="button" class="btn btn-primary addcancel">取消</button>
+			<div id="addsuccess"></div>
+		</div>
+
+
+		<!-- 跳出加入購物車結束 -->
 
 
 
 
 
+	</div>
+	</section>
 
-
-
-
-</div>
-<script>
+	<script>
 window.onload=function(){
 	
 // 	show出商品開始
@@ -299,6 +464,7 @@ window.onload=function(){
 		    
 	    
 	  let totalPages = data.totalPages;
+	  html +='<div style="text-align:center">'
 	  	if (currentPage === undefined) {
 	  		currentPage=1
 		}
@@ -309,7 +475,7 @@ window.onload=function(){
 	      else
 	      	html += '<a class="pageBtn" data-pagenum="'+ i +'">'+ i  +'</a>'
 	    }
-		
+		 html +='</div>'
 		  $("#show").html(html);
 		}
 
@@ -334,6 +500,7 @@ window.onload=function(){
 		    	    
 		    	  })
 		    	}
+		   
 // 		    show出商品結束
 // 		編輯跳出表單    
 		    var dialog = $('#edit-dialog').dialog({
@@ -677,5 +844,47 @@ window.onload=function(){
 	
 }
 </script>
+	<!-- ======= Footer ======= -->
+
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="copyright-footer">
+						<p class="copyright color-text-a">
+							&copy; Copyright <span class="color-a">EstateAgency</span> All
+							Rights Reserved.
+						</p>
+					</div>
+					<div class="credits">
+						<!--
+            All the links in the footer should remain intact.
+            You can delete the links only if you purchased the pro version.
+            Licensing information: https://bootstrapmade.com/license/
+            Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=EstateAgency
+          -->
+						Designed by <a href="<c:url value='https://bootstrapmade.com/'/>">BootstrapMade</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- End  Footer -->
+
+	<div id="preloader"></div>
+	<a href="<c:url value='#'/>"
+		class="back-to-top d-flex align-items-center justify-content-center"><i
+		class="bi bi-arrow-up-short"></i></a>
+
+	<!-- Vendor JS Files -->
+	<script
+		src='<c:url value="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"/>'></script>
+	<script
+		src='<c:url value="/assets/vendor/swiper/swiper-bundle.min.js"/>'></script>
+	<script
+		src='<c:url value="/assets/vendor/php-email-form/validate.js"/>'></script>
+
+	<!-- Template Main JS File -->
+	<script src='<c:url value="/assets/js/main.js"/>'></script>
 </body>
 </html>

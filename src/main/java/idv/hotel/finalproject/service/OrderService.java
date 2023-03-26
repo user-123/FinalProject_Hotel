@@ -41,7 +41,7 @@ public interface OrderService {
 	// 查詢特定orderid的訂單資料
 	// 讓會員可以利用訂單編號查詢自己的訂單紀錄
 	// 先做findDataByUser再篩選出orderid，避免user查到不屬於他的訂單資訊
-	public OrderListBean findDataByOrderIdB(String orderid) ;
+	public OrderListBean findDataByOrderId(String orderid) ;
 
 	// 5.findDataByCheckdate(後台)
 	// 查詢特定日期的訂單資料

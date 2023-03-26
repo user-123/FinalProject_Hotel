@@ -118,8 +118,8 @@ public class OrderServiceImpl implements OrderService {
 	// 讓會員可以利用訂單編號查詢自己的訂單紀錄
 	// 先做findDataByUser再篩選出orderid，避免user查到不屬於他的訂單資訊
 	@Override
-	public OrderListBean findDataByOrderIdB(String orderid) {
-		return olDao.findDataByOrderIdB(orderid);
+	public OrderListBean findDataByOrderId(String orderid) {
+		return olDao.findDataByOrderId(orderid);
 	}
 
 	// 6.findDataByOrderdate(後台)
@@ -141,7 +141,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	@Transactional
 	public void deleteDataByOrderId(String orderId) {
-		OrderListBean olBean = olDao.findDataByOrderIdB(orderId);
+		OrderListBean olBean = olDao.findDataByOrderId(orderId);
 		odDao.deleteDataByOrderId(olBean);
 		olDao.deleteDataByOrderId(orderId);
 	}
