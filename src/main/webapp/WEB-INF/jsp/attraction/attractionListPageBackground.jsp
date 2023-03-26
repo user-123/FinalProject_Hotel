@@ -1,40 +1,60 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta content="width=device-width, initial-scale=1.0" name="viewport">
-		<title>BackHome 管理系統</title>
-		<meta content="" name="description">
-		<meta content="" name="keywords">
-		<!-- Favicons -->
-		<link href="<c:url value='/assets/img/favicon.png'/>" rel="icon">
-		<link href="<c:url value='/assets/img/apple-touch-icon.png'/>" rel="apple-touch-icon">
-		<!-- Google Fonts -->
-		<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
-		<!-- Vendor CSS Files -->
-		<link href="<c:url value='/assets/vendor/animate.css/animate.min.css'/>" rel="stylesheet">
-		<link href="<c:url value='/assets/vendor/bootstrap/css/bootstrap.min.css'/>" rel="stylesheet">
-		<link href="<c:url value='/assets/vendor/bootstrap-icons/bootstrap-icons.css'/>" rel="stylesheet">
-		<link href="<c:url value='/assets/vendor/swiper/swiper-bundle.min.css'/>" rel="stylesheet">
-		<!-- Template Main CSS File -->
-		<link href="<c:url value='/assets/css/style.css'/>" rel="stylesheet">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>貝殼窩-管理系統</title>
+<meta content="" name="description">
+<meta content="" name="keywords">
+<!-- Favicons -->
+<link href="<c:url value='/assets/img/favicon.png'/>" rel="icon">
+<link href="<c:url value='/assets/img/apple-touch-icon.png'/>"
+	rel="apple-touch-icon">
+<!-- Google Fonts -->
+<link
+	href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"
+	rel="stylesheet">
+<!-- Vendor CSS Files -->
+<link href="<c:url value='/assets/vendor/animate.css/animate.min.css'/>"
+	rel="stylesheet">
+<link
+	href="<c:url value='/assets/vendor/bootstrap/css/bootstrap.min.css'/>"
+	rel="stylesheet">
+<link
+	href="<c:url value='/assets/vendor/bootstrap-icons/bootstrap-icons.css'/>"
+	rel="stylesheet">
+<link
+	href="<c:url value='/assets/vendor/swiper/swiper-bundle.min.css'/>"
+	rel="stylesheet">
+<!-- Template Main CSS File -->
+<link href="<c:url value='/assets/css/style2.css'/>" rel="stylesheet">
 
-		<!-- Custom By D.C., need to replace with non-CDN -->
-		<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-		<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" ></script>
-		<link href="https://code.jquery.com/ui/1.13.2/themes/smoothness/jquery-ui.css" rel="stylesheet" />
-		<!-- D.C. Never End, Ya~Ya~Ya~ -->
-	</head>
-	<body>
-		<!-- ======= Header/Navbar ======= -->
-		<nav
+<!-- Custom By D.C., need to replace with non-CDN -->
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+<link
+	href="https://code.jquery.com/ui/1.13.2/themes/smoothness/jquery-ui.css"
+	rel="stylesheet" />
+<!-- D.C. Never End, Ya~Ya~Ya~ -->
+
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+<script
+	src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
+
+</head>
+<body>
+	<!-- ======= Header/Navbar ======= -->
+	<nav
 		class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
 		<div class="container">
 			<button class="navbar-toggler collapsed" type="button"
@@ -44,8 +64,8 @@
 				<span></span> <span></span> <span></span>
 			</button>
 			<a class="navbar-brand text-brand"
-				href="<c:url value='/admin/backstage' />">貝殼窩
-				<span class="color-b">飯店管理系統</span></a>
+				href="<c:url value='/admin/background' />">貝殼窩 <span
+				class="color-b">管理系統</span></a>
 
 			<div class="navbar-collapse collapse justify-content-center"
 				id="navbarDefault">
@@ -53,9 +73,11 @@
 
 
 
-					<li class="nav-item"><a class="nav-link active" href="${contextRoot}/admin/backstage">基本管理</a></li>
+					<li class="nav-item"><a class="nav-link "
+						href="${contextRoot}/admin/backstage">基本管理</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="<c:url value='/admin/backstage/member' />">會員管理</a></li>
+					<li class="nav-item"><a class="nav-link "
+						href="<c:url value='/admin/backstage/member' />">會員管理</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
@@ -66,7 +88,7 @@
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/findall' />">訂單一覽</a></li>
 							<li><a class="dropdown-item"
-								href="<c:url value='/admin/orders/byuserid' />">用會員名稱查詢</a></li>
+								href="<c:url value='/admin/orders/byemail' />">用Email查詢</a></li>
 							<li><a class="dropdown-item"
 								href="<c:url value='/admin/orders/byorderid' />">用訂單編號查詢</a></li>
 							<li><a class="dropdown-item"
@@ -84,7 +106,8 @@
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/admin/facility/showBacksatge'/>">設施管理</a></li>
 
-					<li class="nav-item"><a class="nav-link " href="${contextRoot}/admin/attraction/list">景點管理</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						href="${contextRoot}/admin/attraction/list">周邊管理</a></li>
 
 					<li class="nav-item"><a class="nav-link"
 						href="<c:url value='/admin/messages/backendall' />">評價管理</a></li>
@@ -92,104 +115,108 @@
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="<c:url value='#'/>"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">會員</a>
-							<sec:authorize access="hasAnyAuthority('admin','user')">
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<li><a class="dropdown-item" href="<c:url value='/'/>">前台</a></li>
-									<li><a class="dropdown-item "
-										href="<c:url value='/logout'/>"> <input type="hidden"
-											name="${_csrf.parameterName}" value="${_csrf.token}" />登出
-									</a></li>
-								</ul>
-							</sec:authorize><sec:authorize access="hasAuthority('ROLE_ANONYMOUS')">
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<li><a class="dropdown-item"
-										href="<c:url value='/public/loginpage' />">登入</a></li>
-									<li><a class="dropdown-item"
-										href="<c:url value='/public/register' />">註冊</a></li>
-								</ul>
-							</sec:authorize></li>
+						aria-haspopup="true" aria-expanded="false">會員</a> <sec:authorize
+							access="hasAnyAuthority('admin','user')">
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li><a class="dropdown-item" href="<c:url value='/'/>">前台</a></li>
+								<li><a class="dropdown-item "
+									href="<c:url value='/logout'/>"> <input type="hidden"
+										name="${_csrf.parameterName}" value="${_csrf.token}" />登出
+								</a></li>
+							</ul>
+						</sec:authorize> <sec:authorize access="hasAuthority('ROLE_ANONYMOUS')">
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li><a class="dropdown-item"
+									href="<c:url value='/public/loginpage' />">登入</a></li>
+								<li><a class="dropdown-item"
+									href="<c:url value='/public/register' />">註冊</a></li>
+							</ul>
+						</sec:authorize></li>
 				</ul>
 			</div>
 
 		</div>
 	</nav>
-		<!-- End Header/Navbar -->
+	<!-- End Header/Navbar -->
 
 
-		<main id="main">
+	<main id="main">
 
 
 
 
-				<!-- ======= Intro Single ======= -->
-				<section class="intro-single">
-					<div class="container">
-						<div class="row">
-							<div class="col-md-12 col-lg-8">
-								<div class="title-single-box">
-									<h1 class="title-single">景點管理</h1>
-								</div>
-							</div>
+		<!-- ======= Intro Single ======= -->
+		<section class="intro-single">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 col-lg-8">
+						<div class="title-single-box">
+							<h1 class="title-single">景點管理</h1>
 						</div>
 					</div>
-				</section>
-				<!-- End Intro Single-->
+				</div>
+			</div>
+		</section>
+		<!-- End Intro Single-->
 
-				<!-- ======= Property Grid ======= -->
-				<section class="property-grid grid">
-					<div class="container">
-						<div class="row">
-							<div class="col-sm-12">
-								<button class="addBtn btn btn-outline-warning" onclick="addDetail()">➕</button>
-								<div class="grid-option">
-									<form action="<c:url value="/admin/attraction/findByCategory" />"
-										method="get">
-										<select name="category">
-											<option value="">全部</option>
-											<option value="food">美食</option>
-											<option value="spot">景點</option>
-										</select>
-										<input type="submit" class="btn btn-dark btn-sm" value="搜尋">
-									</form>
-								</div>
-							</div>
-							<div class="container" id="attractionPage">
-								<div class="row justify-content-between" id="aList">
+		<!-- ======= Property Grid ======= -->
+		<section class="property-grid grid">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12">
+						<button class="addBtn btn btn-outline-warning"
+							onclick="addDetail()">➕</button>
+						<div class="grid-option">
+							<form action="<c:url value="/admin/attraction/findByCategory" />"
+								method="get">
+								<select name="category">
+									<option value="">全部</option>
+									<option value="food">美食</option>
+									<option value="spot">景點</option>
+								</select> <input type="submit" class="btn btn-dark btn-sm" value="搜尋">
+							</form>
+						</div>
+					</div>
+					<div class="container" id="attractionPage">
+						<div class="row justify-content-between" id="aList">
 
-									<c:forEach items="${attraction}" var="info" varStatus="status">
-										<div class="col-6 col-sm-6 w-50" id="div${info.attractionId}">
-										<br />
-											<!-- <span id="span${info.attractionId}">${status.index+1}.</span> -->
-											<div class="justify-content-center w-100" style="overflow: hidden;width: 512px;height: 384px;">
-												<img src="<c:url value='/attractionPhoto/${info.attractionPhotoPath}'/>" style="width: 100%;height: 100%;" class="object-fit-contain border rounded" />
-											</div>
-											<!--
+							<c:forEach items="${attraction}" var="info" varStatus="status">
+								<div class="col-6 col-sm-6 w-50" id="div${info.attractionId}">
+									<br />
+									<!-- <span id="span${info.attractionId}">${status.index+1}.</span> -->
+									<div class="justify-content-center w-100"
+										style="overflow: hidden; width: 512px; height: 384px;">
+										<img
+											src="<c:url value='/attractionPhoto/${info.attractionPhotoPath}'/>"
+											style="width: 100%; height: 100%;"
+											class="object-fit-contain border rounded" />
+									</div>
+									<!--
 											<div class="zoomImage" style="background-image:url(<c:url value='/uploadDir/a0.jpg' />)">${status.index+1}.</div>
 											 -->
-											<div class="row justify-content-start">
-												<div class="col-10 col-sm-10">
-													${info.attractionName}<br />
-													${info.attractionAddress}
-												</div>
-													<div class="col-2 col-sm-2">
-													<!--
+									<div class="row justify-content-start">
+										<div class="col-10 col-sm-10">
+											${info.attractionName}<br /> ${info.attractionAddress}
+										</div>
+										<div class="col-2 col-sm-2">
+											<!--
 													<form action="<c:url value="/public/XXXX" />" method="get">
 														<input type="hidden" id="${info.attractionId}" name="Id" value="${info.attractionId}" />
 														<input type="submit" id="checkout" class="btn btn-outline-dark btn-sm" value="${XXXXX}檢視">
 													</form>
 													 -->
-													<button class="checkoutBtn btn btn-outline-dark btn-sm" onclick="showDetail(${info.attractionId})">📝</button>
-												</div>
-											</div>
+											<button class="checkoutBtn btn btn-outline-dark btn-sm"
+												onclick="showDetail(${info.attractionId})">📝</button>
 										</div>
-									</c:forEach>
-
-
+									</div>
 								</div>
-							</div>
+							</c:forEach>
+
+
 						</div>
-						<script>
+					</div>
+				</div>
+				<script>
 						$('#aPhoto').on("change", function() {
 							let filetype = this.files[0]["name"].split(".")
 							let filesize = this.files[0]["size"]
@@ -316,10 +343,10 @@
 										let aName=`\${response.attractionName}`;
 										let aAddress=`\${response.attractionAddress}`;
 										let aPhotoPath =`\${response.attractionPhotoPath}`
-										alert(`新增成功，ID:\${aId}`);
+										Swal.fire('新增成功', '', 'success');
 										addList(aId, aName, aAddress, aPhotoPath);
 									}else {
-										alert(`新增失敗`);
+										Swal.fire('新增失敗', '', 'error');
 									}
 								})
 							}
@@ -363,10 +390,10 @@
 								}).done(function(response) {
 									console.log("Success:", response);
 									if(response!==null) {
-										alert(`更新成功，ID:\${id}`);
+										Swal.fire('更新成功', '', 'success');
 										aPhotoPath=`\${response.attractionPhotoPath}`
 									}else {
-										alert(`更新失敗，ID:\${id}`);
+										Swal.fire('更新失敗', '', 'error');
 									}
 									reflashList(id, aName, aAddress, aPhotoPath);
 								})
@@ -381,9 +408,9 @@
 									console.log("Success:", response);
 									if(response) {
 										document.getElementById(`div\${id}`).remove();
-										alert(`刪除成功，ID:\${id}`);
+										Swal.fire('刪除成功', '', 'success');
 									}else {
-										alert(`刪除失敗，ID:\${id}`);
+										Swal.fire('刪除失敗', '', 'error');
 									}
 								})
 							}
@@ -436,8 +463,8 @@
 									</div>` + list;
 							}
 						</script>
-					</div>
-				</section>
+			</div>
+		</section>
 
 
 
@@ -461,27 +488,27 @@
 
 
 
-		</main>
-		<!-- End #main -->
+	</main>
+	<!-- End #main -->
 
 
 
-		<div id="preloader"></div>
-		<a href="#"
-			class="back-to-top d-flex align-items-center justify-content-center"><i
-			class="bi bi-arrow-up-short"></i></a>
+	<div id="preloader"></div>
+	<a href="#"
+		class="back-to-top d-flex align-items-center justify-content-center"><i
+		class="bi bi-arrow-up-short"></i></a>
 
-		<!-- Vendor JS Files -->
-		<script
-			src="<c:url value='/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' />"></script>
-		<script
-			src="<c:url value='/assets/vendor/swiper/swiper-bundle.min.js' />"></script>
-		<script
-			src="<c:url value='/assets/vendor/php-email-form/validate.js' />"></script>
+	<!-- Vendor JS Files -->
+	<script
+		src="<c:url value='/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' />"></script>
+	<script
+		src="<c:url value='/assets/vendor/swiper/swiper-bundle.min.js' />"></script>
+	<script
+		src="<c:url value='/assets/vendor/php-email-form/validate.js' />"></script>
 
-		<!-- Template Main JS File -->
-		<script src="<c:url value='/assets/js/main.js' />"></script>
+	<!-- Template Main JS File -->
+	<script src="<c:url value='/assets/js/main.js' />"></script>
 
 
-	</body>
+</body>
 </html>

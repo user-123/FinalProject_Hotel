@@ -71,8 +71,8 @@
 <ul class="d-flex justify-content-center nav nav-tabs">
   <c:forEach items="${categoryList}" var="category" varStatus="status">
     <li class="nav-item">
-      <a class="nav-link" href="${contextRoot}/public/shop/show?c=${categoryList[status.index].categoryId}&p=1" >
-        <button class="btn btn-link categorybtn">${category.categoryName}</button>
+      <a href="${contextRoot}/public/shop/show?c=${categoryList[status.index].categoryId}&p=1" >
+        <button class="btn btn-danger categorybtn">${category.categoryName}</button>
       </a>
         <div style=display:none>${category.categoryId}</div>
     </li>

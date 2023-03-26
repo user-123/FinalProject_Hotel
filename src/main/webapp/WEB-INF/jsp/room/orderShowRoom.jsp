@@ -364,7 +364,7 @@
 								<br>
 								<div class="myDiv">${room.roomNameIntroduction}</div>
 								<br>
-								<div>定價: ${room.price}</div>
+								<div>定價:$${room.price}</div>
 							</div>
 						</div>
 					</div>
