@@ -179,8 +179,8 @@
 							labels: ["預定", "空房"],
 							datasets: [{
 								data: [dayBooked, dayNotBooked],
-								backgroundColor: ["rgba(46, 202, 106, 1)", "rgba(201, 203, 207, 1)"],
-								borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
+								backgroundColor: ["rgba(252, 110, 55, 1)", "rgba(201, 203, 207, 1)"],
+								borderColor: ["rgba(252, 110, 55, 1)", "rgba(201, 203, 207, 1)"],
 								borderWidth: 0
 							}]
 						},
@@ -227,9 +227,10 @@
 							labels: ["預定", "空房"],
 							datasets: [{
 								data: [monthBooked, monthNotBooked],
-								backgroundColor: ["rgba(46, 202, 106, 1)", "rgba(201, 203, 207, 1)"],
+								backgroundColor: ["rgba(252, 110, 55, 1)", "rgba(201, 203, 207, 1)"],
+								borderColor: ["rgba(252, 110, 55, 1)", "rgba(201, 203, 207, 1)"],
 								//backgroundColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
-								borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
+								//borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
 								borderWidth: 0
 								//borderWidth: 1
 							}]
