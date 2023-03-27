@@ -88,9 +88,9 @@
 	padding: 20px;
 }
 
-.cartbtnnav img {
-	margin-left: 500px;
-}
+/* .cartbtnnav img { */
+/* 	margin-left: 500px; */
+/* } */
 
 </style>
 </head>
@@ -204,14 +204,14 @@
 	</div>
 
 		<sec:authorize access="hasAuthority('user')">
-		<div style="margin-left: 780px">
+		<div style="margin-left: 1000px; display:flex;">
 			<a href="${contextRoot}/myCart" class="button cartbtnnav"><img
 				src="${contextRoot}/images/car.png"
 				style="max-width: 50px; max-height: 50px;"></a>
 			<a href="${contextRoot}/myHistoryOrder" class="button cartbtnnav"><img
 				src="${contextRoot}/images/historyorder.jpg"
 				style="max-width: 50px; max-height: 50px;"></a>
-				</div>
+		</div>
 		</sec:authorize>
 
 		<sec:authorize access="hasAuthority('admin')">
@@ -226,7 +226,7 @@
 		<%-- ${categoryPages[0].content[0].price} --%>
 	  	<ul class="d-flex justify-content-center nav nav-tabs">
 			<c:forEach items="${categoryList}" var="category" varStatus="status">
-				<li class="nav-item"><a
+				<li class="nav-item categoryhref" style="margin:20px"><a
 					href="${contextRoot}/public/shop/show?c=${categoryList[status.index].categoryId}&p=1">
 						<button class="btn btn-info categorybtn" style="margin-right:10px">${category.categoryName}</button>
 				</a>
@@ -257,8 +257,11 @@
 					<div class="form-group col-md-6">
 						<div class="form-group">
 							<label for="price">價格</label>
+							<div style="display:flex; align-items: center;">
+							<span>NT$</span>
 							<form:input id="price" class="form-control" type="text"
 								name="price" path="price" />
+							</div>
 							<span id="priceerror" class="error"></span> <span
 								class="accountNameerror error"></span>
 						</div>
@@ -370,6 +373,9 @@ window.onload=function(){
 // 	show出商品開始
 	var currentPage;
 	var productId
+	$('.categoryhref').on('click', function(event) {
+        event.preventDefault();
+    });
 	const categoryIdInit = document.querySelector('.categorybtn').closest('li').querySelector('div').textContent;
 
 	fetch(`${contextRoot}/public/shop/show?c=${categoryList[0].categoryId}&p=1`)
@@ -436,7 +442,7 @@ window.onload=function(){
 		              <b style='font-size: 16px;'>\${product.productName}</b>
 		            </p>
 		            <p>存貨:\${product.status}</p>
-		            <p>價格:\${product.price}</p>
+		            <p>價格:NT$\${product.price}</p>
 		            <sec:authorize access="hasAuthority('admin')">
 			            <a href="#" class="button editbtn"><img src="${contextRoot}/images/edit.png" style="max-width: 20px; max-height: 20px;"></a>
 			            <a href="#" class="button deletebtn"><img src="${contextRoot}/images/delete.webp" style="max-width: 20px; max-height: 20px;"></a>
@@ -545,7 +551,7 @@ window.onload=function(){
 		    		$('.pageBtn').prop('disabled',true)
 
 		    		let productName = $(this).closest("div").find("p:first").text().trim()
-		    		let price = $(this).closest("div").find("p").eq(2).text().trim().replace("價格:", "")
+		    		let price = $(this).closest("div").find("p").eq(2).text().trim().replace("價格:NT$", "")
 		    		let status = $(this).closest("div").find("p").eq(1).text().trim().replace("存貨:", "")
 		    		productId = $(this).closest("div").find(".productId").text()
 		    		photopreview = $(this).closest("div").find(".photopreview").text()

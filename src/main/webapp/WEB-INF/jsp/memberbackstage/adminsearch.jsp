@@ -58,7 +58,7 @@
 		<form id="edit-form">
 			<div class="form-row">
 				<div id="username"></div>
-				<div id="useraddress"></div>
+<!-- 				<div id="useraddress"></div> -->
 				<div id="usergender"></div>
 				<div id="userphone"></div>
 				<div id="userbirthday"></div>
@@ -159,7 +159,7 @@
 	        var userphoto = "頭貼:"+row.find('td:eq(9)').html();
 	        if(username.trim() !== "姓名:"){
 		    	$('#edit-dialog #username').text(username);
-		    	$('#edit-dialog #useraddress').text(useraddress);
+		    	//$('#edit-dialog #useraddress').text(useraddress);
 		    	$('#edit-dialog #usergender').text(usergender);
 		    	$('#edit-dialog #userphone').text(userphone);
 		    	$('#edit-dialog #userbirthday').text(userbirthday);

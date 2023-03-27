@@ -161,9 +161,9 @@
 											<div class="col-md-12 mb-3">
 												<div class="form-group h3">性別: ${mb.gender}</div>
 											</div>
-											<div class="col-md-12 mb-3">
-												<div class="form-group h3">地址: ${mb.address}</div>
-											</div>
+<!-- 											<div class="col-md-12 mb-3"> -->
+<%-- 												<div class="form-group h3">地址: ${mb.address}</div> --%>
+<!-- 											</div> -->
 											<div class="col-md-12 mb-3" style="width: 300px">
 												<div class="form-group h3">生日: ${mb.birthDate}</div>
 											</div>
