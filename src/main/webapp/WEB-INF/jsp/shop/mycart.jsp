@@ -182,7 +182,7 @@ td, th {
 														</c:otherwise>
 													</c:choose></td>
 												<td class="col-1">
-													<div>${cart.productShoppingCar.price}</div>
+													<div>NT$${cart.productShoppingCar.price}</div>
 												</td>
 												<td class="col-1" style="display: none">
 													<div>${cart.shoppingCarId}</div>
@@ -224,7 +224,7 @@ td, th {
 									<tbody id="buy">
 									</tbody>
 									<tr>
-										<td id="total" colspan="5" style="text-align: right;">商品總額:0</td>
+										<td id="total" colspan="5" style="text-align: right;">商品總額:NT$0</td>
 									</tr>
 									<tr>
 										<td id="checkout" colspan="5" style="text-align: right;"><button
@@ -290,7 +290,7 @@ window.onload=function(){
 			});
 		total=0
 		let productName = $(this).closest("tr").find("td").eq(2).text()
-		let price = $(this).closest("tr").find("td").eq(4).text()
+		let price = $(this).closest("tr").find("td").eq(4).text().replace("NT$","")
 		let productId = $(this).closest("tr").find("td").eq(0).text()
 		let status = $(this).closest("tr").find("td").eq(1).text()
 		let shoppingCarId = $(this).closest("tr").find("td").eq(5).text().trim()
@@ -305,7 +305,7 @@ window.onload=function(){
 				             <div>`+productName+`</div> 
 				           </td> 
 				           <td class="col-1"> 
-				             <div>`+price+`</div> 
+				             <div>NT$`+price+`</div> 
 				           </td> 
 				           <td class="col-1"> 
 				           		<div class="input-group quant">
@@ -313,7 +313,7 @@ window.onload=function(){
 				                </div>
 				           </td> 
 				           <td class="col-1"> 
-				             <div>`+price+`</div> 
+				             <div>NT$`+price+`</div> 
 				           </td> 
 				           <td class="col-1" style="display:none"> 
 				             <div class="product\${shoppingCarId}">`+shoppingCarId+`</div> 
@@ -323,10 +323,10 @@ window.onload=function(){
            					</td>
 				         </tr>`);
 		$("#buy tr").each(function(){
-		      let rowPrice = $(this).find("td").eq(5).find("div").text();
+		      let rowPrice = $(this).find("td").eq(5).find("div").text().replace("NT$","");
 		      total += parseFloat(rowPrice);
 		  });
-		$("#total").text(`商品總額:\${total}`)
+		$("#total").text(`商品總額:NT$\${total}`)
 		$("#checkout").prop("disabled", false).css({
 			  "pointer-events": "auto",
 			  "opacity": "1"
@@ -340,14 +340,14 @@ window.onload=function(){
 	$("#buy").on("change", ".quantity-input", function() {
 		 total=0
 		 let quant = $(this).val()
-		 let price = $(this).closest("tr").find("td").eq(3).text()
+		 let price = $(this).closest("tr").find("td").eq(3).text().replace("NT$","")
 		 let productprice = quant*price
-		 $(this).closest("tr").find("td").eq(5).find("div").text(productprice) 
+		 $(this).closest("tr").find("td").eq(5).find("div").text("NT$"+productprice) 
 		 $("#buy tr").each(function(){
-		      let rowPrice = $(this).find("td").eq(5).find("div").text();
+		      let rowPrice = $(this).find("td").eq(5).find("div").text().replace("NT$","");
 		      total += parseFloat(rowPrice);
 		  });
-		 $("#total").html(`商品總額:\${total}`);
+		 $("#total").html(`商品總額:NT$\${total}`);
 		 });
 	
 	
@@ -364,13 +364,13 @@ window.onload=function(){
 		
 		
 		total=0
-		let productprice = $(this).closest("tr").find("td").eq(5).find("div").text()
+		let productprice = $(this).closest("tr").find("td").eq(5).find("div").text().replace("NT$","")
 		$(this).closest("tr").remove()
 		$("#buy tr").each(function(){
-		      let rowPrice = $(this).find("td").eq(5).find("div").text();
+		      let rowPrice = $(this).find("td").eq(5).find("div").text().replace("NT$","");
 		      total += parseFloat(rowPrice);
 		  });
-		$("#total").html(`商品總額:\${total}`);
+		$("#total").html(`商品總額:NT$\${total}`);
 		if(total!=0){
 			$("#checkout").prop("disabled", false).css({
 				  "pointer-events": "auto",
@@ -409,7 +409,7 @@ window.onload=function(){
 // 				      let rowPrice = $(this).find("td").eq(5).find("div").text();
 // 				      total += parseFloat(rowPrice);
 // 				  });
-// 				$("#total").html(`商品總額:\${total}`);
+// 				$("#total").html(`商品總額:NT$\${total}`);
 			}
 
 		})
@@ -418,7 +418,7 @@ window.onload=function(){
 	})
 	
 	$("#checkout").on("click",function(){
-		let totalAmount = $("#total").text().trim().replace("商品總額:","")
+		let totalAmount = $("#total").text().trim().replace("商品總額:NT$","")
 		let itemName = ""
 	    $("#buy tr").each(function(){
         	itemName += $(this).find("td").eq(2).find("div").text().trim()+"#";
