@@ -181,7 +181,7 @@ input[type=number] {
 											<label hidden="hidden">${datas.id}</label>
 											<div class="row">
 												<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow"
-													style="background-color: #ECF5FF">
+													style="background-color: #FFFFFF">
 													<div class="col-md-12 mb-3">
 														<div class="form-group">
 															訂單成立時間:
@@ -284,31 +284,6 @@ input[type=number] {
 			</div>
 		</section>
 	</main>
-	<h1 style="color: #FFFFFF">這是空白文字</h1>
-	<footer>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="copyright-footer">
-						<p class="copyright color-text-a">
-							&copy; Copyright <span class="color-a">EstateAgency</span> All
-							Rights Reserved.
-						</p>
-					</div>
-					<div class="credits">
-						<!--
-            All the links in the footer should remain intact.
-            You can delete the links only if you purchased the pro version.
-            Licensing information: https://bootstrapmade.com/license/
-            Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=EstateAgency
-          -->
-						Designed by <a href="<c:url value='https://bootstrapmade.com/'/>">BootstrapMade</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
-	<!-- End  Footer -->
 
 	<div id="preloader"></div>
 	<a href="<c:url value='#'/>"

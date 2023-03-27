@@ -74,7 +74,7 @@
 							<li><a class="dropdown-item"
 								href="<c:url value='/public/messages/all' />">評價&回饋</a></li>
 						</ul></li>
-					<li class="nav-item"><a class="nav-link "
+					<li class="nav-item"><a class="nav-link active"
 						href="<c:url value='/public/room/orderAllShow'/>">房型&訂房</a></li>
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/facility/show'/>">休閒設施</a></li>
@@ -136,43 +136,54 @@
 										style="background-color: #ECF5FF">
 										<div class="col-md-12 mb-3">
 											<div class="form-group">
-												訂單成立時間:
+												<label style="font-weight: bold;">訂單成立時間 : </label>
 												<fmt:formatDate pattern="yyyy-MM-dd ,a hh:mm:ss EEEE"
 													value="${information.orderdate}" />
 											</div>
 										</div>
 										<div class="col-md-12 mb-3">
-											<div class="form-group">訂單編號:${information.orderid}</div>
+											<div class="form-group">
+											<label style="font-weight: bold;">訂單編號 : </label> 
+											${information.orderid}</div>
 										</div>
 										<div class="col-md-6 mb-3">
 											<div class="form-group">
-												會員:${information.userid.accountName}</div>
-										</div>
-										<div class="col-md-6 mb-3">
-											<div class="form-group">房名:${information.roomid.name}</div>
+												<label style="font-weight: bold;">會員 : </label> 
+												${information.userid.accountName}</div>
 										</div>
 										<div class="col-md-6 mb-3">
 											<div class="form-group">
-												入住日期:
+											<label style="font-weight: bold;">房名 : </label> 
+											${information.roomid.name}</div>
+										</div>
+										<div class="col-md-6 mb-3">
+											<div class="form-group">
+												<label style="font-weight: bold;">入住日期 : </label>
 												<fmt:formatDate pattern="yyyy-MM-dd"
 													value="${information.checkindate}" />
 											</div>
 										</div>
 										<div class="col-md-6 mb-3">
 											<div class="form-group">
-												退房日期:
+												<label style="font-weight: bold;">退房日期 : </label>
 												<fmt:formatDate pattern="yyyy-MM-dd"
 													value="${information.checkoutdate}" />
 											</div>
 										</div>
 										<div class="col-md-12 mb-3">
-											<div class="form-group">備註:${information.message}</div>
+											<div class="form-group">
+											<label style="font-weight: bold;">備註 : </label>
+											${information.message}</div>
 										</div>
 										<div class="col-md-12 mb-3">
-											<div class="form-group">金額:${information.roomid.price}</div>
+											<div class="form-group">
+											<label style="font-weight: bold;">金額 : </label>
+											${information.roomid.price}</div>
 										</div>
 										<div class="col-md-12 mb-3">
-											<div class="form-group">付款狀態:${information.paid}</div>
+											<div class="form-group">
+											<label style="font-weight: bold;">付款狀態 : </label>
+											${information.paid}</div>
 										</div>
 										<form id="idFormAioCheckOut" method="post"
 											action="<c:url value="/ECPay"/>">
@@ -260,7 +271,7 @@
 				<div class="col-md-12">
 					<div class="copyright-footer">
 						<p class="copyright color-text-a">
-							&copy; Copyright <span class="color-a">EstateAgency</span> All
+							&copy; Copyright <span style="color:#41cff2">貝殼窩團隊</span> All
 							Rights Reserved.
 						</p>
 					</div>

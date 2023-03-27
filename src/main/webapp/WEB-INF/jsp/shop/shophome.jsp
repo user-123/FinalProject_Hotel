@@ -15,7 +15,12 @@
 <script src="<c:url value='/javascript/jquery-3.6.0.min.js'/>"></script>
 <script src="<c:url value='/javascript/jquery-ui.min.js'/>"></script>
 <meta charset="utf-8">
-<title>貝殼窩飯店管理系統</title>
+<sec:authorize access="hasAuthority('user')||isAnonymous()">
+	<title>貝殼窩BackHome</title>
+</sec:authorize>
+<sec:authorize access="hasAuthority('admin')">
+	<title>貝殼窩-管理系統</title>
+</sec:authorize>
 <meta content="" name="description">
 <meta content="" name="keywords">
 <!-- Favicons -->
@@ -88,9 +93,11 @@
 	padding: 20px;
 }
 
+
 /* .cartbtnnav img { */
 /* 	margin-left: 500px; */
 /* } */
+
 
 </style>
 </head>
@@ -172,9 +179,8 @@
 	</nav>
 	<!-- End Header/Navbar -->
 	<section class="intro-single">
-	<div class="container">
-	<sec:authorize access="hasAuthority('user')||isAnonymous()">
 		<div class="container">
+<<<<<<< HEAD
 			<div class="title-single-box">
 				<h1 class="title-single">商城</h1>
 			</div>
@@ -250,12 +256,82 @@
 						<form:input id="productName" class="form-control" type="text"
 							name="productName" path="productName" />
 						<span id="productNameerror" class="error"></span>
+=======
+			<sec:authorize access="hasAuthority('user')||isAnonymous()">
+				<div class="container">
+					<div class="title-single-box">
+						<h1 class="title-single">商城</h1>
+>>>>>>> origin/dev
 					</div>
 				</div>
+			</sec:authorize>
+			<sec:authorize access="hasAuthority('admin')">
+				<div class="container">
+					<div class="title-single-box">
+						<h1 class="title-single">商城管理</h1>
+					</div>
+				</div>
+			</sec:authorize>
 
-				<div class="form-row">
+			<div class="container w-70 mt-5">
+				<div class="input-group" style="display: flex">
+					<div>
+						<input type="text" class="rounded" placeholder="搜索關鍵字"
+							aria-label="Search" aria-describedby="search-addon"
+							id="searchbtn" name="searchbtn" />
+					</div>
+
+					<div style="margin-left: 10px">
+						<button type="button" class="btn btn-info" id="searchsubmit">搜尋</button>
+					</div>
+				</div>
+			</div>
+
+			<sec:authorize access="hasAuthority('user')">
+				<div style="margin-left: 780px">
+					<a href="${contextRoot}/myCart" class="button cartbtnnav"><img
+						src="${contextRoot}/images/car.png"
+						style="max-width: 50px; max-height: 50px;"></a> <a
+						href="${contextRoot}/myHistoryOrder" class="button cartbtnnav"><img
+						src="${contextRoot}/images/historyorder.jpg"
+						style="max-width: 50px; max-height: 50px;"></a>
+				</div>
+			</sec:authorize>
+
+			<sec:authorize access="hasAuthority('admin')">
+				<div style="margin-left: 1000px">
+					<a href="<c:url value='/admin/additem'/>">
+						<button class="btn btn-info">新增產品</button>
+					</a>
+				</div>
+			</sec:authorize>
+
+			<!--   點擊選項卡的上層清單 -->
+			<%-- ${categoryPages[0].content[0].price} --%>
+			<ul class="d-flex justify-content-center nav nav-tabs">
+				<c:forEach items="${categoryList}" var="category" varStatus="status">
+					<li class="nav-item"><a
+						href="${contextRoot}/public/shop/show?c=${categoryList[status.index].categoryId}&p=1">
+							<button class="btn btn-info categorybtn"
+								style="margin-right: 10px">${category.categoryName}</button>
+					</a>
+						<div style="display: none">${category.categoryId}</div></li>
+				</c:forEach>
+			</ul>
+			<!--   點擊選項卡的上層清單結束 -->
+
+			<div id=show></div>
+
+
+			<!-- 跳出表單開始 -->
+
+			<div id="edit-dialog">
+				<form:form id="edit-form" method="post" modelAttribute="ProductBean"
+					enctype="multipart/form-data">
+
 					<div class="form-group col-md-6">
 						<div class="form-group">
+<<<<<<< HEAD
 							<label for="price">價格</label>
 							<div style="display:flex; align-items: center;">
 							<span>NT$</span>
@@ -264,107 +340,124 @@
 							</div>
 							<span id="priceerror" class="error"></span> <span
 								class="accountNameerror error"></span>
+=======
+							<label for="productName">商品名稱</label>
+							<form:input id="productName" class="form-control" type="text"
+								name="productName" path="productName" />
+							<span id="productNameerror" class="error"></span>
+>>>>>>> origin/dev
 						</div>
 					</div>
-				</div>
-				<div class="form-row">
 
-
-
-					<div class="mb-3">
-						<div class="row">
-							<div class="col-sm-9">
-								<label for="uploadedFile" class="form-label">上傳照片</label> <input
-									class="form-control" type="file" name="uploadedFile"
-									id="uploadedFile" accept="image/*" />
-								<!-- 要多張照片用multiple="multiple" -->
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<div class="form-group">
+								<label for="price">價格</label>
+								<form:input id="price" class="form-control" type="text"
+									name="price" path="price" />
+								<span id="priceerror" class="error"></span> <span
+									class="accountNameerror error"></span>
 							</div>
-							<div class="col-sm-3">
-								<div class="form-control" style="height: 180px; width: 155px;"
-									id="photo">
-									<img src="<c:url value='/images/nopicture.jfif'/>"
-										name="img-preview" id="img-preview" class="h-100 w-100" />
+						</div>
+					</div>
+					<div class="form-row">
+
+
+
+						<div class="mb-3">
+							<div class="row">
+								<div class="col-sm-9">
+									<label for="uploadedFile" class="form-label">上傳照片</label> <input
+										class="form-control" type="file" name="uploadedFile"
+										id="uploadedFile" accept="image/*" />
+									<!-- 要多張照片用multiple="multiple" -->
+								</div>
+								<div class="col-sm-3">
+									<div class="form-control" style="height: 180px; width: 155px;"
+										id="photo">
+										<img src="<c:url value='/images/nopicture.jfif'/>"
+											name="img-preview" id="img-preview" class="h-100 w-100" />
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
 
 
-					<div class="mb-3">
-						<div class="row">
-							<div class="col-sm-3">
-								<label for="status">存貨</label>
-								<div class="input-group">
-									<button class="btn btn-outline-secondary" type="button"
-										id="minus10">
-										<i class="fa fa-minus"></i>-10<i class="fa fa-minus"></i>
-									</button>
-									<form:input class="quantity-input form-control" type="number"
-										min="1" max="99" value="1" path="status" name="status"
-										onkeydown="return false" id="status" />
-									<button class="btn btn-outline-secondary" type="button"
-										id="plus10">
-										<i class="fa fa-plus"></i>+10<i class="fa fa-plus"></i>
-									</button>
+						<div class="mb-3">
+							<div class="row">
+								<div class="col-sm-3">
+									<label for="status">存貨</label>
+									<div class="input-group">
+										<button class="btn btn-outline-secondary" type="button"
+											id="minus10">
+											<i class="fa fa-minus"></i>-10<i class="fa fa-minus"></i>
+										</button>
+										<form:input class="quantity-input form-control" type="number"
+											min="1" max="99" value="1" path="status" name="status"
+											onkeydown="return false" id="status" />
+										<button class="btn btn-outline-secondary" type="button"
+											id="plus10">
+											<i class="fa fa-plus"></i>+10<i class="fa fa-plus"></i>
+										</button>
+									</div>
 								</div>
 							</div>
 						</div>
+
+
+
+
+
+
+
+
+						<label for="category">商品分類</label>
+						<form:select name="category" path="category">
+							<c:forEach items="${categoryList}" var="category">
+								<form:option value="${category.categoryId}"
+									label="${category.categoryName}" />
+							</c:forEach>
+						</form:select>
+						<button type="submit" id="additemsubmit" class="btn btn-primary">送出修改</button>
+						<button type="button" class="btn btn-danger cancelbtn">關閉</button>
 					</div>
+				</form:form>
+
+			</div>
+			<!-- 跳出表單結束 -->
+
+
+			<!-- 跳出加入購物車開始 -->
+			<div id="addCart">
+				<div id="productNameCart"></div>
+				<div id="priceCart"></div>
+				<div id="photoCart"></div>
 
 
 
 
+				<!--      <span><label for="status">請選擇欲購買數量</label></span> -->
+				<!--      <div class="input-group quant"> -->
+				<!--        	<input class="quantity-input form-control" type="number" min="1" max="99" value="1" name="status" onkeydown="return false" /> -->
+				<!--      </div> -->
 
 
 
 
-					<label for="category">商品分類</label>
-					<form:select name="category" path="category">
-						<c:forEach items="${categoryList}" var="category">
-							<form:option value="${category.categoryId}"
-								label="${category.categoryName}" />
-						</c:forEach>
-					</form:select>
-					<button type="submit" id="additemsubmit" class="btn btn-primary">送出修改</button>
-					<button type="button" class="btn btn-danger cancelbtn">關閉</button>
-				</div>
-			</form:form>
+				<button type="button" class="btn btn-danger add">新增</button>
+				<button type="button" class="btn btn-primary addcancel">取消</button>
+				<div id="addsuccess"></div>
+			</div>
+
+
+			<!-- 跳出加入購物車結束 -->
+
+
+
+
 
 		</div>
-		<!-- 跳出表單結束 -->
-
-
-		<!-- 跳出加入購物車開始 -->
-		<div id="addCart">
-			<div id="productNameCart"></div>
-			<div id="priceCart"></div>
-			<div id="photoCart"></div>
-
-
-
-
-			<!--      <span><label for="status">請選擇欲購買數量</label></span> -->
-			<!--      <div class="input-group quant"> -->
-			<!--        	<input class="quantity-input form-control" type="number" min="1" max="99" value="1" name="status" onkeydown="return false" /> -->
-			<!--      </div> -->
-
-
-
-
-			<button type="button" class="btn btn-danger add">新增</button>
-			<button type="button" class="btn btn-primary addcancel">取消</button>
-			<div id="addsuccess"></div>
-		</div>
-
-
-		<!-- 跳出加入購物車結束 -->
-
-
-
-
-
-	</div>
 	</section>
 
 	<script>
@@ -850,6 +943,7 @@ window.onload=function(){
 
 }
 </script>
+<sec:authorize access="hasAuthority('user')||isAnonymous()">	
 	<!-- ======= Footer ======= -->
 
 	<footer>
@@ -858,7 +952,7 @@ window.onload=function(){
 				<div class="col-md-12">
 					<div class="copyright-footer">
 						<p class="copyright color-text-a">
-							&copy; Copyright <span class="color-a">EstateAgency</span> All
+							&copy; Copyright <span style="color:#41cff2">貝殼窩團隊</span> All
 							Rights Reserved.
 						</p>
 					</div>
@@ -876,6 +970,7 @@ window.onload=function(){
 		</div>
 	</footer>
 	<!-- End  Footer -->
+</sec:authorize>
 
 	<div id="preloader"></div>
 	<a href="<c:url value='#'/>"

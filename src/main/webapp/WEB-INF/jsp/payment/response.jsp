@@ -156,7 +156,7 @@
 				<div class="col-md-12">
 					<div class="copyright-footer">
 						<p class="copyright color-text-a">
-							&copy; Copyright <span class="color-a">EstateAgency</span> All
+							&copy; Copyright <span style="color:#41cff2">貝殼窩團隊</span> All
 							Rights Reserved.
 						</p>
 					</div>

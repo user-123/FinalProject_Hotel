@@ -256,7 +256,7 @@
 				<ul class="navbar-nav">
 
 
-					<li class="nav-item"><a class="nav-link active"
+					<li class="nav-item"><a class="nav-link"
 						href="${contextRoot}">首頁</a></li>
 
 					<li class="nav-item dropdown"><a
@@ -287,7 +287,7 @@
 						aria-haspopup="true" aria-expanded="false">會員</a> <sec:authorize
 							access="hasAnyAuthority('admin','user')">
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<li><a class="dropdown-item"
+								<li><a class="dropdown-item active"
 									href="<c:url value='/addinfo' />">填寫及修改基本資料</a></li>
 								<li><a class="dropdown-item"
 									href="<c:url value='/searchinfo' />">查詢資料</a></li>
@@ -529,7 +529,7 @@
 				<div class="col-md-12">
 					<div class="copyright-footer">
 						<p class="copyright color-text-a">
-							&copy; Copyright <span class="color-a">EstateAgency</span> All
+							&copy; Copyright <span style="color:#41cff2">貝殼窩團隊</span> All
 							Rights Reserved.
 						</p>
 					</div>

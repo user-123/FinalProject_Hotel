@@ -15,7 +15,7 @@
 <script src="<c:url value='/javascript/jquery-3.6.0.min.js'/>"></script>
 <script src="<c:url value='/javascript/jquery-ui.min.js'/>"></script>
 <meta charset="utf-8">
-<title>貝殼窩飯店管理系統</title>
+<title>貝殼窩-管理系統</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 <!-- Favicons -->
@@ -44,27 +44,23 @@
 <!-- Template Main CSS File -->
 <link href="<c:url value='/assets/css/style.css'/>" rel="stylesheet">
 <!-- Bootstrap core CSS -->
-<link
-	href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css"
-	rel="stylesheet">
+
 <!-- FontAwesome core CSS -->
 <link
 	href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/htmleaf-demo.css">
 <style>
-.container {
+/*.container {
 	width: 900px;
 	margin: 0 auto;
-}
+}*/
 
 .messages {
 	margin: 10px 5px;
 	color: #dc3545
 }
 </style>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
 <script src="<c:url value='/javascript/jquery-3.6.0.min.js'/>"></script>
 <script src="<c:url value='/javascript/jquery-ui.min.js'/>"></script>
 <script>
@@ -332,22 +328,23 @@ window.onload=function(){
 								</div>
 								<form:form id="addItemForm" method="post"
 									modelAttribute="ProductBean" enctype="multipart/form-data">
-									<div class="input-group" style="display: flex">
+									<div style="display: flex">
 										<div>
 											<div class="form-row">
-												<div class="form-group col-md-6">
+												<div class="form-group col-md-40">
 													<div class="form-group">
-														<label for="productName">商品名稱</label>
+														<label for="productName" style="font-weight: bold;">商品名稱</label>
 														<form:input id="productName" class="form-control"
 															type="text" name="productName" path="productName" />
 														<span id="productNameerror" class="error"></span>
 													</div>
 												</div>
 											</div>
+											<div style="height:15px"></div>
 											<div class="form-row">
-												<div class="form-group col-md-6">
+												<div class="form-group col-md-40">
 													<div class="form-group">
-														<label for="price">價格</label>
+														<label for="price" style="font-weight: bold;">價格</label>
 														<form:input id="price" class="form-control" type="text"
 															name="price" path="price" />
 														<span id="priceerror" class="error"></span> <span
@@ -355,23 +352,31 @@ window.onload=function(){
 													</div>
 												</div>
 											</div>
-
-											<div class="form-row mb-3">
-												<div class="row">
-													<div class="col-sm-9">
-														<label for="uploadedFile" class="form-label">上傳照片</label>
-														<input class="form-control" type="file"
-															name="uploadedFile" id="uploadedFile" accept="image/*" />
-														<!-- 要多張照片用multiple="multiple" -->
+											<div>
+											<div style="height:15px"></div>
+												<div class="mb-40">
+													<label for="status" style="font-weight: bold;">存貨</label>
+													<div style="display: flex;">
+														<div class="col-md-40 form-group" style="display: flex;">
+															<button class="btn btn-outline-secondary" type="button"
+																id="minus10">-10</button>
+															<form:input class="quantity-input" type="number" min="1"
+																max="99" value="1" path="status" name="status"
+																onkeydown="return false" />
+															<button class="btn btn-outline-secondary" type="button"
+																id="plus10">+10</button>
+														</div>
 													</div>
-
 												</div>
-											</div>
-											<div class="col-sm-10">
-												<div class="form-control">
-													<img src="<c:url value='/images/nopicture.jfif'/>"
-														name="img-preview" id="img-preview" class="h-100 w-100" />
-												</div>
+												<div style="height:20px"></div>
+													<label for="category" style="font-weight: bold;">商品分類</label>
+													<form:select name="category" path="category">
+														<c:forEach items="${categoryList}" var="category">
+															<form:option value="${category.categoryId}"
+																label="${category.categoryName}" />
+														</c:forEach>
+													</form:select>
+												
 											</div>
 										</div>
 										<!-- 			<label for="status">狀態</label>	 -->
@@ -387,42 +392,29 @@ window.onload=function(){
 										<!-- 			</div> -->
 										<!-- 		</div> -->
 										<!-- 	</div> -->
-										<div style="margin-left: 10px">
-											<div class="mb-3">
-												<div class="row">
-													<div class="col-sm-3">
-														<label for="status">存貨</label>
-														<div class="input-group">
-															<button class="btn btn-outline-secondary" type="button"
-																id="minus10">
-																<i class="fa fa-minus"></i>-10<i class="fa fa-minus"></i>
-															</button>
-															<form:input class="quantity-input form-control"
-																type="number" min="1" max="99" value="1" path="status"
-																name="status" onkeydown="return false" />
-															<button class="btn btn-outline-secondary" type="button"
-																id="plus10">
-																<i class="fa fa-plus"></i>+10<i class="fa fa-plus"></i>
-															</button>
-														</div>
-													</div>
+										<div class="form-row mb-3" style="margin-left: 100px">
+											<div class="row">
+												<div class="col-sm-9">
+													<label for="uploadedFile" class="form-label" style="font-weight: bold;">上傳照片</label> <input
+														class="form-control" type="file" name="uploadedFile"
+														id="uploadedFile" accept="image/*" />
+													<!-- 要多張照片用multiple="multiple" -->
 												</div>
+
 											</div>
-											<label for="category">商品分類</label>
-											<form:select name="category" path="category">
-												<c:forEach items="${categoryList}" var="category">
-													<form:option value="${category.categoryId}"
-														label="${category.categoryName}" />
-												</c:forEach>
-											</form:select>
+											<div style="height:15px"></div>
+											<div class="form-row mb-3">
+												<img src="<c:url value='/images/nopicture.jfif'/>"
+													name="img-preview" id="img-preview" class="h-100 w-100" />
+											</div>
 										</div>
 									</div>
-									<div style="margin-left:700px">
-									<button type="submit" id="additemsubmit"
-										class="btn btn-primary">新增商品</button>										
-									<button type="button" id="clear" class="btn btn-primary" style="margin-top:5px">
-									重新新增商品</button>
-								</div>
+									<div style="margin-left: 700px">
+										<button type="submit" id="additemsubmit"
+											class="btn btn-primary">新增商品</button>
+										<button type="button" id="clear" class="btn btn-primary"
+											style="margin-top: 5px">重新新增商品</button>
+									</div>
 								</form:form>
 								<div id="additemsuccess"></div>
 							</div>
