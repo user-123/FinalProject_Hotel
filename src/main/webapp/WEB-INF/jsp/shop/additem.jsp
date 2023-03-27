@@ -55,7 +55,6 @@
 	width: 900px;
 	margin: 0 auto;
 }*/
-
 .messages {
 	margin: 10px 5px;
 	color: #dc3545
@@ -340,20 +339,23 @@ window.onload=function(){
 													</div>
 												</div>
 											</div>
-											<div style="height:15px"></div>
+											<div style="height: 15px"></div>
 											<div class="form-row">
 												<div class="form-group col-md-40">
 													<div class="form-group">
 														<label for="price" style="font-weight: bold;">價格</label>
-														<form:input id="price" class="form-control" type="text"
-															name="price" path="price" />
-														<span id="priceerror" class="error"></span> <span
-															class="accountNameerror error"></span>
+														<div style="display: flex; align-items: center;">
+															<span>NT$</span>
+															<form:input id="price" class="form-control" type="text"
+																name="price" path="price" />
+															<span id="priceerror" class="error"></span> <span
+																class="accountNameerror error"></span>
+														</div>
 													</div>
 												</div>
 											</div>
 											<div>
-											<div style="height:15px"></div>
+												<div style="height: 15px"></div>
 												<div class="mb-40">
 													<label for="status" style="font-weight: bold;">存貨</label>
 													<div style="display: flex;">
@@ -368,15 +370,15 @@ window.onload=function(){
 														</div>
 													</div>
 												</div>
-												<div style="height:20px"></div>
-													<label for="category" style="font-weight: bold;">商品分類</label>
-													<form:select name="category" path="category">
-														<c:forEach items="${categoryList}" var="category">
-															<form:option value="${category.categoryId}"
-																label="${category.categoryName}" />
-														</c:forEach>
-													</form:select>
-												
+												<div style="height: 20px"></div>
+												<label for="category" style="font-weight: bold;">商品分類</label>
+												<form:select name="category" path="category">
+													<c:forEach items="${categoryList}" var="category">
+														<form:option value="${category.categoryId}"
+															label="${category.categoryName}" />
+													</c:forEach>
+												</form:select>
+
 											</div>
 										</div>
 										<!-- 			<label for="status">狀態</label>	 -->
@@ -395,14 +397,15 @@ window.onload=function(){
 										<div class="form-row mb-3" style="margin-left: 100px">
 											<div class="row">
 												<div class="col-sm-9">
-													<label for="uploadedFile" class="form-label" style="font-weight: bold;">上傳照片</label> <input
+													<label for="uploadedFile" class="form-label"
+														style="font-weight: bold;">上傳照片</label> <input
 														class="form-control" type="file" name="uploadedFile"
 														id="uploadedFile" accept="image/*" />
 													<!-- 要多張照片用multiple="multiple" -->
 												</div>
 
 											</div>
-											<div style="height:15px"></div>
+											<div style="height: 15px"></div>
 											<div class="form-row mb-3">
 												<img src="<c:url value='/images/nopicture.jfif'/>"
 													name="img-preview" id="img-preview" class="h-100 w-100" />

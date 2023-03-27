@@ -160,9 +160,9 @@ td, th {
 								</div>
 								<c:choose>
 									<c:when test="${orderDateList==null}">
-										<h1 style="color: #FFFFFF">這是空白文字</h1>
+										<div style="height:50px"></div>
 										<h3>目前尚無訂單</h3>
-										<h1 style="color: #FFFFFF">這是空白文字</h1>
+										<div style="height:50px"></div>
 									</c:when>
 									<c:otherwise>
 										<c:forEach items="${orderDateList}" var="orderdate"
@@ -203,7 +203,7 @@ td, th {
 
 
 															<td class="col-2">
-																<div>${product.price}</div>
+																<div>NT$${product.price}</div>
 															</td>
 															<td class="col-2">
 																<div>${quantList[status.index][status1.index]}</div>

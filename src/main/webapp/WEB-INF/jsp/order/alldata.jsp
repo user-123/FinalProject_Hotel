@@ -205,6 +205,12 @@
 													</div>
 													<div class="col-md-12 mb-3">
 														<div class="form-group">
+														<label style="font-weight: bold;">金額 : </label>
+														<label>$</label>
+														${datas.roomid.price}</div>
+													</div>
+													<div class="col-md-12 mb-3">
+														<div class="form-group">
 														<label style="font-weight: bold;">付款狀態 : </label>
 														${datas.paid}</div>
 													</div>
