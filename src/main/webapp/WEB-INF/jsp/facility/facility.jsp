@@ -267,7 +267,7 @@
 				<ul class="navbar-nav">
 
 
-					<li class="nav-item"><a class="nav-link active"
+					<li class="nav-item"><a class="nav-link"
 						href="${contextRoot}">首頁</a></li>
 
 					<li class="nav-item dropdown"><a
@@ -283,7 +283,7 @@
 						</ul></li>
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/room/orderAllShow'/>">房型&訂房</a></li>
-					<li class="nav-item"><a class="nav-link "
+					<li class="nav-item"><a class="nav-link active"
 						href="<c:url value='/public/facility/show'/>">休閒設施</a></li>
 
 					<li class="nav-item"><a class="nav-link "
@@ -391,7 +391,7 @@
 				<div class="col-md-12">
 					<div class="copyright-footer">
 						<p class="copyright color-text-a">
-							&copy; Copyright <span class="color-a">EstateAgency</span> All
+							&copy; Copyright <span style="color:#41cff2">貝殼窩團隊</span> All
 							Rights Reserved.
 						</p>
 					</div>

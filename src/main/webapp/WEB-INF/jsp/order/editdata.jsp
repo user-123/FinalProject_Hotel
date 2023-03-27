@@ -150,7 +150,8 @@
 								<form:form action="${contextRoot}/admin/orders/editallData"
 									modelAttribute="datas" method="put">
 									<div class="row">
-										<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow">
+										<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow" 
+										style="background-color: #FFFFFF">
 											<div class="col-md-12 mb-3">
 												<div class="form-group">
 													訂單成立時間:

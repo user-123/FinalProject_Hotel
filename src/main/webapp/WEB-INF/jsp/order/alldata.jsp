@@ -153,50 +153,60 @@
 								<c:choose>
 									<c:when test="${datas.isEmpty()}">
 										<h3>目前尚無訂單</h3>
-										<h1 style="color: #FFFFFF">這是空白文字</h1>
-										<h1 style="color: #FFFFFF">這是空白文字</h1>
+
 									</c:when>
 									<c:otherwise>
 										<c:forEach var="datas" items="${datas}">
 											<input type="hidden" name="id" value="${datas.id}" />
 											<div class="row" >
-												<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow" style="background-color:#ECF5FF">
+												<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow" style="background-color:#FFFFFF">
 													<div class="col-md-12 mb-3">
 														<div class="form-group">
-															訂單成立時間:
+															<label style="font-weight: bold;">訂單成立時間 : </label>
 															<fmt:formatDate pattern="yyyy-MM-dd ,a hh:mm:ss EEEE"
 																value="${datas.orderdate}" />
 														</div>
 													</div>
 													<div class="col-md-12 mb-3">
-														<div class="form-group">訂單編號:${datas.orderid}</div>
+														<div class="form-group">
+														<label style="font-weight: bold;">訂單編號 : </label>
+														${datas.orderid}
+														</div>
 													</div>
 													<div class="col-md-12 mb-3">
 														<div class="form-group">
-															會員:${datas.userid.accountName}</div>
-													</div>
-													<div class="col-md-12 mb-3">
-														<div class="form-group">房號:${datas.roomid.roomId}</div>
+														<label style="font-weight: bold;">
+															會員 : </label>
+															${datas.userid.accountName}</div>
 													</div>
 													<div class="col-md-12 mb-3">
 														<div class="form-group">
-															入住日期:
+														<label style="font-weight: bold;">房號 : </label>
+														${datas.roomid.roomId}</div>
+													</div>
+													<div class="col-md-12 mb-3">
+														<div class="form-group">
+															<label style="font-weight: bold;">入住日期 : </label>
 															<fmt:formatDate pattern="yyyy-MM-dd"
 																value="${datas.checkindate}" />
 														</div>
 													</div>
 													<div class="col-md-12 mb-3">
 														<div class="form-group">
-															退房日期:
+															<label style="font-weight: bold;">退房日期 : </label>
 															<fmt:formatDate pattern="yyyy-MM-dd"
 																value="${datas.checkoutdate}" />
 														</div>
 													</div>
 													<div class="col-md-12 mb-3">
-														<div class="form-group">備註:${datas.message}</div>
+														<div class="form-group">
+														<label style="font-weight: bold;">備註 : </label>
+														${datas.message}</div>
 													</div>
 													<div class="col-md-12 mb-3">
-														<div class="form-group">付款狀態:${datas.paid}</div>
+														<div class="form-group">
+														<label style="font-weight: bold;">付款狀態 : </label>
+														${datas.paid}</div>
 													</div>
 													<div class="col-md-12 mb-3" style="text-align: right">
 														<!--********************[編輯按鈕]******************** -->

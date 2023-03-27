@@ -64,7 +64,7 @@
 				<ul class="navbar-nav">
 
 
-					<li class="nav-item"><a class="nav-link active"
+					<li class="nav-item"><a class="nav-link"
 						href="${contextRoot}">首頁</a></li>
 
 					<li class="nav-item dropdown"><a
@@ -86,7 +86,7 @@
 					<li class="nav-item"><a class="nav-link "
 						href="${contextRoot}/public/attraction/list">周邊美食&景點</a></li>
 
-					<li class="nav-item"><a class="nav-link "
+					<li class="nav-item"><a class="nav-link active"
 						href="<c:url value='/public/shop' />">商城</a></li>
 
 					<li class="nav-item dropdown"><a
@@ -134,9 +134,9 @@
 								<div class="title-box-d">
 									<h5 class="title-d">付款結果</h5>
 								</div>
-								<h1 style="color: #FFFFFF">這是空白文字</h1>
+								<div style="height:50px"></div>
 								<h1>付款失敗，請重新操作</h1>
-								<h1 style="color: #FFFFFF">這是空白文字</h1>
+								<div style="height:50px"></div>
 							</div>
 						</div>
 					</div>
@@ -152,7 +152,7 @@
 				<div class="col-md-12">
 					<div class="copyright-footer">
 						<p class="copyright color-text-a">
-							&copy; Copyright <span class="color-a">EstateAgency</span> All
+							&copy; Copyright <span style="color:#41cff2">貝殼窩團隊</span> All
 							Rights Reserved.
 						</p>
 					</div>

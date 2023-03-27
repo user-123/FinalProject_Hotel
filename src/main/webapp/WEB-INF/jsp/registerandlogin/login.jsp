@@ -90,7 +90,7 @@
 				<ul class="navbar-nav">
 
 
-					<li class="nav-item"><a class="nav-link active"
+					<li class="nav-item"><a class="nav-link"
 						href="${contextRoot}">首頁</a></li>
 
 					<li class="nav-item dropdown"><a
@@ -138,7 +138,7 @@
 							</ul>
 						</sec:authorize> <sec:authorize access="hasAuthority('ROLE_ANONYMOUS')">
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<li><a class="dropdown-item"
+								<li><a class="dropdown-item active"
 									href="<c:url value='/public/loginpage' />">登入</a></li>
 								<li><a class="dropdown-item"
 									href="<c:url value='/public/register' />">註冊</a></li>
@@ -209,7 +209,7 @@
 				<div class="col-md-12">
 					<div class="copyright-footer">
 						<p class="copyright color-text-a">
-							&copy; Copyright <span class="color-a">EstateAgency</span> All
+							&copy; Copyright <span style="color:#41cff2">貝殼窩團隊</span> All
 							Rights Reserved.
 						</p>
 					</div>

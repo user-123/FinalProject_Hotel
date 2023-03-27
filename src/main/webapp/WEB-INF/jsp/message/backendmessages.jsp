@@ -218,7 +218,7 @@ textarea {
 									<label hidden="hidden">${datas.id}</label>
 									<div class="row">
 										<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow"
-											style="background-color: #ECF5FF">
+											style="background-color: #FFFFFF">
 											<!-- 顯示留言 -->
 											<div class="rating-stars block" id="another-rating">
 												<input type="hidden" readonly="readonly"

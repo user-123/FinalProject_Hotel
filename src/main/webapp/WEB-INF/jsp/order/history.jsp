@@ -95,7 +95,7 @@
 									href="<c:url value='/addinfo' />">填寫及修改基本資料</a></li>
 								<li><a class="dropdown-item"
 									href="<c:url value='/searchinfo' />">查詢資料</a></li>
-								<li><a class="dropdown-item"
+								<li><a class="dropdown-item active"
 									href="<c:url value='/orders/history' />?accountId=${sessionScope.id}">歷史訂單</a></li>
 								<sec:authorize access="hasAuthority('admin')">
 									<li><a class="dropdown-item"
@@ -134,8 +134,7 @@
 								<c:choose>
 									<c:when test="${datas.isEmpty()}">
 										<h3>目前尚無訂單</h3>
-										<h1 style="color: #FFFFFF">這是空白文字</h1>
-										<h1 style="color: #FFFFFF">這是空白文字</h1>
+										<div style="height:100px"></div>
 									</c:when>
 									<c:otherwise>
 										<c:forEach var="datas" items="${datas}">
@@ -143,43 +142,54 @@
 												<div class="offset-sm-3 col-sm-12 my-5 p-5 border shadow" style="background-color:	#ECF5FF">
 													<div class="col-md-12 mb-3">
 														<div class="form-group">
-															訂單成立時間:
+															<label style="font-weight: bold;">訂單成立時間 : </label>
 															<fmt:formatDate pattern="yyyy-MM-dd ,a hh:mm:ss EEEE"
 																value="${datas.orderdate}" />
 														</div>
 													</div>
 													<div class="col-md-12 mb-3">
-														<div class="form-group">訂單編號:${datas.orderid}</div>
+														<div class="form-group">
+														<label style="font-weight: bold;">訂單編號 : </label>
+														${datas.orderid}</div>
 													</div>
 													<div class="col-md-12 mb-3">
 														<div class="form-group">
-															會員:${datas.userid.accountName}</div>
-													</div>
-													<div class="col-md-12 mb-3">
-														<div class="form-group">房名:${datas.roomid.name}</div>
+															<label style="font-weight: bold;">會員 : </label>
+															${datas.userid.accountName}</div>
 													</div>
 													<div class="col-md-12 mb-3">
 														<div class="form-group">
-															入住日期:
+														<label style="font-weight: bold;">房名 : </label>
+														${datas.roomid.name}</div>
+													</div>
+													<div class="col-md-12 mb-3">
+														<div class="form-group">
+															<label style="font-weight: bold;">入住日期 : </label>
 															<fmt:formatDate pattern="yyyy-MM-dd"
 																value="${datas.checkindate}" />
 														</div>
 													</div>
 													<div class="col-md-12 mb-3">
 														<div class="form-group">
-															退房日期:
+															<label style="font-weight: bold;">退房日期 : </label>
 															<fmt:formatDate pattern="yyyy-MM-dd"
 																value="${datas.checkoutdate}" />
 														</div>
 													</div>
 													<div class="col-md-12 mb-3">
-														<div class="form-group">備註:${datas.message}</div>
+														<div class="form-group">
+														<label style="font-weight: bold;">備註 : </label>
+														${datas.message}</div>
 													</div>
 													<div class="col-md-12 mb-3">
-														<div class="form-group">金額:${datas.roomid.price}</div>
+														<div class="form-group">
+														<label style="font-weight: bold;">金額 : </label>
+														${datas.roomid.price}</div>
 													</div>
 													<div class="col-md-12 mb-3">
-														<div class="form-group">付款狀態:${datas.paid}</div>
+														<div class="form-group">
+														<label style="font-weight: bold;">付款狀態 : </label>
+														${datas.paid}</div>
 													</div>
 													<div class="col-md-12 mb-3" style="text-align: right">
 														<c:choose>
@@ -274,7 +284,7 @@
 				<div class="col-md-12">
 					<div class="copyright-footer">
 						<p class="copyright color-text-a">
-							&copy; Copyright <span class="color-a">EstateAgency</span> All
+							&copy; Copyright <span style="color:#41cff2">貝殼窩團隊</span> All
 							Rights Reserved.
 						</p>
 					</div>

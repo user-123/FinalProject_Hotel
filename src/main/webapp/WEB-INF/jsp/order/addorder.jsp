@@ -274,7 +274,7 @@
 				<ul class="navbar-nav">
 
 
-					<li class="nav-item"><a class="nav-link active"
+					<li class="nav-item"><a class="nav-link"
 						href="${contextRoot}">首頁</a></li>
 
 					<li class="nav-item dropdown"><a
@@ -288,7 +288,7 @@
 							<li><a class="dropdown-item"
 								href="<c:url value='/public/messages/all' />">評價&回饋</a></li>
 						</ul></li>
-					<li class="nav-item"><a class="nav-link "
+					<li class="nav-item"><a class="nav-link active"
 						href="<c:url value='/public/room/orderAllShow'/>">房型&訂房</a></li>
 					<li class="nav-item"><a class="nav-link "
 						href="<c:url value='/public/facility/show'/>">休閒設施</a></li>
@@ -388,7 +388,7 @@
 									<div class="row">
 										<div class="col-md-6 mb-3">
 											<div class="form-group">
-												<form:label path="checkindate">入住日期*</form:label>
+												<form:label path="checkindate" style="font-weight: bold;">入住日期*</form:label>
 												<form:input path="checkindate" type="text"
 													class="form-control form-control-lg form-control-a"
 													id="checkinDate" placeholder="入住日期" required="true" />
@@ -397,7 +397,7 @@
 
 										<div class="col-md-6 mb-3">
 											<div class="form-group">
-												<form:label path="checkoutdate">退房日期*</form:label>
+												<form:label path="checkoutdate" style="font-weight: bold;">退房日期*</form:label>
 												<form:input path="checkoutdate" type="text"
 													class="form-control form-control-lg form-control-a"
 													id="checkoutDate" placeholder="退房日期" required="true" />
@@ -405,7 +405,7 @@
 										</div>
 										<div class="col-md-12 mb-3">
 											<div class="form-group">
-												<form:label path="message">備註</form:label>
+												<form:label path="message" style="font-weight: bold;">備註</form:label>
 												<form:input class="form-control" path="message"
 													placeholder="請輸入不超過30個字" maxlength="30" />
 											</div>
@@ -441,7 +441,7 @@
 				<div class="col-md-12">
 					<div class="copyright-footer">
 						<p class="copyright color-text-a">
-							&copy; Copyright <span class="color-a">EstateAgency</span> All
+							&copy; Copyright <span style="color:#41cff2">貝殼窩團隊</span> All
 							Rights Reserved.
 						</p>
 					</div>

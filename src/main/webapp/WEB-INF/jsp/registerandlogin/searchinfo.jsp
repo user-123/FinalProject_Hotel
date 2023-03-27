@@ -74,8 +74,7 @@
 				<ul class="navbar-nav">
 
 
-					<li class="nav-item"><a class="nav-link active"
-						href="${contextRoot}">首頁</a></li>
+					<li class="nav-item"><a class="nav-link" href="${contextRoot}">首頁</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
@@ -107,7 +106,7 @@
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 								<li><a class="dropdown-item"
 									href="<c:url value='/addinfo' />">填寫及修改基本資料</a></li>
-								<li><a class="dropdown-item"
+								<li><a class="dropdown-item active"
 									href="<c:url value='/searchinfo' />">查詢資料</a></li>
 								<li><a class="dropdown-item"
 									href="<c:url value='/orders/history' />?accountId=${sessionScope.id}">歷史訂單</a></li>
@@ -142,10 +141,9 @@
 							<h1 class="title-single">基本資料查詢</h1>
 							<c:choose>
 								<c:when test="${requestScope.noinfo==true}">
-									<h1 style="color: #FFFFFF">這是空白文字</h1>
-									<h1 style="color: #FFFFFF">這是空白文字</h1>
-									<h3 style="margin-left: 50px">您尚未填寫基本資料</h3>
-									<h1 style="color: #FFFFFF">這是空白文字</h1>
+									<div style="height: 100px"></div>
+									<h3 style="margin-left: 30px">您尚未填寫基本資料</h3>
+									<div style="height: 100px"></div>
 								</c:when>
 								<c:otherwise>
 
@@ -189,7 +187,7 @@
 				<div class="col-md-12">
 					<div class="copyright-footer">
 						<p class="copyright color-text-a">
-							&copy; Copyright <span class="color-a">EstateAgency</span> All
+							&copy; Copyright <span style="color:#41cff2">貝殼窩團隊</span> All
 							Rights Reserved.
 						</p>
 					</div>
