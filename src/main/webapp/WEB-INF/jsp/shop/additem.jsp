@@ -94,16 +94,16 @@ window.onload=function(){
 		let productName=$("#productName").val()
 		if(productName!="")
 			$("#productNameerror").html("")
-		
+
 	})
-	
-	
+
+
 	$("#price").on("input",function(){
 			$("#priceerror").html("")
 	})
-	
-	
-	
+
+
+
 		var error=document.querySelectorAll('.error')
 	$('#additemsubmit').on("click", function(event) {
 // 		$("#priceerror").html("")
@@ -142,7 +142,7 @@ window.onload=function(){
 				});
 		    return false;
 		  }
-			
+
 		  // 檢查是否為整數
 		  if ((!Number.isInteger(price)&&priceInput!="")||(priceInput.includes("."))) {
 			  $('#priceerror').html('請輸入整數！').css({
@@ -188,20 +188,20 @@ window.onload=function(){
 			}
 		});
 	});
-	
-	
-	
+
+
+
 	var clearButton = document.getElementById('clear');
 
-	
+
 	clearButton.addEventListener('click', function() {
 	  let output = document.getElementById('img-preview');
 	  output.src = `http://localhost:8080/main/images/nopicture.jfif`;
 	  output.onload = function() {
 	    URL.revokeObjectURL(output.src)
 	  }
-	  
-	  
+
+
 	  var inputs = document.getElementsByTagName('input');
 	  for (var i = 0; i < inputs.length; i++) {
 	    inputs[i].value = '';
@@ -215,9 +215,9 @@ window.onload=function(){
 	  $('#addItemForm').find('button').prop('disabled', false);
 	});
 
-	
-	
-	
+
+
+
 	 $("#plus10").click(function() {
 	      var currentValue = parseInt($(".quantity-input").val());
 	      if(currentValue < 90) {
@@ -230,9 +230,9 @@ window.onload=function(){
 	        $(".quantity-input").val(currentValue - 10);
 	      }
 	    });
-	
-	
-	
+
+
+
 }
 </script>
 </head>
@@ -348,9 +348,8 @@ window.onload=function(){
 															<span>NT$</span>
 															<form:input id="price" class="form-control" type="text"
 																name="price" path="price" />
-															<span id="priceerror" class="error"></span> <span
-																class="accountNameerror error"></span>
 														</div>
+															<span id="priceerror" class="error"></span>
 													</div>
 												</div>
 											</div>
